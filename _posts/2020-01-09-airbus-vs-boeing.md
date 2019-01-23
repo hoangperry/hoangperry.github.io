@@ -17,3 +17,7 @@ Airbus thường tập trung vào các máy bay thân rộng, điển hình là 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/airbus_vs_boeing/b747.jpg" %}
 
 Trong khi đó thì Boeing lại nhắm vào các yếu như khả năng tiết kiệm nhiên liệu, chi phí vận hành, chi phí bảo dưỡng. Tất cả yếu tố này đếm nhắm đến việc gia tăng tối đa lợi ích của các hãng hàng không sau mỗi chuyến bay. Cũng vì vậy mà Boeing gặp nhiều rắc rối về chất lượng máy bay.
+
+# Các hãng không ưa dùng hãng nào hơn?
+
+Đa phần các hãng hàng không đều sử dụng song song máy bay của hai hãng này. 
