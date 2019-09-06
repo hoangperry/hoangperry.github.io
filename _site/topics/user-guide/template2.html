@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--
+  Original Design: Spectral by HTML5 UP
+    html5up.net
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  Jekyll build mod and further hacks by @arkadianriver, MIT license
+-->
+<html lang="vi-VI">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shortcut includes</title>
+  <meta name="description" content="How to use this theme" />
+  <!--[if lte IE 8]><script src="/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="canonical" href="http://0.0.0.0:4000/topics/user-guide/template2.html" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie8.css" /><![endif]-->
+  <!--[if lte IE 9]><link rel="stylesheet" href="/css/ie9.css" /><![endif]-->
+  <style>
+  #main > header {
+    background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/flickr-froderik.jpg");
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/flickr-froderik.jpg");
+    background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/flickr-froderik.jpg");
+    background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/flickr-froderik.jpg");
+  }
+  </style>
+  <!--[if lte IE 9]>
+  <style>
+  #main > header {
+    background-image: url("/images/flickr-froderik.jpg");
+  }
+  </style>
+  -->
+  <link rel="alternate" type="application/rss+xml" title="Hoang N. Truong" href="http://0.0.0.0:4000/feed.xml">
+</head>
+
+
+  <body>
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+      <!-- Header -->
+<header id="header">
+  <h1><a href="/index.html">Hoang N. Truong</a></h1>
+  <nav id="nav">
+    <ul>
+      <li class="special">
+        <a href="#menu" class="menuToggle"><span>Menu</span></a>
+        <div id="menu">
+          <ul>
+            <li><a href="/index.html#greeting">Home</a></li>
+            <li><a href="/works/">Works</a></li>
+            <li><a href="/topics/">Topics</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/feed.xml"
+                   class="icon fa-feed"> RSS Feed</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+      <article id="main">
+
+          <header>
+    <h1>Shortcut includes
+    <span class="excerpt-inline"> - How to use this theme</span></h1>
+  </header>
+  <ul class="breadcrumb">
+  <li><a href="/index.html#greeting">Home</a></li>
+  <li style="text-transform: capitalize;"><a href="/works/works/works/topics/topics/my topic group/topics/my topic group/topics/topics/topics/user-guide/topics/user-guide/topics/user-guide/topics">topics</a></li>
+  <li style="text-transform: capitalize;"><a href="/works/works/works/topics/topics/my topic group/topics/my topic group/topics/topics/topics/user-guide/topics/user-guide/topics/user-guide/topics/user-guide">user-guide</a></li>
+  <li>Shortcut includes</li>
+</ul>
+
+
+
+          <section class="wrapper minihead style5">
+    <div class="inner">
+
+      <hr />
+
+<p>You can use the following includes in the body of your posts as shortcuts
+for blocks of code that you might otherwise use repetitively. These are
+also helpful if you or I decide to change the method that the content is
+presented; we’d need only change the include file.</p>
+
+<h2 id="media-embeds">Media embeds</h2>
+
+<p>For each of these embeds, the media-id is readily available from the Video’s
+URL, from the address bar or the share link provided by most shareable media.</p>
+
+<p>For example, the first Vimeo example uses the <code class="highlighter-rouge">id</code> 66140585
+from the video’s URL: <code class="highlighter-rouge">https://player.vimeo.com/video/66140585</code>.</p>
+
+<h3 id="vimeo">Vimeo</h3>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">{% include post_vimeo.html id="<span class="nt">&lt;media-id&gt;</span>" %}</code></pre></figure>
+
+<div class="embed-container">
+  <iframe src="https://player.vimeo.com/video/66140585" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+</div>
+
+<h3 id="youtube">YouTube</h3>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">{% include post_youtube.html id="<span class="nt">&lt;media-id&gt;</span>" %}</code></pre></figure>
+
+<div class="embed-container">
+  <iframe src="https://www.youtube.com/embed/QILiHiTD3uc" frameborder="0" allowfullscreen=""></iframe>
+</div>
+
+<h2 id="notices">Notices</h2>
+
+<p>If you are writing documentation posts such as this User Guide, you might
+want to add a notice here or there, something that stands out. The types
+of notices available with this include are note, tip, important, did-you-know,
+and faq. If you do not provide a type, the default is note.</p>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">{% include post_note.html type="tip" text="Your note text..." %}</code></pre></figure>
+
+<table class="alt" style="width:95%;margin-left:0.5em;">
+<tr><td class="Nvar1"><span class="image note"><span class="icon fa-lightbulb-o styleN Nvar1"></span></span>
+Your note text...
+</td>
+</tr></table>
+
+<h2 id="paragraph-wrapped-images">Paragraph-wrapped images</h2>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">{% include post_picwrap.html pos="left" src="/images/pic04.jpg" %}
+Laborum et in in cillum quis ut mollit id sit dolor nostrud. Occaecat mollit
+in adipisicing magna nostrud sunt nulla consectetur cupidatat tempor dolore
+magna. Est ad sit eu tempor aute sunt sunt excepteur cupidatat sed irure ut et
+elit veniam. Lorem ipsum tempor quis ea in minim labore nisi aute ea sed irure
+nisi occaecat est magna occaecat occaecat. Nostrud sed est ullamco enim ut
+proident dolor et in consequat aliquip in ex eu ad. Incididunt sit sit dolore
+dolore ut excepteur sunt laboris ut ullamco velit. Veniam tempor dolor magna
+in nulla elit dolor ea et commodo in. Laboris eu adipisicing nostrud commodo
+commodo ea laborum non minim cupidatat. Lorem ipsum non laborum anim ex labore
+commodo commodo eu aliqua est ea consequat do aute ex amet incididunt
+consectetur enim. Consequat consectetur occaecat cillum tempor occaecat sunt
+ea laboris exercitation excepteur.</code></pre></figure>
+
+<p><span class="image left"><img src="/images/pic05.jpg" alt="" /></span>
+Laborum et in in cillum quis ut mollit id sit dolor nostrud. Occaecat mollit
+in adipisicing magna nostrud sunt nulla consectetur cupidatat tempor dolore
+magna. Est ad sit eu tempor aute sunt sunt excepteur cupidatat sed irure ut et
+elit veniam. Lorem ipsum tempor quis ea in minim labore nisi aute ea sed irure
+nisi occaecat est magna occaecat occaecat. Nostrud sed est ullamco enim ut
+proident dolor et in consequat aliquip in ex eu ad. Incididunt sit sit dolore
+dolore ut excepteur sunt laboris ut ullamco velit. Veniam tempor dolor magna
+in nulla elit dolor ea et commodo in. Laboris eu adipisicing nostrud commodo
+commodo ea laborum non minim cupidatat. Lorem ipsum non laborum anim ex labore
+commodo commodo eu aliqua est ea consequat do aute ex amet incididunt
+consectetur enim. Consequat consectetur occaecat cillum tempor occaecat sunt
+ea laboris exercitation excepteur.</p>
+
+<p>In addition to ‘left’ and ‘right’, there is also a <code class="highlighter-rouge">pos</code> value of ‘fit’ You
+can use this value when you want the image to fit 100% of the width of the
+containing block (such as a paragraph), but you still want it to shrink on
+smaller screens. Also, with this ‘fit’ value, if you don’t want the image
+to scale larger than a certain size (such as the width of the actual image),
+then you can add a max parameter with a value in pixels.</p>
+
+      <div class="backnext btnbottom">
+                <div class="back">
+        <div class="bpointer"><a href="/topics/user-guide/template.html"
+         class="button small" title="Back">&lt; Back</a></div>
+         <!-- class="icon fa-backward" title="Back"></a></div> -->
+        <div class="btitle"><a href="/topics/user-guide/template.html">Front-matter</a></div>
+        </div>
+        <div class="next">
+        <div class="npointer"><a href="/topics/user-guide/elements.html"
+         class="button small" title="Next">Next &gt;</a></div>
+         <!-- class="icon fa-forward" title="Next"></a></div> -->
+        <div class="ntitle"><a href="/topics/user-guide/elements.html">Elements</a></div>
+        </div>
+
+      </div>
+      <script>
+      document.body.onkeyup = function(e){
+        if (e.keyCode == '37') { window.location = '/topics/user-guide/template.html'; }
+        if (e.keyCode == '39') { window.location = '/topics/user-guide/elements.html'; }
+      };
+      </script>
+<hr style="margin-bottom:12px;" />
+<div class="author">
+<!-- style="margin:8px 28px 12px 0;position:relative;float:left;"> -->
+  <!-- style="position: relative; float: left;margin:0;padding:0;" -->
+  <div style="display:inline-block;border-radius:7px;overflow:hidden;height:100px;width:100px;background:url(/images/gar.jpg);background-size:100px;"></div>
+  <div style="display:inline-block;padding-left:12px;vertical-align:top;"><b>by:<br />Gary Faircloth</b><br
+    /><i><a href="http://arkadianriver.com" target="_blank">http://arkadianriver.com</a></i>
+  </div>
+  <div class="auth-desc">Interests: tech writing, programming, science, history. You might also find me playing some PC Ga&mdash;SQUIRREL!
+</div>
+</div>
+<hr style="margin-top:9px;" />
+
+  
+    </div>
+  </section>
+
+
+      </article>
+
+      <!-- Footer -->
+<footer id="footer">
+  <ul class="icons">
+    <li><a target="_blank" href="https://twitter.com/hoang015" class="icon fa-twitter"
+           ><span class="label">twitter</span></a></li>
+    <li><a target="_blank" href="https://github.com/hoangperry" class="icon fa-github"
+           ><span class="label">github</span></a></li>
+    <li><a target="_blank" href="https://www.linkedin.com/in/hoangntruong/" class="icon fa-linkedin-square"
+           ><span class="label">linkedin-square</span></a></li>
+    <li><a target="_blank" href="https://facebook.com/blablaisbest" class="icon fa-facebook-official"
+           ><span class="label">facebook-official</span></a></li>
+    <li><a target="_blank" href="/contact/" class="icon fa-envelope"
+           ><span class="label">E-mail</span></a></li>
+    <li><a target="_blank" href="https://www.instagram.com/hoang_____perry/" class="icon fa-instagram"
+           ><span class="label">instagram</span></a></li>
+  </ul>
+  <ul class="copyright">
+    <li>&copy; 2010, 2019 Hoang N. Truong</li>
+    <li><a href="/credits/">Credits</a></li>
+  </ul>
+</footer>
+
+
+      <!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.scrolly.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+<script src="/js/main.js"></script>
+
+    </div>
+
+  </body>
+
+</html>

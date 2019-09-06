@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!--
+  Original Design: Spectral by HTML5 UP
+    html5up.net
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  Jekyll build mod and further hacks by @arkadianriver, MIT license
+-->
+<html lang="vi-VI">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Front-matter</title>
+  <meta name="description" content="How to use this theme" />
+  <!--[if lte IE 8]><script src="/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="canonical" href="http://0.0.0.0:4000/topics/user-guide/template.html" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie8.css" /><![endif]-->
+  <!--[if lte IE 9]><link rel="stylesheet" href="/css/ie9.css" /><![endif]-->
+  <style>
+  #main > header {
+    background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/flickr-froderik.jpg");
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/flickr-froderik.jpg");
+    background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/flickr-froderik.jpg");
+    background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/flickr-froderik.jpg");
+  }
+  </style>
+  <!--[if lte IE 9]>
+  <style>
+  #main > header {
+    background-image: url("/images/flickr-froderik.jpg");
+  }
+  </style>
+  -->
+  <link rel="alternate" type="application/rss+xml" title="Hoang N. Truong" href="http://0.0.0.0:4000/feed.xml">
+</head>
+
+
+  <body>
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+      <!-- Header -->
+<header id="header">
+  <h1><a href="/index.html">Hoang N. Truong</a></h1>
+  <nav id="nav">
+    <ul>
+      <li class="special">
+        <a href="#menu" class="menuToggle"><span>Menu</span></a>
+        <div id="menu">
+          <ul>
+            <li><a href="/index.html#greeting">Home</a></li>
+            <li><a href="/works/">Works</a></li>
+            <li><a href="/topics/">Topics</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/feed.xml"
+                   class="icon fa-feed"> RSS Feed</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+      <article id="main">
+
+          <header>
+    <h1>Front-matter
+    <span class="excerpt-inline"> - How to use this theme</span></h1>
+  </header>
+  <ul class="breadcrumb">
+  <li><a href="/index.html#greeting">Home</a></li>
+  <li style="text-transform: capitalize;"><a href="/works/works/works/topics/topics/my topic group/topics/my topic group/topics/topics/topics/user-guide/topics/user-guide/topics">topics</a></li>
+  <li style="text-transform: capitalize;"><a href="/works/works/works/topics/topics/my topic group/topics/my topic group/topics/topics/topics/user-guide/topics/user-guide/topics/user-guide">user-guide</a></li>
+  <li>Front-matter</li>
+</ul>
+
+
+
+          <section class="wrapper minihead style5">
+    <div class="inner">
+
+      <hr />
+
+<p>You can control many things about each post with a few entries in its front matter.
+The entries provide layout controls and the ability to combine many posts in a series
+with <strong class="ui">BACK</strong> and <strong class="ui">NEXT</strong> buttons.</p>
+
+<p>If you use the <code class="highlighter-rouge">ruby compose.rb</code> command to initiate your post, many of these
+front matter entries are provided for you. This part of the guide explains all
+of the entries available in this theme.</p>
+
+<h2 id="required">Required</h2>
+
+<h3 id="categories"><code class="highlighter-rouge">categories</code></h3>
+
+<p>If it’s a post, the categories array is required with at least
+the first element set to the permalink name of its parent page
+(so that breadcrumbs work).</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">categories</span><span class="pi">:</span> <span class="s">topics ...</span></code></pre></figure>
+
+<p>The two top-level categories with provided index pages are <code class="highlighter-rouge">topics</code> and <code class="highlighter-rouge">works</code>.</p>
+
+<p>If you want <strong class="ui">BACK</strong> and <strong class="ui">NEXT</strong> navigation within a subcategory:</p>
+
+<ul class="nobullet">
+  <li>
+    <p>Create a first post for the sub-category, but with a permalink.
+The category list can be space-delimited on one line or in a bulleted list.
+Note that the category names must exactly match the permalink.</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">categories</span><span class="pi">:</span> <span class="s">topics my-great-vacation</span>
+<span class="na">permalink</span><span class="pi">:</span> <span class="s">/topics/my-great-vacation/</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<ul class="nobullet">
+  <li>The site permalink would be:
+<code class="highlighter-rouge">/topics/my-great-vacation/index.html</code></li>
+</ul>
+
+<ul class="nobullet">
+  <li>
+    <p>If your subcategory contains spaces, specify categories as an array</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">categories</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">topics</span>
+  <span class="pi">-</span> <span class="s">my great vacation</span>
+<span class="na">permalink</span><span class="pi">:</span> <span class="s">/topics/my great vacation/</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<ul class="nobullet">
+  <li>
+    <p>For subsequent topics in the sub-category, add the sub-category and no
+permalink:</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">categories</span><span class="pi">:</span> <span class="s">topics my-great-vacation</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<ul class="nobullet">
+  <li>That results in: <code class="highlighter-rouge">/topics/my-great-vacation/topic-title.html</code></li>
+</ul>
+
+<ul class="nobullet">
+  <li>
+    <p>Topics in the sub-category are sorted by date and time. Therefore, if they
+all fall on the same day, specify the date in the post with a timestamp by
+which to sort.</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">date</span><span class="pi">:</span> <span class="s">3009-09-22 00:00:03</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="excerpt"><code class="highlighter-rouge">excerpt</code></h3>
+
+<p>You’ll probably wanna provide an excerpt in front-matter, because relying on Jekyll
+to get the excerpt from the body has too many caveats. The excerpt is truncated
+as necessary in references, so it can be as long as you want, but because it’s also
+displayed in all caps right under the topic title, you’ll definitely want to preview
+how it looks.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">excerpt</span><span class="pi">:</span> <span class="s">yada yada</span></code></pre></figure>
+
+<h3 id="permalink"><code class="highlighter-rouge">permalink</code></h3>
+
+<p>If it’s the first page of a sub-category, use a permalink for the categories.
+It becomes the index that a breadcrumb link would pop up to, ie:
+<code class="highlighter-rouge">/topics/new-category/index.html</code>. Also see <code class="highlighter-rouge">categories</code>.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">permalink</span><span class="pi">:</span> <span class="s">/topics/new-category/</span></code></pre></figure>
+
+<h3 id="title"><code class="highlighter-rouge">title</code></h3>
+
+<p>Title for <code class="highlighter-rouge">&lt;title/&gt;</code> and article <code class="highlighter-rouge">&lt;h1/&gt;</code>. For this and all other fields, refer to Yaml
+restrictions on when you need to quote the value.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">title</span><span class="pi">:</span> <span class="s">My interesting topic</span></code></pre></figure>
+
+<h2 id="presentation-options">Presentation options</h2>
+
+<h3 id="author"><code class="highlighter-rouge">author</code></h3>
+
+<p>If you want the article to be attributed to an author, specify a name that
+corresponds to a key in the <code class="highlighter-rouge">_data\authors.yml</code> file.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">author</span><span class="pi">:</span> <span class="s">key_name</span></code></pre></figure>
+
+<h3 id="background-image"><code class="highlighter-rouge">background-image</code></h3>
+
+<p>If you want a larger title block with a background image, specify it here.
+If it’s in the <code class="highlighter-rouge">/images/</code> folder, specify just the name;
+otherwise specify the folder relative to your jekyll root, starting with <code class="highlighter-rouge">/</code>.
+If it’s a remote image, begin the name with <code class="highlighter-rouge">//</code>.
+Use a high resolution image, if possible,
+for when viewed full screen. Once displayed, you’ll wanna slowly resize your
+browser or use its developer tools to see how the image responds for all <code class="highlighter-rouge">@media</code>
+breakpoints and crop it as necessary.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">background-image</span><span class="pi">:</span> <span class="s">imagefile.png</span></code></pre></figure>
+
+<h3 id="icon"><code class="highlighter-rouge">icon</code></h3>
+
+<p>For the featured articles on the main page, if you want an icon other than
+the heart icon, specify the <code class="highlighter-rouge">font-awesome</code> icon identifier (just the text after <code class="highlighter-rouge">fa-</code>).
+See the <a href="/topics/user-guide/icons.html">font-awesome icons</a>
+topic for a list of available icons.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">icon</span><span class="pi">:</span> <span class="s">industry</span></code></pre></figure>
+
+<h3 id="image"><code class="highlighter-rouge">image</code></h3>
+
+<p>For pages to be listed on the front landing page, you can provide an image to be used
+in the listing. If you do not provide an image, the banner image will be used instead.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">image</span><span class="pi">:</span> <span class="s">imagefile.png</span></code></pre></figure>
+
+<h3 id="layout"><code class="highlighter-rouge">layout</code></h3>
+
+<p>For both posts and pages, there’s no need to specify the layout.
+Specifying the layout is optional because defaults
+are set in the <code class="highlighter-rouge">_config.yml</code> file to set the layout based on the folder it’s in
+(<code class="highlighter-rouge">_posts</code> or <code class="highlighter-rouge">_pages</code>). The layout <em>is</em> useful for pages outside of these folders,
+however.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">layout</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">page|post</span><span class="pi">}</span></code></pre></figure>
+
+<h3 id="options"><code class="highlighter-rouge">options</code></h3>
+
+<p>The options allow you to customize the page somewhat.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">options</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">minihead</span>      <span class="c1"># as minimal a title as possible, and no date printed</span>
+  <span class="pi">-</span> <span class="s">fullwidth</span>     <span class="c1"># leaving only a tiny margin on all media sizes</span>
+  <span class="pi">-</span> <span class="s">nocomment</span>     <span class="c1"># disable disqus comments for this post</span>
+  <span class="pi">-</span> <span class="s">nomenu</span>        <span class="c1"># for pages, don't add to the menu</span>
+  <span class="pi">-</span> <span class="s">nolanding</span>     <span class="c1"># for pages and featured posts, don't add to the landing page</span></code></pre></figure>
+
+<table class="alt" style="width:95%;margin-left:0.5em;">
+<tr><td class="Nvar0"><span class="image note"><span class="icon fa-info styleN Nvar0"></span></span>
+Disqus comments are not displayed on works posts.
+</td>
+</tr></table>
+
+<h2 id="ordering-and-site-map-options">Ordering and site map options</h2>
+
+<h3 id="changefreq"><code class="highlighter-rouge">changefreq</code></h3>
+
+<p>The default change frequency for all pages in the site map is <code class="highlighter-rouge">monthly</code>.
+Depending on how often you think you’ll edit a page, you can set the page
+change frequency. <a target="_blank" href="https://www.v9seo.com/blog/2011/12/27/sitemap-xml-why-changefreq-priority-are-important/">Here’s
+a good guide</a> on when to use the available values.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">changefreq</span><span class="pi">:</span> <span class="s">weekly</span></code></pre></figure>
+
+<h3 id="key"><code class="highlighter-rouge">key</code></h3>
+
+<p>All files in the <code class="highlighter-rouge">_pages</code> folder are displayed in the nav menu unless you
+set the <code class="highlighter-rouge">nomenu</code> option.
+Use <code class="highlighter-rouge">key</code> to specify the order you want the pages listed in the nav menu.
+Values are sorted in ascending order.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">key</span><span class="pi">:</span> <span class="s">2</span></code></pre></figure>
+
+<h3 id="lastmod-date"><code class="highlighter-rouge">lastmod</code>, <code class="highlighter-rouge">date</code></h3>
+
+<p>If you want the site map <code class="highlighter-rouge">lastmod</code> setting to be updated, you can set one or both of
+these to your new modified date as <code class="highlighter-rouge">YYYY-MM-DD HH:MM:SS +/-TTTT</code> (<code class="highlighter-rouge">lastmod</code> has priority).
+If you use <code class="highlighter-rouge">date</code>, the date shown on the page is also modified, overriding the
+date in the filename. The timestamp is assumed to be UTC unless you specify the
+time zone offset afterward.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">lastmod</span><span class="pi">:</span> <span class="s">2016-03-13 23:11:00</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s">2016-01-01 00:00:00 -0800</span></code></pre></figure>
+
+<h3 id="priority"><code class="highlighter-rouge">priority</code></h3>
+
+<p>Use <code class="highlighter-rouge">priority</code> to specify two things:</p>
+
+<ul>
+  <li>the grouping in the works index</li>
+  <li>the site map priority</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">priority</span><span class="pi">:</span> <span class="s">0.8</span></code></pre></figure>
+
+<p>In the works index, the works are grouped by priority, listed by descending priority
+and by descending date within each priority.</p>
+
+<table class="alt" style="width:95%;margin-left:0.5em;">
+<tr><td class="Nvar1"><span class="image note"><span class="icon fa-lightbulb-o styleN Nvar1"></span></span>
+For now, works posts must have a priority set for the ordering to work. If you get a &#8220;can't compare float with nil&#8221; error in your Jekyll build, there's a missing priority somewhere.
+</td>
+</tr></table>
+
+<p>Because the value is used to set the site map priority,
+it must be set to a value between 0 and 1.0.
+I’ve personally chosen three groups of works, with priorities 0.7, 0.6, and 0.5.
+None as high as featured posts, but then, I’m not looking for a job right now. ;-)</p>
+
+<p>Default priorities in the <code class="highlighter-rouge">sitemap.xml</code> file:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">1.0</code> - Landing page</li>
+  <li><code class="highlighter-rouge">0.9</code> - Featured posts</li>
+  <li><code class="highlighter-rouge">0.7</code> - Other posts</li>
+  <li><code class="highlighter-rouge">0.5</code> - Pages</li>
+</ul>
+
+<h3 id="sitemap_exclude"><code class="highlighter-rouge">sitemap_exclude</code></h3>
+
+<p>Set to <code class="highlighter-rouge">yes</code> if you want to exclude a page from the sitemap.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">sitemap_exclude</span><span class="pi">:</span> <span class="s">yes</span></code></pre></figure>
+
+<h3 id="tags"><code class="highlighter-rouge">tags</code></h3>
+
+<p>For <em>topics</em> posts, the only tag that has an effect right now is <code class="highlighter-rouge">featured</code>,
+which adds it to the top of the <code class="highlighter-rouge">/topics/</code> page. The eight most recent
+featured posts are also added to the main landing page.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">tags</span><span class="pi">:</span> <span class="s">featured</span></code></pre></figure>
+
+<p>For <em>works</em> posts, the tags become a listing of skills demonstrated. For example:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">tags</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">Jekyll</span>
+  <span class="pi">-</span> <span class="s">Sass/SCSS</span>
+  <span class="pi">-</span> <span class="s">Ruby</span></code></pre></figure>
+
+<p><img src="/images/skills.png" alt="web page display of the preceding tags" /></p>
+
+<p>You can add the <code class="highlighter-rouge">featured</code> tag to a work if you want it to appear on the main landing page.
+The <code class="highlighter-rouge">featured</code> tag is excluded from the list of skills on the page and <code class="highlighter-rouge">works</code> index.
+However, its page priority overrides the standard priority of featured posts in the site map.</p>
+
+<h2 id="css-and-script-support">CSS and Script support</h2>
+
+<h3 id="includes"><code class="highlighter-rouge">includes</code></h3>
+
+<p>If your page needs to include stylesheets or scripts, provide ‘em as either
+local or remote URLs. Prefix remote urls with <code class="highlighter-rouge">//</code>, not <code class="highlighter-rouge">http</code>. Stylesheets
+are included in the header and scripts at the bottom before the body closes.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">style-includes</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">/local/path/to/stylesheet.css</span>
+  <span class="pi">-</span> <span class="s">//remote.com/url/to/stylesheet.css</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">script-includes</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">/local/path/to/script.js</span>
+  <span class="pi">-</span> <span class="s">//remote.com/url/to/script.js</span></code></pre></figure>
+
+<h3 id="style-script"><code class="highlighter-rouge">style, script</code></h3>
+
+<p>These are useful when you want to embed styles and scripts outside of the
+<code>{{ content }}</code> area.
+Use the Yaml <code class="highlighter-rouge">|</code> indented block to ensure line breaks are preserved.
+The styles are included in the header below stylesheet includes;
+scripts are included at the bottom below script includes.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">style</span><span class="pi">:</span> <span class="pi">|</span>
+  <span class="s">/* some css block here */</span>
+  <span class="s">.some-class {</span>
+    <span class="s">somestyle: definition;</span>
+  <span class="s">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+  <span class="s">// some script block here...</span>
+  <span class="s">$(document).ready(function(){</span>
+    <span class="s">...</span>
+  <span class="s">});</span></code></pre></figure>
+
+
+      <div class="backnext btnbottom">
+                <div class="back">
+        <div class="bpointer"><a href="/topics/user-guide/features.html"
+         class="button small" title="Back">&lt; Back</a></div>
+         <!-- class="icon fa-backward" title="Back"></a></div> -->
+        <div class="btitle"><a href="/topics/user-guide/features.html">Theme features</a></div>
+        </div>
+        <div class="next">
+        <div class="npointer"><a href="/topics/user-guide/template2.html"
+         class="button small" title="Next">Next &gt;</a></div>
+         <!-- class="icon fa-forward" title="Next"></a></div> -->
+        <div class="ntitle"><a href="/topics/user-guide/template2.html">Shortcut includes</a></div>
+        </div>
+
+      </div>
+      <script>
+      document.body.onkeyup = function(e){
+        if (e.keyCode == '37') { window.location = '/topics/user-guide/features.html'; }
+        if (e.keyCode == '39') { window.location = '/topics/user-guide/template2.html'; }
+      };
+      </script>
+<hr style="margin-bottom:12px;" />
+<div class="author">
+<!-- style="margin:8px 28px 12px 0;position:relative;float:left;"> -->
+  <!-- style="position: relative; float: left;margin:0;padding:0;" -->
+  <div style="display:inline-block;border-radius:7px;overflow:hidden;height:100px;width:100px;background:url(/images/gar.jpg);background-size:100px;"></div>
+  <div style="display:inline-block;padding-left:12px;vertical-align:top;"><b>by:<br />Gary Faircloth</b><br
+    /><i><a href="http://arkadianriver.com" target="_blank">http://arkadianriver.com</a></i>
+  </div>
+  <div class="auth-desc">Interests: tech writing, programming, science, history. You might also find me playing some PC Ga&mdash;SQUIRREL!
+</div>
+</div>
+<hr style="margin-top:9px;" />
+
+  
+    </div>
+  </section>
+
+
+      </article>
+
+      <!-- Footer -->
+<footer id="footer">
+  <ul class="icons">
+    <li><a target="_blank" href="https://twitter.com/hoang015" class="icon fa-twitter"
+           ><span class="label">twitter</span></a></li>
+    <li><a target="_blank" href="https://github.com/hoangperry" class="icon fa-github"
+           ><span class="label">github</span></a></li>
+    <li><a target="_blank" href="https://www.linkedin.com/in/hoangntruong/" class="icon fa-linkedin-square"
+           ><span class="label">linkedin-square</span></a></li>
+    <li><a target="_blank" href="https://facebook.com/blablaisbest" class="icon fa-facebook-official"
+           ><span class="label">facebook-official</span></a></li>
+    <li><a target="_blank" href="/contact/" class="icon fa-envelope"
+           ><span class="label">E-mail</span></a></li>
+    <li><a target="_blank" href="https://www.instagram.com/hoang_____perry/" class="icon fa-instagram"
+           ><span class="label">instagram</span></a></li>
+  </ul>
+  <ul class="copyright">
+    <li>&copy; 2010, 2019 Hoang N. Truong</li>
+    <li><a href="/credits/">Credits</a></li>
+  </ul>
+</footer>
+
+
+      <!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.scrolly.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+<script src="/js/main.js"></script>
+
+    </div>
+
+  </body>
+
+</html>
