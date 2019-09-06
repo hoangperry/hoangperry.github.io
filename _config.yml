@@ -28,10 +28,10 @@ lang: vi-VI # used in HTML lang attributes
 # on landing page
 # - set the greeting only if you want to display the first green section
 greeting:
-  title: Hi !
-  text: Hi, I'm currently a ungraduate student at Ton Duc Thang university in HCMC, VN
+  title: Hello, It's me
+  text: I'm currently a ungraduate student at Ton Duc Thang university in HCMC, Vietnam
 # - displayed at the bottom
-closing-head: You can contact me via email, facebook.
+closing-head: You can contact me via email
 closing-para:
 
 # on all pages (and the first three you list display with greeting, if included)
@@ -41,7 +41,7 @@ social:
   linkedin-square: https://www.linkedin.com/in/hoangntruong/
   facebook-official: https://facebook.com/blablaisbest
   # google-plus-square:
-  email: /contact/ # you can configure and use this contact page or use your email addy
+  email: prodai9573@gmail.com
   #flickr:
   instagram: https://www.instagram.com/hoang_____perry/
   #youtube-square:
@@ -53,7 +53,7 @@ social:
   #delicious:
   #pied-piper:
   #digg:
-  #soundcloud:
+  soundcloud: soundcloud.com/hoang6969
   #deviantart:
   #angellist:
   #tumblr-square:
@@ -77,7 +77,7 @@ social:
   #amazon:
 
 # - title for your blog's featured posts
-features-title: Featured topics
+features-title: Newest posts
 
 # if you use this repo's `ruby compose.rb` script to initiate new posts, put the
 # command to invoke your editor here. (I didn't spend time dealing with spaces
