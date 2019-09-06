@@ -29,7 +29,7 @@ lang: vi-VI # used in HTML lang attributes
 # - set the greeting only if you want to display the first green section
 greeting:
   title: Hello, It's me
-  text: I'm currently a ungraduate student at Ton Duc Thang university in HCMC, Vietnam
+  text: I'm currently a undergraduate student at Ton Duc Thang university in HCMC, Vietnam
 # - displayed at the bottom
 closing-head: You can contact me via email
 closing-para:
