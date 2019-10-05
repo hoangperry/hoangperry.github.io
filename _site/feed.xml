@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hoang N. Truong</title>
+    <description>welcome to my website</description>
+    <link>http://0.0.0.0:4000/</link>
+    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 07 Sep 2019 12:46:38 +0700</pubDate>
+    <lastBuildDate>Sat, 07 Sep 2019 12:46:38 +0700</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>My First Topic</title>
+        <description>&lt;p&gt;Here we go.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 05 Sep 2019 00:00:00 +0700</pubDate>
+        <link>http://0.0.0.0:4000/topics/my topic group/</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/topics/my topic group/</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>my topic group</category>
+        
+      </item>
+    
+      <item>
+        <title>DPS</title>
+        <description>&lt;h4 id=&quot;results&quot;&gt;Results&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Develop a Document analytics and management system.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;summary&quot;&gt;Summary&lt;/h4&gt;
+
+&lt;p&gt;Learning many thing about database, project development process&lt;/p&gt;
+</description>
+        <pubDate>Sat, 01 Dec 2018 00:00:00 +0700</pubDate>
+        <link>http://0.0.0.0:4000/works/works-dps.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/works/works-dps.html</guid>
+        
+        <category>Deep learning</category>
+        
+        <category>Computer Vision</category>
+        
+        <category>Fullstack</category>
+        
+        
+        <category>works</category>
+        
+      </item>
+    
+      <item>
+        <title>NewAI</title>
+        <description>&lt;h4 id=&quot;results&quot;&gt;Results&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Development a OCR system&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;summary&quot;&gt;Summary&lt;/h4&gt;
+
+&lt;p&gt;This is my first time working on Computer Vision field.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 01 May 2018 00:00:00 +0700</pubDate>
+        <link>http://0.0.0.0:4000/works/works-newai.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/works/works-newai.html</guid>
+        
+        <category>Machine Learning</category>
+        
+        <category>Computer Vision</category>
+        
+        <category>Fullstack</category>
+        
+        
+        <category>works</category>
+        
+      </item>
+    
+  </channel>
+</rss>
