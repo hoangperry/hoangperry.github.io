@@ -2,20 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hoang N. Truong</title>
-    <description>welcome to my website</description>
-    <link>http://0.0.0.0:4000/</link>
-    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 07 Sep 2019 12:46:38 +0700</pubDate>
-    <lastBuildDate>Sat, 07 Sep 2019 12:46:38 +0700</lastBuildDate>
+    <description>Just a typical guy in this Universe</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 08 Oct 2019 17:22:06 +0700</pubDate>
+    <lastBuildDate>Tue, 08 Oct 2019 17:22:06 +0700</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>How to ride a motorbike</title>
+        <description>&lt;p&gt;Of course, if you want to ride a motorbike you must have a motorbike first.&lt;/p&gt;
+
+&lt;p&gt;Put the helmet on and start your bike and go.&lt;/p&gt;
+
+&lt;p&gt;… to be continue.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 08 Oct 2019 16:47:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/my%20topic%20group/how-to-ride-a-motorbike.html</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/my%20topic%20group/how-to-ride-a-motorbike.html</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>my topic group</category>
+        
+      </item>
     
       <item>
         <title>My First Topic</title>
         <description>&lt;p&gt;Here we go.&lt;/p&gt;
 </description>
         <pubDate>Thu, 05 Sep 2019 00:00:00 +0700</pubDate>
-        <link>http://0.0.0.0:4000/topics/my topic group/</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/topics/my topic group/</guid>
+        <link>http://localhost:4000/topics/my topic group/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/my topic group/</guid>
         
         
         <category>topics</category>
@@ -37,8 +56,8 @@
 &lt;p&gt;Learning many thing about database, project development process&lt;/p&gt;
 </description>
         <pubDate>Sat, 01 Dec 2018 00:00:00 +0700</pubDate>
-        <link>http://0.0.0.0:4000/works/works-dps.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/works/works-dps.html</guid>
+        <link>http://localhost:4000/works/works-dps.html</link>
+        <guid isPermaLink="true">http://localhost:4000/works/works-dps.html</guid>
         
         <category>Deep learning</category>
         
@@ -64,8 +83,8 @@
 &lt;p&gt;This is my first time working on Computer Vision field.&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 May 2018 00:00:00 +0700</pubDate>
-        <link>http://0.0.0.0:4000/works/works-newai.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/works/works-newai.html</guid>
+        <link>http://localhost:4000/works/works-newai.html</link>
+        <guid isPermaLink="true">http://localhost:4000/works/works-newai.html</guid>
         
         <category>Machine Learning</category>
         
