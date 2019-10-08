@@ -5,8 +5,8 @@
     <description>Just a typical guy in this Universe</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 08 Oct 2019 17:22:06 +0700</pubDate>
-    <lastBuildDate>Tue, 08 Oct 2019 17:22:06 +0700</lastBuildDate>
+    <pubDate>Tue, 08 Oct 2019 23:38:58 +0700</pubDate>
+    <lastBuildDate>Tue, 08 Oct 2019 23:38:58 +0700</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -25,6 +25,29 @@
         <category>topics</category>
         
         <category>my topic group</category>
+        
+      </item>
+    
+      <item>
+        <title>About me</title>
+        <description>&lt;p&gt;Hi!&lt;/p&gt;
+
+&lt;p&gt;I’m &lt;strong class=&quot;ui&quot;&gt;Hoang&lt;/strong&gt;. I’m currently a &lt;strong&gt;computer science&lt;/strong&gt; undergraduate student at &lt;strong&gt;Ton Duc Thang university&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;My birdthday is &lt;strong&gt;02&lt;sup&gt;nd&lt;/sup&gt; September&lt;/strong&gt; and that is the independence day of my country( Vietnam ).
+I was born in Nha Trang, but now I’m living in HCMC to convenient for studying at school. Because I can’t travel 900 kilometers from home to school daily.&lt;/p&gt;
+
+&lt;p&gt;…&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 15 Sep 2019 14:47:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/about me/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/about me/</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>about me</category>
         
       </item>
     
