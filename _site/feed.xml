@@ -5,26 +5,34 @@
     <description>Just a typical guy in this Universe</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 11 Oct 2019 17:23:37 +0700</pubDate>
-    <lastBuildDate>Fri, 11 Oct 2019 17:23:37 +0700</lastBuildDate>
+    <pubDate>Fri, 11 Oct 2019 17:35:26 +0700</pubDate>
+    <lastBuildDate>Fri, 11 Oct 2019 17:35:26 +0700</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>How to ride a motorbike</title>
-        <description>&lt;p&gt;Of course, if you want to ride a motorbike you must have a motorbike first.&lt;/p&gt;
+        <description>&lt;p&gt;Of course, if you want to ride a motocycle you must have a motocycle first. There are many type of motocycle like: electric motorcycle, scooter motorcycle, manual transmission motorcycle, semi automatic motorcycle,…&lt;/p&gt;
 
-&lt;p&gt;Put the helmet on and start your bike and go.&lt;/p&gt;
+&lt;h1 id=&quot;scooter--electric-motocycle&quot;&gt;Scooter &amp;amp; Electric Motocycle&lt;/h1&gt;
 
-&lt;p&gt;… to be continue.&lt;/p&gt;
+&lt;p&gt;If you motocycle is a scooter just twist the throttle slowly and you motocycle will move.&lt;/p&gt;
+
+&lt;h1 id=&quot;manual-transmission-motorcycle&quot;&gt;Manual Transmission Motorcycle&lt;/h1&gt;
+
+&lt;p&gt;comming soon&lt;/p&gt;
+
+&lt;h1 id=&quot;semi-automatic-motorcycle&quot;&gt;Semi-automatic Motorcycle&lt;/h1&gt;
+
+&lt;p&gt;comming soon&lt;/p&gt;
 </description>
         <pubDate>Tue, 08 Oct 2019 16:47:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/my%20topic%20group/how-to-ride-a-motorbike.html</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/my%20topic%20group/how-to-ride-a-motorbike.html</guid>
+        <link>http://localhost:4000/topics/tutorial/how-to-ride-a-motorbike.html</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/tutorial/how-to-ride-a-motorbike.html</guid>
         
         
         <category>topics</category>
         
-        <category>my topic group</category>
+        <category>tutorial</category>
         
       </item>
     

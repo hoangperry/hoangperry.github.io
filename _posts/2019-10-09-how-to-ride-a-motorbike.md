@@ -1,14 +1,22 @@
 ---
 title: How to ride a motorbike
-excerpt: This topic will introduction you how to riding a motorbike
+excerpt: This topic will introduction you how to riding a motocycle.
 categories:
   - topics
-  - my topic group
+  - tutorial
 date: 2019-10-08 16:47
 ---
 
-Of course, if you want to ride a motorbike you must have a motorbike first.
+Of course, if you want to ride a motocycle you must have a motocycle first. There are many type of motocycle like: electric motorcycle, scooter motorcycle, manual transmission motorcycle, semi automatic motorcycle,...
 
-Put the helmet on and start your bike and go.
+# Scooter & Electric Motocycle
 
-... to be continue. 
+If you motocycle is a scooter just twist the throttle slowly and you motocycle will move.  
+
+# Manual Transmission Motorcycle
+
+comming soon
+
+# Semi-automatic Motorcycle
+
+comming soon
