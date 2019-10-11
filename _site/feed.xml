@@ -5,8 +5,8 @@
     <description>Just a typical guy in this Universe</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 11 Oct 2019 17:15:33 +0700</pubDate>
-    <lastBuildDate>Fri, 11 Oct 2019 17:15:33 +0700</lastBuildDate>
+    <pubDate>Fri, 11 Oct 2019 17:23:37 +0700</pubDate>
+    <lastBuildDate>Fri, 11 Oct 2019 17:23:37 +0700</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -79,7 +79,7 @@ I was born in Nha Trang, but now I’m living in HCMC to convenient for studying
 
 &lt;h4 id=&quot;summary&quot;&gt;Summary&lt;/h4&gt;
 
-&lt;p&gt;Learning many thing about database, project development process&lt;/p&gt;
+&lt;p&gt;Learning many thing about database, project development process, …&lt;/p&gt;
 </description>
         <pubDate>Sat, 01 Dec 2018 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/works/works-dps.html</link>
@@ -90,6 +90,10 @@ I was born in Nha Trang, but now I’m living in HCMC to convenient for studying
         <category>Computer Vision</category>
         
         <category>Fullstack</category>
+        
+        <category>Web developer</category>
+        
+        <category>Database</category>
         
         
         <category>works</category>
@@ -106,7 +110,7 @@ I was born in Nha Trang, but now I’m living in HCMC to convenient for studying
 
 &lt;h4 id=&quot;summary&quot;&gt;Summary&lt;/h4&gt;
 
-&lt;p&gt;This is my first time working on Computer Vision field.&lt;/p&gt;
+&lt;p&gt;This is my first time working on Computer Vision field. Besides it, I learned many things about the algorithm, web develops, …&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 May 2018 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/works/works-newai.html</link>

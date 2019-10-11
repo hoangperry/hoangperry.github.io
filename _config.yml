@@ -32,7 +32,7 @@ greeting:
   text: I'm currently a computer science undergraduate student at Ton Duc Thang university in HCMC, Vietnam.
 # - displayed at the bottom
 closing-head: You can contact me via email
-closing-para:
+closing-para: 
 
 # on all pages (and the first three you list display with greeting, if included)
 social:

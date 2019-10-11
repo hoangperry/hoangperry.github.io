@@ -8,6 +8,7 @@ tags:
   - Machine Learning
   - Computer Vision
   - Fullstack
+
 ---
 
 #### Results
@@ -16,4 +17,4 @@ tags:
 
 #### Summary
 
-This is my first time working on Computer Vision field.
+This is my first time working on Computer Vision field. Besides it, I learned many things about the algorithm, web develops, ...
