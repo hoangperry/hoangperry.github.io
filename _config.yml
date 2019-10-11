@@ -11,14 +11,14 @@
 # (Using that method instead of site.owner, in case your posts get cloned with your repo.)
 
 # Site settings
-title: Hoang N. Truong
+title: Hoang Nhat Truong
 description: Just a typical guy in this Universe
 owner:
-  name: Hoang N. Truong # or company name
-  url: "http://hoangperry.github.io" # your URL
+  name: Hoang Nhat Truong # or company name
+  url: "hoang.tech" # your URL
 first_published: 2019 # if migrating another site, the year of your first publish
                       # Must be a 4-digit integer year (math is used on it)
-url: "http://hoangperry.github.io" # the base hostname & protocol for this site
+url: "hoang.tech" # the base hostname & protocol for this site
 baseurl: "" # the subpath of your site, e.g. /blog
             # Note you'll have to move your robots.txt to the root if you want it used.
             # And list multiple sitemaps if there are other subdirectories you want indexed
@@ -28,8 +28,8 @@ lang: vi-VI # used in HTML lang attributes
 # on landing page
 # - set the greeting only if you want to display the first green section
 greeting:
-  title: Hello, It's me
-  text: I'm currently a undergraduate student at Ton Duc Thang university in HCMC, Vietnam
+  title: Hi, It's me. 
+  text: I'm currently a computer science undergraduate student at Ton Duc Thang university in HCMC, Vietnam.
 # - displayed at the bottom
 closing-head: You can contact me via email
 closing-para:
