@@ -11,7 +11,8 @@ Of course, if you want to ride a motocycle you must have a motocycle first. Ther
 
 # Scooter & Electric Motocycle
 
-If you motocycle is a scooter just twist the throttle slowly and you motocycle will move.  
+If you motocycle is a scooter just twist the throttle slowly and you motocycle will move. 
+Usually, the front-brake is on your right hand, and rear brake is on the opposite hand.
 
 # Manual Transmission Motorcycle
 
