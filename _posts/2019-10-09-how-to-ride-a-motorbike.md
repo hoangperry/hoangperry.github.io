@@ -22,3 +22,5 @@ comming soon
 # Semi-automatic Motorcycle
 
 comming soon
+
+Drive safely!
