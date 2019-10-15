@@ -15,11 +15,14 @@ If you motocycle is a scooter just twist the throttle slowly and you motocycle w
 Usually, the front-brake is on your right hand, and rear brake is on the opposite hand.
 In case you are moving too fast. Please squeeze the rear-brake slowly. If you brake too tightly and the wheel will be skid on. 
 
-# Manual Transmission Motorcycle
-
-comming soon
 
 # Semi-automatic Motorcycle
+
+Usually, a semi Semi-automatic Motorcycle have 4 or 5 
+gear level. The maximum speed of each level increases gradually. 
+And the acceleration of each level will decrease
+
+# Manual Transmission Motorcycle
 
 comming soon
 
