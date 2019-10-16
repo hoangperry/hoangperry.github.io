@@ -20,7 +20,7 @@ In case you are moving too fast. Please squeeze the rear-brake slowly. If you br
 
 Usually, a semi Semi-automatic Motorcycle have 4 or 5 
 gear level. The maximum speed of each level increases gradually. 
-And the acceleration of each level will decrease
+And the acceleration of each level will decrease. So choose the gear fit with your current speed.
 
 # Manual Transmission Motorcycle
 
