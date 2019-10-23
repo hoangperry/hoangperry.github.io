@@ -24,6 +24,6 @@ And the acceleration of each level will decrease. So choose the gear fit with yo
 
 # Manual Transmission Motorcycle
 
-comming soon
+A Manual Transmission Motorcycle is likely to Semi-automatic Motorcycle. But It had a Manual clutch. Usually the clutch trigger is on the left hand. 
 
 Drive safely!
