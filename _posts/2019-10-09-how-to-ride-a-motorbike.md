@@ -25,6 +25,8 @@ And the acceleration of each level will decrease. So choose the gear fit with yo
 # Manual Transmission Motorcycle
 
 A Manual Transmission Motorcycle is likely to Semi-automatic Motorcycle. But It had a Manual clutch. Usually the clutch trigger is on the left hand. It will be harder to drive than Semi-automatic Motor or Scoorter. 
-This trigger will control the part between engine and gearbox.
+This trigger will control the part between engine and gearbox. If you pull full the trigger. The gearbox is disconnect with engine. So the wheel will spin free. 
+
+...
 
 Drive safely!
