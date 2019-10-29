@@ -4,7 +4,7 @@ excerpt: This topic will introduction you how to riding a motocycle.
 categories:
   - topics
   - tutorial
-date: 2020-10-08 16:47
+date: 2019-10-08 16:47
 ---
 
 Of course, if you want to ride a motocycle you must have a motocycle first. There are many type of motocycle like: electric motorcycle, scooter motorcycle, manual transmission motorcycle, semi automatic motorcycle,...
