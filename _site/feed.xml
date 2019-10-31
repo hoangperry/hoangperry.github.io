@@ -5,8 +5,8 @@
     <description>Just a typical guy in this Universe</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 28 Oct 2019 01:44:31 +0700</pubDate>
-    <lastBuildDate>Mon, 28 Oct 2019 01:44:31 +0700</lastBuildDate>
+    <pubDate>Thu, 31 Oct 2019 10:39:17 +0700</pubDate>
+    <lastBuildDate>Thu, 31 Oct 2019 10:39:17 +0700</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -208,7 +208,7 @@ Personal firewall có thể dùng ở nhà hoặc các mạng nội bộ của c
 
 Personal firewall thường phức tạp hơn rất nhiều so với server-based firewalls hay tường lửa độc lập. Vai trò chính của tường lửa cá nhân là từ chối truy cập trái phép vào máy tính. Tường lửa cũng có thể giám sát hoạt động dò quét hoặc phát hiện các malware.  --&gt;
 
-&lt;h1 id=&quot;4-cấu-hình-tường-lửa&quot;&gt;4. Cấu hình tường lửa&lt;/h1&gt;
+&lt;h1 id=&quot;4-firewall-configuration&quot;&gt;4. Firewall configuration&lt;/h1&gt;
 
 &lt;p&gt;&lt;em&gt;A network administrator must determine the location and number of firewalls needed, and here are some typical options:&lt;/em&gt;&lt;/p&gt;
 
@@ -265,6 +265,126 @@ external attack.&lt;/p&gt;
         <category>topics</category>
         
         <category>network</category>
+        
+      </item>
+    
+      <item>
+        <title>How to ride a motorbike</title>
+        <description>&lt;p&gt;Of course, if you want to ride a motocycle you must have a motocycle first. There are many type of motocycle like: electric motorcycle, scooter motorcycle, manual transmission motorcycle, semi automatic motorcycle,…&lt;/p&gt;
+
+&lt;h1 id=&quot;scooter--electric-motocycle&quot;&gt;Scooter &amp;amp; Electric Motocycle&lt;/h1&gt;
+
+&lt;p&gt;If you motocycle is a scooter just twist the throttle slowly and you motocycle will move. 
+Usually, the front-brake is on your right hand, and rear brake is on the opposite hand.
+In case you are moving too fast. Please squeeze the rear-brake slowly. If you brake too tightly and the wheel will be skid on. And it will be dangerous.&lt;/p&gt;
+
+&lt;h1 id=&quot;semi-automatic-motorcycle&quot;&gt;Semi-automatic Motorcycle&lt;/h1&gt;
+
+&lt;p&gt;Usually, a semi Semi-automatic Motorcycle have 4 or 5 
+gear level. The maximum speed of each level increases gradually. 
+And the acceleration of each level will decrease. So choose the gear fit with your current speed.&lt;/p&gt;
+
+&lt;h1 id=&quot;manual-transmission-motorcycle&quot;&gt;Manual Transmission Motorcycle&lt;/h1&gt;
+
+&lt;p&gt;A Manual Transmission Motorcycle is likely to Semi-automatic Motorcycle. But It had a Manual clutch. Usually the clutch trigger is on the left hand. It will be harder to drive than Semi-automatic Motor or Scoorter. 
+This trigger will control the part between engine and gearbox. If you pull full the trigger. The gearbox is disconnect with engine. So the wheel will spin free. Contrary the whell will spin with your engine.
+So you can see Manual Transmission is harder to control than a Semi-automatic Motor.&lt;/p&gt;
+
+&lt;p&gt;…&lt;/p&gt;
+
+&lt;p&gt;Drive safely!&lt;/p&gt;
+</description>
+        <pubDate>Tue, 08 Oct 2019 16:47:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/tutorial/how-to-ride-a-motorbike.html</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/tutorial/how-to-ride-a-motorbike.html</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>tutorial</category>
+        
+      </item>
+    
+      <item>
+        <title>About me</title>
+        <description>&lt;p&gt;Hi!&lt;/p&gt;
+
+&lt;p&gt;I’m &lt;strong class=&quot;ui&quot;&gt;Hoang&lt;/strong&gt; and my Vietnamese name is &lt;em&gt;Trương Nhật Hoàng&lt;/em&gt;.
+Now, I’m currently a &lt;strong&gt;computer science&lt;/strong&gt; undergraduate student at &lt;strong&gt;Ton Duc Thang university&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;My birdthday is &lt;strong&gt;02&lt;sup&gt;nd&lt;/sup&gt; September&lt;/strong&gt; and that also is the independence day of my country( Vietnam ).
+I was born in Nha Trang, but now I’m living in HCMC to convenient for studying at school. Because I can’t travel 900 kilometers from home to school daily.&lt;/p&gt;
+
+&lt;p&gt;I can play guitar, drum. To me, playing the drum is the most effective way to relieving stress. My favorite guitarist is Slash-GnR. On the stage, he is very awesome.&lt;/p&gt;
+
+&lt;p&gt;By the way, I wish to become a pilot. I have research and fly an airplane. But just on a simulator. I think in the future world everyone will be own their plane. Besides it, I have a passion with the Universe, Physis. When I was a kid, ….&lt;/p&gt;
+
+&lt;p&gt;…
+…
+…&lt;/p&gt;
+
+&lt;h2 id=&quot;human-language&quot;&gt;Human Language&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Mother language:&lt;/strong&gt; &lt;em&gt;Tiếng Việt&lt;/em&gt; (Vietnamese)&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;English&lt;/em&gt; (English): …60%…&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;한국어 (Korean)&lt;/em&gt;: &lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;日本語 (Japanese)&lt;/em&gt;: &lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Deutsche (German)&lt;/em&gt; :&lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;knowledge&quot;&gt;Knowledge&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mathematics&lt;/li&gt;
+  &lt;li&gt;Programming&lt;/li&gt;
+  &lt;li&gt;Database&lt;/li&gt;
+  &lt;li&gt;Design theory&lt;/li&gt;
+  &lt;li&gt;Machine learning&lt;/li&gt;
+  &lt;li&gt;Arificial Intelligence&lt;/li&gt;
+  &lt;li&gt;Music theory&lt;/li&gt;
+  &lt;li&gt;A little bit of flight theory&lt;/li&gt;
+  &lt;li&gt;Advanced Driving skill&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tools&quot;&gt;Tools&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Photoshop&lt;/li&gt;
+  &lt;li&gt;Tensorflow&lt;/li&gt;
+  &lt;li&gt;Pytorch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;programming-language&quot;&gt;Programming language&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;First programming language: C, Java, Pascal&lt;/li&gt;
+  &lt;li&gt;Had difficulties: Prolog, Assembly&lt;/li&gt;
+  &lt;li&gt;Most used: Python, Javascript, PHP&lt;/li&gt;
+  &lt;li&gt;Totally hate: C#&lt;/li&gt;
+  &lt;li&gt;Most loved: Python&lt;/li&gt;
+  &lt;li&gt;For beginners: Python&lt;/li&gt;
+  &lt;li&gt;Curious about: Cuda, Ruby&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hobby&quot;&gt;Hobby&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Lego&lt;/li&gt;
+  &lt;li&gt;Play music instument&lt;/li&gt;
+  &lt;li&gt;Space ship&lt;/li&gt;
+  &lt;li&gt;Flight plane simulator&lt;/li&gt;
+  &lt;li&gt;Play game&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 15 Sep 2019 14:47:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/about me/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/about me/</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>about me</category>
         
       </item>
     
