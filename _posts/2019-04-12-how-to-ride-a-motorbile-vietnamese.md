@@ -13,12 +13,14 @@ date: 2019-4-12 11:30
 # Xe ga - Xe máy điện
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/vespa.jpg" %}
 
+Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu xe này lái rất dễ, nó chỉ gồm 2 bộ phận chính đó là tay ga và 2 tay thắng. Đương nhiên là chiếc xe thì cần phải có bánh xe, tay lái các thứ rồi đúng không. Nhưng mà đó là các bộ phận cơ bản nên tớ sẽ không bàn đến. Quay lại với chiếc xe, khi bạn văn tay côn về phía bạn chiếc xe sẽ tự động đi lên.
+
 If you motocycle is a scooter just twist the throttle slowly and you motocycle will move. 
 Usually, the front-brake is on your right hand, and rear brake is on the opposite hand.
 In case you are moving too fast. Please squeeze the rear-brake slowly. If you brake too tightly and the wheel will be skid on. And it will be dangerous.
 
 
-# Semi-automatic Motorcycle
+# Xe số tự động
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/supercub.jpg" %}
 
@@ -26,7 +28,7 @@ Usually, a semi Semi-automatic Motorcycle have 4 or 5
 gear level. The maximum speed of each level increases gradually. 
 And the acceleration of each level will decrease. So choose the gear fit with your current speed.
 
-# Manual Transmission Motorcycle
+# Xe tay côn
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/r1.jpg" %}
 
