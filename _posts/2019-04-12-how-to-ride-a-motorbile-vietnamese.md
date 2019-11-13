@@ -8,9 +8,9 @@ categories:
 date: 2019-4-12 11:30
 ---
 
-Of course, if you want to ride a motocycle you must have a motocycle first. There are many type of motocycle like: electric motorcycle, scooter motorcycle, manual transmission motorcycle, semi automatic motorcycle,...
+Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đã. Trong bài này tôi sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn.
 
-# Scooter & Electric Motocycle
+# Xe ga - Xe máy điện
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/vespa.jpg" %}
 
 If you motocycle is a scooter just twist the throttle slowly and you motocycle will move. 
