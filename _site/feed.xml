@@ -5,9 +5,242 @@
     <description>Just a typical guy in this Universe</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 31 Oct 2019 17:31:31 +0700</pubDate>
-    <lastBuildDate>Thu, 31 Oct 2019 17:31:31 +0700</lastBuildDate>
+    <pubDate>Sun, 17 Nov 2019 20:29:55 +0700</pubDate>
+    <lastBuildDate>Sun, 17 Nov 2019 20:29:55 +0700</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Firewall - Vietnamese</title>
+        <description>&lt;!-- *Firewalls can be an effective means of protecting a local system or network of systems from network-based security threats while at the same time affording access to the outside world via wide area networks and the Internet. Moreover, the firewall is also in charge of following up, analyzing information flow and starting the decision-making process with the mentioned above information.* --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Tường lửa đóng vai trò rất quan trọng trong việc bảo vệ một hệ thống nội bộ khỏi các mối đe dọa như hacker, worm, hay các loại virus xâm nhập vào máy tính. Ngoài ra tường lửa còn có tác dụng theo dõi, phân tích các luồng thông tin quá mạng và quyết định sẽ làm gì với những luồng thông tin đó. *&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;goals-of-a-firewall&quot;&gt;Goals of a firewall:&lt;/h2&gt;
+
+&lt;!-- 1. All traffic from inside to outside and vice versa must pass through the firewall. 
+2. Only authorized traffic, as defined by the local security policy, will be allowed to pass. 
+3. The firewall itself is immune to penetration. --&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;các gói tin từ bên ngoài vào và đi ra đều phaỉ thông qua tường lửa&lt;/li&gt;
+  &lt;li&gt;Chỉ có các lưu lượng được ủy quyền mới được cho phép đi qua tường lửa.&lt;/li&gt;
+  &lt;li&gt;Tường lửa phải miễn nhiễm với các sự xâm nhập.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;1-firewall-characteristics-and-access-policy&quot;&gt;1. Firewall Characteristics and access policy&lt;/h1&gt;
+
+&lt;!-- A critical component in the planning and implementation of a firewall is specifying a suitable access policy. Lists a range of characteristics that a firewall access policy could use to filter traffic, including:
+
+- **IP Address and Protocol Values:** Controls access based on the source or destination addresses and port numbers, direction of flow being inbound or outbound, and other network and transport layer characteristics.  It is typically used to limit access to specific services.
+
+- **Application Protocol:** Controls access on the basis of authorized application protocol data. This type of filtering is used by an application-level gateway that relays and monitors the exchange of information for specific application protocols.
+
+- **User Identity:** Controls access based on the users identity, typically for inside users who identify themselves using some form of secure authentication technology, such as IPSec.
+
+- **Network Activity:** Controls access based on considerations such as the time or request, e.g., only in business hours; rate of requests, e.g., to detect scanning attempts; or other activity patterns. --&gt;
+
+&lt;p&gt;Một thành phần quan trọng trong tường lửa là một access control phù hợp. 
+Các đặc điểm mà access control của tường lửa có thể sử dụng để lọc lưu lượng:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IP Address and Protocol Values:&lt;/strong&gt;
+	Access control dựa trên địa chỉ nguồn, địa chỉ đích, số cổng, hướng của gói tin đi vào hay đi ra và các đặc điểm của tầng mạng(Network layer) và tầng vận chuyển(Transport layer). Kiểu chính sách truy cập này thường dùng để giới hạn quyền truy cập vào các dịch vụ cụ thể.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Application Protocol:&lt;/strong&gt; 
+	Access control dựa trên cơ sở các giao thức dữ liệu ứng dụng được ủy quyền. Kiểu access control này thường được sử dụng ở tầng ứng dụng để chuyển tiếp và giám sát việc trao đổi thông tin cho các giao thức ứng dụng cụ thể.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;User Identity:&lt;/strong&gt;
+	Access control dựa trên định danh của người dùng. Thường sử dựng một số hình thức xác thực an toàn như IPSec.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Network Activity:&lt;/strong&gt; 
+	Access control dựa trên các sự cân nhắc về thời gian ví dụ như: chỉ được cho phép trong giờ làm việc của tổ chức. hoặc cân nhắc về tỷ lệ yêu cầu.&lt;/p&gt;
+
+&lt;!-- Trước khi nói về những chi tiết bên trong trường lửa, chúng ta hãy tóm tắt lại những điều mong đợi về tưởng lửa và khả năng của nó. 
+
+1. Tường lửa giữa những truy cập trái phép ra khỏi mạng được bảo vệ và các dịch vụ dễ bị tấn công. 
+
+2. Theo dõi các sự kiện bên trọng mạng có liên quan đến bảo mật  --&gt;
+
+&lt;h1 id=&quot;2-types-of-firewalls&quot;&gt;2. Types of Firewalls&lt;/h1&gt;
+
+&lt;!-- &lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_1.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;
+A firewall can monitor network traffic at a number of levels, from low-level network packets, either individually or as part of a flow, to all traffic within a transport connection, up to inspecting details of application protocols. The choice of which
+level is appropriate is determined by the desired firewall access policy. Depending on the type of firewall, it may examine one or more protocol headers in each packet, the payload of each packet, or the pattern generated by a sequence of
+packets. In this section, we look at the principal types of firewalls:  --&gt;
+
+&lt;!-- # 2. Các loại tường lửa --&gt;
+
+&lt;p&gt;Tường lửa có thể giám sat mạng ở một số cấp độ, từ các gói mạng cấp thấp, riêng lẻ hoặc là một phần của một luồng thông tin cho đến kiểm tra chi tiết các giao thức ứng dụng. Mỗi tầng sẽ có một access control phù hợp khác nhau. Tùy thuộc và loại tường lửa mà nó có thể hoạt động khác nhau. Sau đây là một số loại tường lửa chính:&lt;/p&gt;
+
+&lt;!-- **Packet filtering firewall**
+**Stateful inspection firewall**
+**Application proxy firewall**
+**Circuit-level proxy firewall** --&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Packet filtering firewall&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_2.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Stateful inspection firewall&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_3.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Application proxy firewall&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_4.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Circuit-level proxy firewall&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_5.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;!-- #  3. Firewall Basing
+
+
+## 3.1 Bastion Host
+A bastion host is a system identified by the firewall administrator as a critical strong point in the network’s security. Typically, the bastion host serves as a platform for an application-level or circuit-level gateway. Common characteristics of a bastion host are as follows:
+	
+- Only services that a network administrator considers are installed are installed on basting hosts, such as DNS, FTP, HTTP, SMTP, etc.
+
+- Basting hosts may require additional authentication before the user is allowed to access proxy services. Additionally, each proxy service may require its authentication before granting access to the user
+
+- Each proxy is configured to support only a set of standard command sets.
+
+- Each proxy is configured to access only to a specific server. This means that commands/features set may be applied only to a subset of systems on the protected network.
+
+- Each proxy maintains a detailed inspection by logging all traffic,  the duration of each connection. This record of access information is essential to investigate and stop attacks by intruders.
+
+- Each proxy module is a tiny software package specifically designed for network security. Due to its simplicity, it is easier to check for security errors. For example, a mail application in UNIX may contain more than 20,000 lines of code, while a proxy mail may have fewer than 1,000 lines.
+
+- Each proxy is independent of other proxies on the bastion host. If there is a problem with the operation of any proxy, or if a future vulnerability is discovered, it can be uninstalled without affecting the operation of the other proxy applications. Also, if the user population requires support for a new service, the network administrator can easily install the required proxy on the bastion host.
+
+- A proxy generally performs no disk access other than to read its initial configuration file. Hence, the portions of the file system containing executable code can be made read-only. This makes it difficult for an intruder to install Trojan horse sniffers or other dangerous files on the bastion host. 
+
+- Each proxy runs as a user without privileges on a private directory and is secured on the host bastion.
+
+
+## 3.2 Host-Based Firewalls
+
+The host-based firewall is an application module that protects individual servers. Such modules are usually available in the operating system or provided as additional packages. Like a regular firewall, host-resident filters and restricts data flows. Some advantages of using a server-based or workstation-based firewall:
+
+
+- Information filtering rules are customizable for each server. It is possible to deploy specific security policies for each enterprise with different filters for each different server.
+
+- Protection is provided independently of the topology. Thus both internal and external attacks must pass through the firewall.
+
+- Used in conjunction with stand-alone firewalls, the host-based firewall provides an additional layer of protection. A new type of server can be added to the network, with its own firewall, without the necessity of altering the network firewall configuration.
+
+## 3.3 Personal Firewall
+
+The personal firewall controls the information traffic of a personal computer or a workstation on one side and the Internet or enterprise network on the other side. Personal firewall functionality can be used in the home environment and on corporate intranets. Typically, a personal firewall is an application. In case there are many computers connect to the Internet, firewall functionality can also be housed in a router. Personal firewalls are often more complicated than server-based firewalls or independent firewalls. The primary role of the personal firewall is to deny unauthorized access to the network. The firewall can also monitor activity for scanning or detecting malware. --&gt;
+
+&lt;h1 id=&quot;3-cơ-sở-tưởng-lửa&quot;&gt;3. Cơ sở tưởng lửa&lt;/h1&gt;
+
+&lt;h2 id=&quot;31-bastion-host&quot;&gt;3.1 Bastion Host&lt;/h2&gt;
+&lt;p&gt;Basting host là một hệ thống được xác định bởi người quản trị tường lửa, là một điểm mạnh quan trọng trong bảo mật mạng. Thông thường, Basting host đóng vai trò là nền tảng cho tầng ứng dụng. thường thì các đặc điểm của basting host sẽ như sau:&lt;/p&gt;
+
+&lt;p&gt;Chỉ các dịch vụ mà người quản trị viên mạng coi là thiết mới được cài đặt trên basting host ví dụ như: DNS, FTP, HTTP, SMTP,…&lt;/p&gt;
+
+&lt;p&gt;Basting host có thể yêu cầu xác thực bổ sung trước khi người dùng được phép truy cập vào các dịch vụ proxy. Ngoài ra mỗi dịch vụ proxy có thể yêu cầu xác thực riêng trước khi cấp quyền truy cập cho người dùng&lt;/p&gt;
+
+&lt;p&gt;Mỗi proxy được cấu hình để chỉ hỗ trợ một tập hợp của bộ lệnh tiêu chuẩn.&lt;/p&gt;
+
+&lt;p&gt;Mỗi proxy được cấu hình để chỉ cho phép các truy cập vào các hệ thống máy chủ cụ thể. Điều này có nghĩa là các lệnh và các tính năng chỉ có thể được sử dụng trên một phần của hệ thống.&lt;/p&gt;
+
+&lt;p&gt;Mỗi proxy duy trì sự kiểm tra chi tiết bằng cách lưu lại tất cả lưu lượng truy cập của từng kết nối và thời lượng của mỗi kết nối. Việc lưu lại các thông tin truy cập này là một điều cần thiết để điều tra và chấm dứt các cuộc tấn công của những kẻ xâm nhập.&lt;/p&gt;
+
+&lt;p&gt;Mỗi module proxy là một gói phần mền rất nhỏ được thiết kế đặc biệt để bảo mật mạng. Do tính đơn giản của nó, việc kiểm tra các lỗi bảo mật sẽ dễ dàng hơn. Ví dụ như một ứng dụng mail trong UNIX có thể chứ hơn 20000 dòng mã, trong khi một proxy mail có thể sẽ ít hơn 1000 dòng.&lt;/p&gt;
+
+&lt;p&gt;Mỗi proxy sẽ độc lập lớp các proxy khác trên bastion host. Nếu có bất kỳ vấn đề với proxy nào thì nó có thể được gỡ ra mà không ảnh hướng tới các proxy khác. Nếu người dùng yêu cầu hỗ trợ một service mới thì quản trị viên mạng có thể dễ dàng cài đặt nó trên bastion host.&lt;/p&gt;
+
+&lt;p&gt;Một proxy thường không được truy cập vào các tài nguyên khác ngoại trừ file cấu hình ban đầu của nó. Do đó các phần file chứa mã có thể thực thi thì chỉ có thể đọc mà thôi. Điều này sẽ gây khó khăn cho những kẻ xâm nhập để cài trojan hoặc các file nguy hiểm các trên bastion host.&lt;/p&gt;
+
+&lt;p&gt;Mỗi proxy chạy như một user không có đặc quyền trên một thư mục riêng và được bảo mật trên bastion host.&lt;/p&gt;
+
+&lt;h2 id=&quot;32-host-based-firewalls&quot;&gt;3.2 Host-Based Firewalls&lt;/h2&gt;
+
+&lt;p&gt;Host-based firewall là một modules ứng đụng dùng để bảo vệ các máy chủ riêng lẻ. các modules như vậy thường có sẵn trong hệ điều hành hoặc được cung cấp dưới dạng các package bổ sung. Giống như một tường lửa thông thường, host-resident lọc và hạn chế các luồng dữ liệu. Một số lợi thế khi sử dụng server-based hoặc workstation-based firewall:&lt;/p&gt;
+
+&lt;p&gt;Các quy tắc lọc thông tin có thể tùy chỉnh được cho từng máy chủ. Có thể triển khai các chính sách bảo mật cụ thể cho từng doanh nghiệp với các bộ lọc khác nhau cho từng máy chủ khác nhau.&lt;/p&gt;
+
+&lt;p&gt;Sự bảo vệ được cung cấp độc lập với cấu trúc liên kết. Do đó, các cuộc tấn công từ bên ngoài và cả bên trong đều phải vượt qua tường lửa.&lt;/p&gt;
+
+&lt;p&gt;Được sử dụng cùng lúc với tường lửa độc lập, host-based firewall cung cấp thêm một lớp bảo vệ. Một máy chủ mới có thể kết nối với mạng mà không cần thay đổi cấu hình của tường lửa mạng.&lt;/p&gt;
+
+&lt;h2 id=&quot;33-personal-firewall&quot;&gt;3.3 Personal Firewall&lt;/h2&gt;
+
+&lt;p&gt;Personal firewall kiểm soát các lưu lượng thông tin của một máy tính cá nhân hoặc một máy trạm ở phí người dùng. 
+Personal firewall có thể dùng ở nhà hoặc các mạng nội bộ của công ty. Thông thường, personal firewall là một ứng dụng trên máy tính cá nhân. Trong trường hợp có nhiều máy tính kết nối với Internet tường lửa có thể đặt trong router.&lt;/p&gt;
+
+&lt;p&gt;Personal firewall thường phức tạp hơn rất nhiều so với server-based firewalls hay tường lửa độc lập. Vai trò chính của tường lửa cá nhân là từ chối truy cập trái phép vào máy tính. Tường lửa cũng có thể giám sát hoạt động dò quét hoặc phát hiện các malware.&lt;/p&gt;
+
+&lt;h1 id=&quot;4-firewall-configuration&quot;&gt;4. Firewall configuration&lt;/h1&gt;
+
+&lt;p&gt;&lt;em&gt;A network administrator must determine the location and number of firewalls needed, and here are some typical options:&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;41-dmz-networks&quot;&gt;4.1 DMZ Networks:&lt;/h2&gt;
+&lt;p&gt;An external firewall is placed at the edge of a local or enterprise network, just inside the boundary router that connects to the Internet or some wide area network (WAN). One or more internal firewalls protect the bulk of the enterprise network. Between these two types of firewalls are one or more networked devices in a region referred to as a DMZ (demilitarized zone) network. Systems that are externally accessible but need some protections are usually located on DMZ networks. Typically, the systems in the DMZ require or foster external connectivity, such as a corporate Web site, an e-mail server, or a DNS (domain name system) server.&lt;/p&gt;
+
+&lt;p&gt;The external firewall provides a measure of access control and protection for the DMZ systems consistent with their need for external connectivity. The external firewall also provides a basic level of protection for the remainder of the enterprise network.&lt;/p&gt;
+
+&lt;p&gt;Internal firewalls serve three purposes:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;The internal firewall adds more stringent filtering capability, compared to the
+external firewall, in order to protect enterprise servers and workstations from
+external attack.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The internal firewall provides two-way protection with respect to the DMZ.
+    &lt;ul&gt;
+      &lt;li&gt;First, the internal firewall protects the remainder of the network from attacks launched from DMZ systems.&lt;/li&gt;
+      &lt;li&gt;Second, an internal firewall can protect the DMZ systems from attack from the internal protected network.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Multiple internal firewalls can be used to protect portions of the internal network from each other.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_6.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;42-virtual-private-networks&quot;&gt;4.2 Virtual Private Networks:&lt;/h2&gt;
+
+&lt;p&gt;In essence, a VPN uses encryption and authentication in the lower protocol layers to provide a secure connection through an otherwise insecure network, typically the Internet. VPNs are generally cheaper than real private networks using private lines but rely on having the same encryption and authentication system at both ends. The encryption may be performed by firewall software or possibly by routers. The most common protocol mechanism used for this purpose is at the IP level and is known as IPSec&lt;/p&gt;
+
+&lt;p&gt;If IPSec is implemented in a separate box behind (internal to) the firewall, then VPN traffic passing through the firewall in both directions is encrypted. In this case, the firewall is unable to perform its filtering function or other security functions, such as access control, logging, or scanning for viruses. IPSec could be implemented in the boundary router, outside the firewall. However, this device is likely to be less secure than the firewall and thus less desirable as an IPSec platform&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_7.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;43-distributed-firewalls&quot;&gt;4.3 Distributed Firewalls&lt;/h2&gt;
+
+&lt;p&gt;A distributed firewall configuration involves stand-alone firewall devices plus hostbased firewalls working together under a central administrative control. Administrators can configure hostresident firewalls on hundreds of servers and workstation as well as configure personal firewalls on local and remote user systems. Tools let the network administrator set policies and monitor security across the entire network. These firewalls protect against internal attacks and provide protection tailored to specific machines and applications. Stand-alone firewalls provide global protection, including internal firewalls and an external firewall, as discussed previously.&lt;/p&gt;
+
+&lt;p&gt;With distributed firewalls, it may make sense to establish both an internal and an external DMZ. Web servers that need less protection because they have less critical information on them could be placed in an external DMZ, outside the external firewall. What protection is needed is provided by host-based firewalls on these servers&lt;/p&gt;
+
+&lt;p&gt;An important aspect of a distributed firewall configuration is security monitoring. Such monitoring typically includes log aggregation and analysis, firewall statistics, and fine-grained remote monitoring of individual hosts if needed.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_8.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;reference&lt;/h1&gt;
+
+&lt;p&gt;Stallings, W., &amp;amp; Brown, L. (2015). Computer Security Principles and Practice (3rd Edition).&lt;/p&gt;
+</description>
+        <pubDate>Mon, 11 Nov 2019 17:40:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/network/firewall-vnese.html</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/network/firewall-vnese.html</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>network</category>
+        
+      </item>
     
       <item>
         <title>Firewall</title>
@@ -313,11 +546,9 @@ So you can see Manual Transmission is harder to control than a Semi-automatic Mo
 Now, I’m currently a &lt;strong&gt;computer science&lt;/strong&gt; undergraduate student at &lt;strong&gt;Ton Duc Thang university&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;My birdthday is &lt;strong&gt;02&lt;sup&gt;nd&lt;/sup&gt; September&lt;/strong&gt; and that also is the independence day of my country( Vietnam ).
-I was born in Nha Trang, but now I’m living in HCMC to convenient for studying at school. Because I can’t travel 900 kilometers from home to school daily.&lt;/p&gt;
+I was born in Nha Trang, but now I’m living in HCMC to convenient for studying at school. Because I can’t travel 900 kilometers from home to school every single day.&lt;/p&gt;
 
-&lt;p&gt;I can play guitar, drum. To me, playing the drum is the most effective way to relieving stress. My favorite guitarist is Slash-GnR. On the stage, he is very awesome.&lt;/p&gt;
-
-&lt;p&gt;By the way, I wish to become a pilot. I have research and fly an airplane. But just on a simulator. I think in the future world everyone will be own their plane. Besides it, I have a passion with the Universe, Physis. When I was a kid, ….&lt;/p&gt;
+&lt;p&gt;I can play guitar, drum. To me, playing the drum is the most effective way to relieving stress. My favorite guitarist is Slash-GnR. On the stage, he is very awesome. I wish to owned an drum, but my house is too small for a drum and I don’t want to disturb my neighboors. I ‘ve self learning drum and guitar when I was 15 years old. Now, I have play guitar for 6 years and drum for 5 year. In the future, I think I will learn to play something new like Piano, Violin,…&lt;/p&gt;
 
 &lt;p&gt;…
 …
@@ -328,9 +559,9 @@ I was born in Nha Trang, but now I’m living in HCMC to convenient for studying
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Mother language:&lt;/strong&gt; &lt;em&gt;Tiếng Việt&lt;/em&gt; (Vietnamese)&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;English&lt;/em&gt; (English): …60%…&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Deutsche (German)&lt;/em&gt; :&lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;한국어 (Korean)&lt;/em&gt;: &lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;日本語 (Japanese)&lt;/em&gt;: &lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Deutsche (German)&lt;/em&gt; :&lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;knowledge&quot;&gt;Knowledge&lt;/h2&gt;
@@ -344,26 +575,24 @@ I was born in Nha Trang, but now I’m living in HCMC to convenient for studying
   &lt;li&gt;Arificial Intelligence&lt;/li&gt;
   &lt;li&gt;Music theory&lt;/li&gt;
   &lt;li&gt;A little bit of flight theory&lt;/li&gt;
-  &lt;li&gt;Advanced Driving skill&lt;/li&gt;
+  &lt;li&gt;Advanced Driving skill with more than 10,000 hour exp&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;tools&quot;&gt;Tools&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Photoshop&lt;/li&gt;
-  &lt;li&gt;Tensorflow&lt;/li&gt;
-  &lt;li&gt;Pytorch&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;programming-language&quot;&gt;Programming language&lt;/h2&gt;
-
-&lt;ul&gt;
+  &lt;li&gt;Microsoft Office&lt;/li&gt;
+  &lt;li&gt;Many AI/ML library&lt;/li&gt;
+  &lt;li&gt;…
+    &lt;h2 id=&quot;programming-language&quot;&gt;Programming language&lt;/h2&gt;
+  &lt;/li&gt;
   &lt;li&gt;First programming language: C, Java, Pascal&lt;/li&gt;
   &lt;li&gt;Had difficulties: Prolog, Assembly&lt;/li&gt;
   &lt;li&gt;Most used: Python, Javascript, PHP&lt;/li&gt;
   &lt;li&gt;Totally hate: C#&lt;/li&gt;
   &lt;li&gt;Most loved: Python&lt;/li&gt;
-  &lt;li&gt;For beginners: Python&lt;/li&gt;
+  &lt;li&gt;For beginners: Python, C&lt;/li&gt;
   &lt;li&gt;Curious about: Cuda, Ruby&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -374,8 +603,10 @@ I was born in Nha Trang, but now I’m living in HCMC to convenient for studying
   &lt;li&gt;Play music instument&lt;/li&gt;
   &lt;li&gt;Space ship&lt;/li&gt;
   &lt;li&gt;Flight plane simulator&lt;/li&gt;
-  &lt;li&gt;Play game&lt;/li&gt;
+  &lt;li&gt;Play game (LoL, World of Warship, …)&lt;/li&gt;
+  &lt;li&gt;Talking with stranger&lt;/li&gt;
 &lt;/ul&gt;
+
 </description>
         <pubDate>Sun, 15 Sep 2019 14:47:00 +0700</pubDate>
         <link>http://localhost:4000/topics/about me/</link>
