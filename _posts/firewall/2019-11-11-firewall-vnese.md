@@ -182,51 +182,6 @@ Personal firewall có thể dùng ở nhà hoặc các mạng nội bộ của c
 
 Personal firewall thường phức tạp hơn rất nhiều so với server-based firewalls hay tường lửa độc lập. Vai trò chính của tường lửa cá nhân là từ chối truy cập trái phép vào máy tính. Tường lửa cũng có thể giám sát hoạt động dò quét hoặc phát hiện các malware. 
 
-# 4. Firewall configuration
-
-*A network administrator must determine the location and number of firewalls needed, and here are some typical options:*
-
-## 4.1 DMZ Networks: 
-An external firewall is placed at the edge of a local or enterprise network, just inside the boundary router that connects to the Internet or some wide area network (WAN). One or more internal firewalls protect the bulk of the enterprise network. Between these two types of firewalls are one or more networked devices in a region referred to as a DMZ (demilitarized zone) network. Systems that are externally accessible but need some protections are usually located on DMZ networks. Typically, the systems in the DMZ require or foster external connectivity, such as a corporate Web site, an e-mail server, or a DNS (domain name system) server.
-
-The external firewall provides a measure of access control and protection for the DMZ systems consistent with their need for external connectivity. The external firewall also provides a basic level of protection for the remainder of the enterprise network.
-
-Internal firewalls serve three purposes:
-1. The internal firewall adds more stringent filtering capability, compared to the
-external firewall, in order to protect enterprise servers and workstations from
-external attack.
-
-2. The internal firewall provides two-way protection with respect to the DMZ. 
-	- First, the internal firewall protects the remainder of the network from attacks launched from DMZ systems. 
-	- Second, an internal firewall can protect the DMZ systems from attack from the internal protected network.
-
-3. Multiple internal firewalls can be used to protect portions of the internal network from each other.
-
-
-{% include post_picwrap.html pos="fit" src="/images/topic_image/firewall/img_6.png" %}
-
-## 4.2 Virtual Private Networks: 
-
-In essence, a VPN uses encryption and authentication in the lower protocol layers to provide a secure connection through an otherwise insecure network, typically the Internet. VPNs are generally cheaper than real private networks using private lines but rely on having the same encryption and authentication system at both ends. The encryption may be performed by firewall software or possibly by routers. The most common protocol mechanism used for this purpose is at the IP level and is known as IPSec
-
-If IPSec is implemented in a separate box behind (internal to) the firewall, then VPN traffic passing through the firewall in both directions is encrypted. In this case, the firewall is unable to perform its filtering function or other security functions, such as access control, logging, or scanning for viruses. IPSec could be implemented in the boundary router, outside the firewall. However, this device is likely to be less secure than the firewall and thus less desirable as an IPSec platform
-
-
-{% include post_picwrap.html pos="fit" src="/images/topic_image/firewall/img_7.png" %}
-
-## 4.3 Distributed Firewalls
-
-
-A distributed firewall configuration involves stand-alone firewall devices plus hostbased firewalls working together under a central administrative control. Administrators can configure hostresident firewalls on hundreds of servers and workstation as well as configure personal firewalls on local and remote user systems. Tools let the network administrator set policies and monitor security across the entire network. These firewalls protect against internal attacks and provide protection tailored to specific machines and applications. Stand-alone firewalls provide global protection, including internal firewalls and an external firewall, as discussed previously.
-
-
-With distributed firewalls, it may make sense to establish both an internal and an external DMZ. Web servers that need less protection because they have less critical information on them could be placed in an external DMZ, outside the external firewall. What protection is needed is provided by host-based firewalls on these servers
-
-An important aspect of a distributed firewall configuration is security monitoring. Such monitoring typically includes log aggregation and analysis, firewall statistics, and fine-grained remote monitoring of individual hosts if needed.
-
-
-{% include post_picwrap.html pos="fit" src="/images/topic_image/firewall/img_8.png" %}
-
 # reference 
 
 Stallings, W., & Brown, L. (2015). Computer Security Principles and Practice (3rd Edition).
