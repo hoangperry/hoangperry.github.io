@@ -1,6 +1,7 @@
 ---
 title: How to ride a motorbike
-excerpt: This topic will introduction you how to riding a motocycle.
+excerpt: This topic will introduction you how to riding a motocycle from zero to hero.
+background-image: topic_image/how_to_ride_a_motobike/background.jpg
 categories:
   - topics
   - tutorial
