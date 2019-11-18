@@ -21,7 +21,7 @@ In case you are moving too fast. Please squeeze the rear-brake slowly. If you br
 
 # Semi-automatic Motorcycle
 
-{% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/vespa.jpg" %}
+{% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/fff.jpg" %}
 
 Usually, a semi Semi-automatic Motorcycle have 4 or 5 
 gear level. The maximum speed of each level increases gradually. 
