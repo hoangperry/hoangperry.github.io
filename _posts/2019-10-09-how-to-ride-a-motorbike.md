@@ -11,8 +11,6 @@ date: 2019-10-08 16:47
 Of course, if you want to ride a motocycle you must have a motocycle first. There are many type of motocycle like: electric motorcycle, scooter motorcycle, manual transmission motorcycle, semi automatic motorcycle,...
 
 # Scooter & Electric Motocycle
-
-{% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/klara.jpg" %}
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/vespa.jpg" %}
 
 If you motocycle is a scooter just twist the throttle slowly and you motocycle will move. 
@@ -22,7 +20,7 @@ In case you are moving too fast. Please squeeze the rear-brake slowly. If you br
 
 # Semi-automatic Motorcycle
 
-{% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/fff.jpg" %}
+{% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/supercub.jpg" %}
 
 Usually, a semi Semi-automatic Motorcycle have 4 or 5 
 gear level. The maximum speed of each level increases gradually. 
