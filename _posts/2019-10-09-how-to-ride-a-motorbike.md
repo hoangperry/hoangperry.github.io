@@ -34,6 +34,8 @@ A Manual Transmission Motorcycle is likely to Semi-automatic Motorcycle. But It 
 This trigger will control the part between engine and gearbox. If you pull full the trigger. The gearbox is disconnect with engine. So the wheel will spin free. Contrary the whell will spin with your engine.
 So you can see Manual Transmission is harder to control than a Semi-automatic Motor.
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/mt.jpg" %}
+
 ...
 
 Drive safely!
