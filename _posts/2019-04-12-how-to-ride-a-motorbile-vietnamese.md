@@ -13,7 +13,7 @@ date: 2019-4-12 11:30
 # Xe ga - Xe máy điện
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/vespa.jpg" %}
 
-Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu xe này lái rất dễ, nó chỉ gồm 2 bộ phận chính đó là tay ga và 2 tay thắng. Đương nhiên là chiếc xe thì cần phải có bánh xe, tay lái các thứ rồi đúng không. Nhưng mà đó là các bộ phận cơ bản nên tớ sẽ không bàn đến. Quay lại với chiếc xe, khi bạn văn tay côn về phía bạn chiếc xe sẽ tự động đi lên. Nhưng nhớ là nên vặn từ từ thôi chứ không thì chiếc xe của bạn sẽ bay luôn đó.
+Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu xe này lái rất dễ, nó chỉ gồm 2 bộ phận chính đó là tay ga và 2 tay thắng. Đương nhiên là chiếc xe thì cần phải có bánh xe, tay lái các thứ rồi đúng không. Nhưng mà đó là các bộ phận cơ bản nên tớ sẽ không bàn đến. Quay lại với chiếc xe, khi bạn văn tay côn về phía bạn chiếc xe sẽ tự động đi lên. Nhưng nhớ là nên vặn từ từ thôi chứ không thì chiếc xe của bạn sẽ bay luôn đó. 
 
 If you motocycle is a scooter just twist the throttle slowly and you motocycle will move. 
 Usually, the front-brake is on your right hand, and rear brake is on the opposite hand.
