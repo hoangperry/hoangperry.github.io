@@ -8,16 +8,12 @@ categories:
 date: 2019-4-12 11:30
 ---
 
-Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đã. Trong bài này tôi sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn.
+Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đã. Trong bài này tôi sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn. Mỗi loại xe có một cách vận hành riêng của nó với mức can thiệp của con người vào chiếc xe khác nhau. 
 
 # Xe ga - Xe máy điện
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/vespa.jpg" %}
 
-Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu xe này lái rất dễ, nó chỉ gồm 2 bộ phận chính đó là tay ga và 2 tay thắng. Đương nhiên là chiếc xe thì cần phải có bánh xe, tay lái các thứ rồi đúng không. Nhưng mà đó là các bộ phận cơ bản nên tớ sẽ không bàn đến. Quay lại với chiếc xe, khi bạn văn tay côn về phía bạn chiếc xe sẽ tự động đi lên. Nhưng nhớ là nên vặn từ từ thôi chứ không thì chiếc xe của bạn sẽ bay luôn đó. Trong trường hợp bạn muốn thắng xe lại thì chỉ việc bóp 1 trong 2 tay thắng
-
-If you motocycle is a scooter just twist the throttle slowly and you motocycle will move. 
-Usually, the front-brake is on your right hand, and rear brake is on the opposite hand.
-In case you are moving too fast. Please squeeze the rear-brake slowly. If you brake too tightly and the wheel will be skid on. And it will be dangerous.
+Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu xe này lái rất dễ, nó chỉ gồm 2 bộ phận chính đó là tay ga và 2 tay thắng. Đương nhiên là chiếc xe thì cần phải có bánh xe, tay lái các thứ rồi đúng không. Nhưng mà đó là các bộ phận cơ bản nên tớ sẽ không bàn đến. Quay lại với chiếc xe, khi bạn vặn tay côn về phía bạn chiếc xe sẽ tự động đi lên. Nhưng nhớ là nên vặn từ từ thôi chứ không thì chiếc xe của bạn sẽ bay luôn đó. Trong trường hợp bạn muốn thắng xe lại thì chỉ việc bóp 1 trong 2 tay thắng. Thường thì thắng của bánh trước sẽ nằm bên phải và thắng của bánh sau sẽ nằm ở tay bên trái. Việc nên bóp phanh nào trong những trường hợp nào thì tôi sẽ nói với các bạn trong phần sau.
 
 
 # Xe số tự động
