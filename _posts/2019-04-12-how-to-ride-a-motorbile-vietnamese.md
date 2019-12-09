@@ -20,9 +20,7 @@ Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/supercub.jpg" %}
 
-Usually, a semi Semi-automatic Motorcycle have 4 or 5 
-gear level. The maximum speed of each level increases gradually. 
-And the acceleration of each level will decrease. So choose the gear fit with your current speed.
+Thông thường xe số tự động sẽ có từ 3 đến 5 cấp số khác nhau. Các số nhỏ sẽ có nô-men xoắn lớn hơn những số cao. Vì vậy gia tốc của những số nhỏ hơn sẽ cao hơn những số lớn hơn, nhưng các số lớn hơn sẽ có tốc độ tối đa cao hơn. Vì đặc điểm đó cho nên khi tăng tốc xe, chúng ta sẽ chuyển dần từ số nhỏ lên số cao hơn. Và khi nếu bạn kết hợp tay ga nhịp nhàng với hộp số thì chiếc xe bạn sẽ tăng tốc rất mượt và không bị khựng ở đoạn nào cả, lúc đấy nó sẽ mượt chẳng khác gì xe tay ga.
 
 # Xe tay côn
 
