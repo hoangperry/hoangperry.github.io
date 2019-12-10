@@ -8,7 +8,7 @@ categories:
 date: 2019-4-12 11:30
 ---
 
-Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đã. Trong bài này tôi sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn. Mỗi loại xe có một cách vận hành riêng của nó với mức can thiệp của con người vào chiếc xe khác nhau. 
+Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đúng không. Xe thì có nhiều loại, kiểu dáng khác nhau. Trong bài này tôi sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn. Mỗi loại xe có một cách vận hành riêng của nó với mức can thiệp của con người vào chiếc xe khác nhau. 
 
 # Xe ga - Xe máy điện
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/vespa.jpg" %}
