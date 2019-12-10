@@ -8,12 +8,12 @@ categories:
 date: 2019-4-12 11:30
 ---
 
-Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đúng không. Xe thì có nhiều loại, kiểu dáng khác nhau. Trong bài này tôi sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn. Mỗi loại xe có một cách vận hành riêng của nó với mức độ có thể can thiệp bởi con người vào chiếc xe khác nhau. Vì càng phải can thiệp vào chiếc xe nhiều hơn đồng nghĩa với việc phải thực hiện nhiều thao tác hơn vì vậy mà việc việc lái chiếc xe sẽ càng khó khăn hơn. 
+Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đúng không. Xe thì có nhiều loại, kiểu dáng khác nhau. Trong bài này tôi sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn. Mỗi loại xe có một cách vận hành riêng của nó với mức độ có thể can thiệp bởi con người vào chiếc xe khác nhau. Vì càng phải can thiệp vào chiếc xe nhiều hơn đồng nghĩa với việc phải thực hiện nhiều thao tác hơn vì vậy mà việc việc lái chiếc xe sẽ càng khó khăn hơn.
 
 # Xe ga - Xe máy điện
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/vespa.jpg" %}
 
-Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu xe này lái rất dễ, nó chỉ gồm 2 bộ phận chính đó là tay ga và 2 tay thắng. Đương nhiên là chiếc xe thì cần phải có bánh xe, tay lái các thứ rồi đúng không. Nhưng mà đó là các bộ phận cơ bản nên tớ sẽ không bàn đến. Quay lại với chiếc xe, khi bạn vặn tay côn về phía bạn chiếc xe sẽ tự động đi lên. Nhưng nhớ là nên vặn từ từ thôi chứ không thì chiếc xe của bạn sẽ bay luôn đó. Trong trường hợp bạn muốn thắng xe lại thì chỉ việc bóp 1 trong 2 tay thắng. Thường thì thắng của bánh trước sẽ nằm bên phải và thắng của bánh sau sẽ nằm ở tay bên trái. Việc nên bóp phanh nào trong những trường hợp nào thì tôi sẽ nói với các bạn trong phần sau.
+Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu xe này lái rất dễ, nó chỉ gồm 2 bộ phận để điều khiển chính đó là tay ga và 2 tay thắng. khi bạn vặn tay ga về phía bạn thì động cơ sẽ tăng tốc, thông qua bộ truyền dẫn động cơ sẽ kéo bánh xe của bạn đi, từ đó mà chiếc xe của bạn sẽ di chuyển dần về phía trước. Nhưng nhớ là nên vặn từ từ thôi chứ không thì chiếc xe của bạn sẽ tăng tốc đột ngột và bạn sẽ không kiểm soát được đâu. Trong trường hợp bạn muốn thắng xe lại thì chỉ việc bóp 1 trong 2 tay thắng. Thường thì thắng của bánh trước sẽ nằm bên phải và thắng của bánh sau sẽ nằm ở tay bên trái. Việc nên bóp phanh nào trong những trường hợp nào thì tôi sẽ nói với các bạn trong phần sau.
 
 
 # Xe số tự động
