@@ -19,11 +19,13 @@ Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/supercub.jpg" %}
 
-Thông thường xe số tự động sẽ có từ 3 đến 5 cấp số khác nhau. Các số nhỏ sẽ có nô-men xoắn lớn hơn những số cao. Vì vậy gia tốc của những số nhỏ hơn sẽ cao hơn những số lớn hơn, nhưng các số lớn hơn sẽ có tốc độ tối đa cao hơn. Vì đặc điểm đó cho nên khi tăng tốc xe, chúng ta sẽ chuyển dần từ số nhỏ lên số cao hơn. Và khi nếu bạn kết hợp tay ga nhịp nhàng với hộp số thì chiếc xe bạn sẽ tăng tốc rất mượt và không bị khựng ở đoạn nào cả, lúc đấy nó sẽ mượt chẳng khác gì xe tay ga.
+Thông thường xe số tự động sẽ có từ 3 đến 5 cấp số khác nhau. Các số nhỏ sẽ có nô-men xoắn lớn hơn những số cao. Vì vậy gia tốc của những số nhỏ hơn sẽ cao hơn những số lớn hơn, nhưng các số lớn hơn sẽ có tốc độ tối đa cao hơn. Vì đặc điểm đó cho nên khi tăng tốc xe, chúng ta sẽ chuyển dần từ số nhỏ lên số cao hơn. Và khi nếu bạn kết hợp tay ga nhịp nhàng với hộp số thì chiếc xe bạn sẽ tăng tốc rất mượt và không bị khựng ở đoạn nào cả, lúc đấy nó sẽ mượt chẳng khác gì xe tay ga. 
 
 # Xe tay côn
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/r1.jpg" %}
+
+Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại xe sẽ gây khó nhằng cho bạn nhiều nhất.
 
 A Manual Transmission Motorcycle is likely to Semi-automatic Motorcycle. But It had a Manual clutch. Usually the clutch trigger is on the left hand. It will be harder to drive than Semi-automatic Motor or Scoorter. 
 This trigger will control the part between engine and gearbox. If you pull full the trigger. The gearbox is disconnect with engine. So the wheel will spin free. Contrary the whell will spin with your engine.
