@@ -19,7 +19,7 @@ Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/supercub.jpg" %}
 
-Thông thường xe số tự động sẽ có từ 3 đến 5 cấp số khác nhau. Các số nhỏ sẽ có nô-men xoắn lớn hơn những số cao. Vì vậy gia tốc của những số nhỏ hơn sẽ cao hơn những số lớn hơn, nhưng các số lớn hơn sẽ có tốc độ tối đa cao hơn. Vì đặc điểm đó cho nên khi tăng tốc xe, chúng ta sẽ chuyển dần từ số nhỏ lên số cao hơn. Và khi nếu bạn kết hợp tay ga nhịp nhàng với hộp số thì chiếc xe bạn sẽ tăng tốc rất mượt và không bị khựng ở đoạn nào cả, lúc đấy nó sẽ mượt chẳng khác gì xe tay ga. Về phần thắng của xe thì thắng trước của bạn sẽ được đặt bên tay lái bên phải.
+Thông thường xe số tự động sẽ có từ 3 đến 5 cấp số khác nhau. Các số nhỏ sẽ có nô-men xoắn lớn hơn những số cao. Vì vậy gia tốc của những số nhỏ hơn sẽ cao hơn những số lớn hơn, nhưng các số lớn hơn sẽ có tốc độ tối đa cao hơn. Vì đặc điểm đó cho nên khi tăng tốc xe, chúng ta sẽ chuyển dần từ số nhỏ lên số cao hơn. Và khi nếu bạn kết hợp tay ga nhịp nhàng với hộp số thì chiếc xe bạn sẽ tăng tốc rất mượt và không bị khựng ở đoạn nào cả, lúc đấy nó sẽ mượt chẳng khác gì xe tay ga. Về phần thắng của xe thì thắng trước của bạn sẽ được đặt bên tay lái bên phải. Còn thắng của bánh xe sau sẽ đặt ở bên chân phải đối diện với cần điều khiển hộp số.
 
 # Xe tay côn
 
