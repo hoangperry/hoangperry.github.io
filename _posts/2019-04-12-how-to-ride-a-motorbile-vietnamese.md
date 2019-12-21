@@ -25,7 +25,7 @@ Thông thường xe số tự động sẽ có từ 3 đến 5 cấp số khác 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/r1.jpg" %}
 
-Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại xe sẽ gây khó nhằng cho bạn nhiều nhất. Bởi vì loại xe này thì phải phải điều khiển thêm tay côn nữa. Tay côn giống tay thắng nhưng thường sẽ nằm ở bên tay trái của bạn. Còn vị trí cần thắng và tay thắng sẽ giống như xe số tự động. Thông thường tay thắng bánh trước sẽ nằm bên tay trái, còn cần thắng của bánh sau sẽ nằm ở gỗ gác chân bên phải. Việc điều khiển  
+Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại xe sẽ gây khó nhằng cho bạn nhiều nhất. Bởi vì loại xe này thì phải phải điều khiển thêm tay côn nữa. Tay côn giống tay thắng nhưng thường sẽ nằm ở bên tay trái của bạn. Còn vị trí cần thắng và tay thắng sẽ giống như xe số tự động. Thông thường tay thắng bánh trước sẽ nằm bên tay trái, còn cần thắng của bánh sau sẽ nằm ở gỗ gác chân bên phải. Việc điều khiển tay côn sẽ như sau: khi bạn bóp hết tay côn thì các lá côn (các bạn có thể coi đó là một bộ phận tiếp xúc truyền động giữa động cơ và hộp số) khi các lá côn không được tiếp xúc với động cơ thì có nghĩa là động cơ không được tiếp xúc với hộp số và hai bộ phận này sẽ truyền động độc lập với nhau. Chúng ta sẽ cần sử dụng động tác ngắt côn này khi mà chúng ta cần đề xe khi hộp số xe đang không ở số N, hoặc là khi chuyển số ở vòng tua thấp. Bởi vì trong hai trường hợp này thì động cơ chưa đủ nô-men xoắn để quay được cả hộp số và bánh xe nên ta cần ngắt động cơ ra để đề nổ hoặc chuyển số mượt mà hơn. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/mt.jpg" %}
 
