@@ -25,11 +25,7 @@ Thông thường xe số tự động sẽ có từ 3 đến 5 cấp số khác 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/r1.jpg" %}
 
-Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại xe sẽ gây khó nhằng cho bạn nhiều nhất. Bởi vì loại xe này thì phải phải điều khiển thêm tay côn nữa. Tay côn giống tay thắng nhưng thường sẽ nằm ở bên tay trái của bạn. 
-
-A Manual Transmission Motorcycle is likely to Semi-automatic Motorcycle. But It had a Manual clutch. Usually the clutch trigger is on the left hand. It will be harder to drive than Semi-automatic Motor or Scoorter. 
-This trigger will control the part between engine and gearbox. If you pull full the trigger. The gearbox is disconnect with engine. So the wheel will spin free. Contrary the whell will spin with your engine.
-So you can see Manual Transmission is harder to control than a Semi-automatic Motor.
+Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại xe sẽ gây khó nhằng cho bạn nhiều nhất. Bởi vì loại xe này thì phải phải điều khiển thêm tay côn nữa. Tay côn giống tay thắng nhưng thường sẽ nằm ở bên tay trái của bạn. Còn vị trí cần thắng và tay thắng sẽ giống như xe số tự động. Thông thường tay thắng bánh trước sẽ nằm bên tay trái, còn cần thắng của bánh sau sẽ nằm ở gỗ gác chân bên phải. Việc điều khiển  
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/how_to_ride_a_motobike/mt.jpg" %}
 
