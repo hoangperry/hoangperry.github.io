@@ -31,6 +31,6 @@ Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại
 
 # Một số lưu ý trong việc lái xe
 
-...
+*Bạn không nên bật đèn pha trong thành phố hoặc chiếu thẳng đèn pha vào xe đi ngược chiều*
 
 Drive safely!
