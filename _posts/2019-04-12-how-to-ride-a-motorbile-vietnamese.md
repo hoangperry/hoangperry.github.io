@@ -34,6 +34,6 @@ Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại
 *Bạn không nên bật đèn pha trong thành phố hoặc chiếu thẳng đèn pha vào xe đi ngược chiều*
 *Luôn bật signal khi rẽ hoặc chuyển làn xe, nếu không thì bạn sẽ bị công an bắt đó*
 *Trước chạy bạn nên kiểm tra chân chống xe, thắng và các bộ phận khác để đảm bảo không có sự cố khi đang chạy giữa đường*
-**
+*Và tốt nhất thì bạn nên có bằng lái trước khi ra đường*
 
 Drive safely!
