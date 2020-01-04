@@ -40,6 +40,10 @@ Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại
 
 ## Đánh lái ngược 
 
+Thông thường khi bạn muốn rẽ sang trái hoặc sang phải thì bạn phải bẻ bánh xe sang hướng muốn rẽ. Vì vậy các bạn thường dùng tay kéo tay lái về hướng muốn rẽ. Nhưng ở kỹ thuật đánh lái ngược sẽ ngược lại với những gì bạn nghĩ. Khi bạn muốn đánh lái ngược sang bên phải thì bạn phải đẩy nhẹ tay lái bên phải lên sau đó thả ra. Thì tay lái xe của bạn sẽ tự động rẽ sang phải.
+
 ## Quick-shift
+
+
 
 Drive safely!
