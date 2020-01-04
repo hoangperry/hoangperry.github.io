@@ -36,4 +36,10 @@ Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại
 *Trước chạy bạn nên kiểm tra chân chống xe, thắng và các bộ phận khác để đảm bảo không có sự cố khi đang chạy giữa đường*
 *Và tốt nhất thì bạn nên có bằng lái trước khi ra đường*
 
+# Những kỹ năng lái xe nâng cao hơn.
+
+## Đánh lái ngược 
+
+## Quick-shift
+
 Drive safely!
