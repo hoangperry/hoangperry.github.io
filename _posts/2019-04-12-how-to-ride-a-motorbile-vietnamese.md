@@ -44,7 +44,7 @@ Thông thường khi bạn muốn rẽ sang trái hoặc sang phải thì bạn 
 
 ## Quick-shift
 
-Khi đi xe côn tay bạn thường phải bóp côn rồi sau đó mới chuyển số được. Nhưng kỹ thuật Quick-shift không cần bạn phải làm điều đó.
+Khi đi xe côn tay bạn thường phải bóp côn rồi sau đó mới chuyển số được. Nhưng kỹ thuật Quick-shift không cần bạn phải làm điều đó. Khi xe đang ở vòng tua cao bạn có thể đẩy cần số để làm cho xe chuyển số mà không cần tới thao tác bóp côn.
 
 
 Drive safely!
