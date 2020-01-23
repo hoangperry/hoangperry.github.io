@@ -21,4 +21,4 @@ Trong khi đó thì Boeing lại nhắm vào các yếu như khả năng tiết 
 # Các hãng không ưa dùng hãng nào hơn?
 
 Đa phần các hãng hàng không đều sử dụng song song máy bay của hai hãng này. Ví dụ như FedEx cũng cân bằng số lượng máy bay mua từ Boeing và Airbus. Đôi bay của FedEx ba gồm 71 chiếc A300, 
-
+30 chiếc A310 của Airbus. 77 Chiếc Boeing 75, 1 chiếc Boeing 767, 24 chiếc Boeing 777. FedEx cũng đang đặt thêm 43 chiếc Boeing 757, 49 chiếc Boeing 767 và 19 chiếc Boeing 777.
