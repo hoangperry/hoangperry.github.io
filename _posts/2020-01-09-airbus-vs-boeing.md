@@ -20,5 +20,5 @@ Trong khi đó thì Boeing lại nhắm vào các yếu như khả năng tiết 
 
 # Các hãng không ưa dùng hãng nào hơn?
 
-Đa phần các hãng hàng không đều sử dụng song song máy bay của hai hãng này. 
+Đa phần các hãng hàng không đều sử dụng song song máy bay của hai hãng này. Ví dụ như FedEx cũng cân bằng số lượng máy bay mua từ Boeing và Airbus. Đôi bay của FedEx ba gồm 71 chiếc A300, 
 
