@@ -1,7 +1,7 @@
 ---
 title: Airbus vs Boeing - Vietnamese
 excerpt: 
-permalink: /topics/
+permalink: /topics/airbus-vs-boeing-vie/
 categories:
   - topics
   - vietnamese
