@@ -8,6 +8,8 @@ categories:
 date: 2020-01-09 12:12
 ---
 
+# Boeing và Airbus
+
 Airbus và Boeing là 2 hãng sản xuất máy bay dân dụng lớn nhất hiện nay với tổng doanh thu toàn cầu lần lượt là 44% và 47%. Hai hãng hàng không ngày tuy là đối thủ với nhau nhưng cả hai đều có quan điểm, chiến lược kinh doanh rất khác nhau. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/airbus_vs_boeing/a380.jpg" %}
