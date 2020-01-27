@@ -8,6 +8,8 @@ categories:
 date: 2020-01-22 00:00
 ---
 
+# Set I
+
 1. Nếu bạn có thể lựa chọn bất kỳ ai trên thế giới này, bạn sẽ chọn ai để cùng đi ăn tối?
 
 2. Bạn có muốn trở nên nổi tiếng không? Bằng cách nào?
@@ -32,6 +34,8 @@ date: 2020-01-22 00:00
 
 12. Nếu bạn thức dậy vào sáng mai và có thể chọn một phẩm chất hoặc khả năng nào mà bạn muốn, đó sẽ là gì?
 
+# Set II
+
 13. Nếu một quả cầu thủy tinh có thể nói cho bạn biết sự thật về bản thân bạn, về cuộc đời, về tương lai hay bất cứ điều gì khác, bạn sẽ muốn biết gì?
 
 14. Có điều gì mà bạn đã mơ ước được làm từ rất lâu rồi không? Tại sao bạn chưa làm nó?
@@ -55,6 +59,8 @@ date: 2020-01-22 00:00
 23. Gia đình bạn có gần gũi và thân thiết với nhau không? Bạn có nghĩ là tuổi thơ của mình đã hạnh phúc hơn rất nhiều người?
 
 24. Bạn thấy thế nào về mối quan hệ với mẹ của mình?
+
+# Set III
 
 25. Mỗi bên lần lượt đưa ra 3 suy nghĩ bắt đầu bằng “chúng tôi”. Ví dụ, “Chúng tôi cùng ở trong căn phòng này và cảm thấy…”
 
