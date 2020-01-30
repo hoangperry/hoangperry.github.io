@@ -10,7 +10,17 @@ date: 2020-01-27 16:53
 
 # Day 1
 
-ü
+A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, Ä, Ö, Ü, ß
+
+
+
+Ä 	ä 	/ɛː/ 	Ärger
+Ö 	ö 	/øː/ 	Ökonom; in Austria Österreich
+Ü 	ü 	/yː/ 	Übermut; in Austria Übel
+ẞ 	ß 	Eszett: /ɛsˈt͡sɛt/
+scharfes S: /ˈʃaʁfəs ɛs/ 	Eszett; in Austria and Southern Germany Scharfes S 
+
+
 
 Fragen: hỏi.
 Entschudigung: Xin lỗi cho tôi hỏi.
@@ -30,3 +40,26 @@ Anhalten: Dừng lại
 Eingang: Lối vào
 Helfen: Giúp đỡ
 Toilette: Phòng tắm
+
+die Schwester: Chị em gái
+der Bruder: Anh em trai
+Katze: Con mèo
+Hund: con chó
+
+Wie geht's?: Khỏe không?
+Sehr gut: Rất khỏe
+Gute Nacht: Ngủ ngon
+
+Ich: tôi
+Meine Familie: Gia đình tôi
+Der Großvater: Ông
+Die Großmutter: Bà 
+
+Guten Abend: Chào buổi tối
+
+Die Tante: Người cô
+Der Onkel: Người chú 
+Nichte: Cháu gái
+Neffe: Cháu trai
+
+
