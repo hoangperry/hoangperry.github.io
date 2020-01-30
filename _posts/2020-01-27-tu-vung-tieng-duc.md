@@ -23,43 +23,73 @@ scharfes S: /ˈʃaʁfəs ɛs/ 	Eszett; in Austria and Southern Germany Scharfes 
 
 
 Fragen: hỏi.
+
 Entschudigung: Xin lỗi cho tôi hỏi.
 Nein: Không	.
+
 Es tut mir leid: Tôi xin lỗi.
+
 Kein problem: Không vấn đề gì.
+
 Darf ich mal eben etwas fragen?: Bây giờ tôi hỏi vài chuyện được không.
+
 Verzeihung, darf ich vorbei: Xin lỗi, cho tôi đi qua được không?
+
 Dürfte ich hier sitzen?: Tôi có thể ngồi đây được không?
 
 Sprache: Ngôn ngữ
+
 Sprechen: Nói
+
 Verstehen: Hiểu
+
 Studieren: Nghiên cứu
 
 Anhalten: Dừng lại
+
 Eingang: Lối vào
+
 Helfen: Giúp đỡ
+
 Toilette: Phòng tắm
 
 die Schwester: Chị em gái
+
 der Bruder: Anh em trai
+
 Katze: Con mèo
+
 Hund: con chó
 
 Wie geht's?: Khỏe không?
+
 Sehr gut: Rất khỏe
+
 Gute Nacht: Ngủ ngon
 
 Ich: tôi
+
 Meine Familie: Gia đình tôi
+
 Der Großvater: Ông
+
 Die Großmutter: Bà 
 
 Guten Abend: Chào buổi tối
 
 Die Tante: Người cô
+
 Der Onkel: Người chú 
+
 Nichte: Cháu gái
+
 Neffe: Cháu trai
 
+Freund: Bạn bè
+
+Mann: Chồng
+
+Auf Wiedersehen!: Hẹn gặp lại!
+
+Ehefrau: Vợ
 
