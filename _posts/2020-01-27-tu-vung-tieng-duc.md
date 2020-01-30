@@ -20,3 +20,13 @@ Kein problem: Không vấn đề gì.
 Darf ich mal eben etwas fragen?: Bây giờ tôi hỏi vài chuyện được không.
 Verzeihung, darf ich vorbei: Xin lỗi, cho tôi đi qua được không?
 Dürfte ich hier sitzen?: Tôi có thể ngồi đây được không?
+
+Sprache: Ngôn ngữ
+Sprechen: Nói
+Verstehen: Hiểu
+Studieren: Nghiên cứu
+
+Anhalten: Dừng lại
+Eingang: Lối vào
+Helfen: Giúp đỡ
+Toilette: Phòng tắm
