@@ -15,9 +15,13 @@ A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, Ä
 
 
 Ä 	ä 	/ɛː/ 	Ärger
+
 Ö 	ö 	/øː/ 	Ökonom; in Austria Österreich
+
 Ü 	ü 	/yː/ 	Übermut; in Austria Übel
+
 ẞ 	ß 	Eszett: /ɛsˈt͡sɛt/
+
 scharfes S: /ˈʃaʁfəs ɛs/ 	Eszett; in Austria and Southern Germany Scharfes S 
 
 
@@ -25,6 +29,7 @@ scharfes S: /ˈʃaʁfəs ɛs/ 	Eszett; in Austria and Southern Germany Scharfes 
 Fragen: hỏi.
 
 Entschudigung: Xin lỗi cho tôi hỏi.
+
 Nein: Không	.
 
 Es tut mir leid: Tôi xin lỗi.
@@ -93,3 +98,22 @@ Auf Wiedersehen!: Hẹn gặp lại!
 
 Ehefrau: Vợ
 
+klein: Nhỏ
+
+Groß: to
+
+Engländer: Người Anh
+
+Frazose: Người Pháp
+
+Deutscher: Người Đức
+
+Spainer: Người Tây Ban Nha
+
+Student: Học sinh
+
+Klasse: Lớp
+
+Schule: Trường
+
+Die Lehrerin: Cô giáo
