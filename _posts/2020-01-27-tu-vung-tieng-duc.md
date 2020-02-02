@@ -117,3 +117,14 @@ Klasse: Lớp
 Schule: Trường
 
 Die Lehrerin: Cô giáo
+
+Brief: Thư
+
+Schreiben: Viết
+
+Buch: Cuốn sách
+
+Lesen: Đọc
+
+die Leute: Mọi người
+
