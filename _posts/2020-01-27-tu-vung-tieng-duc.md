@@ -128,3 +128,6 @@ Lesen: Đọc
 
 die Leute: Mọi người
 
+
+
+

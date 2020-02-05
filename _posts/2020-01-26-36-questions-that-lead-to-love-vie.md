@@ -1,7 +1,7 @@
 ---
 title: 36 Questions that lead to love
 excerpt: 
-permalink: /topics/36-question-that-lead-to-love-eng/
+permalink: /topics/36-question-that-lead-to-love-vie/
 categories:
   - topics
   - love
