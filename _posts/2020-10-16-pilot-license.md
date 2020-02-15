@@ -17,6 +17,8 @@ date: 2020-02-15 10:47
 	- Bay một chuyến bay thật có người giám sát.
 	- Làm theo được các hướng dẫn bay.
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/SPL.jpg" %}
+
 # Private Pilot's License - PPL
 
 # Commercial Pilot's License CPL
