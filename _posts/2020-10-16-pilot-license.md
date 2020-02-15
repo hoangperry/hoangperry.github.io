@@ -1,11 +1,11 @@
 ---
 title: Pilot license
 excerpt: All about pilot license.
-background-image: topic_image/pilot-license/background.jpg
+background-image: topic_image/pilot_license/background.jpg
 categories:
   - topics
   - aviation
-date: 2020-16-01 10:47
+date: 2020-02-15 10:47
 ---
 
 # Student Pilot License
