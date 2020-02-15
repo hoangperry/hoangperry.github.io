@@ -8,11 +8,13 @@ categories:
 date: 2020-02-15 10:47
 ---
 
+*All about pilot license*
+
 # Student Pilot License
 
 Đay là giấy phép tiên quyết để trước khi học viên có thể bay một mình.
 
-Điều kiện cần thiết để được cấp bằng:
+Điều kiện cần thiết để được cấp bằng theo cục FAA:
 
 	- Từ 16 tuổi trở lên (14 tuổi đối với tàu lượn và khinh khí cầu).
 
@@ -23,6 +25,20 @@ date: 2020-02-15 10:47
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/SPL.jpg" %}
 
 # Private Pilot's License - PPL
+
+Đây là bằng lái máy bay tư nhân. Bằng PPL có thể được cấp bởi nhiều cơ quan ở các quốc gia khác nhau. Và mỗi tổ chức này đều có quy định khác nhau về điều kiện lấy bằng. 
+
+Điều kiện cấp bằng sẽ như sau theo cục ICAO:
+
+- Từ 17 tuổi trở lên (16 tuổi đối với tàu lượn và khinh khí cầu). Phi công có thể bắt đầu huấn luyện ở tuổi 16 (14 tuổi đối với tàu lượn và khinh khí cầu).
+
+- Hoàn thành tổng cộng 40 giờ bay (45 giờ đối với châu Âu).
+
+- Vượt quá 7 bài kiểm tra. 
+
+- Hoàn thành 1 chuyến bay xuyên quốc gia tối thiểu 10 giờ bay.
+
+- Thực hiện thành công các kỹ năng bay.
 
 # Commercial Pilot's License CPL
 
