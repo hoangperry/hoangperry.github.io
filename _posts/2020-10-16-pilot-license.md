@@ -30,15 +30,11 @@ date: 2020-02-15 10:47
 
 **Điều kiện cấp bằng sẽ như sau theo cục ICAO:**
 
-	- Từ 17 tuổi trở lên (16 tuổi đối với tàu lượn và khinh khí cầu). Phi công có thể bắt đầu huấn luyện ở tuổi 16 (14 tuổi đối với tàu lượn và khinh khí cầu).
-
-	- Hoàn thành tổng cộng 40 giờ bay (45 giờ đối với châu Âu).
-
-	- Vượt quá 7 bài kiểm tra. 
-
-	- Hoàn thành 1 chuyến bay xuyên quốc gia tối thiểu 10 giờ bay.
-
-	- Thực hiện thành công các kỹ năng bay.
+- Từ 17 tuổi trở lên (16 tuổi đối với tàu lượn và khinh khí cầu). Phi công có thể bắt đầu huấn luyện ở tuổi 16 (14 tuổi đối với tàu lượn và khinh khí cầu).
+- Hoàn thành tổng cộng 40 giờ bay (45 giờ đối với châu Âu).
+- Vượt quá 7 bài kiểm tra. 
+- Hoàn thành 1 chuyến bay xuyên quốc gia tối thiểu 10 giờ bay.
+- Thực hiện thành công các kỹ năng bay.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/PPL.jpg" %}
 
