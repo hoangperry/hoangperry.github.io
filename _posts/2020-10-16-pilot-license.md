@@ -40,6 +40,14 @@ date: 2020-02-15 10:47
 
 # Commercial Pilot's License CPL
 
+Bằng lái máy bay thương mại. Bằng CPL cho phép phi công có thể nhận tiền từ việc bay lượn. Thường thì trên bằng CPL cũng sẽ hiển thị thông tin về trình độ và xếp hạng của phi công. Ngoài ra bằng còn ghi rõ thông tin loại máy bay mà phi công có thể lái.
+
+**Điều kiện để được cấp bằng CPL:**
+- Có thể dùng tiếng Anh thành thạo
+- Đã có bằng PPL
+- Hoàn thành các bài kiểm tra viết.
+- Hoàn thành bài bay dài 300 dặm với 2 chặng dừng.
+
 # Airline Transport Pilot's License ATPL
 
 # Instrument Flight Rules - IFR
