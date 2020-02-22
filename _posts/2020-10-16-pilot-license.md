@@ -48,6 +48,8 @@ Bằng lái máy bay thương mại. Bằng CPL cho phép phi công có thể nh
 - Hoàn thành các bài kiểm tra viết.
 - Hoàn thành bài bay dài 300 dặm với 2 chặng dừng.
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/PPL.jpg" %}
+
 # Airline Transport Pilot's License ATPL
 
 # Instrument Flight Rules - IFR
