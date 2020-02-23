@@ -1,6 +1,6 @@
 ---
 title: The systems development life cycle
-excerpt: All about pilot license.
+excerpt: SDLC
 background-image: topic_image/pilot_license/background.jpg
 categories:
   - topics
@@ -8,17 +8,17 @@ categories:
 date: 2020-02-20 10:47
 ---
 
-*In many ways, building an information system is similar to build a house.*
+	*In many ways, building an information system is similar to build a house.*
 
-*First, the owner describes the vision for the house the developer.*
+	*First, the owner describes the vision for the house the developer.*
 
-*Second, this idea is transformed into sketches and drawings that are shown to the owner and refined util the owner agrees that the pictures depict what he or she wants.*
+	*Second, this idea is transformed into sketches and drawings that are shown to the owner and refined util the owner agrees that the pictures depict what he or she wants.*
 
-*Third, a set of detailed buleprints is developed that presents much more sspecific information about the house*
+	*Third, a set of detailed buleprints is developed that presents much more sspecific information about the house*
 
-*Finally, the house is built following the blueprint*.
+	*Finally, the house is built following the blueprint*.
 
-Building an information system using the SDLC follows a similar set of four fundamental phases: planning, analysis, design and implementation.
+	Building an information system using the SDLC follows a similar set of four fundamental phases: planning, analysis, design and implementation.
 
 # 1. Planning
 
