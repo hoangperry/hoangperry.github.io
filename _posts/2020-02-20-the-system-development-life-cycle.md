@@ -8,17 +8,17 @@ categories:
 date: 2020-02-20 10:47
 ---
 
-	*In many ways, building an information system is similar to build a house.*
+*In many ways, building an information system is similar to build a house.*
 
-	*First, the owner describes the vision for the house the developer.*
+*First, the owner describes the vision for the house the developer.*
 
-	*Second, this idea is transformed into sketches and drawings that are shown to the owner and refined util the owner agrees that the pictures depict what he or she wants.*
+*Second, this idea is transformed into sketches and drawings that are shown to the owner and refined util the owner agrees that the pictures depict what he or she wants.*
 
-	*Third, a set of detailed buleprints is developed that presents much more sspecific information about the house*
+*Third, a set of detailed buleprints is developed that presents much more sspecific information about the house*
 
-	*Finally, the house is built following the blueprint*.
+*Finally, the house is built following the blueprint*.
 
-	Building an information system using the SDLC follows a similar set of four fundamental phases: planning, analysis, design and implementation.
+Building an information system using the SDLC follows a similar set of four fundamental phases: planning, analysis, design and implementation.
 
 # 1. Planning
 
@@ -38,7 +38,21 @@ The system request and feasibility analysis are presented to an informations sys
 
 # 2. Analysis
 
+During this phase, the project team investigates any current system(s), identifies improvement oppotunities, and develops a concept for the new system. This phase has three steps:
+
+1. An analysis strategy is developed to guide the project team's efforts. Such a strategy usually includes astudy of the current system(as-is system) and its problems, and envisioning ways to design a new system(to-be system)
+
+2. The next step is requirements gathering. The analysis of this information - is conjunction with input from the project sponsor and many other people - leads to the development of a concept for a new system. THe system concept is then used as a basis to develop a set of business analysis models that describes how the business will operate if the new system were developed. The set typically includes models that represent the data and processes necessary to support the underlying business process
+
+3. The analyses, the concept, and models are combined into a document called the system proposal, which is presented to the project sponsor and other key decision makers who will decide whether the project should continue to move forward
+
+The system proposal is the initial delivarable that descibes what business requirements the new system should meet. Because it is really the first step in the design of the new system, some experts argye that it is ainappropriate to use the term analysis as the name for this phase; some argue a better name would be analysis and initial design. Because most organizations coutinue to use the nam analysis for this phase.
+
 # 3. Design
+
+The design phase decides how the system will operate in terms of hardware, software, and network infrastruture that will be in place; the user interface, forms, and reports that will be used; and the specific programs, database, and files that will be needed. Although most of the strategic decisions about the system are made in the development of the system concept during the analysis phase, the stpes in the design phase determine exacly how the system will operate. THe design phase has four steps:
+
+1. The design stategy must be determined. This clarifies whether
 
 # 4. Implementations
 
