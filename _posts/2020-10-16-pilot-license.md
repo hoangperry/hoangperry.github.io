@@ -66,6 +66,8 @@ ATPL là bằng cấp cao nhất. Những phi công có bằng ATPL thì mới �
 
 	- Phi công trên 21 tuổi và có tối thiểu 1500 giờ bay
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/ATPL.jpg" %}
+
 # Instrument Flight Rules - IFR
 
 # Multi-engine rating
