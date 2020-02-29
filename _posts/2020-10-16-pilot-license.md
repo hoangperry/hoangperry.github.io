@@ -72,7 +72,11 @@ Commercial Pilot's License (CPL) hay tiếng Việt gọi là Bằng lái máy b
 
 # Instrument Flight Rules
 
+Instrument Flight Rules (IFR) hay còn gọi là giấy phép bay khí tài. Giấy phép này cho phép bạn bay trong các điều kiện thời tiết hạn chế. Đây là một giấy phép quan trọng đối với một phi công thương mai, bởi vì không phải lúc nào thời tiết cũng đẹp cả. Mỗi năm, các phi công đều phải trải qua vài lần kiểm tra giả lập định kỳ.
+
 # Multi-engine rating
+
+Multi-engine rating là giấy phép bay các loại máy bay hạng nhẹ có nhiều hơn một động cơ. còn đối với các máy bay hạng nặng có nhiều hơn một động cơ thì bạn phải có giấy phép huấn luyện đặc dụng (Type Rating).
 
 # Type Rating
 
@@ -83,3 +87,5 @@ https://en.wikipedia.org/wiki/Airline_transport_pilot_licence
 https://en.wikipedia.org/wiki/Commercial_pilot_licence
 
 https://en.wikipedia.org/wiki/Student_pilot_certificate
+
+https://spiderum.com/bai-dang/CAM-NANG-TRO-THANH-PHI-CONG-Phan-2-l2l
