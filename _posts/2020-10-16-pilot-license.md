@@ -10,9 +10,11 @@ date: 2020-02-15 10:47
 
 *All about pilot license*
 
+*Trong Bài viết mình sẽ sử dụng khá nhiều từ viết tắt các bạn có thể google search các từ này. Trong ngành hàng không người ta sử dụng các ký tự viết tắt rất nhiều. Đôi khi mình cũng quên mất những từ viết tắt này là viết tắt của từ gì :D*
+
 # Student Pilot License
 
-Đay là giấy phép tiên quyết để trước khi học viên có thể bay một mình.
+Student Pilot License (Bằng học viên) Đay là giấy phép tiên quyết để trước khi học viên có thể bay một mình.
 
 **Điều kiện cần thiết để được cấp bằng theo cục FAA:**
 
@@ -26,7 +28,7 @@ date: 2020-02-15 10:47
 
 # Private Pilot's License - PPL
 
-Đây là bằng lái máy bay tư nhân. Bằng PPL có thể được cấp bởi nhiều cơ quan ở các quốc gia khác nhau. Và mỗi tổ chức này đều có quy định khác nhau về điều kiện lấy bằng. 
+Private Pilot's License (PPL) tiếng Việt gọi là bằng lái máy bay tư nhân. Bằng PPL có thể được cấp bởi nhiều cơ quan ở các quốc gia khác nhau. Và mỗi tổ chức này đều có quy định khác nhau về điều kiện lấy bằng. 
 
 **Điều kiện cấp bằng sẽ như sau theo cục ICAO:**
 
@@ -38,9 +40,9 @@ date: 2020-02-15 10:47
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/PPL.jpg" %}
 
-# Commercial Pilot's License CPL
+# Commercial Pilot's License
 
-Bằng lái máy bay thương mại. Bằng CPL cho phép phi công có thể nhận tiền từ việc bay lượn. Thường thì trên bằng CPL cũng sẽ hiển thị thông tin về trình độ và xếp hạng của phi công. Ngoài ra bằng còn ghi rõ thông tin loại máy bay mà phi công có thể lái.
+Commercial Pilot's License (CPL) hay tiếng Việt gọi là Bằng lái máy bay thương mại. Bằng CPL cho phép phi công có thể nhận tiền từ việc bay lượn. Thường thì trên bằng CPL cũng sẽ hiển thị thông tin về trình độ và xếp hạng của phi công. Ngoài ra bằng còn ghi rõ thông tin loại máy bay mà phi công có thể lái.
 
 **Điều kiện để được cấp bằng CPL:**
 - Có thể dùng tiếng Anh thành thạo
@@ -50,9 +52,9 @@ Bằng lái máy bay thương mại. Bằng CPL cho phép phi công có thể nh
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/CPL.jpg" %}
 
-# Airline Transport Pilot's License ATPL
+# Airline Transport Pilot's License
 
-ATPL là bằng cấp cao nhất. Những phi công có bằng ATPL thì mới được lái máy bay có 9 hành khách trở lên. 
+ Instrument Flight Rules (ATPL) là bằng cấp cao nhất. Những phi công có bằng ATPL thì mới được lái máy bay có 9 hành khách trở lên. 
 
 **Điều kiện để được cấp bằng ATPL:**
 
@@ -68,7 +70,7 @@ ATPL là bằng cấp cao nhất. Những phi công có bằng ATPL thì mới �
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/ATPL.jpg" %}
 
-# Instrument Flight Rules - IFR
+# Instrument Flight Rules
 
 # Multi-engine rating
 
