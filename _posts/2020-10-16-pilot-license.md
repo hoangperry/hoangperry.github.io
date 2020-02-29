@@ -80,6 +80,8 @@ Instrument Flight Rules (IFR) hay còn gọi là giấy phép bay khí tài. Gi�
 
 Multi-engine rating là giấy phép bay các loại máy bay hạng nhẹ có nhiều hơn một động cơ. còn đối với các máy bay hạng nặng có nhiều hơn một động cơ thì bạn phải có giấy phép huấn luyện đặc dụng (Type Rating).
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/MER.jpg" %}
+
 # Type Rating
 
 # Nguồn tham khảo 
