@@ -84,7 +84,11 @@ Multi-engine rating là giấy phép bay các loại máy bay hạng nhẹ có n
 
 # Type Rating
 
-# Nguồn tham khảo 
+Type Rating hay còn gọi là giấy phép huấn luận đặc dụng. Là giấy phép dành cho những loại máy bay có khối lượng lớn hoặc máy bay có tổ lái nhiều thành viên. Nếu muốn lái các máy bay chở khách lớn của Airbus hay Boeing thì bạn phải có giấy phép này.
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/FR.jpg" %}
+
+# Tài liệu tham khảo 
 
 https://en.wikipedia.org/wiki/Airline_transport_pilot_licence
 
