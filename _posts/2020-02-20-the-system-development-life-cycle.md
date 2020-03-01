@@ -1,6 +1,7 @@
 ---
 title: The systems development life cycle
 excerpt: SDLC
+permalink: /topics/the-systems-development-life-cycle/
 background-image: topic_image/the_systems_development_life_cycle/background.jpg
 categories:
   - topics
