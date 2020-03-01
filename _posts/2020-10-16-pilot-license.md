@@ -81,7 +81,7 @@ Type Rating hay còn gọi là giấy phép huấn luyện đặc dụng. Là gi
 
 # Tài liệu tham khảo 
 
-<https://en.wikipedia.org/wiki/Airline_transport_pilot_licence>
-<https://en.wikipedia.org/wiki/Commercial_pilot_licence>
-<https://en.wikipedia.org/wiki/Student_pilot_certificate>
-<https://spiderum.com/bai-dang/CAM-NANG-TRO-THANH-PHI-CONG-Phan-2-l2l>
+- <https://en.wikipedia.org/wiki/Airline_transport_pilot_licence>
+- <https://en.wikipedia.org/wiki/Commercial_pilot_licence>
+- <https://en.wikipedia.org/wiki/Student_pilot_certificate>
+- <https://spiderum.com/bai-dang/CAM-NANG-TRO-THANH-PHI-CONG-Phan-2-l2l>
