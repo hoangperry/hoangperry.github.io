@@ -34,7 +34,7 @@ Private Pilot's License (PPL) tiếng Việt gọi là bằng lái máy bay tư 
 
 - Từ 17 tuổi trở lên (16 tuổi đối với tàu lượn và khinh khí cầu). Phi công có thể bắt đầu huấn luyện ở tuổi 16 (14 tuổi đối với tàu lượn và khinh khí cầu).
 - Hoàn thành tổng cộng 40 giờ bay (45 giờ đối với châu Âu).
-- Vượt quá 7 bài kiểm tra. 
+- Vượt qua 7 bài kiểm tra. 
 - Hoàn thành 1 chuyến bay xuyên quốc gia tối thiểu 10 giờ bay.
 - Thực hiện thành công các kỹ năng bay.
 
@@ -72,19 +72,19 @@ Commercial Pilot's License (CPL) hay tiếng Việt gọi là Bằng lái máy b
 
 # Instrument Flight Rules
 
-Instrument Flight Rules (IFR) hay còn gọi là giấy phép bay khí tài. Giấy phép này cho phép bạn bay trong các điều kiện thời tiết hạn chế. Đây là một giấy phép quan trọng đối với một phi công thương mai, bởi vì không phải lúc nào thời tiết cũng đẹp cả. Mỗi năm, các phi công đều phải trải qua vài lần kiểm tra giả lập định kỳ.
+Instrument Flight Rules (IFR) hay còn gọi là giấy phép bay khí tài. Giấy phép này cho phép bạn bay trong các điều kiện thời tiết hạn chế. Đây là một giấy phép quan trọng đối với một phi công thương mại, bởi vì không phải lúc nào thời tiết cũng đẹp cả. Mỗi năm, các phi công đều phải trải qua vài lần kiểm tra giả lập định kỳ.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/IFR.jpg" %}
 
 # Multi-engine rating
 
-Multi-engine rating là giấy phép bay các loại máy bay hạng nhẹ có nhiều hơn một động cơ. còn đối với các máy bay hạng nặng có nhiều hơn một động cơ thì bạn phải có giấy phép huấn luyện đặc dụng (Type Rating).
+Multi-engine rating là giấy phép bay các loại máy bay hạng nhẹ có nhiều hơn một động cơ. Còn đối với các máy bay hạng nặng có nhiều hơn một động cơ thì bạn phải có giấy phép huấn luyện đặc dụng (Type Rating).
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/MER.jpg" %}
 
 # Type Rating
 
-Type Rating hay còn gọi là giấy phép huấn luận đặc dụng. Là giấy phép dành cho những loại máy bay có khối lượng lớn hoặc máy bay có tổ lái nhiều thành viên. Nếu muốn lái các máy bay chở khách lớn của Airbus hay Boeing thì bạn phải có giấy phép này.
+Type Rating hay còn gọi là giấy phép huấn luyện đặc dụng. Là giấy phép dành cho những loại máy bay có khối lượng lớn hoặc máy bay có tổ lái nhiều thành viên. Nếu muốn lái các máy bay chở khách lớn của Airbus hay Boeing thì bạn phải có giấy phép này.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/FR.jpg" %}
 
