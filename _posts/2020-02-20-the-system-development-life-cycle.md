@@ -4,7 +4,7 @@ excerpt: SDLC
 background-image: topic_image/the_systems_development_life_cycle/background.jpg
 categories:
   - topics
-  - aviation
+  - requirements_analysis_and_design
 date: 2020-02-20 10:47
 ---
 
