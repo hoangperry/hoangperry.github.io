@@ -17,7 +17,6 @@ date: 2020-02-15 10:47
 Student Pilot License (Bằng học viên) Đay là giấy phép tiên quyết để trước khi học viên có thể bay một mình.
 
 **Điều kiện cần thiết để được cấp bằng theo cục FAA:**
-
 - Từ 16 tuổi trở lên (14 tuổi đối với tàu lượn và khinh khí cầu).
 - Bay một chuyến bay thật có người giám sát.
 - Làm theo được các hướng dẫn bay.
@@ -29,7 +28,6 @@ Student Pilot License (Bằng học viên) Đay là giấy phép tiên quyết �
 Private Pilot's License (PPL) tiếng Việt gọi là bằng lái máy bay tư nhân. Bằng PPL có thể được cấp bởi nhiều cơ quan ở các quốc gia khác nhau. Và mỗi tổ chức này đều có quy định khác nhau về điều kiện lấy bằng. 
 
 **Điều kiện cấp bằng sẽ như sau theo cục ICAO:**
-
 - Từ 17 tuổi trở lên (16 tuổi đối với tàu lượn và khinh khí cầu). Phi công có thể bắt đầu huấn luyện ở tuổi 16 (14 tuổi đối với tàu lượn và khinh khí cầu).
 - Hoàn thành tổng cộng 40 giờ bay (45 giờ đối với châu Âu).
 - Vượt qua 7 bài kiểm tra. 
@@ -52,10 +50,9 @@ Commercial Pilot's License (CPL) hay tiếng Việt gọi là Bằng lái máy b
 
 # Airline Transport Pilot's License
 
- Instrument Flight Rules (ATPL) là bằng cấp cao nhất. Những phi công có bằng ATPL thì mới được lái máy bay có 9 hành khách trở lên. 
+Instrument Flight Rules (ATPL) là bằng cấp cao nhất. Những phi công có bằng ATPL thì mới được lái máy bay có 9 hành khách trở lên. 
 
 **Điều kiện để được cấp bằng ATPL:**
-
 - Hoàn thành các bài kiểm tra (Air law, Aircraft general knowedge, Flight plannning and mornitoring, Meteorology, ...)
 - Có bằng CPL 
 - Đủ 1 trong 2 điều kiện sau:
