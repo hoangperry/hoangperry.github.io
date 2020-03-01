@@ -1,11 +1,11 @@
 ---
 title: Airbus vs Boeing - Vietnamese
-excerpt: 
+excerpt: Commercial competition
 permalink: /topics/airbus-vs-boeing-vie/
 background-image: topic_image/airbus_vs_boeing/background.jpg
 categories:
   - topics
-  - vietnamese
+  - aviation
 date: 2020-01-09 12:12
 ---
 
