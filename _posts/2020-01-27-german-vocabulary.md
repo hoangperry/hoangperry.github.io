@@ -1,7 +1,7 @@
 ---
-title: Từ vụng tiếng Đức
+title: German vocabulary
 excerpt: 
-permalink: /topics/tu-vung-tieng-duc/
+permalink: /topics/german-vocabulary/
 categories:
   - topics
   - german

@@ -5,7 +5,7 @@ background-image: topic_image/how_to_ride_a_motobike/background.jpg
 categories:
   - topics
   - tutorial
-date: 2019-4-12 11:30
+date: 2019-12-04 11:30
 ---
 
 Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đúng không. Xe thì có nhiều loại, kiểu dáng khác nhau. Trong bài này tớ sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn. Mỗi loại xe có một cách vận hành riêng của nó với mức độ có thể can thiệp bởi con người vào chiếc xe khác nhau. Vì càng phải can thiệp vào chiếc xe nhiều hơn đồng nghĩa với việc phải thực hiện nhiều thao tác hơn vì vậy mà việc việc lái chiếc xe sẽ càng khó khăn hơn.
