@@ -4,6 +4,7 @@ excerpt:
 permalink: /topics/36-question-that-lead-to-love-vie/
 categories:
   - love
+  - topics
 date: 2020-01-22 00:00
 ---
 
