@@ -4,6 +4,7 @@ excerpt:
 permalink: /topics/happy-lunar-new-year/
 categories:
   - new-year
+  - topic
 date: 2020-01-23 00:00
 ---
 
