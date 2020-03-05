@@ -3,7 +3,6 @@ title: 36 Questions that lead to love - Vietnamese
 excerpt: 
 permalink: /topics/36-question-that-lead-to-love-vie/
 categories:
-  - topics
   - love
 date: 2020-01-22 00:00
 ---
