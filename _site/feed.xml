@@ -1,27 +1,737 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hoang Nhat Truong</title>
+    <title>Truong Nhat Hoang</title>
     <description>Just a typical guy in this Universe</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 18 Nov 2019 21:52:59 +0700</pubDate>
-    <lastBuildDate>Mon, 18 Nov 2019 21:52:59 +0700</lastBuildDate>
+    <pubDate>Tue, 10 Mar 2020 22:07:18 +0700</pubDate>
+    <lastBuildDate>Tue, 10 Mar 2020 22:07:18 +0700</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title>Firewall - Vietnamese</title>
-        <description>&lt;!-- *Firewalls can be an effective means of protecting a local system or network of systems from network-based security threats while at the same time affording access to the outside world via wide area networks and the Internet. Moreover, the firewall is also in charge of following up, analyzing information flow and starting the decision-making process with the mentioned above information.* --&gt;
+        <title>The systems development life cycle</title>
+        <description>&lt;p&gt;&lt;em&gt;In many ways, building an information system is similar to build a house. There are four steps:&lt;/em&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;The owner describes the vision about the house.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Transform ideas to sketches and refined until the owner agrees that depict what the owner wants.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Develop detailed blueprints much more specific information about the house.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Build the house following the blueprint. Building an information using the SDLC follows a similar set of four fundamental phases:&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;1-planning&quot;&gt;1. Planning&lt;/h1&gt;
+
+&lt;p&gt;This phase is the fundamental process of understanding why an information system should be built and determining how the project team will go about building it. There are two steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;The system’s business value to the organization is identified. A system request presents a brief summary of a business need, and it explains how a system will create business value. The feasibility analysis examines key aspects of the proposed project:&lt;/p&gt;
+
+    &lt;p&gt;• The technical feasibility&lt;/p&gt;
+
+    &lt;p&gt;• The economic feasibility&lt;/p&gt;
+
+    &lt;p&gt;• The organizational feasibility&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The system request and feasibility are presented to an approval committee who will decide whether the project should be undertaken or not.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;During the project management, the project manager creates a project plan through the entire SDLC. This describes how the project team will go about developing the system.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;2-analysis&quot;&gt;2. Analysis&lt;/h1&gt;
+
+&lt;p&gt;This phase answers the questions of ‘who will use the system?’, ‘what the system will do?’, ‘where and when it will be used?’. This phase has three steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;An analysis strategy is developed to guide the project team’s efforts. It usually includes a study of the current system(as-is-system), envisions ways to design a new system(to-be-system)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The next step is requirements gathering. The system concept is then used as a basis to develop a set of business analysis models that describes how the business will operate if the new system were developed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The analyses, system concept and model are combined into a document called the system proposal. This will presented to the project sponsor and other key decision maker. They will decide whether the project should move forward.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The system proposal is describes what business requirements the new system should meet.&lt;/p&gt;
+
+&lt;h1 id=&quot;3-design&quot;&gt;3. Design&lt;/h1&gt;
+
+&lt;p&gt;This phase decides how the system will operate in terms. Although most of the strategic decisions about the system are mode in the analysis phase, the steps in the design phase determine exactly how the system will operate. There are four steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;The design strategy clarifies whether the system will be developed by the programmers’ company, whether its development will be outsourced to another firm, or whether the company will buy an software package.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Development the basic architecture design for the system that describes more specific about the system(software, hardware, etc.). In most case, the system will reuse the infrastructure that already exists in the organization. The interface design specifies how the users will move through the system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The database and file specifications. This will define exactly what and where data will be stored.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The program design will define exactly what each program will do.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;4-implementations&quot;&gt;4. Implementations&lt;/h1&gt;
+
+&lt;p&gt;This phase will get the most attention, because this phase is the longest and most expensive phase of the development process. There are three steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;System construction. The system is built and tested to ensure that it performs as designed. Most organizations spend more attention on testing than writing the programs.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Installation is the process which replaces the old system by the new system. One of the most important aspects is the training plan, to teach users how to use the new system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The analyst team establishes a support plan for the system. This plan usually includes a post-implementation review, as well as a systematic way of identifying major and minor changes needed for the system.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;references&quot;&gt;References&lt;/h1&gt;
+
+&lt;p&gt;Dennis, A., Wixom, B. H., Roth, R. M. (n.d.). System Analysis Design (5th ed.).&lt;/p&gt;
+</description>
+        <pubDate>Thu, 20 Feb 2020 10:47:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/the-systems-development-life-cycle/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/the-systems-development-life-cycle/</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>requirements_analysis_and_design</category>
+        
+      </item>
+    
+      <item>
+        <title>Pilot license</title>
+        <description>&lt;p&gt;&lt;em&gt;All about pilot license&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Trong Bài viết mình sẽ sử dụng khá nhiều từ viết tắt các bạn có thể google search các từ này. Trong ngành hàng không người ta sử dụng các ký tự viết tắt rất nhiều. Đôi khi mình cũng quên mất những từ viết tắt này là viết tắt của từ gì :D&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;student-pilot-license&quot;&gt;Student Pilot License&lt;/h1&gt;
+
+&lt;p&gt;Student Pilot License (Bằng học viên) Đay là giấy phép tiên quyết để trước khi học viên có thể bay một mình.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Điều kiện cần thiết để được cấp bằng theo cục FAA:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Từ 16 tuổi trở lên (14 tuổi đối với tàu lượn và khinh khí cầu).&lt;/li&gt;
+  &lt;li&gt;Bay một chuyến bay thật có người giám sát.&lt;/li&gt;
+  &lt;li&gt;Làm theo được các hướng dẫn bay.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/pilot_license/SPL.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;private-pilots-license---ppl&quot;&gt;Private Pilot’s License - PPL&lt;/h1&gt;
+
+&lt;p&gt;Private Pilot’s License (PPL) tiếng Việt gọi là bằng lái máy bay tư nhân. Bằng PPL có thể được cấp bởi nhiều cơ quan ở các quốc gia khác nhau. Và mỗi tổ chức này đều có quy định khác nhau về điều kiện lấy bằng.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Điều kiện cấp bằng sẽ như sau theo cục ICAO:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Từ 17 tuổi trở lên (16 tuổi đối với tàu lượn và khinh khí cầu). Phi công có thể bắt đầu huấn luyện ở tuổi 16 (14 tuổi đối với tàu lượn và khinh khí cầu).&lt;/li&gt;
+  &lt;li&gt;Hoàn thành tổng cộng 40 giờ bay (45 giờ đối với châu Âu).&lt;/li&gt;
+  &lt;li&gt;Vượt qua 7 bài kiểm tra.&lt;/li&gt;
+  &lt;li&gt;Hoàn thành 1 chuyến bay xuyên quốc gia tối thiểu 10 giờ bay.&lt;/li&gt;
+  &lt;li&gt;Thực hiện thành công các kỹ năng bay.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/pilot_license/PPL.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;commercial-pilots-license&quot;&gt;Commercial Pilot’s License&lt;/h1&gt;
+
+&lt;p&gt;Commercial Pilot’s License (CPL) hay tiếng Việt gọi là Bằng lái máy bay thương mại. Bằng CPL cho phép phi công có thể nhận tiền từ việc bay lượn. Thường thì trên bằng CPL cũng sẽ hiển thị thông tin về trình độ và xếp hạng của phi công. Ngoài ra bằng còn ghi rõ thông tin loại máy bay mà phi công có thể lái.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Điều kiện để được cấp bằng CPL:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Có thể dùng tiếng Anh thành thạo&lt;/li&gt;
+  &lt;li&gt;Đã có bằng PPL&lt;/li&gt;
+  &lt;li&gt;Hoàn thành các bài kiểm tra viết.&lt;/li&gt;
+  &lt;li&gt;Hoàn thành bài bay dài 300 dặm với 2 chặng dừng.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/pilot_license/CPL.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;airline-transport-pilots-license&quot;&gt;Airline Transport Pilot’s License&lt;/h1&gt;
+
+&lt;p&gt;Instrument Flight Rules (ATPL) là bằng cấp cao nhất. Những phi công có bằng ATPL thì mới được lái máy bay có 9 hành khách trở lên.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Điều kiện để được cấp bằng ATPL:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Hoàn thành các bài kiểm tra (Air law, Aircraft general knowedge, Flight plannning and mornitoring, Meteorology, …)&lt;/li&gt;
+  &lt;li&gt;Có bằng CPL&lt;/li&gt;
+  &lt;li&gt;Đủ 1 trong 2 điều kiện sau:
+    &lt;ul&gt;
+      &lt;li&gt;Phi công quân sự trên 21 tuổi và có tổi thiểu 750 giờ bay&lt;/li&gt;
+      &lt;li&gt;Phi công trên 21 tuổi và có tối thiểu 1500 giờ bay&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/pilot_license/ATPL.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;instrument-flight-rules&quot;&gt;Instrument Flight Rules&lt;/h1&gt;
+
+&lt;p&gt;Instrument Flight Rules (IFR) hay còn gọi là giấy phép bay khí tài. Giấy phép này cho phép bạn bay trong các điều kiện thời tiết hạn chế. Đây là một giấy phép quan trọng đối với một phi công thương mại, bởi vì không phải lúc nào thời tiết cũng đẹp cả. Mỗi năm, các phi công đều phải trải qua vài lần kiểm tra giả lập định kỳ.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/pilot_license/IFR.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;multi-engine-rating&quot;&gt;Multi-engine rating&lt;/h1&gt;
+
+&lt;p&gt;Multi-engine rating là giấy phép bay các loại máy bay hạng nhẹ có nhiều hơn một động cơ. Còn đối với các máy bay hạng nặng có nhiều hơn một động cơ thì bạn phải có giấy phép huấn luyện đặc dụng (Type Rating).&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/pilot_license/MER.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;type-rating&quot;&gt;Type Rating&lt;/h1&gt;
+
+&lt;p&gt;Type Rating hay còn gọi là giấy phép huấn luyện đặc dụng. Là giấy phép dành cho những loại máy bay có khối lượng lớn hoặc máy bay có tổ lái nhiều thành viên. Nếu muốn lái các máy bay chở khách lớn của Airbus hay Boeing thì bạn phải có giấy phép này.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/pilot_license/FR.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;tài-liệu-tham-khảo&quot;&gt;Tài liệu tham khảo&lt;/h1&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Airline_transport_pilot_licence&quot;&gt;https://en.wikipedia.org/wiki/Airline_transport_pilot_licence&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Commercial_pilot_licence&quot;&gt;https://en.wikipedia.org/wiki/Commercial_pilot_licence&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Student_pilot_certificate&quot;&gt;https://en.wikipedia.org/wiki/Student_pilot_certificate&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spiderum.com/bai-dang/CAM-NANG-TRO-THANH-PHI-CONG-Phan-2-l2l&quot;&gt;https://spiderum.com/bai-dang/CAM-NANG-TRO-THANH-PHI-CONG-Phan-2-l2l&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 15 Feb 2020 10:47:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/pilot-license/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/pilot-license/</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>aviation</category>
+        
+      </item>
+    
+      <item>
+        <title>German vocabulary</title>
+        <description>&lt;h1 id=&quot;day-1&quot;&gt;Day 1&lt;/h1&gt;
+
+&lt;p&gt;A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, Ä, Ö, Ü, ß&lt;/p&gt;
+
+&lt;p&gt;Ä 	ä 	/ɛː/ 	Ärger&lt;/p&gt;
+
+&lt;p&gt;Ö 	ö 	/øː/ 	Ökonom; in Austria Österreich&lt;/p&gt;
+
+&lt;p&gt;Ü 	ü 	/yː/ 	Übermut; in Austria Übel&lt;/p&gt;
+
+&lt;p&gt;ẞ 	ß 	Eszett: /ɛsˈt͡sɛt/&lt;/p&gt;
+
+&lt;p&gt;scharfes S: /ˈʃaʁfəs ɛs/ 	Eszett; in Austria and Southern Germany Scharfes S&lt;/p&gt;
+
+&lt;p&gt;Fragen: hỏi.&lt;/p&gt;
+
+&lt;p&gt;Entschudigung: Xin lỗi cho tôi hỏi.&lt;/p&gt;
+
+&lt;p&gt;Nein: Không	.&lt;/p&gt;
+
+&lt;p&gt;Es tut mir leid: Tôi xin lỗi.&lt;/p&gt;
+
+&lt;p&gt;Kein problem: Không vấn đề gì.&lt;/p&gt;
+
+&lt;p&gt;Darf ich mal eben etwas fragen?: Bây giờ tôi hỏi vài chuyện được không.&lt;/p&gt;
+
+&lt;p&gt;Verzeihung, darf ich vorbei: Xin lỗi, cho tôi đi qua được không?&lt;/p&gt;
+
+&lt;p&gt;Dürfte ich hier sitzen?: Tôi có thể ngồi đây được không?&lt;/p&gt;
+
+&lt;p&gt;Sprache: Ngôn ngữ&lt;/p&gt;
+
+&lt;p&gt;Sprechen: Nói&lt;/p&gt;
+
+&lt;p&gt;Verstehen: Hiểu&lt;/p&gt;
+
+&lt;p&gt;Studieren: Nghiên cứu&lt;/p&gt;
+
+&lt;p&gt;Anhalten: Dừng lại&lt;/p&gt;
+
+&lt;p&gt;Eingang: Lối vào&lt;/p&gt;
+
+&lt;p&gt;Helfen: Giúp đỡ&lt;/p&gt;
+
+&lt;p&gt;Toilette: Phòng tắm&lt;/p&gt;
+
+&lt;p&gt;die Schwester: Chị em gái&lt;/p&gt;
+
+&lt;p&gt;der Bruder: Anh em trai&lt;/p&gt;
+
+&lt;p&gt;Katze: Con mèo&lt;/p&gt;
+
+&lt;p&gt;Hund: con chó&lt;/p&gt;
+
+&lt;p&gt;Wie geht’s?: Khỏe không?&lt;/p&gt;
+
+&lt;p&gt;Sehr gut: Rất khỏe&lt;/p&gt;
+
+&lt;p&gt;Gute Nacht: Ngủ ngon&lt;/p&gt;
+
+&lt;p&gt;Ich: tôi&lt;/p&gt;
+
+&lt;p&gt;Meine Familie: Gia đình tôi&lt;/p&gt;
+
+&lt;p&gt;Der Großvater: Ông&lt;/p&gt;
+
+&lt;p&gt;Die Großmutter: Bà&lt;/p&gt;
+
+&lt;p&gt;Guten Abend: Chào buổi tối&lt;/p&gt;
+
+&lt;p&gt;Die Tante: Người cô&lt;/p&gt;
+
+&lt;p&gt;Der Onkel: Người chú&lt;/p&gt;
+
+&lt;p&gt;Nichte: Cháu gái&lt;/p&gt;
+
+&lt;p&gt;Neffe: Cháu trai&lt;/p&gt;
+
+&lt;p&gt;Freund: Bạn bè&lt;/p&gt;
+
+&lt;p&gt;Mann: Chồng&lt;/p&gt;
+
+&lt;p&gt;Auf Wiedersehen!: Hẹn gặp lại!&lt;/p&gt;
+
+&lt;p&gt;Ehefrau: Vợ&lt;/p&gt;
+
+&lt;p&gt;klein: Nhỏ&lt;/p&gt;
+
+&lt;p&gt;Groß: to&lt;/p&gt;
+
+&lt;p&gt;Engländer: Người Anh&lt;/p&gt;
+
+&lt;p&gt;Frazose: Người Pháp&lt;/p&gt;
+
+&lt;p&gt;Deutscher: Người Đức&lt;/p&gt;
+
+&lt;p&gt;Spainer: Người Tây Ban Nha&lt;/p&gt;
+
+&lt;p&gt;Student: Học sinh&lt;/p&gt;
+
+&lt;p&gt;Klasse: Lớp&lt;/p&gt;
+
+&lt;p&gt;Schule: Trường&lt;/p&gt;
+
+&lt;p&gt;Die Lehrerin: Cô giáo&lt;/p&gt;
+
+&lt;p&gt;Brief: Thư&lt;/p&gt;
+
+&lt;p&gt;Schreiben: Viết&lt;/p&gt;
+
+&lt;p&gt;Buch: Cuốn sách&lt;/p&gt;
+
+&lt;p&gt;Lesen: Đọc&lt;/p&gt;
+
+&lt;p&gt;die Leute: Mọi người&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 27 Jan 2020 16:53:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/german-vocabulary/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/german-vocabulary/</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>german</category>
+        
+      </item>
+    
+      <item>
+        <title>Happy Lunar New Year</title>
+        <description>&lt;p&gt;Happy Lunar New Year
+Chúc mừng năm mới 
+Chúc mọi người năm mới vui vẻ, vạn sự như ý nhé.
+&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/new-year/lunar-2020.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Jan 2020 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/happy-lunar-new-year/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/happy-lunar-new-year/</guid>
+        
+        
+        <category>new-year</category>
+        
+        <category>topics</category>
+        
+      </item>
+    
+      <item>
+        <title>36 Questions that lead to love</title>
+        <description>&lt;p&gt;This is 36 Questions that lead to love&lt;/p&gt;
+
+&lt;h1 id=&quot;set-i&quot;&gt;Set I&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the choice of anyone in the world, whom would you want as a dinner guest?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Would you like to be famous? In what way?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Before making a telephone call, do you ever rehearse what you are going to say? Why?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What would constitute a “perfect” day for you?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When did you last sing to yourself? To someone else?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you were able to live to the age of 90 and retain either the mind or body of a 30-year-old for the last 60 years of your life, which would you want?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Do you have a secret hunch about how you will die?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Name three things you and your partner appear to have in common.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For what in your life do you feel most grateful?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you could change anything about the way you were raised, what would it be?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Take four minutes and tell your partner your life story in as much detail as possible.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you could wake up tomorrow having gained any one quality or ability, what would it be?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;set-ii&quot;&gt;Set II&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;If a crystal ball could tell you the truth about yourself, your life, the future or anything else, what would you want to know?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Is there something that you’ve dreamed of doing for a long time? Why haven’t you done it?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What is the greatest accomplishment of your life?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What do you value most in a friendship?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What is your most treasured memory?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What is your most terrible memory?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you knew that in one year you would die suddenly, would you change anything about the way you are now living? Why?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What does friendship mean to you?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What roles do love and affection play in your life?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Alternate sharing something you consider a positive characteristic of your partner. Share a total of five items.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;How close and warm is your family? Do you feel your childhood was happier than most other people’s?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;How do you feel about your relationship with your mother?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;set-iii&quot;&gt;Set III&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Make three true “we” statements each. For instance, “We are both in this room feeling … “&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Complete this sentence: “I wish I had someone with whom I could share … “&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you were going to become a close friend with your partner, please share what would be important for him or her to know.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tell your partner what you like about them; be very honest this time, saying things that you might not say to someone you’ve just met.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Share with your partner an embarrassing moment in your life.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When did you last cry in front of another person? By yourself?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tell your partner something that you like about them already.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What, if anything, is too serious to be joked about?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you were to die this evening with no opportunity to communicate with anyone, what would you most regret not having told someone? Why haven’t you told them yet?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Your house, containing everything you own, catches fire. After saving your loved ones and pets, you have time to safely make a final dash to save any one item. What would it be? Why?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Of all the people in your family, whose death would you find most disturbing? Why?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Share a personal problem and ask your partner’s advice on how he or she might handle it. Also, ask your partner to reflect back to you how you seem to be feeling about the problem you have chosen.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Wed, 22 Jan 2020 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/36-question-that-lead-to-love-eng/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/36-question-that-lead-to-love-eng/</guid>
+        
+        
+        <category>love</category>
+        
+        <category>topics</category>
+        
+      </item>
+    
+      <item>
+        <title>36 Questions that lead to love - Vietnamese</title>
+        <description>&lt;p&gt;36 câu hỏi để yêu nhau&lt;/p&gt;
+
+&lt;h1 id=&quot;set-i&quot;&gt;Set I&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nếu bạn có thể lựa chọn bất kỳ ai trên thế giới này, bạn sẽ chọn ai để cùng đi ăn tối?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bạn có muốn trở nên nổi tiếng không? Bằng cách nào?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Trước khi gọi điện thoại, bạn có bao giờ “soát” lại những gì mình định nói không? Tại sao?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Điều gì tạo nên một ngày hoàn hảo với bạn?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lần cuối bạn hát cho chính mình nghe là khi nào? Và lần cuối bạn hát cho ai đó nghe là khi nào?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nếu bạn được sống đến 90 tuổi và có thể giữ được hoặc cơ thể, hoặc trí óc của một người 30 trong suốt 60 năm còn lại của cuộc đời, bạn sẽ chọn cái nào?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bạn có linh cảm bí mật nào về cách mà bạn sẽ qua đời không?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Gọi tên 3 thứ bạn và đối phương có cùng điểm chung.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Điều gì trong cuộc đời này khiến bạn cảm thấy biết ơn nhất?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nếu bạn có thể thay đổi bất cứ điều gì trong cách mà bạn được nuôi dạy, đó sẽ là gì?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Trong vòng 4 phút, hãy kể lại câu chuyện đời mình với đối phương với càng nhiều chi tiết càng tốt.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nếu bạn thức dậy vào sáng mai và có thể chọn một phẩm chất hoặc khả năng nào mà bạn muốn, đó sẽ là gì?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;set-ii&quot;&gt;Set II&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nếu một quả cầu thủy tinh có thể nói cho bạn biết sự thật về bản thân bạn, về cuộc đời, về tương lai hay bất cứ điều gì khác, bạn sẽ muốn biết gì?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Có điều gì mà bạn đã mơ ước được làm từ rất lâu rồi không? Tại sao bạn chưa làm nó?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Thành công lớn nhất trong cuộc đời bạn là gì?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bạn trân trọng điều gì nhất trong một tình bạn?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Kỷ niệm nào mà bạn trân trọng nhất?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Kỷ niệm nào khủng khiếp nhất với bạn?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nếu bạn biết rằng trong một năm bạn có thể chết bất thình lình, bạn có thay đổi bất cứ điều gì về cách bạn đang sống không? Tại sao?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tình bạn có ý nghĩa như thế nào với bạn?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tình yêu và cảm xúc đóng vai trò như thế nào tới cuộc sống của bạn?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hai người chia sẻ năm điều mà mỗi người cho là đặc điểm tích cực của đối phương.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Gia đình bạn có gần gũi và thân thiết với nhau không? Bạn có nghĩ là tuổi thơ của mình đã hạnh phúc hơn rất nhiều người?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bạn thấy thế nào về mối quan hệ với mẹ của mình?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;set-iii&quot;&gt;Set III&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mỗi bên lần lượt đưa ra 3 suy nghĩ bắt đầu bằng “chúng tôi”. Ví dụ, “Chúng tôi cùng ở trong căn phòng này và cảm thấy…”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hoàn thành câu này: “Tôi ước tôi đã có một ai đó tôi có thể chia sẻ….”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nếu bạn trở thành bạn thân với đối phương của mình, hãy chia sẻ với anh ấy hoặc cô ấy một điều quan trọng mà họ cần biết.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nói với đối phương điều bạn thấy thích ở họ: Hãy thành thật lần này, hãy cứ nói những điều mà bạn sẽ không nói với ai đó bạn vừa gặp.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Chia sẻ với đối phương một khoảnh khắc xấu hổ trong cuộc đời bạn.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lần cuối bạn khóc trước đông người là lúc nào? Lần cuối bạn khóc một mình là lúc nào?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nói với đối phương điều gì đó đã khiến bạn thích ở họ.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Điều gì với bạn là rất nghiêm túc để bị đem ra đùa cợt?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nếu bạn chết vào buổi tối hôm nay và không có cơ hội để liên lạc với ai, điều gì khiến bạn hối hận nhất vì chưa được nói với ai đó? Tại sao bạn chưa nói với họ?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ngôi nhà của bạn, nơi chứa mọi thứ bạn có, bị cháy. Sau khi cứu những người thân yêu và cả thú nuôi, bạn có thời gian để cứu bất cứ một vật dụng nào, lần cuối cùng trong an toàn. Đó sẽ là gì? Vì sao?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Trong tất cả các thành viên trong gia đình, sự ra đi của ai khiến bạn đau khổ nhất? Tại sao?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hãy chia sẻ một vấn đề cá nhân và xin lời khuyên từ đối phương. Đồng thời hãy hỏi đối phương rằng họ cảm thấy như thế nào về vấn đề bạn vừa nêu ra.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Wed, 22 Jan 2020 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/36-question-that-lead-to-love-vie/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/36-question-that-lead-to-love-vie/</guid>
+        
+        
+        <category>love</category>
+        
+        <category>topics</category>
+        
+      </item>
+    
+      <item>
+        <title>Airbus vs Boeing - Vietnamese</title>
+        <description>&lt;h1 id=&quot;boeing-và-airbus&quot;&gt;Boeing và Airbus&lt;/h1&gt;
+
+&lt;p&gt;Airbus và Boeing là 2 hãng sản xuất máy bay dân dụng lớn nhất hiện nay với tổng doanh thu toàn cầu lần lượt là 44% và 47%. Hai hãng hàng không ngày tuy là đối thủ với nhau nhưng cả hai đều có quan điểm, chiến lược kinh doanh rất khác nhau.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/airbus_vs_boeing/a380.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Airbus thường tập trung vào các máy bay thân rộng, điển hình là Airbus A380 (Airbus A380 hiện tại là máy bay chở khách rộng nhất). Airbus thường lấy công nghệ làm thế mạnh. Vì vậy chi phí sản xuất, giá thành thường đắt đỏ hơn các máy bay Boeing.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/airbus_vs_boeing/b747.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Trong khi đó thì Boeing lại nhắm vào các yếu như khả năng tiết kiệm nhiên liệu, chi phí vận hành, chi phí bảo dưỡng. Tất cả yếu tố này đếm nhắm đến việc gia tăng tối đa lợi ích của các hãng hàng không sau mỗi chuyến bay. Cũng vì vậy mà Boeing gặp nhiều rắc rối về chất lượng máy bay.&lt;/p&gt;
+
+&lt;h1 id=&quot;các-hãng-không-ưa-dùng-hãng-nào-hơn&quot;&gt;Các hãng không ưa dùng hãng nào hơn?&lt;/h1&gt;
+
+&lt;p&gt;Đa phần các hãng hàng không đều sử dụng song song máy bay của hai hãng này. Ví dụ như FedEx cũng cân bằng số lượng máy bay mua từ Boeing và Airbus. Đôi bay của FedEx ba gồm 71 chiếc A300, 
+30 chiếc A310 của Airbus. 77 Chiếc Boeing 75, 1 chiếc Boeing 767, 24 chiếc Boeing 777. FedEx cũng đang đặt thêm 43 chiếc Boeing 757, 49 chiếc Boeing 767 và 19 chiếc Boeing 777.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 09 Jan 2020 12:12:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/airbus-vs-boeing-vie/</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/airbus-vs-boeing-vie/</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>aviation</category>
+        
+      </item>
+    
+      <item>
+        <title>How to ride a motorbike - Vietnamese</title>
+        <description>&lt;p&gt;Đương nhiên, để bắt đầu học lái xe máy thì trước tiên bạn cần phải có xe máy trước đúng không. Xe thì có nhiều loại, kiểu dáng khác nhau. Trong bài này tớ sẽ chia xe máy thành 3 loại chính đó là: Xe ga - Xe máy điện, Xe số tự động, Xe tay côn. Mỗi loại xe có một cách vận hành riêng của nó với mức độ có thể can thiệp bởi con người vào chiếc xe khác nhau. Vì càng phải can thiệp vào chiếc xe nhiều hơn đồng nghĩa với việc phải thực hiện nhiều thao tác hơn vì vậy mà việc việc lái chiếc xe sẽ càng khó khăn hơn.&lt;/p&gt;
+
+&lt;h1 id=&quot;xe-ga---xe-máy-điện&quot;&gt;Xe ga - Xe máy điện&lt;/h1&gt;
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/how_to_ride_a_motobike/vespa.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Nếu xe của bạn là thuộc loại xe này thì chúc mừng bạn. Kiểu xe này lái rất dễ, nó chỉ gồm 2 bộ phận để điều khiển chính đó là tay ga và 2 tay thắng. khi bạn vặn tay ga về phía bạn thì động cơ sẽ tăng tốc, thông qua bộ truyền dẫn động cơ sẽ kéo bánh xe của bạn đi, từ đó mà chiếc xe của bạn sẽ di chuyển dần về phía trước. Nhưng nhớ là nên vặn từ từ thôi chứ không thì chiếc xe của bạn sẽ tăng tốc đột ngột và bạn sẽ không kiểm soát được đâu. Trong trường hợp bạn muốn thắng xe lại thì chỉ việc bóp 1 trong 2 tay thắng, hoặc cả hai cũng được nhưng mà đối với một số xe hiện nay nó không cho bạn dùng cả 2 tay thắng trong cùng một lúc đâu, vì lý do tại sao thì tớ sẽ giải thích sau. Thường thì thắng của bánh trước sẽ nằm bên phải và thắng của bánh sau sẽ nằm ở tay bên trái. Việc nên bóp phanh nào trong những trường hợp nào thì tớ cũng sẽ nói trong những phần sau luôn.&lt;/p&gt;
+
+&lt;h1 id=&quot;xe-số-tự-động&quot;&gt;Xe số tự động&lt;/h1&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/how_to_ride_a_motobike/supercub.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Thông thường xe số tự động sẽ có từ 3 đến 5 cấp số khác nhau. Các số nhỏ sẽ có nô-men xoắn lớn hơn những số cao. Vì vậy gia tốc của những số nhỏ hơn sẽ cao hơn những số lớn hơn, nhưng các số lớn hơn sẽ có tốc độ tối đa cao hơn. Vì đặc điểm đó cho nên khi tăng tốc xe, chúng ta sẽ chuyển dần từ số nhỏ lên số cao hơn. Và khi nếu bạn kết hợp tay ga nhịp nhàng với hộp số thì chiếc xe bạn sẽ tăng tốc rất mượt và không bị khựng ở đoạn nào cả, lúc đấy nó sẽ mượt chẳng khác gì xe tay ga. Về phần thắng của xe thì thắng trước của bạn sẽ được đặt bên tay lái bên phải. Còn thắng của bánh xe sau sẽ đặt ở bên chân phải đối diện với cần điều khiển hộp số.&lt;/p&gt;
+
+&lt;h1 id=&quot;xe-tay-côn&quot;&gt;Xe tay côn&lt;/h1&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/how_to_ride_a_motobike/r1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Trong ba loại xe mà bài viết này nêu tên thì đây có lẽ là loại xe sẽ gây khó nhằng cho bạn nhiều nhất. Bởi vì loại xe này thì phải phải điều khiển thêm tay côn nữa. Tay côn giống tay thắng nhưng thường sẽ nằm ở bên tay trái của bạn. Còn vị trí cần thắng và tay thắng sẽ giống như xe số tự động. Thông thường tay thắng bánh trước sẽ nằm bên tay trái, còn cần thắng của bánh sau sẽ nằm ở gỗ gác chân bên phải. Việc điều khiển tay côn sẽ như sau: khi bạn bóp hết tay côn thì các lá côn (các bạn có thể coi đó là một bộ phận tiếp xúc truyền động giữa động cơ và hộp số) khi các lá côn không được tiếp xúc với động cơ thì có nghĩa là động cơ không được tiếp xúc với hộp số và hai bộ phận này sẽ truyền động độc lập với nhau. Chúng ta sẽ cần sử dụng động tác ngắt côn này khi mà chúng ta cần đề xe khi hộp số xe đang không ở số N, hoặc là khi chuyển số ở vòng tua thấp. Bởi vì trong hai trường hợp này thì động cơ chưa đủ nô-men xoắn để quay được cả hộp số và bánh xe nên ta cần ngắt động cơ ra để đề nổ hoặc chuyển số mượt mà hơn.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/how_to_ride_a_motobike/mt.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;một-số-lưu-ý-trong-việc-lái-xe&quot;&gt;Một số lưu ý trong việc lái xe&lt;/h1&gt;
+
+&lt;p&gt;&lt;em&gt;Bạn không nên bật đèn pha trong thành phố hoặc chiếu thẳng đèn pha vào xe đi ngược chiều&lt;/em&gt;
+&lt;em&gt;Luôn bật signal khi rẽ hoặc chuyển làn xe, nếu không thì bạn sẽ bị công an bắt đó&lt;/em&gt;
+&lt;em&gt;Trước chạy bạn nên kiểm tra chân chống xe, thắng và các bộ phận khác để đảm bảo không có sự cố khi đang chạy giữa đường&lt;/em&gt;
+&lt;em&gt;Và tốt nhất thì bạn nên có bằng lái trước khi ra đường&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;những-kỹ-năng-lái-xe-nâng-cao-hơn&quot;&gt;Những kỹ năng lái xe nâng cao hơn.&lt;/h1&gt;
+
+&lt;h2 id=&quot;đánh-lái-ngược&quot;&gt;Đánh lái ngược&lt;/h2&gt;
+
+&lt;p&gt;Thông thường khi bạn muốn rẽ sang trái hoặc sang phải thì bạn phải bẻ bánh xe sang hướng muốn rẽ. Vì vậy các bạn thường dùng tay kéo tay lái về hướng muốn rẽ. Nhưng ở kỹ thuật đánh lái ngược sẽ ngược lại với những gì bạn nghĩ. Khi bạn muốn đánh lái ngược sang bên phải thì bạn phải đẩy nhẹ tay lái bên phải lên sau đó thả ra. Thì tay lái xe của bạn sẽ tự động rẽ sang phải.&lt;/p&gt;
+
+&lt;h2 id=&quot;quick-shift&quot;&gt;Quick-shift&lt;/h2&gt;
+
+&lt;p&gt;Khi đi xe côn tay bạn thường phải bóp côn rồi sau đó mới chuyển số được. Nhưng kỹ thuật Quick-shift không cần bạn phải làm điều đó. Khi xe đang ở vòng tua cao bạn có thể đẩy cần số để làm cho xe chuyển số mà không cần tới thao tác bóp côn.&lt;/p&gt;
+
+&lt;p&gt;Drive safely!&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 Dec 2019 11:30:00 +0700</pubDate>
+        <link>http://localhost:4000/topics/tutorial/how-to-ride-a-motorbile-vietnamese.html</link>
+        <guid isPermaLink="true">http://localhost:4000/topics/tutorial/how-to-ride-a-motorbile-vietnamese.html</guid>
+        
+        
+        <category>topics</category>
+        
+        <category>tutorial</category>
+        
+      </item>
+    
+      <item>
+        <title>Firewall - Vietnamese</title>
+        <description>&lt;ul&gt;
   &lt;li&gt;Tường lửa đóng vai trò rất quan trọng trong việc bảo vệ một hệ thống nội bộ khỏi các mối đe dọa như hacker, worm, hay các loại virus xâm nhập vào máy tính. Ngoài ra tường lửa còn có tác dụng theo dõi, phân tích các luồng thông tin quá mạng và quyết định sẽ làm gì với những luồng thông tin đó. *&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;goals-of-a-firewall&quot;&gt;Goals of a firewall:&lt;/h2&gt;
-
-&lt;!-- 1. All traffic from inside to outside and vice versa must pass through the firewall. 
-2. Only authorized traffic, as defined by the local security policy, will be allowed to pass. 
-3. The firewall itself is immune to penetration. --&gt;
 
 &lt;ol&gt;
   &lt;li&gt;các gói tin từ bên ngoài vào và đi ra đều phaỉ thông qua tường lửa&lt;/li&gt;
@@ -30,16 +740,6 @@
 &lt;/ol&gt;
 
 &lt;h1 id=&quot;1-firewall-characteristics-and-access-policy&quot;&gt;1. Firewall Characteristics and access policy&lt;/h1&gt;
-
-&lt;!-- A critical component in the planning and implementation of a firewall is specifying a suitable access policy. Lists a range of characteristics that a firewall access policy could use to filter traffic, including:
-
-- **IP Address and Protocol Values:** Controls access based on the source or destination addresses and port numbers, direction of flow being inbound or outbound, and other network and transport layer characteristics.  It is typically used to limit access to specific services.
-
-- **Application Protocol:** Controls access on the basis of authorized application protocol data. This type of filtering is used by an application-level gateway that relays and monitors the exchange of information for specific application protocols.
-
-- **User Identity:** Controls access based on the users identity, typically for inside users who identify themselves using some form of secure authentication technology, such as IPSec.
-
-- **Network Activity:** Controls access based on considerations such as the time or request, e.g., only in business hours; rate of requests, e.g., to detect scanning attempts; or other activity patterns. --&gt;
 
 &lt;p&gt;Một thành phần quan trọng trong tường lửa là một access control phù hợp. 
 Các đặc điểm mà access control của tường lửa có thể sử dụng để lọc lưu lượng:&lt;/p&gt;
@@ -56,27 +756,9 @@ Các đặc điểm mà access control của tường lửa có thể sử dụn
 &lt;p&gt;&lt;strong&gt;Network Activity:&lt;/strong&gt; 
 	Access control dựa trên các sự cân nhắc về thời gian ví dụ như: chỉ được cho phép trong giờ làm việc của tổ chức. hoặc cân nhắc về tỷ lệ yêu cầu.&lt;/p&gt;
 
-&lt;!-- Trước khi nói về những chi tiết bên trong trường lửa, chúng ta hãy tóm tắt lại những điều mong đợi về tưởng lửa và khả năng của nó. 
-
-1. Tường lửa giữa những truy cập trái phép ra khỏi mạng được bảo vệ và các dịch vụ dễ bị tấn công. 
-
-2. Theo dõi các sự kiện bên trọng mạng có liên quan đến bảo mật  --&gt;
-
 &lt;h1 id=&quot;2-types-of-firewalls&quot;&gt;2. Types of Firewalls&lt;/h1&gt;
 
-&lt;!-- &lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_1.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;
-A firewall can monitor network traffic at a number of levels, from low-level network packets, either individually or as part of a flow, to all traffic within a transport connection, up to inspecting details of application protocols. The choice of which
-level is appropriate is determined by the desired firewall access policy. Depending on the type of firewall, it may examine one or more protocol headers in each packet, the payload of each packet, or the pattern generated by a sequence of
-packets. In this section, we look at the principal types of firewalls:  --&gt;
-
-&lt;!-- # 2. Các loại tường lửa --&gt;
-
 &lt;p&gt;Tường lửa có thể giám sat mạng ở một số cấp độ, từ các gói mạng cấp thấp, riêng lẻ hoặc là một phần của một luồng thông tin cho đến kiểm tra chi tiết các giao thức ứng dụng. Mỗi tầng sẽ có một access control phù hợp khác nhau. Tùy thuộc và loại tường lửa mà nó có thể hoạt động khác nhau. Sau đây là một số loại tường lửa chính:&lt;/p&gt;
-
-&lt;!-- **Packet filtering firewall**
-**Stateful inspection firewall**
-**Application proxy firewall**
-**Circuit-level proxy firewall** --&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Packet filtering firewall&lt;/strong&gt;&lt;/li&gt;
@@ -101,46 +783,6 @@ packets. In this section, we look at the principal types of firewalls:  --&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/firewall/img_5.png&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;!-- #  3. Firewall Basing
-
-
-## 3.1 Bastion Host
-A bastion host is a system identified by the firewall administrator as a critical strong point in the network’s security. Typically, the bastion host serves as a platform for an application-level or circuit-level gateway. Common characteristics of a bastion host are as follows:
-	
-- Only services that a network administrator considers are installed are installed on basting hosts, such as DNS, FTP, HTTP, SMTP, etc.
-
-- Basting hosts may require additional authentication before the user is allowed to access proxy services. Additionally, each proxy service may require its authentication before granting access to the user
-
-- Each proxy is configured to support only a set of standard command sets.
-
-- Each proxy is configured to access only to a specific server. This means that commands/features set may be applied only to a subset of systems on the protected network.
-
-- Each proxy maintains a detailed inspection by logging all traffic,  the duration of each connection. This record of access information is essential to investigate and stop attacks by intruders.
-
-- Each proxy module is a tiny software package specifically designed for network security. Due to its simplicity, it is easier to check for security errors. For example, a mail application in UNIX may contain more than 20,000 lines of code, while a proxy mail may have fewer than 1,000 lines.
-
-- Each proxy is independent of other proxies on the bastion host. If there is a problem with the operation of any proxy, or if a future vulnerability is discovered, it can be uninstalled without affecting the operation of the other proxy applications. Also, if the user population requires support for a new service, the network administrator can easily install the required proxy on the bastion host.
-
-- A proxy generally performs no disk access other than to read its initial configuration file. Hence, the portions of the file system containing executable code can be made read-only. This makes it difficult for an intruder to install Trojan horse sniffers or other dangerous files on the bastion host. 
-
-- Each proxy runs as a user without privileges on a private directory and is secured on the host bastion.
-
-
-## 3.2 Host-Based Firewalls
-
-The host-based firewall is an application module that protects individual servers. Such modules are usually available in the operating system or provided as additional packages. Like a regular firewall, host-resident filters and restricts data flows. Some advantages of using a server-based or workstation-based firewall:
-
-
-- Information filtering rules are customizable for each server. It is possible to deploy specific security policies for each enterprise with different filters for each different server.
-
-- Protection is provided independently of the topology. Thus both internal and external attacks must pass through the firewall.
-
-- Used in conjunction with stand-alone firewalls, the host-based firewall provides an additional layer of protection. A new type of server can be added to the network, with its own firewall, without the necessity of altering the network firewall configuration.
-
-## 3.3 Personal Firewall
-
-The personal firewall controls the information traffic of a personal computer or a workstation on one side and the Internet or enterprise network on the other side. Personal firewall functionality can be used in the home environment and on corporate intranets. Typically, a personal firewall is an application. In case there are many computers connect to the Internet, firewall functionality can also be housed in a router. Personal firewalls are often more complicated than server-based firewalls or independent firewalls. The primary role of the personal firewall is to deny unauthorized access to the network. The firewall can also monitor activity for scanning or detecting malware. --&gt;
 
 &lt;h1 id=&quot;3-cơ-sở-tưởng-lửa&quot;&gt;3. Cơ sở tưởng lửa&lt;/h1&gt;
 
@@ -453,197 +1095,6 @@ external attack.&lt;/p&gt;
         <category>topics</category>
         
         <category>network</category>
-        
-      </item>
-    
-      <item>
-        <title>How to ride a motorbike</title>
-        <description>&lt;p&gt;Of course, if you want to ride a motocycle you must have a motocycle first. There are many type of motocycle like: electric motorcycle, scooter motorcycle, manual transmission motorcycle, semi automatic motorcycle,…&lt;/p&gt;
-
-&lt;h1 id=&quot;scooter--electric-motocycle&quot;&gt;Scooter &amp;amp; Electric Motocycle&lt;/h1&gt;
-
-&lt;p&gt;If you motocycle is a scooter just twist the throttle slowly and you motocycle will move. 
-Usually, the front-brake is on your right hand, and rear brake is on the opposite hand.
-In case you are moving too fast. Please squeeze the rear-brake slowly. If you brake too tightly and the wheel will be skid on. And it will be dangerous.&lt;/p&gt;
-
-&lt;h1 id=&quot;semi-automatic-motorcycle&quot;&gt;Semi-automatic Motorcycle&lt;/h1&gt;
-
-&lt;p&gt;Usually, a semi Semi-automatic Motorcycle have 4 or 5 
-gear level. The maximum speed of each level increases gradually. 
-And the acceleration of each level will decrease. So choose the gear fit with your current speed.&lt;/p&gt;
-
-&lt;h1 id=&quot;manual-transmission-motorcycle&quot;&gt;Manual Transmission Motorcycle&lt;/h1&gt;
-
-&lt;p&gt;A Manual Transmission Motorcycle is likely to Semi-automatic Motorcycle. But It had a Manual clutch. Usually the clutch trigger is on the left hand. It will be harder to drive than Semi-automatic Motor or Scoorter. 
-This trigger will control the part between engine and gearbox. If you pull full the trigger. The gearbox is disconnect with engine. So the wheel will spin free. Contrary the whell will spin with your engine.
-So you can see Manual Transmission is harder to control than a Semi-automatic Motor.&lt;/p&gt;
-
-&lt;p&gt;…&lt;/p&gt;
-
-&lt;p&gt;Drive safely!&lt;/p&gt;
-</description>
-        <pubDate>Tue, 08 Oct 2019 16:47:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/tutorial/how-to-ride-a-motorbike.html</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/tutorial/how-to-ride-a-motorbike.html</guid>
-        
-        
-        <category>topics</category>
-        
-        <category>tutorial</category>
-        
-      </item>
-    
-      <item>
-        <title>About me</title>
-        <description>&lt;p&gt;Hi!&lt;/p&gt;
-
-&lt;p&gt;I’m &lt;strong class=&quot;ui&quot;&gt;Hoang&lt;/strong&gt; and my Vietnamese name is &lt;em&gt;Trương Nhật Hoàng&lt;/em&gt;.
-Now, I’m currently a &lt;strong&gt;computer science&lt;/strong&gt; undergraduate student at &lt;strong&gt;Ton Duc Thang university&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;My birdthday is &lt;strong&gt;02&lt;sup&gt;nd&lt;/sup&gt; September&lt;/strong&gt; and that also is the independence day of my country( Vietnam ).
-I was born in Nha Trang, but now I’m living in HCMC to convenient for studying at school. Because I can’t travel 900 kilometers from home to school every single day.&lt;/p&gt;
-
-&lt;p&gt;I can play guitar, drum. To me, playing the drum is the most effective way to relieving stress. My favorite guitarist is Slash-GnR. On the stage, he is very awesome. I wish to owned an drum, but my house is too small for a drum and I don’t want to disturb my neighboors. I ‘ve self learning drum and guitar when I was 15 years old. Now, I have play guitar for 6 years and drum for 5 year. In the future, I think I will learn to play something new like Piano, Violin,…&lt;/p&gt;
-
-&lt;p&gt;…
-…
-…&lt;/p&gt;
-
-&lt;h2 id=&quot;human-language&quot;&gt;Human Language&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Mother language:&lt;/strong&gt; &lt;em&gt;Tiếng Việt&lt;/em&gt; (Vietnamese)&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;English&lt;/em&gt; (English): …60%…&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Deutsche (German)&lt;/em&gt; :&lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;한국어 (Korean)&lt;/em&gt;: &lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;日本語 (Japanese)&lt;/em&gt;: &lt;strong&gt;in process&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;knowledge&quot;&gt;Knowledge&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Mathematics&lt;/li&gt;
-  &lt;li&gt;Programming&lt;/li&gt;
-  &lt;li&gt;Database&lt;/li&gt;
-  &lt;li&gt;Design theory&lt;/li&gt;
-  &lt;li&gt;Machine learning&lt;/li&gt;
-  &lt;li&gt;Arificial Intelligence&lt;/li&gt;
-  &lt;li&gt;Music theory&lt;/li&gt;
-  &lt;li&gt;A little bit of flight theory&lt;/li&gt;
-  &lt;li&gt;Advanced Driving skill with more than 10,000 hour exp&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;tools&quot;&gt;Tools&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Photoshop&lt;/li&gt;
-  &lt;li&gt;Microsoft Office&lt;/li&gt;
-  &lt;li&gt;Many AI/ML library&lt;/li&gt;
-  &lt;li&gt;…
-    &lt;h2 id=&quot;programming-language&quot;&gt;Programming language&lt;/h2&gt;
-  &lt;/li&gt;
-  &lt;li&gt;First programming language: C, Java, Pascal&lt;/li&gt;
-  &lt;li&gt;Had difficulties: Prolog, Assembly&lt;/li&gt;
-  &lt;li&gt;Most used: Python, Javascript, PHP&lt;/li&gt;
-  &lt;li&gt;Totally hate: C#&lt;/li&gt;
-  &lt;li&gt;Most loved: Python&lt;/li&gt;
-  &lt;li&gt;For beginners: Python, C&lt;/li&gt;
-  &lt;li&gt;Curious about: Cuda, Ruby&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;hobby&quot;&gt;Hobby&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Lego&lt;/li&gt;
-  &lt;li&gt;Play music instument&lt;/li&gt;
-  &lt;li&gt;Space ship&lt;/li&gt;
-  &lt;li&gt;Flight plane simulator&lt;/li&gt;
-  &lt;li&gt;Play game (LoL, World of Warship, …)&lt;/li&gt;
-  &lt;li&gt;Talking with stranger&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sun, 15 Sep 2019 14:47:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/about me/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/about me/</guid>
-        
-        
-        <category>topics</category>
-        
-        <category>about me</category>
-        
-      </item>
-    
-      <item>
-        <title>My First Topic</title>
-        <description>&lt;p&gt;Here we go.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 05 Sep 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/my topic group/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/my topic group/</guid>
-        
-        
-        <category>topics</category>
-        
-        <category>my topic group</category>
-        
-      </item>
-    
-      <item>
-        <title>DPS</title>
-        <description>&lt;h4 id=&quot;results&quot;&gt;Results&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Develop a Document analytics and management system.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;summary&quot;&gt;Summary&lt;/h4&gt;
-
-&lt;p&gt;Learning many thing about database, project development process, …&lt;/p&gt;
-</description>
-        <pubDate>Sat, 01 Dec 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/works/works-dps.html</link>
-        <guid isPermaLink="true">http://localhost:4000/works/works-dps.html</guid>
-        
-        <category>Deep learning</category>
-        
-        <category>Computer Vision</category>
-        
-        <category>Fullstack</category>
-        
-        <category>Web developer</category>
-        
-        <category>Database</category>
-        
-        
-        <category>works</category>
-        
-      </item>
-    
-      <item>
-        <title>NewAI</title>
-        <description>&lt;h4 id=&quot;results&quot;&gt;Results&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Development a OCR system&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;summary&quot;&gt;Summary&lt;/h4&gt;
-
-&lt;p&gt;This is my first time working on Computer Vision field. Besides it, I learned many things about the algorithm, web develops, …&lt;/p&gt;
-</description>
-        <pubDate>Tue, 01 May 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/works/works-newai.html</link>
-        <guid isPermaLink="true">http://localhost:4000/works/works-newai.html</guid>
-        
-        <category>Machine Learning</category>
-        
-        <category>Computer Vision</category>
-        
-        <category>Fullstack</category>
-        
-        
-        <category>works</category>
         
       </item>
     

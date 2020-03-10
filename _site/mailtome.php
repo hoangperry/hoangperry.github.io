@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
      ) {
     $name = $_POST["name"] ? $_POST["name"] : '[no name given]';
     $msg = <<<EOM
-From your Hoang Nhat Truong website...
+From your Truong Nhat Hoang website...
 
 Mail received from $name, at {$_POST["email"]}.
 

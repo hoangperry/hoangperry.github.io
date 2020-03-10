@@ -2,9 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
       <loc>http://localhost:4000/</loc>
-      <lastmod>2019-11-18T21:52:59+07:00</lastmod>
+      <lastmod>2020-03-10T22:07:18+07:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>1.0</priority>
+    </url>
+    <url>
+      <loc>http://localhost:4000/topics/the-systems-development-life-cycle/</loc>
+        <lastmod>2020-02-20T10:47:00+07:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+      <loc>http://localhost:4000/topics/pilot-license/</loc>
+        <lastmod>2020-02-15T10:47:00+07:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+      <loc>http://localhost:4000/topics/german-vocabulary/</loc>
+        <lastmod>2020-01-27T16:53:00+07:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+      <loc>http://localhost:4000/topics/happy-lunar-new-year/</loc>
+        <lastmod>2020-01-23T00:00:00+07:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+      <loc>http://localhost:4000/topics/36-question-that-lead-to-love-eng/</loc>
+        <lastmod>2020-01-22T00:00:00+07:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+      <loc>http://localhost:4000/topics/36-question-that-lead-to-love-vie/</loc>
+        <lastmod>2020-01-22T00:00:00+07:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+      <loc>http://localhost:4000/topics/airbus-vs-boeing-vie/</loc>
+        <lastmod>2020-01-09T12:12:00+07:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+      <loc>http://localhost:4000/topics/tutorial/how-to-ride-a-motorbile-vietnamese.html</loc>
+        <lastmod>2019-12-04T11:30:00+07:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
       <loc>http://localhost:4000/topics/network/firewall-vnese.html</loc>
@@ -15,18 +63,6 @@
     <url>
       <loc>http://localhost:4000/topics/network/firewall.html</loc>
         <lastmod>2019-10-26T17:40:00+07:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-      <loc>http://localhost:4000/topics/tutorial/how-to-ride-a-motorbike.html</loc>
-        <lastmod>2019-10-08T16:47:00+07:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-      <loc>http://localhost:4000/topics/about me/</loc>
-        <lastmod>2019-09-15T14:47:00+07:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -50,43 +86,43 @@
     </url>
     <url>
       <loc>http://localhost:4000/contact-success/</loc>
-        <lastmod>2019-11-18T21:52:59+07:00</lastmod>
+        <lastmod>2020-03-10T22:07:18+07:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
       <loc>http://localhost:4000/contact-success/</loc>
-        <lastmod>2019-11-18T21:52:59+07:00</lastmod>
+        <lastmod>2020-03-10T22:07:18+07:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
       <loc>http://localhost:4000/contact/</loc>
-        <lastmod>2019-11-18T21:52:59+07:00</lastmod>
+        <lastmod>2020-03-10T22:07:18+07:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
       <loc>http://localhost:4000/credits/</loc>
-        <lastmod>2019-11-18T21:52:59+07:00</lastmod>
+        <lastmod>2020-03-10T22:07:18+07:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
       <loc>http://localhost:4000/</loc>
-        <lastmod>2019-11-18T21:52:59+07:00</lastmod>
+        <lastmod>2020-03-10T22:07:18+07:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
       <loc>http://localhost:4000/topics/</loc>
-        <lastmod>2019-11-18T21:52:59+07:00</lastmod>
+        <lastmod>2020-03-10T22:07:18+07:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
       <loc>http://localhost:4000/works/</loc>
-        <lastmod>2019-11-18T21:52:59+07:00</lastmod>
+        <lastmod>2020-03-10T22:07:18+07:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
