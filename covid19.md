@@ -1,6 +1,7 @@
 ---
 options: 
 	- nolanding
+sitemap_exclude: yes
 	
 ---
 
