@@ -1,5 +1,0 @@
----
-permalink: /cv
----
-
-# My CV
