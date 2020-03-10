@@ -7,4 +7,4 @@ priority: 0.5
 
 ---
 
-# Wuhan virus live map KompaAI
+## Wuhan virus live map KompaAI
