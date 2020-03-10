@@ -1,7 +1,0 @@
----
-options: 
-	- nolanding
-	
----
-
-# My CV
