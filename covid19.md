@@ -1,1 +1,1 @@
-# Wuhan virus live map 2
+# Wuhan virus live map KompaAI
