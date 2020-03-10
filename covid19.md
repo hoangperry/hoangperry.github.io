@@ -1,8 +1,6 @@
 ---
-options: nolanding
-	
-sitemap_exclude: yes
-priority: 0.5
+options: 
+	- nolanding
 
 ---
 
