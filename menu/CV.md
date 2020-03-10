@@ -1,1 +1,3 @@
+permalink: /cv
+
 # My CV
