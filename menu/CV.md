@@ -1,3 +1,5 @@
+---
 permalink: /cv
+---
 
 # My CV
