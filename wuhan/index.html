@@ -406,7 +406,7 @@
 
     Promise.all([
       d3.csv('assets/virus.csv'),
-      d3.json('assets/all-topo-15.json'),
+      d3.json("assets/all-topo-15.json"),
       d3.csv('assets/communities.csv'),
       d3.csv('assets/timestamp.txt'),
       d3.csv('assets/cases.csv')
@@ -442,8 +442,8 @@
       }
 
       //totalRecovered
-      function rc(country) {
-        if (country == undefined) {
+      function tr(country) {
+        if (country.split("-")[2] == undefined) {
           country = 0
         } else {
           country = +country.split("-")[2];
@@ -451,28 +451,23 @@
         return country;
       }
 
+      //totalDeath
+      function td(country) {
+        if (country.split("-")[3] == undefined) {
+          country = 0
+        } else {
+          country = +country.split("-")[3];
+        }
+        return country;
+      }
+
+
       var latest = datasets[0][datasets[0].length - 1];
-      var japan = tc(latest["japan"]);
-      var thailand = tc(latest["thailand"]);
-      var southKorea = tc(latest["south korea"]);
-      var france = tc(latest["france"]);
-      var australia = tc(latest["australia"]);
-      var malaysia = tc(latest["malaysia"]);
-      var singapore = tc(latest["singapore"]);
-      var germany = tc(latest["germany"]);
-      var france = tc(latest["france"]);
-      var italy = tc(latest["italy"]);
-      var iran = tc(latest["iran"]);
-      var us = tc(latest["us"]);
-      var spain = tc(latest["spain"]);
 
       var china = tc(latest["anhui"]) + tc(latest["beijing"]) + tc(latest["chongqing"]) + tc(latest["fujian"]) + tc(latest["gansu"]) + tc(latest["guangdong"]) + tc(latest["guangxi"]) + tc(latest["guizhou"]) + tc(latest["hainan"]) + tc(latest[
           "hebei"]) + tc(latest["heilongjiang"]) + tc(latest["henan"]) + tc(latest["hongkong"]) + tc(latest["hubei"]) + tc(latest["hunan"]) + tc(latest["neimenggu"]) + tc(latest["jiangsu"]) + tc(latest["jiangxi"]) + tc(latest["jilin"]) + tc(
           latest["liaoning"]) + tc(latest["macau"]) + tc(latest["ningxia"]) + tc(latest["qinghai"]) + tc(latest["shaanxi"]) + tc(latest["shandong"]) + tc(latest["shanghai"]) + tc(latest["shanxi"]) + tc(latest["sichuan"]) + tc(latest["taiwan"]) +
         tc(latest["tianjin"]) + tc(latest["xinjiang"]) + tc(latest["yunnan"]) + tc(latest["zhejiang"]) + tc(latest["xizang"]);
-
-
-
 
       var top = {
         "China": china,
@@ -506,13 +501,7 @@
       }
 
 
-
       stop = sortJsObject(top);
-
-
-
-
-      // var china = tc(latest["china"]);
 
 
       var t = ["t"];
@@ -528,7 +517,6 @@
         d: death
 
       }
-
 
       function calCounts(i) {
         cf = 0, sp = 0, rc = 0, dd = 0;
@@ -556,7 +544,6 @@
                 break;
             }
 
-
           } else {
 
             Object.values(current).forEach(function(d) {
@@ -576,10 +563,31 @@
                   break;
               }
             });
+            //
+            cf -= (tc(current["alabama"]) + tc(current["alaska"]) + tc(current["arizona"]) + tc(current["arkansas"]) + tc(current["california"]) + tc(current["colorado"]) + tc(current["connecticut"]) + tc(current["delaware"]) + tc(current[
+            "florida"]) + tc(current["georgia usa"]) + tc(current["hawaii"]) + tc(current["idaho"]) + tc(current["illinois"]) + tc(current["indiana"]) + tc(current["iowa"]) + tc(current["kansas"]) + tc(current["kentucky"]) + tc(current[
+              "louisiana"]) + tc(current["maine"]) + tc(current["maryland"]) + tc(current["massachusetts"]) + tc(current["michigan"]) + tc(current["minnesota"]) + tc(current["mississippi"]) + tc(current["missouri"]) + tc(current["montana"]) + tc(
+              current["nebraska"]) + tc(current["nevada"]) + tc(current["new hampshire"]) + tc(current["new jersey"]) + tc(current["new mexico"]) + tc(current["new york"]) + tc(current["north carolina"]) + tc(current["north dakota"]) + tc(current[
+              "ohio"]) + tc(current["oklahoma"]) + tc(current["oregon"]) + tc(current["pennsylvania"]) + tc(current["rhode island"]) + tc(current["south carolina"]) + tc(current["south dakota"]) + tc(current["tennessee"]) + tc(current["texas"]) +
+            tc(current["utah"]) + tc(current["vermont"]) + tc(current["virginia"]) + tc(current["washington"]) + tc(current["west virginia"]) + tc(current["canada"]));
+
+            rc -= (tr(current["alabama"]) + tr(current["alaska"]) + tr(current["arizona"]) + tr(current["arkansas"]) + tr(current["california"]) + tr(current["colorado"]) + tr(current["connecticut"]) + tr(current["delaware"]) + tr(current[
+          "florida"]) + tr(current["georgia usa"]) + tr(current["hawaii"]) + tr(current["idaho"]) + tr(current["illinois"]) + tr(current["indiana"]) + tr(current["iowa"]) + tr(current["kansas"]) + tr(current["kentucky"]) + tr(current[
+            "louisiana"]) + tr(current["maine"]) + tr(current["maryland"]) + tr(current["massachusetts"]) + tr(current["michigan"]) + tr(current["minnesota"]) + tr(current["mississippi"]) + tr(current["missouri"]) + tr(current["montana"]) + tc(
+            current["nebraska"]) + tr(current["nevada"]) + tr(current["new hampshire"]) + tr(current["new jersey"]) + tr(current["new mexico"]) + tr(current["new york"]) + tr(current["north carolina"]) + tr(current["north dakota"]) + tr(current[
+            "ohio"]) + tr(current["oklahoma"]) + tr(current["oregon"]) + tr(current["pennsylvania"]) + tr(current["rhode island"]) + tr(current["south carolina"]) + tr(current["south dakota"]) + tr(current["tennessee"]) + tr(current["texas"]) +
+          tr(current["utah"]) + tr(current["vermont"]) + tr(current["virginia"]) + tr(current["washington"]) + tr(current["west virginia"]) + tr(current["canada"]));
+
+          dd -= (td(current["alabama"]) + td(current["alaska"]) + td(current["arizona"]) + td(current["arkansas"]) + td(current["california"]) + td(current["colorado"]) + td(current["connecticut"]) + td(current["delaware"]) + td(current[
+          "florida"]) + td(current["georgia usa"]) + td(current["hawaii"]) + td(current["idaho"]) + td(current["illinois"]) + td(current["indiana"]) + td(current["iowa"]) + td(current["kansas"]) + td(current["kentucky"]) + td(current[
+            "louisiana"]) + td(current["maine"]) + td(current["maryland"]) + td(current["massachusetts"]) + td(current["michigan"]) + td(current["minnesota"]) + td(current["mississippi"]) + td(current["missouri"]) + td(current["montana"]) + tc(
+            current["nebraska"]) + td(current["nevada"]) + td(current["new hampshire"]) + td(current["new jersey"]) + td(current["new mexico"]) + td(current["new york"]) + td(current["north carolina"]) + td(current["north dakota"]) + td(current[
+            "ohio"]) + td(current["oklahoma"]) + td(current["oregon"]) + td(current["pennsylvania"]) + td(current["rhode island"]) + td(current["south carolina"]) + td(current["south dakota"]) + td(current["tennessee"]) + td(current["texas"]) +
+          td(current["utah"]) + td(current["vermont"]) + td(current["virginia"]) + td(current["washington"]) + td(current["west virginia"]) + td(current["canada"]));
           }
 
           i["c"].push(cf);
-          i["s"].push(sp);
+          // i["s"].push(sp);
           i["r"].push(rc);
           i["d"].push(dd);
         });
