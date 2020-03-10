@@ -3,10 +3,10 @@
   <channel>
     <title>Truong Nhat Hoang</title>
     <description>Just a typical guy in this Universe</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 10 Mar 2020 22:07:18 +0700</pubDate>
-    <lastBuildDate>Tue, 10 Mar 2020 22:07:18 +0700</lastBuildDate>
+    <link>hoang.tech/</link>
+    <atom:link href="hoang.tech/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 10 Mar 2020 22:52:35 +0700</pubDate>
+    <lastBuildDate>Tue, 10 Mar 2020 22:52:35 +0700</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -104,8 +104,8 @@
 &lt;p&gt;Dennis, A., Wixom, B. H., Roth, R. M. (n.d.). System Analysis Design (5th ed.).&lt;/p&gt;
 </description>
         <pubDate>Thu, 20 Feb 2020 10:47:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/the-systems-development-life-cycle/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/the-systems-development-life-cycle/</guid>
+        <link>hoang.tech/topics/the-systems-development-life-cycle/</link>
+        <guid isPermaLink="true">hoang.tech/topics/the-systems-development-life-cycle/</guid>
         
         
         <category>topics</category>
@@ -208,8 +208,8 @@
 &lt;/ul&gt;
 </description>
         <pubDate>Sat, 15 Feb 2020 10:47:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/pilot-license/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/pilot-license/</guid>
+        <link>hoang.tech/topics/pilot-license/</link>
+        <guid isPermaLink="true">hoang.tech/topics/pilot-license/</guid>
         
         
         <category>topics</category>
@@ -338,8 +338,8 @@
 
 </description>
         <pubDate>Mon, 27 Jan 2020 16:53:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/german-vocabulary/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/german-vocabulary/</guid>
+        <link>hoang.tech/topics/german-vocabulary/</link>
+        <guid isPermaLink="true">hoang.tech/topics/german-vocabulary/</guid>
         
         
         <category>topics</category>
@@ -356,8 +356,8 @@ Chúc mọi người năm mới vui vẻ, vạn sự như ý nhé.
 &lt;span class=&quot;image fit&quot;&gt;&lt;img src=&quot;/images/topic_image/new-year/lunar-2020.jpg&quot; alt=&quot;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 23 Jan 2020 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/happy-lunar-new-year/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/happy-lunar-new-year/</guid>
+        <link>hoang.tech/topics/happy-lunar-new-year/</link>
+        <guid isPermaLink="true">hoang.tech/topics/happy-lunar-new-year/</guid>
         
         
         <category>new-year</category>
@@ -494,8 +494,8 @@ Chúc mọi người năm mới vui vẻ, vạn sự như ý nhé.
 &lt;/ol&gt;
 </description>
         <pubDate>Wed, 22 Jan 2020 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/36-question-that-lead-to-love-eng/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/36-question-that-lead-to-love-eng/</guid>
+        <link>hoang.tech/topics/36-question-that-lead-to-love-eng/</link>
+        <guid isPermaLink="true">hoang.tech/topics/36-question-that-lead-to-love-eng/</guid>
         
         
         <category>love</category>
@@ -632,8 +632,8 @@ Chúc mọi người năm mới vui vẻ, vạn sự như ý nhé.
 &lt;/ol&gt;
 </description>
         <pubDate>Wed, 22 Jan 2020 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/36-question-that-lead-to-love-vie/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/36-question-that-lead-to-love-vie/</guid>
+        <link>hoang.tech/topics/36-question-that-lead-to-love-vie/</link>
+        <guid isPermaLink="true">hoang.tech/topics/36-question-that-lead-to-love-vie/</guid>
         
         
         <category>love</category>
@@ -662,8 +662,8 @@ Chúc mọi người năm mới vui vẻ, vạn sự như ý nhé.
 30 chiếc A310 của Airbus. 77 Chiếc Boeing 75, 1 chiếc Boeing 767, 24 chiếc Boeing 777. FedEx cũng đang đặt thêm 43 chiếc Boeing 757, 49 chiếc Boeing 767 và 19 chiếc Boeing 777.&lt;/p&gt;
 </description>
         <pubDate>Thu, 09 Jan 2020 12:12:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/airbus-vs-boeing-vie/</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/airbus-vs-boeing-vie/</guid>
+        <link>hoang.tech/topics/airbus-vs-boeing-vie/</link>
+        <guid isPermaLink="true">hoang.tech/topics/airbus-vs-boeing-vie/</guid>
         
         
         <category>topics</category>
@@ -715,8 +715,8 @@ Chúc mọi người năm mới vui vẻ, vạn sự như ý nhé.
 &lt;p&gt;Drive safely!&lt;/p&gt;
 </description>
         <pubDate>Wed, 04 Dec 2019 11:30:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/tutorial/how-to-ride-a-motorbile-vietnamese.html</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/tutorial/how-to-ride-a-motorbile-vietnamese.html</guid>
+        <link>hoang.tech/topics/tutorial/how-to-ride-a-motorbile-vietnamese.html</link>
+        <guid isPermaLink="true">hoang.tech/topics/tutorial/how-to-ride-a-motorbile-vietnamese.html</guid>
         
         
         <category>topics</category>
@@ -829,8 +829,8 @@ Personal firewall có thể dùng ở nhà hoặc các mạng nội bộ của c
 &lt;p&gt;Stallings, W., &amp;amp; Brown, L. (2015). Computer Security Principles and Practice (3rd Edition).&lt;/p&gt;
 </description>
         <pubDate>Mon, 11 Nov 2019 17:40:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/network/firewall-vnese.html</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/network/firewall-vnese.html</guid>
+        <link>hoang.tech/topics/network/firewall-vnese.html</link>
+        <guid isPermaLink="true">hoang.tech/topics/network/firewall-vnese.html</guid>
         
         
         <category>topics</category>
@@ -1088,8 +1088,8 @@ external attack.&lt;/p&gt;
 &lt;p&gt;Stallings, W., &amp;amp; Brown, L. (2015). Computer Security Principles and Practice (3rd Edition).&lt;/p&gt;
 </description>
         <pubDate>Sat, 26 Oct 2019 17:40:00 +0700</pubDate>
-        <link>http://localhost:4000/topics/network/firewall.html</link>
-        <guid isPermaLink="true">http://localhost:4000/topics/network/firewall.html</guid>
+        <link>hoang.tech/topics/network/firewall.html</link>
+        <guid isPermaLink="true">hoang.tech/topics/network/firewall.html</guid>
         
         
         <category>topics</category>
