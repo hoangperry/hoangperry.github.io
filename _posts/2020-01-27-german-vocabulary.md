@@ -5,7 +5,7 @@ permalink: /topics/german-vocabulary/
 categories:
   - topics
   - german
-date: 2020-01-27 16:53
+date: 2023-01-27 16:53
 ---
 
 # Day 1
