@@ -2,6 +2,7 @@
 title: 36 Questions that lead to love
 excerpt: 
 permalink: /topics/36-question-that-lead-to-love-eng/
+background-image: topic_image/36_ques/back.jpg
 categories:
   - love
   - topics
