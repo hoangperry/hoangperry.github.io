@@ -2,11 +2,11 @@
 title: Việc tăng số lượng cánh quạt sẽ có tác động như thế nào 
 excerpt: Số lượng cánh quạt ảnh hưởng thế nào đến hiệu suất. 
 background-image: topic_image/propellers/back.jpg
-permalink: /topics/my topic group/
+permalink: /topics/propellers/
 categories:
   - topics
-  - my topic group
-date: 2019-09-05 00:00
+  - aviation
+date: 2020-05-05 13:00
 ---
 
 nên cánh quạt 2, 3 hay 4 cánh.
@@ -31,7 +31,7 @@ Vì vậy khi nói đến hiệu suất của cánh quạt thì ta đang tìm ki
 
 Vì hiệu suất cánh quạt bị tác động rất nhiều bởi các yếu tố bên ngoài. Cho nên để đo hiệu suất của một cánh quạt chúng ta nên thử nghiệm, đo đạc lực đẩy, vận tốc của chúng trên cũng một điều kiện cụ thể. Chúng ta không thể lấy chân vịt của tàu thủy đang quay ở dưới nước đi so sánh hiệu suất với cánh máy bay đang quay trong không khí. Vì điều kiện bên ngoài của 2 môi trường này rất khác nhau. Việc tạo ra lực hay tiêu thụ năng lượng từ trục rất có liên quan tới diện tích của các cánh quạt. Và nếu thêm cánh quạt chúng ta cần phải giảm diện tích của các cánh quạt để đảm bảo lực đẩy và vận tốc vẫn ổn định.
 
-Các bạn có thể tham khảo về thiết kế cánh quạt ở đây http://www.mh-aerotools.de/airfoils/jp_propeller_design.htm
+Các bạn có thể tham khảo về thiết kế cánh quạt [ở đây](http://www.mh-aerotools.de/airfoils/jp_propeller_design.htm)
 
 Có hai cách để đảm bảo công suất đó là giảm chiều ngang của cánh quạt hoặc giảm đường kính của nó. Hoặc có thể cả hai phương pháp trên. Khi chúng ta thêm 1, 2 cánh vào cánh quạt chúng ta cần phải đổi hình dạng của các cánh.
 
@@ -40,7 +40,8 @@ Có hai cách để đảm bảo công suất đó là giảm chiều ngang củ
 
 Nhiều lập luận trong cộng đồng RC (các đồ chơi điều khiển từ xa) đã nói rằng việc tăng số cánh quạt sẽ làm nhiễu động không khí nhiều hơn và khiến hiệu quả giảm. Nhưng một số cá nhân khác lại đưa ra ý kiến khác hẳn. Nhớ bài viết mình đã đưa cho các bạn ở phần trước chứ. Tác giả của bài viết đã nói rằng: 
 
-'The number of blades has a small effect on the efficiency only. Usually a propeller with more blades will perform slightly better, as it distributes its power and thrust more evenly in its wake. But for a given power or thrust, more blades also mean more narrow blades with reduced chord length, so practical limits have to be considered here. The chord length can be increased while decreasing the diameter to keep the power consumption constant, but a diameter reduction is usually a bad idea in terms of efficiency, as long as the tip mach number or tip cavitation is not an issue.'
+{% include post_note.html type="tip" text="The number of blades has a small effect on the efficiency only. Usually a propeller with more blades will perform slightly better, as it distributes its power and thrust more evenly in its wake. But for a given power or thrust, more blades also mean more narrow blades with reduced chord length, so practical limits have to be considered here. The chord length can be increased while decreasing the diameter to keep the power consumption constant, but a diameter reduction is usually a bad idea in terms of efficiency, as long as the tip mach number or tip cavitation is not an issue." %}
+
 
 Có thể hiều nôm na là số lượng cánh có tác động không lớn lên hiệu suất. Thông thường một cánh quạt có nhiều cánh sẽ hoạt động tốt hơn một chút, bởi vì nó phân phối lực đều hơn khi hoạt động. Nhưng như vậy các cánh quạt sẽ phải hẹp hơn, ngắn hơn để đảm bảo được công suất và lực đẩy. Vì vậy chúng ta cần phải xem xét lại ở điểm này. Chúng ta có thể tăng bề ngang của các cánh và giảm chiều dài để đảm bảo hằng số tiêu thụ năng lượng. Nhưng việc giảm đường kính là một ý tưởng tồi tệ với việc đảm bảo hiệu suất. 
 
