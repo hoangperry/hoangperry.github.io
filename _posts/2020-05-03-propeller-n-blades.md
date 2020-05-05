@@ -6,7 +6,7 @@ permalink: /topics/propellers/
 categories:
   - topics
   - aviation
-date: 2020-05-05 13:00
+date: 2020-05-04 13:00
 ---
 
 # Hiệu suất của cánh quạt
