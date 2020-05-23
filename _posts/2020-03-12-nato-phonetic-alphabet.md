@@ -6,7 +6,7 @@ background-image: topic_image/airbus_vs_boeing/background.jpg
 categories:
   - topics
   - aviation
-date: 2020-04-01 21:12
+date: 2022-04-01 21:12
 ---
 
 # NATO phonetic alphabet
