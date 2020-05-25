@@ -53,7 +53,7 @@ Tìm trạng thái tối ưu cho một chuỗi quan sát còn gọi là quá tr�
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/hmm/5.png" %}
 
-Việc đi tìm đuo
+Vì Viterbi là sử dụng quy hoạch động nên rất tối ưu cho bài toán đi tìm chuỗi tối ưu nhất. Bởi vì chúng ta không tính xác suất của tất cả.
 
 
 
