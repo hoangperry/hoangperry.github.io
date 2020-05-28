@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+  Original Design: Spectral by HTML5 UP
+    html5up.net
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  Jekyll build mod and further hacks by @arkadianriver, MIT license
+-->
+<html lang="vi-VI">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hidden Markov Model</title>
+  <meta name="description" content="An introduction to Hidden Markov Model" />
+  <!--[if lte IE 8]><script src="/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="canonical" href="http://localhost:4000/topics/hmm/" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie8.css" /><![endif]-->
+  <!--[if lte IE 9]><link rel="stylesheet" href="/css/ie9.css" /><![endif]-->
+  <style>
+  #main > header {
+    background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/topic_image/hmm/back.png");
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/topic_image/hmm/back.png");
+    background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/topic_image/hmm/back.png");
+    background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/images/topic_image/hmm/back.png");
+  }
+  </style>
+  <!--[if lte IE 9]>
+  <style>
+  #main > header {
+    background-image: url("/images/topic_image/hmm/back.png");
+  }
+  </style>
+  -->
+  <link rel="alternate" type="application/rss+xml" title="Truong Nhat Hoang" href="http://localhost:4000/feed.xml">
+</head>
+
+
+  <body>
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+      <!-- Header -->
+<header id="header">
+  <h1><a href="/index.html">Truong Nhat Hoang</a></h1>
+  <nav id="nav">
+    <ul>
+      <li class="special">
+        <a href="#menu" class="menuToggle"><span>Menu</span></a>
+        <div id="menu">
+          <ul>
+            <li><a href="/index.html#greeting">Home</a></li>
+            <li><a href="/works/">Works</a></li>
+            <li><a href="/topics/">Topics</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/feed.xml"
+                   class="icon fa-feed"> RSS Feed</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+      <article id="main">
+
+          <header>
+    <h1>Hidden Markov Model</h1>
+    <p>An introduction to Hidden Markov Model</p>
+  </header>
+  <ul class="breadcrumb">
+  <li><a href="/index.html#greeting">Home</a></li>
+  <li style="text-transform: capitalize;"><a href="/works/works/topics/topics/tutorial/topics/love/love/new-year/topics/topics/topics/topics/topics/topics">topics</a></li>
+  <li>Hidden Markov Model</li>
+</ul>
+
+
+
+          <section class="wrapper style5">
+    <div class="inner">
+      <span id="post-date">4 May 2020</span><hr
+        style="margin-top:3px;" />
+
+      <p>Hidden Markov model (<strong>HMM</strong>) là một mô hình xác suất dựa trên nhiều <strong>Markov chain</strong>.</p>
+
+<h1 id="markov-chain">Markov chain</h1>
+
+<p>Markov chain có thể coi là một sơ đồ chuyển trạng thái mà trong đó các node là trạng thái(có thể là một từ, hoặc là một giá trị từ một tập nào đó) còn các cạnh có trọng số là sác xuất chuyển trạng thái.</p>
+
+<p><span class="image fit"><img src="/images/topic_image/hmm/0.png" alt="" /></span></p>
+
+<p>Markov chain rất hữu dụng trong việc tính toán xác suất của một chuỗi sự kiện. Trong nhiều trường hợp, chúng ta không thể quan sát đc các sự kiện đó, hoặc không thể quan sát nó một cách trực tiếp. Ví dụ trong việc gán POS cho một đoạn văn bởi vì chúng ta không thể quan sát đc các tag chính xác cho từ là gì.</p>
+
+<h1 id="mô-hình-hmm">Mô hình HMM</h1>
+
+<p>HMM tìm các giá trị hoặc xác xuất của các sự kiện ẩn dựa trên các biến quan sát được. Mô hình HMM sẽ bao gồm các thành phần :</p>
+
+<ul>
+  <li><strong>Q = [q1, q2, q3,…]</strong>: là một tập hợp các trạng thái.</li>
+  <li><strong>O = [o1, o2, o3,…]</strong>: là một tập hợp các quan sát.</li>
+  <li><strong>A = [a11, …, aji, …, aNN]</strong>: là ma trận chứa xác suất chuyển trạng thái của các trạng thái trong <strong>Q</strong></li>
+  <li><strong>B = bi(ot)</strong>: là ma trận xác suất phát thải của một quan sát <strong>ot</strong> được tạo từ một trạng thái <strong>i</strong></li>
+  <li><strong>pi = [pi1, pi2, pi3, …]</strong>: là phân phối xác suất khởi tạo</li>
+</ul>
+
+<p><span class="image fit"><img src="/images/topic_image/hmm/1.png" alt="" /></span></p>
+
+<p>Trong HMM trạng thái tiếp theo và quan sát hiện tại phụ thuộc vào trạng thái hiện tại. Cho nên với tất cả quan sát và trạng thái khởi tạo chúng ta có thể tính toán trạng thái tại một thời điểm <strong>t</strong>.</p>
+
+<p><span class="image fit"><img src="/images/topic_image/hmm/2.png" alt="" /></span></p>
+
+<h1 id="xác-định-trạng-thái-tại-thời-điểm-cụ-thể---foward-algorithm">Xác định trạng thái tại thời điểm cụ thể - Foward Algorithm</h1>
+
+<p>Trong HMM chúng ta tìm trạng thái tại thời điểm t bằng cách sử dụng trạng thái tại thời điểm t-1 hoặc t+1.</p>
+
+<p><span class="image fit"><img src="/images/topic_image/hmm/4.png" alt="" /></span></p>
+
+<p>Như hình ví dụ bên trên, bạn có thể thấy. Xác suất tại mỗi node được tính bằng cách tính tổng của tất cả các đường đi có thể dẫn tới node đó. Cho qt = j là trạng thái tại thời điểm t.</p>
+
+<h1 id="viterbi">Viterbi</h1>
+
+<p>Tìm trạng thái tối ưu cho một chuỗi quan sát còn gọi là quá trình Decode. Cho trạng thái <strong>j</strong> tại thời điểm <strong>t</strong>, <strong>vt(j)</strong> là xác suất chung của chuỗi quan sát và chuỗi trang thái tối ưu nhất. Ta sẽ có công thức như sau:</p>
+
+<p><span class="image fit"><img src="/images/topic_image/hmm/5.png" alt="" /></span></p>
+
+<p>Việc đi tìm đuo</p>
+
+<h1 id="tài-liệu-tham-khảo">Tài liệu tham khảo</h1>
+
+<p><a href="https://medium.com/@jonathan_hui/machine-learning-hidden-markov-model-hmm-31660d217a61">Machine Learning — Hidden Markov Model (HMM)</a></p>
+
+      <div class="backnext btnbottom">
+                <div class="back">
+        </div>
+        <div class="next">
+        <div class="npointer"><a href="/topics/comp-sci/"
+         class="button small" title="Next">Start</a></div>
+         <!-- class="icon fa-forward" title="Next"></a></div> -->
+        <div class="ntitle"><a href="/topics/comp-sci/">Start page</a></div>
+        </div>
+
+      </div>
+      <script>
+      document.body.onkeyup = function(e){
+        if (e.keyCode == '37') { window.location = ''; }
+        if (e.keyCode == '39') { window.location = '/topics/comp-sci/'; }
+      };
+      </script>
+
+  
+    </div>
+  </section>
+
+
+      </article>
+
+      <!-- Footer -->
+<footer id="footer">
+  <ul class="icons">
+    <li><a target="_blank" href="https://twitter.com/hoang015/" class="icon fa-twitter"
+           ><span class="label">twitter</span></a></li>
+    <li><a target="_blank" href="https://github.com/hoangperry/" class="icon fa-github"
+           ><span class="label">github</span></a></li>
+    <li><a target="_blank" href="https://www.linkedin.com/in/hoangntruong/" class="icon fa-linkedin-square"
+           ><span class="label">linkedin-square</span></a></li>
+    <li><a target="_blank" href="https://facebook.com/blablaisbest/" class="icon fa-facebook-official"
+           ><span class="label">facebook-official</span></a></li>
+    <li><a target="_blank" href="mailto:prodai9573@gmail.com" class="icon fa-envelope"
+           ><span class="label">E-mail</span></a></li>
+    <li><a target="_blank" href="https://www.instagram.com/hoang_____perry/" class="icon fa-instagram"
+           ><span class="label">instagram</span></a></li>
+    <li><a target="_blank" href="soundcloud.com/hoang6969/" class="icon fa-soundcloud"
+           ><span class="label">soundcloud</span></a></li>
+  </ul>
+  <ul class="copyright">
+    <li>&copy; 2019, 2020 Hoang Nhat Truong</li>
+    <li><a href="/credits/">Credits</a></li>
+  </ul>
+</footer>
+
+
+      <!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.scrolly.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+<script src="/js/main.js"></script>
+
+    </div>
+
+  </body>
+
+</html>

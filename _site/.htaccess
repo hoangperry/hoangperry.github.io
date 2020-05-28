@@ -1,0 +1,8 @@
+AddType image/svg+xml .svg .svgz
+Redirect /wuhan/ wuhan
+Redirect /wuhan.html wuhan
+
+Redirect /covid19/ /covid19
+Redirect /covid19.html /covid19
+
+
