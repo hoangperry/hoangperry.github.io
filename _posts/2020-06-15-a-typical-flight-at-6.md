@@ -9,11 +9,17 @@ categories:
 date: 2020-06-10 11:11
 ---
 
+# Pre-flight
+ 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/1.jpg" %}
+
+# Departure and Climb
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/2.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/3.jpg" %}
+
+# En route
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/4.jpg" %}
 
