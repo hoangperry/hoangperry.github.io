@@ -15,7 +15,7 @@ Let's go!
 
 # Pre-flight
 
-My aircraft is taxiing to the 02L runway. CRX has 2 runways. The other one is still developed. This airport welcomes about 8.5 million passengers each year. Cam Ranh airport have IATA code is **CXR** and ICAO code is **VVCR**.
+My aircraft is taxiing to the runway 02L. Cam Ranh airport have IATA code is **CXR** and ICAO code is **VVCR**. CRX has 2 runways, the other one is usually using for large aircraft like Boeing 777 or Airbus A340 and International flight. This runway is 3.048 meters length and 45 meters width.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/1.jpg" %}
 
