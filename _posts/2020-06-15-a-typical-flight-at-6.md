@@ -1,6 +1,6 @@
 ---
 title: Apollo 11
-excerpt: Chuyến bay lịch sử
+excerpt: Just a typical flight at 6:00 AM
 background-image: topic_image/apollo11/back.jpg
 permalink: /topics/a-typical-flight-at-6/
 categories:
