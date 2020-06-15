@@ -21,7 +21,13 @@ My aircraft is taxiing to the runway 02L. Cam Ranh airport have IATA code is **C
 
 # Departure and Climb
 
+Because runway 02L heading to the North and destination is in the south. So, in the departure phase, the aircraft must be turned to heading south.
+
+*Cam Ranh peninsula, There are a lot of Resort here.*
+
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/2.jpg" %}
+
+*A part of Nha Trang city*
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/3.jpg" %}
 
