@@ -37,7 +37,11 @@ When the aircraft reaches the flight altitude, we will move through many waypoin
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/4.jpg" %}
 
+*Our plane has successfully turned*
+
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/5.jpg" %}
+
+
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/a-typical-flight-at-6/6.jpg" %}
 
