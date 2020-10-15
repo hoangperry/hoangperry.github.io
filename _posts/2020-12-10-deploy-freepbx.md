@@ -23,3 +23,5 @@ Vì vậy FreePBX ra đời để giúp quản lí Asterisk trên giao diện đ
 Để cài đặt một hệ thống tổng đài, chúng ta sẽ cần rất nhiều dịch vụ để có thể vận hành cũng như là đảm bảo tính bảo mật của hệ thống. Trước tiên chúng ta sẽ cần Asterísk để xây dựng tổng đài IP. Tiếp theo chúng ta sẽ dùng FreePBX để quản lý và cấu hình Asterisk. Để có thể vận hành được FreePBX chúng ta sẽ cần cài đặt thêm NodeJS, MariaDB (hoặc MySQL) và Fail2Ban để ngăn chặn việc tấn công brute force. 
 
 Ở đây để thuận lợi cho việc cài đặt chúng ta sẽ dùng công nghệ ảo hoá Docker để triển khai hệ thống. 
+
+
