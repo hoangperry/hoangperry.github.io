@@ -66,6 +66,21 @@ Sau khi thiếp lập xong những số máy nhánh cần thiết, chúng ta san
 
 Ở đây chúng ta sẽ chỉ cấu hình lại range port của giao thức RTP để phù hợp với cấu hình mạng máy ảo bên ngoài. 
 
+
+## Cài đặt tổng đài IVR (Tương tác trả lời tự động)
+
+FreePBX có hỗ trợ cho chúng ta module IVR, nhưng module này chưa được cài sẵn vào IVR mặc định. Vì vậy để cào IVR vào phần quản lý module trong "Module Admin" và tìm kiếm các package online và cài đặt module IVR vào server. 
+
+Sau khi cài đặt xong, IVR nằm trong menu applications của phần quản lý FreePBX. Nhưng trước khi đi đến cài đặt IVR thì chúng ta cần phải chuẩn bị trước các bản thu âm và cấu hình những tệp thu âm này trên FreePBX qua Systems Recordings. Hiện nay, FreePBX cũng có thêm các module text to sppech để việc tạo các bản ghi âm dễ dàng và hiệu quả hơn rất nhiều. Nhưng module này có thể tìm kiếm ở ngoài hoặc trong những package online của FreePBX. 
+
+Sau khi cài đặt xong System Recordings, chúng ta sang IVR để thiết lập tổng đài tự động. Ở đây chúng ta thiết lập "Announcement" là thông báo mà sẽ phát lên khi có người truy cập với IVR này. IVR này chúng ta sẽ chọn thông báo mà chúng ta đã ghi âm và cấu hình ở System Recordings trước đó. Bên dưới của khung cấu hình IVR, chúng ta sẽ có khu vực để thiết lập "IVR entries". Đây là nơi chúng ta cấu hình đích đến của cuộc goi ghi người dùng bấm số tương ứng trên bàn phím. Đích của IVR có thể là một số máy nhánh, IVR khác hoặc những call record có sẵn. Ngoài ra chúng ta còn có thể quyết định việc cuộc gọi có trở về lại IVR hiện tại hay không. 
+
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/10.png" %}
+
+
+
+
 ## Thực hiện cuộc gọi
 
 
@@ -90,3 +105,4 @@ Chúng ta sẽ đăng nhập vào Zoiper trên 1 máy khác cùng mặng với m
 Khi hai máy kết nối thành công, hai bên đều hiển thị thông số các packet gửi đi và nhận vào như hình bên dưới.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/10.png" %}
+
