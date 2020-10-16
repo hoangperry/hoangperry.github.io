@@ -65,3 +65,8 @@ Sau khi thiếp lập xong những số máy nhánh cần thiết, chúng ta san
 {% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/5.png" %}
 
 Ở đây chúng ta sẽ chỉ cấu hình lại range port của giao thức RTP để phù hợp với cấu hình mạng máy ảo bên ngoài. 
+
+## Thực hiện cuộc gọi
+
+
+Để có thể kết nối với Asterisk đã cấu hình ở trên, chúng ta cần một SIP client. SIP client này chúng ta có thể dùng bất kì client nào, nhưng trong trường hơp này chúng ta sẽ dùng Zoiper để làm SIP client kết nối với Asterisk. 
