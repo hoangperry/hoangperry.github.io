@@ -87,11 +87,6 @@ Khi mọi thứ đều được cấu hình đúng chúng ta sẽ thấy Zoiper 
 Chúng ta sẽ đăng nhập vào Zoiper trên 1 máy khác cùng mặng với máy host hoặc máy host phải có Static ra Internet. 2 máy này phải đăng nhập vào 2 đầu số khác nhau đã được đăng ký trước đó. Ở đây, chúng ta sử dụng thêm một điện thoại để kết nối với Asterisk. Khi máy A gọi tới máy B, máy B sẽ hiện lên thông báo đổ chuông và 2 hai sẽ thiết lập kết nối khi máy B chấp nhận cuộc gọi của máy A. 
 
 
-{% include post_picwrap.html pos="right" src="/images/topic_image/freepbx/9.png" %}
-
 Khi hai máy kết nối thành công, hai bên đều hiển thị thông số các packet gửi đi và nhận vào như hình bên dưới.
 
-{% include post_picwrap.html pos="right" src="/images/topic_image/freepbx/10.png" %}
-
-
-{% include post_picwrap.html pos="right" src="/images/topic_image/freepbx/11.jpg" %}
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/10.png" %}
