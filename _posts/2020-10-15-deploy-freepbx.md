@@ -2,7 +2,7 @@
 title: Deploy FreePBX
 excerpt: "FreePBX"
 permalink: /topics/freepbx/
-background-image: topic_image/milvus/back.png
+background-image: topic_image/freepbx/back.png
 categories:
   - topics
 date: 2020-10-15 11:11
@@ -33,11 +33,11 @@ Vì vậy FreePBX ra đời để giúp quản lí Asterisk trên giao diện đ
 Sau khi cài đặt FreePBX và các dịch vụ cần thiết của nó. Chúng ta sẽ truy cập vào trang admin để tiến hành cấu hình hệ thống ở địa chỉ sau **localhost/admin**.
 Lần đầu tiền chúng ta đăng nhập vào hệ thống. FreePBX sẽ bắt chúng ta khởi tạo tài khoản admin.
 
-{% include post_picwrap.html pos="right" src="/images/topic_image/freepbx/1.png" %}
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/1.png" %}
 
 Sau khi tạo tài khoản admin thì chúng ta sẽ đăng nhập bằng username password vừa tạo để truy cập vào trang quản lý của FreePBX.
 
-{% include post_picwrap.html pos="right" src="/images/topic_image/freepbx/2.png" %}
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/2.png" %}
 
 Thiết ngày ngày giờ, múi giờ
 
