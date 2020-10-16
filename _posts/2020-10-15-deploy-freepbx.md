@@ -49,6 +49,10 @@ Thiết ngày ngày giờ, múi giờ
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/4.png" %}
 
-Ở đây, chúng ta chỉ quan tâm đến "User Extension" là số máy nhánh và "Secret" là password cho phía client. 
+Ở đây, chúng ta chỉ quan tâm đến "User Extension" là số máy nhánh và "Secret" là password cho phía client. "Display Name" là tên hiển thị của người dùng khi gọi vào một số máy nhánh khác. "Outbound CID" và "Emergency CID" là số sẽ được ghi đè lên số máy nhánh khi số này này gọi ra ngoài hoặc thực hiện cuộc gọi khẩn cấp.
 
-Vì mặc định FreePBX sẽ ánh xạ mỗi số máy nhánh với một người dùng trên cơ sở dữ liệu của nó. Nhưng FreePBX vẫn hỗ trợ chúng ta không ánh xạ số máy nhánh với bất kì người dùng nào hêt. Nhưng nếu không có người dùng thì việc quản lý số máy nhánh sẽ rất khó khăn, việc quản lý ở đây đó là quản lý cuộc gọi hoặc những tính năng cài thêm của FreePBX. Trong trường hợp này chúng ta sẽ tạo một người dùng mới cho số máy nhánh. ở trường "Password For New User" là password để người dùng sẽ khởi tạo, và mặc định username của người dùng này sẽ là số máy nhánh.
+Vì mặc định FreePBX sẽ ánh xạ mỗi số máy nhánh với một người dùng trên cơ sở dữ liệu của nó. Nhưng FreePBX vẫn hỗ trợ chúng ta không ánh xạ số máy nhánh với bất kì người dùng nào hêt. Nhưng nếu không có người dùng thì việc quản lý số máy nhánh sẽ rất khó khăn, việc quản lý ở đây đó là quản lý cuộc gọi hoặc những tính năng cài thêm của FreePBX. 
+
+Trong trường hợp này chúng ta sẽ tạo một người dùng mới cho số máy nhánh. ở trường "Password For New User" là password để người dùng sẽ khởi tạo. Mặc định username của người dùng này sẽ là số máy nhánh, chúng ta vẫn có thể đổi sáng một username theo ý muốn ở đây. 
+
+Sau khi thiếp lập xong những số máy nhánh cần thiết, chúng ta sang phần settings/asterisk SIP settings để cấu hình máy chủ SIP của Asterisk. Ở đây FreePBX đã hỗ trợ sẵn rất nhiều tính năng cho chúng ta trên Asterisk.  
