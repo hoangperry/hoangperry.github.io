@@ -78,8 +78,10 @@ Sau khi cài đặt xong System Recordings, chúng ta sang IVR để thiết l�
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/10.png" %}
 
+Sau khi cài đặt xong IVR chúng ta sẽ thiết lập một số máy nhánh cho IVR đã tao. Việc thiết lập số máy nhánh cho IVR cũng tương tự việc thiết lập số máy nhánh cho một người dùng. Chúng ta vào applications/extensions như đã giới thiệu trước đó. Ở đây chúng ta sẽ tạo một Virtual Extensions. Sau đó, chúng ta sang phần thiết lập nâng cao. Ở đây chúng ta sẽ cài đặt "Optional Destinations" mục "Not Reachable" về IVR mà chúng ta muốn định hướng cuộc gợi tới.
 
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/11.png" %}
 
 ## Thực hiện cuộc gọi
 
