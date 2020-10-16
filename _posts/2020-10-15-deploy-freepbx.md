@@ -106,5 +106,5 @@ Chúng ta sẽ đăng nhập vào Zoiper trên 1 máy khác cùng mặng với m
 
 Khi hai máy kết nối thành công, hai bên đều hiển thị thông số các packet gửi đi và nhận vào như hình bên dưới.
 
-{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/10.png" %}
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/9.png" %}
 
