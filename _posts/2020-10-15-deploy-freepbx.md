@@ -44,3 +44,11 @@ Thiết ngày ngày giờ, múi giờ
 {% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/3.png" %}
 
 
+Đầu tiên chúng sẽ cần tạo số máy nhánh. Ở đây chúng ta dùng giao thức SIP. Để tạo số máy nhanh trên giao thức SIP, chúng ta truy cập vào applications/extensions. Sau đó chọn add extension để tạo số máy nhánh. 
+
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/4.png" %}
+
+Ở đây, chúng ta chỉ quan tâm đến "User Extension" là số máy nhánh và "Secret" là password cho phía client. 
+
+Vì mặc định FreePBX sẽ ánh xạ mỗi số máy nhánh với một người dùng trên cơ sở dữ liệu của nó. Nhưng FreePBX vẫn hỗ trợ chúng ta không ánh xạ số máy nhánh với bất kì người dùng nào hêt. Nhưng nếu không có người dùng thì việc quản lý số máy nhánh sẽ rất khó khăn, việc quản lý ở đây đó là quản lý cuộc gọi hoặc những tính năng cài thêm của FreePBX. Trong trường hợp này chúng ta sẽ tạo một người dùng mới cho số máy nhánh. ở trường "Password For New User" là password để người dùng sẽ khởi tạo, và mặc định username của người dùng này sẽ là số máy nhánh.
