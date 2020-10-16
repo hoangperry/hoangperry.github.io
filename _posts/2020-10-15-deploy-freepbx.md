@@ -27,6 +27,10 @@ Vì vậy FreePBX ra đời để giúp quản lí Asterisk trên giao diện đ
 
 - BackupDB: Database backup cho MariaDB
 
+Tất cả những môi trường, cấu hình, run script của từng ứng dụng chúng ta sẽ viết trong Dockerfile và sau đó định nghĩa lại những ứng dụng trong Docker-compose. Việc chạy tất cả trong Docker-compose giúp chúng ta tạo mội trường biệt lập để dễ dàng quản lý những ứng dụng này.
+
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/docker.png" %}
 
 ## Cấu hình
 
@@ -56,3 +60,8 @@ Vì mặc định FreePBX sẽ ánh xạ mỗi số máy nhánh với một ngư
 Trong trường hợp này chúng ta sẽ tạo một người dùng mới cho số máy nhánh. ở trường "Password For New User" là password để người dùng sẽ khởi tạo. Mặc định username của người dùng này sẽ là số máy nhánh, chúng ta vẫn có thể đổi sáng một username theo ý muốn ở đây. 
 
 Sau khi thiếp lập xong những số máy nhánh cần thiết, chúng ta sang phần settings/asterisk SIP settings để cấu hình máy chủ SIP của Asterisk. Ở đây FreePBX đã hỗ trợ sẵn rất nhiều tính năng cho chúng ta trên Asterisk.  
+
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/5.png" %}
+
+Ở đây chúng ta sẽ chỉ cấu hình lại range port của giao thức RTP để phù hợp với cấu hình mạng máy ảo bên ngoài. 
