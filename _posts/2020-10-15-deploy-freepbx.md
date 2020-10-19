@@ -8,6 +8,7 @@ categories:
 date: 2020-10-15 11:11
 ---
 
+Từ xưa đến nay việc giao tiếp giữa các loài vật là một điều rất cần thiết đối với việc sinh tồn và sinh sản các hầu hết các loài vật. Điều này càng đúng hơn với một loài có tổ chức xã hội phức tạp như còn người. Trong thời buổi hiện nay, chúng ta đều có nhu cầu trao đổi thông tin qua lại. Những sự trao đổi này không chỉ dùng ở việc gặp mặt hay những tương tác trực tiếp, giờ đây con người có thể gửi thư, gọi điện thoại cho nhau. Đế đáp ứng được nhu cầu nay con người đã phát triển cơ sở viễn thông cực kỳ tốt với nhiều công nghệ có thể truyền giọng nói của người này tới người kia cách đó một vòng trái đất với độ trễ gần như bằng không. VoIP là một trong những giao thức trong mạng Internet có thể làm được điều đó. Việc xay dựng những hệ thống VoIP rất phức tạp. Đồi hỏi phải có nhiều kiến thức, kinh nghiệm về mạng và viễn thông. Giờ đây chúng ta đã có phần mềm mã nguồn mở Asterisk, nó giúp chúng ta dễ dàng hơn trong việc triển khai những trung tâm tổng đài với rất nhiều tính năng đã được tích hợp sẵn bên trong nó. 
 
 # Xây dụng tổng đài VoIP với FreePBX và Asterisk
 
