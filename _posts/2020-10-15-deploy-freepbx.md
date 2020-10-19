@@ -1,6 +1,6 @@
 ---
-title: Deploy FreePBX
-excerpt: "FreePBX"
+title: Xây dưng một tổng đài VoIP
+excerpt: xây dựng một tổng đài cho vui
 permalink: /topics/freepbx/
 background-image: topic_image/freepbx/back.png
 categories:
