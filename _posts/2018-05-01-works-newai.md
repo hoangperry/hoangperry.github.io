@@ -13,8 +13,8 @@ tags:
 
 #### Results
 
-- Development a OCR system
-- Build face recognition intergrated anti spoofing system
+- Development system that OCR and Information retrieval from the document.
+- Build face recognition integrated anti-spoofing system
 
 #### Summary
 
