@@ -14,7 +14,12 @@ tags:
 #### Results
 
 - Development a OCR system
+- Build face recognition intergrated anti spoofing system
 
 #### Summary
 
-This is my first time working on Computer Vision field. Besides it, I learned many things about the algorithm, web develops, ...
+Research, Development, and Operations AI solutions.
+
+Tech: PyTorch, Apache Kafka, MongoDB, PostgreSQL, Go Fiber, Django,
+Selenium, Redis, Jenkins.
+
