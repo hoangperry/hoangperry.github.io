@@ -6,6 +6,9 @@ categories: works
 background-image: works-sample.png
 tags:
   - Machine Learning
+  - Generative Adversarial Networks
+  - Deep Learning
+  - NLP
   - Computer Vision
   - Fullstack
 
@@ -13,13 +16,14 @@ tags:
 
 #### Results
 
-- Development system that OCR and Information retrieval from the document.
-- Build face recognition integrated anti-spoofing system
+- Build many web service and RestfulAPI that serve AI solutions.
+
+- Building, training, and evaluating OCR model.
 
 #### Summary
 
-Research, Development, and Operations AI solutions.
+Research in Deep Learning and Working on Computer Vision. I also
+have experience in natural language processing, Web development.
 
-Tech: PyTorch, Apache Kafka, MongoDB, PostgreSQL, Go Fiber, Django,
-Selenium, Redis, Jenkins.
-
+Technology: PyTorch, Matplotlib, Pandas, Numpy, Tensorflow, Django,
+Flask, Git, JavaScript, Docker.
