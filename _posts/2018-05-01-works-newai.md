@@ -3,7 +3,7 @@ priority: 0.5
 title: NewAI
 excerpt: Reseach and Development
 categories: works
-background-image: works-sample.png
+background-image: works-sample.jpg
 tags:
   - Machine Learning
   - Generative Adversarial Networks
