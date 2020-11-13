@@ -1,7 +1,7 @@
 ---
 priority: 0.5
 title: NewAI
-excerpt: Reseach and Development
+excerpt: AI Research and Development Internship
 categories: works
 background-image: works-sample.jpg
 tags:
