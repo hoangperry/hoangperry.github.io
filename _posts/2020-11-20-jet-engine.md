@@ -22,7 +22,15 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 ## Động cơ phản lực cánh quạt
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f1.jpg" %}
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2.jpg" %}
+
 ## Động cơ phản lực Turbine
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f4.jpg" %}
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f3.png" %}
 
 ## Động cơ Pulsejet
 
