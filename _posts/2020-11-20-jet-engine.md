@@ -24,7 +24,7 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f1.jpg" %}
 
-{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2.jpg" %}
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2.png" %}
 
 ## Động cơ phản lực Turbine
 
