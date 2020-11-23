@@ -34,7 +34,20 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 ## Động cơ Pulsejet
 
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f5.jpg" %}
+
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6.png" %}
+
 ## Động cơ Ramjet
+
+
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f7.jpg" %}
+
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f8.png" %}
 
 ## Động cơ Scramjet
 
