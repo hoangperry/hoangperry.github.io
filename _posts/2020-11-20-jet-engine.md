@@ -51,3 +51,18 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 ## Động cơ Scramjet
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f9.jpg" %}
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f10.png" %}
+
+## Động cơ nhiên liệu lỏng
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f11.jpg" %}
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f12.jpg" %}
+
+## Động cơ nhiên liệu rắn
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f13.jpg" %}
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f14.jpg" %} 
