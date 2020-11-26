@@ -18,7 +18,7 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 # Lịch sử ra đời
 
-Động cơ phản lực manh nha xuất hiện vào giữa chiến tranh thế giới thứ hai, khi mà cả hai bên là quân đồng minh và phát xít thay phiên nhau nghiên cứu và đưa ra những công nghệ quân sự tối tân.
+Động cơ phản lực xuất hiện vào giữa chiến tranh thế giới thứ hai, khi mà cả hai bên là quân đồng minh và phát xít thay phiên nhau nghiên cứu và đưa ra những công nghệ quân sự tối tân. Nhưng ý tưởng về động cơ phản lực, hoặc những mô hình về động cơ phản lực đã được nghĩ ra và chế tạo trước đó.
 
 # Các biến thể của động cơ phản lực
 
