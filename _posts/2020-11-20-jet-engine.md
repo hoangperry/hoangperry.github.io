@@ -22,21 +22,25 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 # Các biến thể của động cơ phản lực
 
-## Động cơ phản lực cánh quạt
-
-Động cơ phản lực cánh quạt là loại động cơ phản lực chúng ta thường nhìn thấy nhất. 
-
-{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f1.jpg" %}
-
-{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2.png" %}
-
 ## Động cơ phản lực Turbine
+
+
+Động cơ phản lực cánh quạt là loại động cơ phản lực chúng ta thường nhìn thấy nhất bởi vì động cơ phản lực cảnh quạt thường được áp dụng cho những máy bay 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f4.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f3.png" %}
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6-1.jpg" %}
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6-2.jpg" %}
+
+## Động cơ phản lực cánh quạt
+
+Nhìn động cơ phản lực cánh quạt trông có vẻ giống những động cơ máy bay piston bình thường. Nhưng về mặt kỹ thuật động cơ phản lực cánh quạt và động cơ piston có nguyên lý hoạt động rất khác nhau.
+Thay vì sử dụng nhiên liệu phun vào trong cylinder và đẩy piston ra thì động cơ phản lực cánh quạt dùng một động cơ phản lực tunrbine ở bên trong làm quay một cánh quạt to bên ngoài. 
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f1.jpg" %}
+
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2.png" %}
 
 ## Động cơ Pulsejet
 
