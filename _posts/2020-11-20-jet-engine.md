@@ -24,6 +24,8 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 ## Động cơ phản lực cánh quạt
 
+Động cơ phản lực cánh quạt là loại động cơ phản lực chúng ta thường nhìn thấy nhất. 
+
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f1.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2.png" %}
