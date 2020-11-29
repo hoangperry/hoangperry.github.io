@@ -44,6 +44,7 @@ Thay vì sử dụng nhiên liệu phun vào trong cylinder và đẩy piston ra
 
 ## Động cơ Pulsejet
 
+Cũng như nguyên lý nén khí của hai động cơ trên. Nhưng ở đây, Pulse Jet không làm vậy, nó dùng tốc độ di chuyển không khí bên ngoài để nén khí một cánh tự nhiên mà không cần những tới những cánh quạt.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f5.jpg" %}
 
