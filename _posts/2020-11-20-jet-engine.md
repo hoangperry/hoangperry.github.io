@@ -61,6 +61,8 @@ Cũng như nguyên lý nén khí của những động cơ trên. Nhưng ở đ�
 
 ## Động cơ Scramjet
 
+Scamjet cũng tương tự như Ramjet nhưng tỉ lệ nén của Scamjet lớn hơn. Scamjet thường có tốc độ cao hơn Ramjet nhưng yêu cầu tốc độ ban đầu rất lớn để có thẻ tạo được tỉ lệ nén không khí lớn như vậy.
+
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f9.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f10.png" %}
