@@ -1,0 +1,144 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin: 0;
+	font-family: 'Roboto'; 
+}
+
+#gallery{
+	background-color: #EBEBEB;
+	height: auto;
+	padding-top: 30px;
+}
+
+@font-face {
+  font-family: 'titleFont';
+  src: url('font/helvetica-bold.ttf') format('truetype');
+}
+
+.title{
+	text-align: center;
+	font-weight: 700;
+	font-size: 120px;
+	color:#403F3F;
+  	font-family: titleFont;
+}
+
+#container{
+	background-color: #EBEBEB;
+}
+.galleryGrid{
+	margin-top: 3em;
+	margin-left: 3%;
+	margin-left: 3%;
+}
+
+.row-3 {
+	overflow: hidden;
+	padding-bottom: 4em;
+}
+
+p {
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+}
+
+.col-3 {
+	margin-left: 4%;
+	width: 25%;
+	float: left;
+	margin-right: 4%;
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-align: center;
+}
+
+.col-3 .product-img {
+	width: 100%;
+}
+
+.col-4{
+	padding-right: 50px;
+	margin-bottom: 200px;
+	width: 30%;
+	float: left;
+}
+.col-4 p{
+	text-align: center;
+	font-weight: bold;
+	font-size: 60px;
+}
+.col-4 img{
+	width: 100%;
+}
+
+#abc{
+	overflow: hidden;
+	height: 35em;
+	background-image: url(../image/9.jpg), url(../image/8.jpg);
+	background-position: right bottom, left top;
+	background-size: 33%, 67%;
+	background-repeat: no-repeat, no-repeat;
+}
+
+#abc .container {
+	overflow: hidden;
+	margin: 10% 0 0 55%;
+}
+
+#abc p {
+	color: white;
+}
+
+#abc h1 {
+	color: white;
+}
+
+#hinhleft{
+	width: 64%;
+	float: left;
+}
+#hinhright{
+	width: 36%;
+}
+#footer{
+	overflow: hidden;
+	height: auto;
+	margin: 0;
+	background-color:#212121;
+	padding: 3em;
+}
+.copy-right{
+	float:left;
+	font-size: 2em;
+	color: #FFF;
+	color: aliceblue;
+	width: 70%;
+	padding-right: 10%;
+}
+.copy-right a{
+	color:#A71957;
+}
+
+.float-button {
+	padding: 1em 1.7em;
+	display: flex;
+	background: white;
+	border-radius: 0;
+	font-size: 1.2em;
+	border: 0px; 
+}
+
+.copy-right p{
+	margin: 0;
+}
+
+#mangxh{
+	width: 20%;
+	float: right;
+}
+#mangxh img{
+	float: right;
+	height: 2em;
+}
