@@ -20,7 +20,7 @@ body {
 .title{
 	text-align: center;
 	font-weight: 700;
-	font-size: 120px;
+	font-size: 4vw;
 	color:#403F3F;
   	font-family: titleFont;
 }
@@ -40,8 +40,8 @@ body {
 }
 
 p {
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
+	margin-bottom: 0.5vw;
+	margin-top: 0.5vw;
 }
 
 .col-3 {
@@ -49,7 +49,7 @@ p {
 	width: 25%;
 	float: left;
 	margin-right: 4%;
-	font-size: 1.2rem;
+	font-size: 2vw;
 	font-weight: bold;
 	text-align: center;
 }
@@ -58,24 +58,9 @@ p {
 	width: 100%;
 }
 
-.col-4{
-	padding-right: 50px;
-	margin-bottom: 200px;
-	width: 30%;
-	float: left;
-}
-.col-4 p{
-	text-align: center;
-	font-weight: bold;
-	font-size: 60px;
-}
-.col-4 img{
-	width: 100%;
-}
-
 #abc{
 	overflow: hidden;
-	height: 35em;
+	height: 70vh;
 	background-image: url(../image/9.jpg), url(../image/8.jpg);
 	background-position: right bottom, left top;
 	background-size: 33%, 67%;
@@ -89,10 +74,12 @@ p {
 
 #abc p {
 	color: white;
+	font-size: 1.2vw;
 }
 
 #abc h1 {
 	color: white;
+	font-size: 2.4vw;
 }
 
 #hinhleft{
@@ -107,38 +94,37 @@ p {
 	height: auto;
 	margin: 0;
 	background-color:#212121;
-	padding: 3em;
+	padding: 1vw;
 }
 .copy-right{
 	float:left;
-	font-size: 2em;
+	font-size: 2vw;
 	color: #FFF;
 	color: aliceblue;
-	width: 70%;
-	padding-right: 10%;
 }
 .copy-right a{
 	color:#A71957;
 }
 
 .float-button {
-	padding: 1em 1.7em;
+	padding: 1vw 2.7vw;
 	display: flex;
 	background: white;
 	border-radius: 0;
-	font-size: 1.2em;
+	font-size: 1.2vw;
 	border: 0px; 
 }
 
 .copy-right p{
 	margin: 0;
+	font-size: 1vw;
 }
 
 #mangxh{
-	width: 20%;
+	width: 20vw;
 	float: right;
 }
 #mangxh img{
 	float: right;
-	height: 2em;
+	height: 2vh;
 }
