@@ -80,3 +80,9 @@ Scamjet cũng tương tự như Ramjet nhưng tỉ lệ nén của Scamjet lớn
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f13.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f14.jpg" %} 
+
+
+
+# Tài liệu tham khảo
+
+- [Tìm hiểu về động cơ phản lực, chuyển động bằng phản lực](https://vatlypt.com/tim-hieu-ve-dong-co-phan-luc-chuyen-dong-bang-phan-luc.t217.html)
