@@ -18,13 +18,13 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 # Lịch sử ra đời
 
-Trước khi động cơ phản lực ra đời thì động cơ piston cánh quạt là loại động cơ máy bay phổ biến nhất và cũng có thể coi là duy nhất. Nhưng sau đó, khi thực hiện những chuyến bay ở động cao khoảng 30.000ft (10.000 mét) thì hiệu suất của những động cơ piston này hoạt động không hiệu quả. Bởi vì khi ở độ cao này, không khí rất loãng động cơ piston không thể nạp đủ lượng oxi để đốt cháy nhiên liệu hiệu quả. Bên cạnh đó động cơ piston cánh quạt không thể tạo đủ lực đẩy để đưa máy bay bay đủ nhanh để tạo đủ lực nâng với mức không khí loãng ở đọ cao này.
+Trước khi động cơ phản lực ra đời thì động cơ piston cánh quạt là loại động cơ máy bay phổ biến nhất và cũng có thể coi là duy nhất. Nhưng sau đó, khi thực hiện những chuyến bay ở động cao khoảng 30,000ft (10,000 mét) thì hiệu suất của những động cơ piston này hoạt động không hiệu quả. Bởi vì khi ở độ cao này, không khí rất loãng động cơ piston không thể nạp đủ lượng oxi để đốt cháy nhiên liệu hiệu quả. Bên cạnh đó động cơ piston cánh quạt không thể tạo đủ lực đẩy để đưa máy bay bay đủ nhanh để tạo đủ lực nâng với mức không khí loãng ở đọ cao này.
 
 Một hạn chế khác của động cơ cánh quạt là khi vòng quay của cánh quạt đạt với vận tốc âm thanh thì chuyển động của dòng khí xung quanh cánh quạt gần như không còn đủ lực đẩy để đẩy máy bay nhanh hơn.
 
 Vì những vấn đề trên, các kĩ sư phải sử dụng một phương pháp khác để chế tạo được những máy bay có thể bay cao và xa hơn.
 
-Những ý tưởng về động cơ phản lực, hoặc những mô hình về động cơ phản lực đã được nghĩ ra và chế tạo lần đầu vào năm 1910. Chiếc máy bay đầu tiên này sử dụng một động cơ piston đẻ chạy máy nén khí, kết quả không được suôn sẻ lắm. Chiếc máy bay này đã rơi trong lần bay đầu tiên. Trong giai đoạn tiền chiến tranh thế giới thứ 2, người đức đã phát triển một máy báy được trang bị một động cơ phản lực thực thụ là Heinkel He 178. Heinkel He 178 được phát triển từ năm 1936 bởi người được xem cha đẻ của động cơ phản lực là Hans von Ohain. Chiếc máy bay này được thử nghiệm bay lần đầu tiên vào ngày 27 tháng 8 năm 1939, tức là chỉ 3 ngày trước khi chiến tranh thế giới thứ hai bùng nổ.
+Những ý tưởng về động cơ phản lực, hoặc những mô hình về động cơ phản lực đã được nghĩ ra và chế tạo lần đầu vào năm 1910. Chiếc máy bay đầu tiên này sử dụng một động cơ piston đẻ chạy máy nén khí, kết quả không được suôn sẻ lắm. Chiếc máy bay này đã rơi trong lần bay đầu tiên. Trong giai đoạn tiền chiến tranh thế giới thứ 2, người đức đã phát triển một máy báy được trang bị một động cơ phản lực thực thụ là Heinkel He 178. Heinkel He 178 được phát triển từ năm 1936 bởi người được xem cha đẻ của động cơ phản lực là Hans von Ohain. Chiếc máy bay này được thử nghiệm bay lần đầu tiên vào ngày 27 tháng 8 năm 1939, tức là chỉ 3 ngày trước khi chiến tranh thế giới thứ hai bùng nổ. Chiếc máy bay này sử dụng một động cơ tuabine phản lực Heinkel HeS 3 có lực đẩy 4.4Kn, động cơ này giúp chiếc máy bay có thể đạt vận tốc cực đại là 598 km/h. Người Anh và người Mỹ cũng phát triển máy bay trang bị động cơ phản lực sau đó.
 
 # Các biến thể của động cơ phản lực
 
