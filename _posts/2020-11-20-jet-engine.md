@@ -20,6 +20,8 @@ Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệ
 
 Trước khi động cơ phản lực ra đời thì động cơ piston cánh quạt là loại động cơ máy bay phổ biến nhất và cũng có thể coi là duy nhất. Nhưng sau đó, khi thực hiện những chuyến bay ở động cao khoảng 30,000ft (10,000 mét) thì hiệu suất của những động cơ piston này hoạt động không hiệu quả. Bởi vì khi ở độ cao này, không khí rất loãng động cơ piston không thể nạp đủ lượng oxi để đốt cháy nhiên liệu hiệu quả. Bên cạnh đó động cơ piston cánh quạt không thể tạo đủ lực đẩy để đưa máy bay bay đủ nhanh để tạo đủ lực nâng với mức không khí loãng ở đọ cao này.
 
+{% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f01.jpg" %}
+
 Một hạn chế khác của động cơ cánh quạt là khi vòng quay của cánh quạt đạt với vận tốc âm thanh thì chuyển động của dòng khí xung quanh cánh quạt gần như không còn đủ lực đẩy để đẩy máy bay nhanh hơn.
 
 Vì những vấn đề trên, các kĩ sư phải sử dụng một phương pháp khác để chế tạo được những máy bay có thể bay cao và xa hơn.
