@@ -44,8 +44,6 @@ Thay vì sử dụng nhiên liệu phun vào trong cylinder và đẩy piston ra
 
 ## Động cơ Pulsejet
 
-Cũng như nguyên lý nén khí của hai động cơ trên. Nhưng ở đây, Pulse Jet không làm vậy, nó dùng tốc độ di chuyển không khí bên ngoài để nén khí một cánh tự nhiên mà không cần những tới những cánh quạt.
-
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f5.jpg" %}
 
 
@@ -54,6 +52,7 @@ Cũng như nguyên lý nén khí của hai động cơ trên. Nhưng ở đây, 
 ## Động cơ Ramjet
 
 
+Cũng như nguyên lý nén khí của những động cơ trên. Nhưng ở đây, Pulse Jet không làm vậy, nó dùng tốc độ di chuyển không khí bên ngoài để nén khí một cánh tự nhiên mà không cần những tới những cánh quạt. Vì sử dụng lực nén không khí tự nhiên nên Ramjet phải có tốc độ ban đầu rất lớn. Thường thì người ta sẽ dùng động cơ tên lửa nhiên liệu lỏng hoặc rắn để tạo tốc độ ban đầu cho động cơ ramjet.  
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f7.jpg" %}
 
