@@ -35,12 +35,18 @@ Những ý tưởng về động cơ phản lực, hoặc những mô hình về
 ## Động cơ phản lực Turbine
 
 
-Động cơ phản lực cánh quạt là loại động cơ phản lực chúng ta thường nhìn thấy nhất bởi vì động cơ phản lực cảnh quạt thường được áp dụng cho những máy bay 
+Động cơ phản lực cánh quạt là loại động cơ phản lực chúng ta thường nhìn thấy nhất bởi vì động cơ phản lực cảnh quạt thường được áp dụng cho những máy bay. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f4.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f3.png" %}
+
+Động cơ phản lực turbine thường sẽ có 1 máy nén khí ở trước, mục đích của máy nén khí này là hút một lượng lớn không khí ở ngoài và nén chúng vào một buồng không khí mà sau đó nhiên liệu sẽ được bơm vào đầy và đốt hỗn hợp hoà khí này. Khi không khí cháy sẽ nở ra và trước khi đốt cháy không khí đã được nén ở một mức đặc hơn và sau đó còn được đốt cháy cộng thêm sự giãn nở nhờ sự cháy nên ở giao đoạn này của động cơ nó sẽ tạo ra một luồng áp suất cực lớn ra khoang sau của động cơ
+
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6-1.jpg" %}
+
+Giai đoạn cuối cùng của động cơ là một turbine, turbine này sẽ giúp chạy máy nén khí ở phía trước của động cơ, cũng như là phát điện cho toàn bộ hệ thống của máy bay. 
+
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6-2.jpg" %}
 
 ## Động cơ phản lực cánh quạt
