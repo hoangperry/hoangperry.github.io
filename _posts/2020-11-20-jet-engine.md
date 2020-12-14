@@ -47,7 +47,7 @@ Giai đoạn cuối cùng của động cơ là một turbine, turbine này sẽ
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6-1.jpg" %}
 
-Thêm nữa, sau này trên một số máy bay chiến đấu. Các kỹ sư đã trang bị thêm 1 tầng nữa đó là After Burner, ở tầng này họ sẽ đốt thêm hoà khí một lần nữa để đảm bảo rằng tận dụng được tối đa lượng oxi từ hoà khí. 
+Thêm nữa, sau này trên một số máy bay chiến đấu. Các kỹ sư đã trang bị thêm 1 tầng nữa đó là After Burner, ở tầng này họ sẽ đốt thêm hoà khí một lần nữa để đảm bảo rằng tận dụng được tối đa lượng oxi từ hoà khí và tăng thêm áp suất đầu ra. Điều này sẽ giúp tăng hiệu suất của động cơ rất đáng kể.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6-2.jpg" %}
 
