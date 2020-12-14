@@ -39,13 +39,15 @@ Những ý tưởng về động cơ phản lực, hoặc những mô hình về
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f4.jpg" %}
 
+Động cơ phản lực turbine thường sẽ có 1 máy nén khí ở trước, mục đích của máy nén khí này là hút một lượng lớn không khí ở ngoài và nén chúng vào một buồng không khí mà sau đó nhiên liệu sẽ được bơm vào đầy và đốt hỗn hợp hoà khí này. Khi không khí cháy sẽ nở ra và trước khi đốt cháy không khí đã được nén ở một mức đặc hơn và sau đó còn được đốt cháy cộng thêm sự giãn nở nhờ sự cháy nên ở giao đoạn này của động cơ nó sẽ tạo ra một luồng áp suất cực lớn ra khoang sau của động cơ
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f3.png" %}
 
-Động cơ phản lực turbine thường sẽ có 1 máy nén khí ở trước, mục đích của máy nén khí này là hút một lượng lớn không khí ở ngoài và nén chúng vào một buồng không khí mà sau đó nhiên liệu sẽ được bơm vào đầy và đốt hỗn hợp hoà khí này. Khi không khí cháy sẽ nở ra và trước khi đốt cháy không khí đã được nén ở một mức đặc hơn và sau đó còn được đốt cháy cộng thêm sự giãn nở nhờ sự cháy nên ở giao đoạn này của động cơ nó sẽ tạo ra một luồng áp suất cực lớn ra khoang sau của động cơ
+
+Giai đoạn cuối cùng của động cơ là một turbine, turbine này sẽ giúp chạy máy nén khí ở phía trước của động cơ, cũng như là phát điện cho toàn bộ hệ thống của máy bay. Ở một số động cơ người ta sẽ định hướng luồng áp suất ra ở đây giúp kiểm soát hướng đẩy của động cơ, hệ thống này gọi là Thrust vectoring. Ban đầu Thrust vectoring được phát triển dưới dạng 2D, tức là chỉ điều chỉnh được phương dọc, việc này sẽ giúp cho máy bay có thể thay đổi được góc bay lớn hơn. Bởi khi Thrust vectoring lúc này sẽ bổ trợ lên lực cho elevator wings ở sau.  
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6-1.jpg" %}
 
-Giai đoạn cuối cùng của động cơ là một turbine, turbine này sẽ giúp chạy máy nén khí ở phía trước của động cơ, cũng như là phát điện cho toàn bộ hệ thống của máy bay. 
+Thêm nữa, sau này trên một số máy bay chiến đấu. Các kỹ sư đã trang bị thêm 1 tầng nữa đó là After Burner, ở tầng này họ sẽ đốt thêm hoà khí một lần nữa để đảm bảo rằng tận dụng được tối đa lượng oxi từ hoà khí. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6-2.jpg" %}
 
