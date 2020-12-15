@@ -54,13 +54,15 @@ Thêm nữa, sau này trên một số máy bay chiến đấu. Các kỹ sư đ
 ## Động cơ phản lực cánh quạt
 
 Nhìn động cơ phản lực cánh quạt trông có vẻ giống những động cơ máy bay piston bình thường. Nhưng về mặt kỹ thuật động cơ phản lực cánh quạt và động cơ piston có nguyên lý hoạt động rất khác nhau.
-Thay vì sử dụng nhiên liệu phun vào trong cylinder và đẩy piston ra thì động cơ phản lực cánh quạt dùng một động cơ phản lực tunrbine ở bên trong làm quay một cánh quạt to bên ngoài. 
+Thay vì sử dụng nhiên liệu phun vào trong cylinder và đẩy piston ra thì động cơ phản lực cánh quạt dùng một động cơ phản lực tunrbine ở bên trong làm quay một cánh quạt bên ngoài. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f1.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2.png" %}
 
 ## Động cơ Pulsejet
+
+Pulsejet có cơ chế hoạt động có thể nói là giống như động cơ hai thì gồm 2 giai đoạn đó là nổ và xả. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f5.jpg" %}
 
