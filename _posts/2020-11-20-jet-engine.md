@@ -54,7 +54,7 @@ Thêm nữa, sau này trên một số máy bay chiến đấu. Các kỹ sư đ
 ## Động cơ phản lực cánh quạt
 
 Nhìn động cơ phản lực cánh quạt trông có vẻ giống những động cơ máy bay piston bình thường. Nhưng về mặt kỹ thuật động cơ phản lực cánh quạt và động cơ piston có nguyên lý hoạt động rất khác nhau.
-Thay vì sử dụng nhiên liệu phun vào trong cylinder và đẩy piston ra thì động cơ phản lực cánh quạt dùng một động cơ phản lực tunrbine ở bên trong làm quay một cánh quạt bên ngoài. 
+Thay vì sử dụng nhiên liệu phun vào trong cylinder và đẩy piston ra thì động cơ phản lực cánh quạt dùng một động cơ phản lực tunrbine ở bên trong làm quay cánh quạt bên ngoài. Cánh quạt lớn bên ngoài và luồng khí xả tạo nên lực đẩy chính của động cơ. Nhưng vì sử dụng cánh quạt để tạo nên lực đẩy chính nên động cơ phản lực cánh quạt cũng gặp vấn đề tương tụ với động cơ piston cánh quạt, đó là động cơ phản lực cánh quạt chỉ hoạt động tốt với tốc độ không khí dưới 450 Mph (725 km/h) và trần bay cũng thấp hơn những máy bay sử dụng loại động cơ phản lực turbine. Nhưng động cơ phản lực cánh quạt là một bước cải tiến lớn đối với cộng nghệ động cơ máy bay, động cơ phản lực cánh quạt ngày nay
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f1.jpg" %}
 
