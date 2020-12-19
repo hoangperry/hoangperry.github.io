@@ -63,7 +63,7 @@ Nhưng vì sử dụng cánh quạt để tạo nên lực đẩy chính nên đ
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2.png" %}
 
-Nhưng động cơ phản lực cánh quạt là một bước cải tiến lớn đối với cộng nghệ động cơ máy bay, động cơ phản lực cánh quạt ngày nay được áp dụng rộng rãi không chỉ trong những máy bay cỡ nhỏ có tốc độ thấp mà còn trên những máy bay cỡ lớn có khả năng đạt tới tốc độ cận âm. Chiến máy bay có động cơ phản lực cánh quạt mạnh nhất hiện nay là Airbus A400M với 4 động cơ phản lực cánh quạt có tổng công suất là 15.000hp
+Nhưng động cơ phản lực cánh quạt là một bước cải tiến lớn đối với cộng nghệ động cơ máy bay, động cơ phản lực cánh quạt ngày nay được áp dụng rộng rãi không chỉ trong những máy bay cỡ nhỏ có tốc độ thấp mà còn trên những máy bay cỡ lớn có khả năng đạt tới tốc độ cận âm. Chiến máy bay có động cơ phản lực cánh quạt mạnh nhất hiện nay là Airbus A400M với 4 động cơ phản lực cánh quạt có tổng công suất là 15,000hp
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f2_1.jpg" %}
 
@@ -73,21 +73,24 @@ Pulsejet có cơ chế hoạt động có thể nói là giống như động c�
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f5.jpg" %}
 
+Về Pulsejet chúng ta có thể chia thành hai loại chính đó là pulsejet có van và không có van. Loại động cơ Pulsejet có van sẽ có một cơ chế điều chỉ luồng khí sao cho khi không khí đốt cháy thì luồng xung khi đốt cháy nhiên liệu chỉ đi theo một hướng ta phía ống xả của động cơ, và không khí nén sẽ đi vào từ đầu nạp khí của động cơ. Thông thường bộ phận điều chỉ dòng khí này là các van để dòng khi đi theo hướng đã định hình từ trước. Với loại động cơ pulsejet không có van thì không có bộ phận chuyển động cơ khí để điều chỉnh luồng khí mà chỉ loại động cơ này sẽ dùng chính hình dáng động cơ để giúp luồng khí đi đúng hướng.  
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f6.png" %}
+
+Ngày nay, động cơ pulse jet đa phần được sử dụng trong những máy bay điều khiển có kích thước nhỏ hoặc những chiếc xe phản lực hoặc thậm chí là máy tạo sương mù.
 
 ## Động cơ Ramjet
 
 
-Cũng như nguyên lý nén khí của những động cơ trên. Nhưng ở đây, Pulse Jet không làm vậy, nó dùng tốc độ di chuyển không khí bên ngoài để nén khí một cánh tự nhiên mà không cần những tới những cánh quạt. Vì sử dụng lực nén không khí tự nhiên nên Ramjet phải có tốc độ ban đầu rất lớn. Thường thì người ta sẽ dùng động cơ tên lửa nhiên liệu lỏng hoặc rắn để tạo tốc độ ban đầu cho động cơ ramjet. Đôi khi người ta cũng treo một tên lửa ramjet lên một máy bay mẹ. Máy bay này sẽ đem tên lửa ramjet lên một độ cao và ở một tốc độ nhất nhất họ sẽ phóng Ramjet đi.
+Cũng như nguyên lý nén khí của những động cơ trên. Nhưng ở đây, Ram Jet không làm vậy, nó dùng tốc độ di chuyển không khí bên ngoài để nén khí một cánh tự nhiên mà không cần những tới những cánh quạt. Vì sử dụng lực nén không khí tự nhiên nên Ramjet phải có tốc độ ban đầu rất lớn. Thường thì người ta sẽ dùng động cơ tên lửa nhiên liệu lỏng hoặc rắn để tạo tốc độ ban đầu cho động cơ ramjet. Đôi khi người ta cũng treo một tên lửa ramjet lên một máy bay mẹ. Máy bay này sẽ đem tên lửa ramjet lên một độ cao và ở một tốc độ cao nhất họ sẽ phóng Ramjet đi.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f7.jpg" %}
 
-Về Pulsejet chúng ta có thể chia thành hai loại chính đó là pulsejet có van và không có van. Loại động cơ Pulsejet có van sẽ có một cơ chế điều chỉ luồng khí sao cho khi không khí đốt cháy thì luồng xung khi đốt cháy nhiên liệu chỉ đi theo một hướng ta phía ống xả của động cơ, và không khí nén sẽ đi vào từ đầu nạp khí của động cơ. Thông thường bộ phận điều chỉ dòng khí này là các van để dòng khi đi theo hướng đã định hình từ trước. Với loại động cơ pulsejet không có van thì không có bộ phận chuyển động cơ khí để điều chỉnh luồng khí mà chỉ loại động cơ này sẽ dùng chính hình dáng động cơ để giúp luồng khí đi đúng hướng.  
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f8.png" %}
 
-Ngày nay, động cơ pulse jet đa phần được sử dụng trong những máy bay điều khiển có kích thước nhỏ hoặc những chiếc xe phản lực hoặc thậm chí là máy tạo sương mù.
+Ramjet ngày nay được áp dụng rất nhiều trong những tên lửa hành trình hoặc những tên lửa đối không tầm xa, đối với máy bay thì Ramjet vẫn chưa được sử dụng rộng rãi. Chiếc may bay nổi tiếng nhất được trang bị loại động cơ này là SR-71 Blackbird của không quân Mỹ, nó có thể đạt tới tốc độ 3,529 km/h (Mach 3.2)
+
 
 ## Động cơ Scramjet
 
