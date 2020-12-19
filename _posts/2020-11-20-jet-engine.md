@@ -69,7 +69,7 @@ Nhưng động cơ phản lực cánh quạt là một bước cải tiến lớ
 
 ## Động cơ Pulsejet
 
-Pulsejet có cơ chế hoạt động có thể nói là giống như động cơ hai thì gồm 2 giai đoạn đó là nổ và xả. 
+Pulsejet có cơ chế hoạt động có thể nói là giống như động cơ hai thì gồm 2 giai đoạn đó là nổ và xả, bên cạnh đó Pulsejet là động cơ phản lực có rất ít hoặc không có bộ phận chuyển động. Pulsejet là một kiểu động cơ phản lực có công suất thấp và cũng rất dễ chế tạo. Bởi vì Pulse có tỉ số nén không khí rất thấp (Pulse không có cơ chế nén khí mà chỉ bơm không khí vào buồng đốt) nên xung lực khi đốt cháy nhiên liệu cũng rất yếu. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f5.jpg" %}
 
@@ -82,6 +82,8 @@ Pulsejet có cơ chế hoạt động có thể nói là giống như động c�
 Cũng như nguyên lý nén khí của những động cơ trên. Nhưng ở đây, Pulse Jet không làm vậy, nó dùng tốc độ di chuyển không khí bên ngoài để nén khí một cánh tự nhiên mà không cần những tới những cánh quạt. Vì sử dụng lực nén không khí tự nhiên nên Ramjet phải có tốc độ ban đầu rất lớn. Thường thì người ta sẽ dùng động cơ tên lửa nhiên liệu lỏng hoặc rắn để tạo tốc độ ban đầu cho động cơ ramjet. Đôi khi người ta cũng treo một tên lửa ramjet lên một máy bay mẹ. Máy bay này sẽ đem tên lửa ramjet lên một độ cao và ở một tốc độ nhất nhất họ sẽ phóng Ramjet đi.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f7.jpg" %}
+
+Về Pulsejet chúng ta có thể chia thành hai loại chính đó là pulsejet có van và không có van. Loại động cơ Pulsejet có van sẽ có một cơ chế điều chỉ luồng khí sao cho khi không khí đốt cháy thì luồng xung khi đốt cháy nhiên liệu chỉ đi theo một hướng ta phía ống xả của động cơ, và không khí nén sẽ đi vào từ đầu nạp khí của động cơ. Thông thường bộ phận điều chỉ dòng khí này là các van để dòng khi đi theo hướng đã định hình từ trước.  
 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f8.png" %}
