@@ -83,10 +83,11 @@ Cũng như nguyên lý nén khí của những động cơ trên. Nhưng ở đ�
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f7.jpg" %}
 
-Về Pulsejet chúng ta có thể chia thành hai loại chính đó là pulsejet có van và không có van. Loại động cơ Pulsejet có van sẽ có một cơ chế điều chỉ luồng khí sao cho khi không khí đốt cháy thì luồng xung khi đốt cháy nhiên liệu chỉ đi theo một hướng ta phía ống xả của động cơ, và không khí nén sẽ đi vào từ đầu nạp khí của động cơ. Thông thường bộ phận điều chỉ dòng khí này là các van để dòng khi đi theo hướng đã định hình từ trước.  
-
+Về Pulsejet chúng ta có thể chia thành hai loại chính đó là pulsejet có van và không có van. Loại động cơ Pulsejet có van sẽ có một cơ chế điều chỉ luồng khí sao cho khi không khí đốt cháy thì luồng xung khi đốt cháy nhiên liệu chỉ đi theo một hướng ta phía ống xả của động cơ, và không khí nén sẽ đi vào từ đầu nạp khí của động cơ. Thông thường bộ phận điều chỉ dòng khí này là các van để dòng khi đi theo hướng đã định hình từ trước. Với loại động cơ pulsejet không có van thì không có bộ phận chuyển động cơ khí để điều chỉnh luồng khí mà chỉ loại động cơ này sẽ dùng chính hình dáng động cơ để giúp luồng khí đi đúng hướng.  
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f8.png" %}
+
+Ngày nay, động cơ pulse jet đa phần được sử dụng trong những máy bay điều khiển có kích thước nhỏ hoặc những chiếc xe phản lực hoặc thậm chí là máy tạo sương mù.
 
 ## Động cơ Scramjet
 
