@@ -89,7 +89,7 @@ Cũng như nguyên lý nén khí của những động cơ trên. Nhưng ở đ�
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f8.png" %}
 
-Ramjet ngày nay được áp dụng rất nhiều trong những tên lửa hành trình hoặc những tên lửa đối không tầm xa, đối với máy bay thì Ramjet vẫn chưa được sử dụng rộng rãi. Chiếc may bay nổi tiếng nhất được trang bị loại động cơ này là SR-71 Blackbird của không quân Mỹ, nó có thể đạt tới tốc độ 3,529 km/h (Mach 3.2)
+Ramjet ngày nay được áp dụng rất nhiều trong những tên lửa hành trình hoặc những tên lửa đối không tầm xa. Thường thì những tên lửa sử dụng ramjet ở tầng thứ 2 trở lên của tên lửa. Bởi vì Ramjet cần một tốc độ không khí lớn mới có thể khởi động. Đối với máy bay thì Ramjet vẫn chưa được sử dụng rộng rãi, chiếc may bay nổi tiếng nhất được trang bị loại động cơ này là SR-71 Blackbird của không quân Mỹ, nó có thể đạt tới tốc độ 3,529 km/h (Mach 3.2). 
 
 
 ## Động cơ Scramjet
