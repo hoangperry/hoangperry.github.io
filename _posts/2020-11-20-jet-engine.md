@@ -94,13 +94,15 @@ Ramjet ngày nay được áp dụng rất nhiều trong những tên lửa hàn
 
 ## Động cơ Scramjet
 
-Scamjet (supersonic combustion ramjet) cũng tương tự như Ramjet nhưng tỉ lệ nén của Scamjet lớn hơn. Scamjet thường có tốc độ cao hơn Ramjet nhưng yêu cầu tốc độ ban đầu rất lớn để có thẻ tạo được tỉ lệ nén không khí lớn như vậy.
+Scamjet (supersonic combustion ramjet) cũng tương tự như Ramjet nhưng tỉ lệ nén của Scamjet lớn hơn. Scamjet thường có tốc độ cao hơn Ramjet nhưng yêu cầu tốc độ ban đầu rất lớn để có thẻ tạo được tỉ lệ nén không khí lớn như vậy. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f9.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f10.png" %}
 
 ## Động cơ nhiên liệu lỏng
+
+Khác với tất cả loại động cơ trên, động cơ nhiên liệu lỏng không cần phải hút không khí từ bên ngoài để đốt cháy nhiên liệu. Động cơ nhiên liệu lỏng sử dụng oxi hoá lỏng ở nhiệt độ cực thấp để tạo điều kiện đốt cháy nhiên liệu. Vì không có cơ hết air intake nên động cơ nhiên liệu lỏng có thể hoạt động được trong môi trường chân không.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f11.jpg" %}
 
