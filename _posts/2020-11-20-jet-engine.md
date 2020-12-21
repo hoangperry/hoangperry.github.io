@@ -94,7 +94,7 @@ Ramjet ngày nay được áp dụng rất nhiều trong những tên lửa hàn
 
 ## Động cơ Scramjet
 
-Scamjet cũng tương tự như Ramjet nhưng tỉ lệ nén của Scamjet lớn hơn. Scamjet thường có tốc độ cao hơn Ramjet nhưng yêu cầu tốc độ ban đầu rất lớn để có thẻ tạo được tỉ lệ nén không khí lớn như vậy.
+Scamjet (supersonic combustion ramjet) cũng tương tự như Ramjet nhưng tỉ lệ nén của Scamjet lớn hơn. Scamjet thường có tốc độ cao hơn Ramjet nhưng yêu cầu tốc độ ban đầu rất lớn để có thẻ tạo được tỉ lệ nén không khí lớn như vậy.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f9.jpg" %}
 
