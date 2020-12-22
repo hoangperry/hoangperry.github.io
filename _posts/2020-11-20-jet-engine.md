@@ -102,7 +102,7 @@ Scamjet (supersonic combustion ramjet) cũng tương tự như Ramjet nhưng t�
 
 ## Động cơ nhiên liệu lỏng
 
-Khác với tất cả loại động cơ trên, động cơ nhiên liệu lỏng không cần phải hút không khí từ bên ngoài để đốt cháy nhiên liệu. Động cơ nhiên liệu lỏng sử dụng oxi hoá lỏng ở nhiệt độ cực thấp để tạo điều kiện đốt cháy nhiên liệu. Vì không có cơ hết air intake nên động cơ nhiên liệu lỏng có thể hoạt động được trong môi trường chân không.
+Khác với tất cả loại động cơ trên, động cơ nhiên liệu lỏng không cần phải hút không khí từ bên ngoài để đốt cháy nhiên liệu. Động cơ nhiên liệu lỏng sử dụng oxi hoá lỏng ở nhiệt độ cực thấp để tạo điều kiện đốt cháy nhiên liệu. Vì không có cơ hết air intake nên động cơ nhiên liệu lỏng có thể hoạt động được trong môi trường chân không. Cơ chế hoạt động của động cơ động cơ nhiên liệu lỏng khá đơn giản, động cơ nhiên liệu lỏng sẽ trộn hỗn hợp gồm oxi và hidro với một tỉ lệ phù hợp để tạo nên hiệu suất đốt cháy lớn nhất. Hồn hợp nhiên liệu này khi cháy sẽ tạo nên 1 lực đẩy cực mạnh qua ống xả của động cơ. Bên cạnh đó, động cơ cũng tận dụng nhiệt độ của ống xả để làm quay turbine để cấp điện cho máy bơm nhiên liệu và các thiết bị khác
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f11.jpg" %}
 
