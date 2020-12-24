@@ -106,7 +106,7 @@ Khác với tất cả loại động cơ trên, động cơ nhiên liệu lỏn
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f11.jpg" %}
 
-Nguyên lý hoạt động của đông cơ nhiên liệu lỏng nghe có vẻ đơn giản, nhưng quá trình nạp và bảo quản nhiên liệu vô cũng khó khăn bởi để bảo quản oxi lỏng và hidro lỏng vô cùng khó khăn với khả năng trang bị số lượng thiết bị có giới hạn trên những tên lửa. Một số động cơ nhiên liệu lỏng có thể trang bị nhiều hơn 2 loại nhiên liệu là oxi lỏng và hidro lỏng, các kỹ sư còn có thể mang thêm một loại nhiên thứ 3 hoặc thậm chí là thứ 4.
+Nguyên lý hoạt động của đông cơ nhiên liệu lỏng nghe có vẻ đơn giản, nhưng quá trình nạp và bảo quản nhiên liệu vô cũng khó khăn bởi để bảo quản oxi lỏng và hidro lỏng vô cùng khó khăn với khả năng trang bị số lượng thiết bị có giới hạn trên những tên lửa. Một số động cơ nhiên liệu lỏng có thể trang bị nhiều hơn 2 loại nhiên liệu là oxi lỏng và hidro lỏng, các kỹ sư còn có thể mang thêm một loại nhiên thứ 3 hoặc thậm chí là thứ 4. Một số loại động cơ nhiên liệu lỏng khác chỉ trang bị một loại nhiên liệu. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f12.jpg" %}
 
