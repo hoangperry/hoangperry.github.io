@@ -112,6 +112,8 @@ Nguyên lý hoạt động của đông cơ nhiên liệu lỏng nghe có vẻ �
 
 ## Động cơ nhiên liệu rắn
 
+Động cơ nhiên liệu rắn là loại động cơ nhiên liệu/chất oxi hoá ở thể rắn.
+
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f13.jpg" %}
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f14.jpg" %} 
