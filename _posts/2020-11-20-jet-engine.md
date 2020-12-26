@@ -110,9 +110,11 @@ Nguyên lý hoạt động của đông cơ nhiên liệu lỏng nghe có vẻ �
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f12.jpg" %}
 
+Động cơ nhiên liệu lỏng bây giờ được sử dụng trong các tàu vũ trụ không gian, bởi vì động cơ nhiên liệu lỏng hoạt động rất tốt trong môi trường chân không của không gian.
+
 ## Động cơ nhiên liệu rắn
 
-Động cơ nhiên liệu rắn là loại động cơ nhiên liệu/chất oxi hoá ở thể rắn.
+Động cơ nhiên liệu rắn là loại động cơ nhiên liệu/chất oxi hoá ở thể rắn. 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/jet/f13.jpg" %}
 
