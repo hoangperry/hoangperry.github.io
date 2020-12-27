@@ -14,7 +14,6 @@ date: 2020-11-19 11:11
 
 Về lý thuyết, động cơ phản lực là một động cơ sinh ra nhiệt và biến đổi nó thành động năng dựa trên định luật 3 của Newton. Nội dung của định luật 3 Newton là 
 
-
 `khi một vật tác động lên một vật thứ hai khác, thì vật bị tác động sẽ tác động lại vật thứ nhất một lực có cùng cường độ và ngược chiều về phía vật thứ nhất`
 
 # Lịch sử ra đời
