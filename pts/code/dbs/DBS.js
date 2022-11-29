@@ -2051,7 +2051,6 @@ var FNTS = {
 		",BoldItalic,,,,",
 		",Regular,,,,",
 		",RegularItalic,,,,",
-		"mirror 82,Regular,a,9,12,",
 	]
 };
 /** A database of translatable phrases. More at  <a href="https://github.com/photopea/OpenWord">Github.com/photopea/OpenWord</a>. */
