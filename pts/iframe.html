@@ -1,0 +1,88 @@
+
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://blog.photopea.com/wp-content/themes/simplex/style.css" type="text/css" media="screen" />
+	<link rel='stylesheet' id='casper-google-fonts-css'  href='//fonts.googleapis.com/css?family=Noto+Serif%3A400%2C700%2C400italic%7COpen+Sans%3A700%2C400&#038;ver=4.0.1' type='text/css' media='all' />
+	
+	<title>Photopea API</title>
+	
+			
+	</head>
+
+	<body>
+<div id="page">
+	
+	<div id="main" style="max-width:960px;">
+		<div id="content" style="width:80%;">
+
+			<div class="post">
+							
+			<script>
+				function onMSG(e) { 
+					console.log(e.origin, e);
+					if(e.origin.indexOf("http://localhost:8000")==-1) return;
+					var nst;
+					if(typeof e.data=="string") nst = e.data;
+					else nst = "ArrayBuffer["+e.data.byteLength+"]";
+					document.getElementById("msgs").textContent += nst+"\n";
+				};
+				var frame = null;
+			
+				function updatePlayground(e)
+				{
+					var json = document.getElementById("json").value;
+					json = JSON.stringify(JSON.parse(json));
+					var url = "http://localhost:8000";
+					var end = "#"+encodeURI(json);
+					document.getElementById("url").value = url+end;
+					frame.src = url+end;
+					//frame.contentWindow.location.reload(true);
+					//wnd.postMessage(script, "*");
+				}
+				function runScript(e)
+				{
+					var script = document.getElementById("script").value;
+					frame.contentWindow.postMessage(script,"*");
+				}
+				document.body.onload = function(e) {
+					frame = document.getElementById("pp");
+					window.addEventListener("message", onMSG);
+					updatePlayground();
+				}
+			</script>
+			
+			<h1>Playground</h1>
+			<p>Enter the JSON configuration file, which will be encoded into the URL:</p>
+			<textarea rows="8", style="width:100%;" id="json">{
+    "files": [ 
+	"/compress.psd",
+	"/rep.png"
+    ],
+    "environment": {
+        
+    }
+}</textarea>
+			<button onclick="updatePlayground()" style="display:block;  font-size:1.2em;" >Update</button>  <br />
+			
+			<b>URL:</b>
+			<textarea rows="3", style="width:100%;" id="url"></textarea>	
+
+			<iframe src="" id="pp" style="border:none; width:100%; height:500px;"></iframe>		
+
+			<h2>Run a script</h2>
+			<textarea rows="4", style="width:100%;" id="script">app.activeDocument.activeLayer.translate(20,20);</textarea>
+			<button onclick="runScript()" style="display:block;  font-size:1.2em;">Run</button> <br />			
+			<b>Messages from Photopea</b>
+			<pre id="msgs"></pre>
+			
+						</div>
+		</div>
+	</div>
+		
+	<div id="disqus_thread"></div>
+	 
+</div>
+	
+</html>
