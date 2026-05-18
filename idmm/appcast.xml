@@ -7,18 +7,18 @@
   a generated <item> with a stapled, notarized DMG and an EdDSA signature.
 
   Sparkle reads:
-    - sparkle:version          -> CFBundleVersion of the new build
-    - sparkle:shortVersionString -> marketing version shown to user
-    - sparkle:edSignature      -> ed25519 signature of the DMG bytes
-    - length                   -> DMG size in bytes
-    - sparkle:minimumSystemVersion -> optional gate
+    - sparkle:version          → CFBundleVersion of the new build
+    - sparkle:shortVersionString → marketing version shown to user
+    - sparkle:edSignature      → ed25519 signature of the DMG bytes
+    - length                   → DMG size in bytes
+    - sparkle:minimumSystemVersion → optional gate
 
   See https://sparkle-project.org/documentation/publishing/ for the
   full release flow.
 -->
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
     <channel>
-        <title>idmm - macOS download manager</title>
+        <title>idmm — macOS download manager</title>
         <description>Auto-update feed for idmm.</description>
         <language>en</language>
         <link>https://hoang.tech/idmm/</link>
