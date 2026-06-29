@@ -31,9 +31,12 @@
         root.setAttribute("data-theme", theme);
         if (label) label.textContent = theme;
       }
+      // World pages (front-matter theme) lock to their own world; the saved
+      // override only applies to unlocked pages (home, posts).
+      var locked = root.hasAttribute("data-theme-lock");
       var saved = null;
       try { saved = localStorage.getItem(KEY); } catch (e) {}
-      if (saved) apply(saved);                       // restore a chosen world
+      if (saved && !locked) apply(saved);            // restore a chosen world
       else if (label) label.textContent = root.getAttribute("data-theme") || "security";
       if (btn) {
         btn.addEventListener("click", function () {

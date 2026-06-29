@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% include topcomment.html %}
-<html lang="{{ site.lang }}" data-theme="{{ page.theme | default: 'security' }}">
+<html lang="{{ site.lang }}" data-theme="{{ page.theme | default: 'security' }}"{% if page.theme %} data-theme-lock="true"{% endif %}>
 
   {% include head.html %}
 
@@ -98,6 +98,50 @@
             </div>
           </section>{%
           endif %}
+
+        <!-- Worlds: portals into the themed sections -->
+          <section id="worlds" class="wrapper alt style2">
+            <div class="inner reveal">
+              <header class="major">
+                <h2>Worlds</h2>
+                <p>Four sides of the same person. Pick a frequency.</p>
+              </header>
+              <ul class="world-grid">
+                <li class="world-card" data-world="security">
+                  <a class="wc-inner" href="{{ '/topics/' | prepend: site.baseurl }}">
+                    <span class="wc-glyph" aria-hidden="true">$_</span>
+                    <span class="wc-name">Security &amp; Systems</span>
+                    <span class="wc-desc">Terminal notes on ML, software, and bug hunting.</span>
+                    <span class="wc-enter">enter &rarr;</span>
+                  </a>
+                </li>
+                <li class="world-card" data-world="aviation">
+                  <a class="wc-inner" href="{{ '/aviation/' | prepend: site.baseurl }}">
+                    <span class="wc-glyph" aria-hidden="true">&#9992;</span>
+                    <span class="wc-name">Aviation</span>
+                    <span class="wc-desc">Glass cockpit: aircraft, engines, and flight.</span>
+                    <span class="wc-enter">enter &rarr;</span>
+                  </a>
+                </li>
+                <li class="world-card" data-world="electronics">
+                  <a class="wc-inner" href="{{ '/electronics/' | prepend: site.baseurl }}">
+                    <span class="wc-glyph" aria-hidden="true">&#9635;</span>
+                    <span class="wc-name">Electronics</span>
+                    <span class="wc-desc">PCB bench: boards that route, talk, and search.</span>
+                    <span class="wc-enter">enter &rarr;</span>
+                  </a>
+                </li>
+                <li class="world-card is-soon" data-world="photography" aria-disabled="true">
+                  <div class="wc-inner">
+                    <span class="wc-glyph" aria-hidden="true">&#9673;</span>
+                    <span class="wc-name">Photography</span>
+                    <span class="wc-desc">Darkroom and gallery. Developing soon.</span>
+                    <span class="wc-enter">soon</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
 
         <!-- Landing index -->
           <section id="landing_pages" class="wrapper alt style2">

@@ -1224,6 +1224,75 @@ table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.
 .cv-entry ul:not(.techlist) { margin: 0.5rem 0 0.8rem; }
 .cv-entry .techlist { margin-top: 0.6rem; }
 
+/* ---------- Worlds portal (home hub) ---------- */
+#worlds .inner { max-width: 62rem; margin: 0 auto; }
+.world-grid {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+/* each portal previews its world's signature colour */
+.world-card[data-world='security']    { --wc: oklch(82% 0.15 150); --wc-glow: oklch(82% 0.15 150 / 0.3); }
+.world-card[data-world='aviation']    { --wc: oklch(80% 0.13 215); --wc-glow: oklch(80% 0.13 215 / 0.3); }
+.world-card[data-world='electronics'] { --wc: oklch(80% 0.12 80);  --wc-glow: oklch(80% 0.12 80 / 0.3); }
+.world-card[data-world='photography'] { --wc: oklch(58% 0.18 25);  --wc-glow: oklch(58% 0.18 25 / 0.3); }
+.world-card {
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--wc);
+  border-radius: 6px;
+  background: var(--surface);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.wc-inner {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.25rem 1.25rem 1.1rem;
+  border-bottom: 0;
+  color: var(--fg);
+  height: 100%;
+}
+.wc-glyph {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--wc);
+  margin-bottom: 0.3rem;
+}
+.wc-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h4);
+  letter-spacing: 0.01em;
+  color: var(--fg-bold);
+  text-transform: none;
+}
+.wc-desc { font-size: var(--fs-sm); color: var(--fg-dim); line-height: 1.45; }
+.wc-enter {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--wc);
+}
+.world-card.is-soon { opacity: 0.5; }
+.world-card.is-soon .wc-enter { color: var(--fg-faint); }
+@media (hover: hover) and (pointer: fine) {
+  .world-card:not(.is-soon):hover {
+    transform: translateY(-3px);
+    border-color: var(--wc);
+    box-shadow: 0 0.5em 2em var(--wc-glow);
+  }
+  .world-card:not(.is-soon):hover .wc-glyph { text-shadow: 0 0 0.6em var(--wc-glow); }
+}
+.wc-inner:focus-visible { outline: 2px solid var(--wc); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .world-card:hover { transform: none; } }
+
 /* ---------- Theme switcher (header) ---------- */
 .theme-switch { display: inline-flex; align-items: center; margin-right: 0.75rem; }
 #theme-cycle {

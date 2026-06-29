@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% include topcomment.html %}
-<html lang="{{ site.lang }}" data-theme="{{ page.theme | default: 'security' }}">
+<html lang="{{ site.lang }}" data-theme="{{ page.theme | default: 'security' }}"{% if page.theme %} data-theme-lock="true"{% endif %}>
 
   {% include head.html %}
 
