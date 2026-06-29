@@ -49,6 +49,10 @@ jobs:
         run: jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+          # Skip Jekyll's auto require-from-bundler: a Gemfile is present, but
+          # we install Jekyll directly. Without this, Jekyll loads the ancient
+          # bundler 2.0.2 (uses String#untaint, removed in Ruby 3.2+) and crashes.
+          JEKYLL_NO_BUNDLER_REQUIRE: "true"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
