@@ -145,28 +145,36 @@
   --header-bg:     oklch(94% 0.022 90 / 0.85);
 }
 
-/* Electronics — PCB: dark solder-mask green, copper-gold traces,
-   white silkscreen. */
+/* Electronics — PCB / schematic: deep solder-mask green board, copper
+   and gold traces as the accent, white silkscreen text. The board is
+   pushed dark and low-lightness so the copper-gold readouts and the
+   silkscreen white read as emissive against the mask. Hue ~158 keeps
+   the green signature; a touch of chroma gives the board real depth. */
 [data-theme='electronics'] {
-  --bg:            oklch(23% 0.045 158);
-  --surface:       oklch(27% 0.05 158);
-  --surface-2:     oklch(31% 0.052 158);
-  --surface-3:     oklch(35% 0.05 158);
-  --line:          oklch(44% 0.05 150);
-  --line-soft:     oklch(34% 0.045 155);
-  --fg:            oklch(93% 0.01 150);
-  --fg-bold:       oklch(98% 0.008 150);
-  --fg-dim:        oklch(76% 0.015 150);
-  --fg-faint:      oklch(62% 0.02 150);
-  --phosphor:      oklch(80% 0.12 80);    /* copper / gold trace */
-  --phosphor-dim:  oklch(70% 0.1 80);
-  --amber:         oklch(82% 0.13 70);
-  --amber-dim:     oklch(72% 0.11 70);
-  --glow-soft:     oklch(80% 0.12 80 / 0.24);
-  --glow-strong:   oklch(80% 0.12 80 / 0.45);
-  --code-bg:       oklch(18% 0.04 158);
-  --code-fg:       oklch(90% 0.02 120);
-  --header-bg:     oklch(23% 0.045 158 / 0.85);
+  --bg:            oklch(20% 0.055 158);   /* solder-mask green board */
+  --surface:       oklch(24% 0.06 158);
+  --surface-2:     oklch(28% 0.062 157);
+  --surface-3:     oklch(32% 0.06 156);
+  --line:          oklch(42% 0.058 152);
+  --line-soft:     oklch(31% 0.05 155);
+  --fg:            oklch(94% 0.008 150);   /* silkscreen white */
+  --fg-bold:       oklch(99% 0.006 150);
+  --fg-dim:        oklch(77% 0.014 150);
+  --fg-faint:      oklch(62% 0.02 152);
+  --phosphor:      oklch(82% 0.135 82);    /* copper / gold trace */
+  --phosphor-dim:  oklch(71% 0.115 80);
+  --amber:         oklch(84% 0.14 68);     /* hot copper / pad */
+  --amber-dim:     oklch(74% 0.12 68);
+  /* extra trace inks used by the PCB hero + ambient (read by JS too) */
+  --trace:         oklch(82% 0.135 82);
+  --pad:           oklch(90% 0.06 95);
+  --signal:        oklch(88% 0.16 88);     /* bright signal pulse */
+  --silk:          oklch(94% 0.008 150);
+  --glow-soft:     oklch(82% 0.135 82 / 0.26);
+  --glow-strong:   oklch(82% 0.135 82 / 0.48);
+  --code-bg:       oklch(15% 0.045 158);
+  --code-fg:       oklch(90% 0.02 110);
+  --header-bg:     oklch(20% 0.055 158 / 0.85);
 }
 
 /* Photography — gallery (light): warm museum paper, near-black ink,
@@ -1706,6 +1714,222 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .metar-strip .metar-head .dot { animation: none; }
   [data-theme='aviation'] body::before { display: none; }
+}
+
+/* ============================================================
+   ELECTRONICS WORLD  ::  PCB / Schematic
+   Scoped to [data-theme='electronics']. Overrides the display font
+   (Sometype Mono), swaps the terminal glyphs for PCB idioms (reference
+   designators like U1 / R1, an IC mark, a NET prefix on the list), and
+   lays a calm silkscreen dot-grid + copper trace ambient over the page.
+   Mirrors the aviation world structurally; never touches aviation or
+   security styles. Reuses .index-list / .index-row for the lab log.
+   ============================================================ */
+
+/* ---------- Display font: Sometype Mono (silkscreen readout) ---------- */
+/* Scoped override only — body stays in the shared mono for legibility. */
+[data-theme='electronics'] {
+  --font-display: 'Sometype Mono', 'Martian Mono', 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ---------- Glyph idioms (replace terminal accents) ---------- */
+/* Header name: `~/` (security) -> an IC / chip mark. */
+[data-theme='electronics'] #header h1 a::before {
+  content: '\25A3\00a0';   /* ▣ chip mark + nbsp */
+  color: var(--phosphor);
+}
+/* Major-heading prefix: `> ` (security) -> a reference-designator tag. */
+[data-theme='electronics'] .major h1::before,
+[data-theme='electronics'] .major h2::before {
+  content: 'U1 ';
+  font-family: var(--font-display);
+  font-size: 0.62em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  vertical-align: 0.18em;
+  color: var(--phosphor);
+}
+/* Hero command prompt `$ ` -> chip mark. */
+[data-theme='electronics'] #banner h1::before { content: '\25A3\00a0'; }
+/* Menu caret -> a trace/pin chevron. */
+[data-theme='electronics'] #menu ul > li > a::before { content: '\2023 '; }
+
+/* ---------- Ambient: silkscreen dot-grid + via pads + copper haze ---------- */
+/* Two fixed, pointer-events:none layers, gated to the electronics world.
+   Subtle by design — must never reduce legibility. Static (no loop). */
+[data-theme='electronics'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0.55;
+  /* silkscreen via-pad dot-grid */
+  background-image:
+    radial-gradient(oklch(82% 0.135 82 / 0.10) 1.3px, transparent 1.6px),
+    radial-gradient(oklch(94% 0.008 150 / 0.05) 1px, transparent 1.4px);
+  background-size: 38px 38px, 38px 38px;
+  background-position: 0 0, 19px 19px;
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 34%, oklch(0% 0 0) 32%, transparent 80%);
+          mask-image: radial-gradient(120% 100% at 50% 34%, oklch(0% 0 0) 32%, transparent 80%);
+}
+/* board vignette: darker rim + faint copper bloom near the top */
+[data-theme='electronics'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 100% at 50% 38%, transparent 54%, oklch(13% 0.04 158 / 0.7) 100%),
+    radial-gradient(80% 70% at 50% 26%, oklch(82% 0.135 82 / 0.06) 0%, transparent 56%);
+}
+
+/* ---------- ::selection + link underline tints follow the palette ---------- */
+[data-theme='electronics'] a {
+  border-bottom-color: oklch(82% 0.135 82 / 0.35);
+}
+
+/* ---------- Hero: PCB canvas behind the bench text ---------- */
+.pcb-hero {
+  position: relative;
+  min-height: clamp(26rem, calc(18rem + 32vh), 40rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, calc(1rem + 4vw), 4rem) 0;
+  overflow: hidden;
+}
+.pcb-hero .pcb-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+#pcb-canvas {
+  width: clamp(20rem, 52vw, 40rem);
+  height: clamp(16rem, 34vw, 26rem);
+  max-width: 100%;
+  /* sit behind the text, slightly toned down so copy wins */
+  opacity: 0.94;
+  filter: drop-shadow(0 0 1.5rem oklch(82% 0.135 82 / 0.18));
+}
+.pcb-hero .pcb-text {
+  position: relative;
+  z-index: 2;
+  max-width: 36rem;
+}
+.pcb-hero .pcb-text h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5rem 0;
+  color: var(--fg-bold);
+  text-shadow: 0 0 0.6em var(--glow-soft);
+}
+.pcb-hero .pcb-text h1::before {
+  content: '\25A3\00a0';   /* ▣ chip mark */
+  color: var(--phosphor);
+  text-shadow: 0 0 0.4em var(--glow-strong);
+}
+.pcb-hero .pcb-text p {
+  font-size: clamp(0.95rem, calc(0.85rem + 0.5vw), 1.2rem);
+  color: var(--fg-dim);
+  max-width: 44ch;
+  margin: 0;
+}
+.pcb-hero .pcb-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--phosphor);
+  margin: 0 0 1rem 0;
+}
+.pcb-hero .pcb-tag::before {
+  content: '';
+  width: 1.6rem;
+  height: 1px;
+  background: var(--phosphor);
+  box-shadow: 0 0 0.45em var(--glow-strong);
+}
+@media (max-width: 900px) {
+  .pcb-hero .pcb-stage { justify-content: center; opacity: 0.4; }
+  #pcb-canvas { width: min(86vw, 26rem); height: min(58vw, 18rem); }
+}
+
+/* ---------- Net / signal status strip (mirrors METAR strip) ---------- */
+.net-strip {
+  margin: 2rem 0 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.net-strip .net-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--surface-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.net-strip .net-head .dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--phosphor);
+  box-shadow: 0 0 0.55em var(--glow-strong);
+  animation: hero-pulse 2.4s var(--ease) infinite;
+}
+.net-strip .net-head .refdes { color: var(--phosphor); margin-left: auto; }
+.net-strip .net-body {
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--fg);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.net-strip .net-body b { color: var(--phosphor); font-weight: 600; }
+.net-strip .net-decode {
+  margin: 0;
+  padding: 0 1rem 0.9rem;
+  font-size: var(--fs-xs);
+  color: var(--fg-faint);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Electronics lab log (reuses index-list structure) ---------- */
+/* The showcase uses .index-list / .index-row; the PCB palette already
+   re-points the hover tints. Prefix the leading index with a NET label
+   so each row reads like a net on the board. */
+[data-theme='electronics'] .index-idx::before {
+  content: 'NET ';
+  font-size: 0.78em;
+  letter-spacing: 0.08em;
+  color: var(--phosphor-dim);
+}
+[data-theme='electronics'] .index-row > a:hover {
+  background: oklch(82% 0.135 82 / 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .net-strip .net-head .dot { animation: none; }
+  [data-theme='electronics'] body::before { display: none; }
 }
 
 {% if site.custom_extensions == 'yes' %}

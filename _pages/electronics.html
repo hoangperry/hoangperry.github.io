@@ -1,0 +1,78 @@
+---
+key: 6
+title: Electronics
+permalink: /electronics/
+theme: electronics
+options: fullwidth
+excerpt: "A workbench corner of the site: notes from the bench on the boxes that talk, route, and search, soldering iron warming up."
+---
+
+<section class="pcb-hero">
+  <div class="pcb-stage" aria-hidden="true">
+    <canvas id="pcb-canvas" role="img" aria-label="Animated printed circuit board with traveling signals"></canvas>
+  </div>
+  <div class="pcb-text">
+    <p class="pcb-tag">Bench Power On</p>
+    <h1>Trace the signal, follow the net.</h1>
+    <p>Notes from the workbench: standing up the boxes that route packets,
+      answer calls, and search vectors. Power rail up, ground solid,
+      signal flowing.</p>
+  </div>
+</section>
+
+<div class="net-strip" aria-label="Bench status">
+  <div class="net-head">
+    <span class="dot" aria-hidden="true"></span>
+    BENCH
+    <span class="refdes">U1: workbench log</span>
+  </div>
+  <p class="net-body">PWR <b>ON</b> · 3V3 / 5V rails nominal · GND tied · NET continuity OK · scope on <b>CH1</b></p>
+  <p class="net-decode">Power rails up · grounds bonded · continuity checked across the board · probe on channel 1. More builds get soldered as they happen, not before.</p>
+</div>
+
+<header class="major" style="margin-top: 3rem;">
+  <h2>Bench / Lab log</h2>
+</header>
+
+<ul class="index-list">
+  <li class="index-row">
+    <a href="{{ '/topics/freepbx/' | prepend: site.baseurl }}">
+      <span class="index-idx">001</span>
+      <span class="index-body">
+        <span class="index-title">Building a VoIP PBX</span>
+        <span class="index-desc">Standing up a phone exchange on Asterisk and FreePBX in Docker, with MariaDB and Fail2Ban guarding the line.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  {% assign fw = site.posts | where_exp: "p", "p.title == 'Firewall'" | first %}
+  {% if fw %}
+  <li class="index-row">
+    <a href="{{ fw.url | prepend: site.baseurl }}">
+      <span class="index-idx">002</span>
+      <span class="index-body">
+        <span class="index-title">Firewalls</span>
+        <span class="index-desc">How a firewall guards a network: filtering traffic at the edge while still letting the outside world reach in.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  {% endif %}
+  <li class="index-row">
+    <a href="{{ '/topics/milvus/' | prepend: site.baseurl }}">
+      <span class="index-idx">003</span>
+      <span class="index-body">
+        <span class="index-title">Milvus</span>
+        <span class="index-desc">An open-source engine that searches by vector similarity: the data plumbing behind image, audio, and recommendation systems.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+</ul>
+
+<p style="color: var(--fg-faint); font-size: var(--fs-sm); margin-top: 1.5rem;">
+  Thin shelf for now, more soldering in progress. The pure hardware
+  builds get posted here once they actually work on the bench.
+</p>
+
+<script src="{{ '/js/electronics-hero.js' | prepend: site.baseurl }}" defer></script>
