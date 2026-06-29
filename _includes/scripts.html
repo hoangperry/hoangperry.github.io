@@ -1,11 +1,151 @@
 <!-- Scripts -->
-<script src="{{ '/js/jquery.min.js' | prepend: site.baseurl }}"></script>
-<script src="{{ '/js/jquery.scrollex.min.js' | prepend: site.baseurl }}"></script>
-<script src="{{ '/js/jquery.scrolly.min.js' | prepend: site.baseurl }}"></script>
-<script src="{{ '/js/skel.min.js' | prepend: site.baseurl }}"></script>
-<script src="{{ '/js/util.js' | prepend: site.baseurl }}"></script>
-<!--[if lte IE 8]><script src="{{ '/js/ie/respond.min.js' | prepend: site.baseurl }}"></script><![endif]-->
-<script src="{{ '/js/main.js' | prepend: site.baseurl }}"></script>{%
+<script>
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
+
+  // (1) PRELOAD: trigger the staggered hero reveal once the page has loaded.
+  window.addEventListener("load", function () {
+    document.body.classList.remove("is-preload");
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var body = document.body;
+    var menu = document.getElementById("menu");
+    var toggle = document.querySelector("a.menuToggle");
+    var menuClose = document.querySelector(".menu-close");
+    var scrim = document.querySelector(".menu-scrim");
+
+    // (2) MENU TOGGLE
+    function openMenu(e) {
+      if (e) e.preventDefault();
+      if (!menu) return;
+      menu.classList.add("is-visible");
+      body.classList.add("is-menu-visible");
+      if (scrim) scrim.removeAttribute("hidden");
+    }
+    function closeMenu() {
+      if (!menu) return;
+      menu.classList.remove("is-visible");
+      body.classList.remove("is-menu-visible");
+      if (scrim) scrim.setAttribute("hidden", "");
+    }
+    if (toggle) toggle.addEventListener("click", openMenu);
+    if (menuClose) menuClose.addEventListener("click", closeMenu);
+    if (scrim) scrim.addEventListener("click", closeMenu);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    // (3) SMOOTH SCROLL for in-page scrolly anchors.
+    var scrollyLinks = document.querySelectorAll("a.scrolly");
+    Array.prototype.forEach.call(scrollyLinks, function (link) {
+      link.addEventListener("click", function (e) {
+        var href = link.getAttribute("href") || "";
+        if (href.charAt(0) !== "#" || href.length < 2) return;
+        var target = document.getElementById(href.slice(1));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth"
+        });
+      });
+    });
+
+    // (4) REVEAL via IntersectionObserver.
+    var reveals = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      var observer = new IntersectionObserver(
+        function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      Array.prototype.forEach.call(reveals, function (el) {
+        observer.observe(el);
+      });
+    } else {
+      Array.prototype.forEach.call(reveals, function (el) {
+        el.classList.add("is-visible");
+      });
+    }
+
+    // (5) MAGNETIC CTA: the primary call-to-action eases toward the
+    // cursor while hovered, then springs back on leave. Hover-capable,
+    // fine-pointer devices only; disabled under reduced-motion. Uses a
+    // single rAF lerp loop on transform (compositor-friendly).
+    var finePointer = window.matchMedia
+      ? window.matchMedia("(hover: hover) and (pointer: fine)").matches
+      : false;
+
+    if (finePointer && !reduceMotion) {
+      var MAGNET_MAX = 6;      // px, max displacement
+      var MAGNET_PULL = 0.32;  // fraction of cursor offset pulled toward
+      var MAGNET_EASE = 0.18;  // lerp factor per frame
+
+      Array.prototype.forEach.call(
+        document.querySelectorAll(".button.special"),
+        function (btn) {
+          var targetX = 0, targetY = 0, curX = 0, curY = 0;
+          var hovering = false, rafId = null;
+
+          function clamp(v, max) {
+            return v < -max ? -max : v > max ? max : v;
+          }
+
+          function frame() {
+            curX += (targetX - curX) * MAGNET_EASE;
+            curY += (targetY - curY) * MAGNET_EASE;
+            btn.style.transform =
+              "translate(" + curX.toFixed(2) + "px," + curY.toFixed(2) + "px)";
+            // keep looping until settled (or still hovering)
+            if (
+              hovering ||
+              Math.abs(curX - targetX) > 0.1 ||
+              Math.abs(curY - targetY) > 0.1
+            ) {
+              rafId = window.requestAnimationFrame(frame);
+            } else {
+              btn.style.transform = "";
+              rafId = null;
+            }
+          }
+
+          function start() {
+            if (rafId === null) rafId = window.requestAnimationFrame(frame);
+          }
+
+          btn.addEventListener("pointermove", function (e) {
+            if (e.pointerType && e.pointerType !== "mouse") return;
+            hovering = true;
+            var rect = btn.getBoundingClientRect();
+            var dx = e.clientX - (rect.left + rect.width / 2);
+            var dy = e.clientY - (rect.top + rect.height / 2);
+            targetX = clamp(dx * MAGNET_PULL, MAGNET_MAX);
+            targetY = clamp(dy * MAGNET_PULL, MAGNET_MAX);
+            start();
+          });
+
+          btn.addEventListener("pointerleave", function () {
+            hovering = false;
+            targetX = 0;
+            targetY = 0;
+            start();
+          });
+        }
+      );
+    }
+  });
+})();
+</script>{%
   for include in page.script-includes %}{%
     assign test1 = include | slice: 0,2 %}{%
     if test1 == "//" %}

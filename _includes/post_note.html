@@ -1,28 +1,25 @@
 {%   case include.type
 %}{% when 'tip'
-%}{%   assign istyle = 'lightbulb-o'
+%}{%   assign label = 'TIP'
 %}{%   assign Nvariant = '1'
 %}{% when 'warning'
-%}{%   assign istyle = 'warning'
+%}{%   assign label = 'WARNING'
 %}{%   assign Nvariant = '2'
 %}{% when 'important'
-%}{%   assign istyle = 'exclamation'
+%}{%   assign label = 'IMPORTANT'
 %}{%   assign Nvariant = '3'
 %}{% when 'did-you-know'
-%}{%   assign istyle = 'question'
+%}{%   assign label = 'DID YOU KNOW'
 %}{%   assign Nvariant = '1'
 %}{% when 'faq'
-%}{%   assign istyle = 'comments'
+%}{%   assign label = 'FAQ'
 %}{%   assign Nvariant = '0'
 %}{% when 'note'
-%}{%   assign istyle = 'info'
+%}{%   assign label = 'NOTE'
 %}{%   assign Nvariant = '0'
 %}{% else
-%}{%   assign istyle = 'info'
+%}{%   assign label = 'NOTE'
 %}{%   assign Nvariant = '0'
 %}{% endcase
 %}<table class="alt" style="width:95%;margin-left:0.5em;">
-<tr><td class="Nvar{{ Nvariant }}"><span class="image note"><span class="icon fa-{{ istyle }} styleN Nvar{{ Nvariant }}"></span></span>
-{{ include.text }}
-</td>
-</tr></table>
+<tr><td class="Nvar{{ Nvariant }}"><span class="note-label">{{ label }}</span>{{ include.text }}</td></tr></table>
