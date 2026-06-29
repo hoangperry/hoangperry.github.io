@@ -32,8 +32,13 @@
           <section id="banner">
             <canvas id="hero-canvas" aria-hidden="true"></canvas>
             <div class="inner">
-              <h1>{{ site.title }}</h1>
-              <p>{{ site.description }}</p>
+              <h1 id="hero-name">{{ site.title }}</h1>
+              <p>{{ site.description }}<span class="hero-cursor" aria-hidden="true"></span></p>
+              <div class="hero-status" aria-hidden="true">
+                <span class="dot"></span><span>ONLINE</span>
+                <span class="sep">/</span><span>HCMC, VN</span>
+                <span class="sep">/</span><span>UTC+7</span>
+              </div>
             </div>{%
             if site.greeting %}
             <a href="#greeting" class="more scrolly">Continue</a>{%
@@ -170,6 +175,34 @@
 
       <!-- Hero recon-globe WebGL background (ES module, CDN Three.js, fails silently) -->
       <script type="module" src="{{ '/js/hero-scene.js' | prepend: site.baseurl }}"></script>
+
+      <!-- Hero name decrypt-reveal (runs once on load; skipped under reduced motion) -->
+      <script>
+      (function () {
+        var el = document.getElementById('hero-name');
+        if (!el) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var FINAL = el.textContent;
+        var chars = FINAL.split('');
+        var glyphs = '!<>-_\\/[]{}=+*^?#01x$';
+        // each character locks in left-to-right with a little jitter
+        var lockAt = chars.map(function (c, i) { return 8 + i * 1.5 + Math.floor(Math.random() * 4); });
+        var maxFrame = lockAt[lockAt.length - 1] + 6;
+        var frame = 0;
+        function rnd() { return glyphs.charAt(Math.floor(Math.random() * glyphs.length)); }
+        function tick() {
+          var out = '';
+          for (var i = 0; i < chars.length; i++) {
+            out += chars[i] === ' ' ? ' ' : (frame >= lockAt[i] ? chars[i] : rnd());
+          }
+          el.textContent = out;
+          if (frame++ < maxFrame) requestAnimationFrame(tick);
+          else el.textContent = FINAL;
+        }
+        // start just after the CRT power-on settles
+        setTimeout(function () { requestAnimationFrame(tick); }, 280);
+      })();
+      </script>
 
     </div>
 

@@ -47,23 +47,23 @@
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --font-display: 'Martian Mono', 'JetBrains Mono', ui-monospace, monospace;
 
-  --fs-base:   clamp(0.95rem, 0.9rem + 0.25vw, 1rem);
+  --fs-base:   clamp(0.95rem, calc(0.9rem + 0.25vw), 1rem);
   --fs-sm:     0.8rem;
   --fs-xs:     0.72rem;
   --fs-h6:     0.85rem;
   --fs-h5:     0.95rem;
   --fs-h4:     1.05rem;
-  --fs-h3:     clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
-  --fs-h2:     clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
-  --fs-h1:     clamp(2rem, 1.4rem + 3vw, 3.6rem);
-  --fs-hero:   clamp(2.4rem, 1.2rem + 6vw, 6rem);
+  --fs-h3:     clamp(1.2rem, calc(1.05rem + 0.6vw), 1.5rem);
+  --fs-h2:     clamp(1.5rem, calc(1.2rem + 1.4vw), 2.2rem);
+  --fs-h1:     clamp(2rem, calc(1.4rem + 3vw), 3.6rem);
+  --fs-hero:   clamp(2.4rem, calc(1.2rem + 6vw), 6rem);
 
   --lh-prose:  1.7;
   --measure:   70ch;
 
   /* rhythm */
-  --space-section: clamp(3.5rem, 2.5rem + 5vw, 8rem);
-  --gutter:    clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+  --space-section: clamp(3.5rem, calc(2.5rem + 5vw), 8rem);
+  --gutter:    clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
   --header-h:  3.25rem;
 
   /* motion */
@@ -546,7 +546,7 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
   text-shadow: 0 0 0.4em var(--glow-strong);
 }
 #banner p {
-  font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.2rem);
+  font-size: clamp(0.95rem, calc(0.85rem + 0.5vw), 1.2rem);
   color: var(--fg-dim);
   letter-spacing: 0.02em;
   text-transform: none;
@@ -565,6 +565,50 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
 }
 #banner .more::after { content: ' \2193'; color: var(--phosphor); }
 #banner .more:hover { color: var(--phosphor); }
+
+/* blinking phosphor caret trailing the hero subtitle */
+.hero-cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 0.18em;
+  vertical-align: -0.16em;
+  background: var(--phosphor);
+  box-shadow: 0 0 0.5em var(--glow-strong);
+  animation: hero-caret 1.05s steps(1) infinite;
+}
+@keyframes hero-caret { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+/* live status HUD under the hero subtitle */
+.hero-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+.hero-status .dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--phosphor);
+  box-shadow: 0 0 0.55em var(--glow-strong);
+  margin-right: 0.15rem;
+  animation: hero-pulse 2s var(--ease) infinite;
+}
+@keyframes hero-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.78); }
+}
+.hero-status .sep { color: var(--line); }
+@media (prefers-reduced-motion: reduce) {
+  .hero-cursor, .hero-status .dot { animation: none; }
+}
 
 /* ---------- Greeting (intro section) ---------- */
 
@@ -759,7 +803,7 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
   gap: 2rem;
   max-width: 52rem;
   margin: 0 auto;
-  padding: clamp(2rem, 1.5rem + 3vw, 4rem);
+  padding: clamp(2rem, calc(1.5rem + 3vw), 4rem);
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
@@ -774,7 +818,7 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
 #standard > header,
 #minihead > header,
 #main > header {
-  padding: clamp(3rem, 2rem + 4vw, 6rem) var(--gutter);
+  padding: clamp(3rem, calc(2rem + 4vw), 6rem) var(--gutter);
   max-width: 62rem;
   margin: 0 auto;
 }
