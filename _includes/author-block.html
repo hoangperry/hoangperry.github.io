@@ -14,7 +14,7 @@ if page.author %}{%
   <div style="display:inline-block;border-radius:7px;overflow:hidden;height:100px;width:100px;background:url({{ pic }});background-size:100px;"></div>
   <div style="display:inline-block;padding-left:12px;vertical-align:top;"><b>by:<br />{{
     auth.name }}</b>{% if auth.email %}<br />(<a href="mailto:{{ auth.email }}">{{ auth.email }}</a>){% endif %}<br
-    /><i><a href="{{ auth.url }}" target="_blank">{{ auth.url }}</a></i>
+    /><i><a href="{{ auth.url }}" target="_blank" rel="noopener noreferrer">{{ auth.url }}</a></i>
   </div>
   <div class="auth-desc">{{ auth.bio }}</div>
 </div>

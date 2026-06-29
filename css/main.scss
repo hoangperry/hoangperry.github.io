@@ -131,7 +131,7 @@
   --line-soft:     oklch(82% 0.035 100);
   --fg:            oklch(30% 0.03 70);
   --fg-bold:       oklch(22% 0.035 60);
-  --fg-dim:        oklch(46% 0.03 75);
+  --fg-dim:        oklch(70% 0.03 75);
   --fg-faint:      oklch(60% 0.025 85);
   --phosphor:      oklch(50% 0.2 330);    /* magenta airspace ink */
   --phosphor-dim:  oklch(44% 0.17 330);
@@ -189,7 +189,7 @@
   --fg:            oklch(26% 0.012 60);
   --fg-bold:       oklch(18% 0.014 55);
   --fg-dim:        oklch(45% 0.012 60);
-  --fg-faint:      oklch(60% 0.01 65);
+  --fg-faint:      oklch(50% 0.01 65);
   --phosphor:      oklch(55% 0.19 25);    /* safelight red */
   --phosphor-dim:  oklch(48% 0.16 25);
   --amber:         oklch(58% 0.14 50);
@@ -274,7 +274,7 @@ img { max-width: 100%; height: auto; display: block; border: 0; }
 a {
   color: var(--phosphor);
   text-decoration: none;
-  border-bottom: 1px solid oklch(82% 0.15 150 / 0.35);
+  border-bottom: 1px solid color-mix(in oklch, var(--phosphor) 35%, transparent);
   transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
 a:hover { color: var(--amber); border-bottom-color: var(--amber); }
@@ -418,7 +418,7 @@ table th {
 }
 table td { padding: 0.55em 0.75em; }
 table tbody tr { border-bottom: 1px solid var(--line-soft); }
-table tbody tr:nth-child(2n+1) { background: oklch(100% 0 0 / 0.02); }
+table tbody tr:nth-child(2n+1) { background: color-mix(in oklch, var(--fg) 4%, transparent); }
 
 /* ---------- Buttons ---------- */
 
@@ -447,7 +447,7 @@ input[type="submit"], input[type="reset"], input[type="button"], button {
 .button:hover {
   color: var(--phosphor);
   border-color: var(--phosphor);
-  background: oklch(82% 0.15 150 / 0.08);
+  background: color-mix(in oklch, var(--phosphor) 8%, transparent);
 }
 .button:active { transform: translateY(1px); }
 .button.fit { display: block; width: 100%; }
@@ -481,7 +481,7 @@ input[type="text"], input[type="password"], input[type="email"], select, textare
 }
 input:focus, select:focus, textarea:focus {
   border-color: var(--phosphor);
-  box-shadow: 0 0 0 2px oklch(82% 0.15 150 / 0.25);
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--phosphor) 25%, transparent);
 }
 ::placeholder { color: var(--fg-faint); opacity: 1; }
 
@@ -849,7 +849,7 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
   color: var(--fg);
   transition: background-color var(--dur-fast) var(--ease), padding-left var(--dur) var(--ease);
 }
-.index-row > a:hover { background: oklch(82% 0.15 150 / 0.05); padding-left: 1.25rem; }
+.index-row > a:hover { background: color-mix(in oklch, var(--phosphor) 6%, transparent); padding-left: 1.25rem; }
 .index-idx {
   font-family: var(--font-mono);
   font-size: var(--fs-sm);
@@ -898,7 +898,7 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
   color: var(--fg);
   transition: background-color var(--dur-fast) var(--ease), padding-left var(--dur) var(--ease);
 }
-.log-row > a:hover { background: oklch(80% 0.13 75 / 0.05); padding-left: 1.25rem; }
+.log-row > a:hover { background: color-mix(in oklch, var(--amber) 6%, transparent); padding-left: 1.25rem; }
 .log-meta {
   display: flex;
   gap: 0.75rem;
@@ -1112,8 +1112,8 @@ table.alt td {
   background: var(--surface);
 }
 table.alt td.Nvar0 { border-color: var(--line); }
-table.alt td.Nvar1 { border-color: var(--phosphor-dim); background: oklch(82% 0.15 150 / 0.06); }
-table.alt td.Nvar2 { border-color: var(--amber-dim);    background: oklch(80% 0.13 75 / 0.06); }
+table.alt td.Nvar1 { border-color: var(--phosphor-dim); background: color-mix(in oklch, var(--phosphor) 6%, transparent); }
+table.alt td.Nvar2 { border-color: var(--amber-dim);    background: color-mix(in oklch, var(--amber) 6%, transparent); }
 table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.16 25 / 0.06); }
 
 /* note label glyph (FontAwesome removed -> text token) */
