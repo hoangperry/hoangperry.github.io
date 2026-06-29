@@ -43,6 +43,9 @@
   --code-bg:       oklch(13% 0.012 160);
   --code-fg:       oklch(88% 0.013 150);
 
+  /* sticky header backdrop (theme-aware) */
+  --header-bg:     oklch(15% 0.012 160 / 0.85);
+
   /* type scale  (>=1.25 ratio) */
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --font-display: 'Martian Mono', 'JetBrains Mono', ui-monospace, monospace;
@@ -71,6 +74,90 @@
   --dur:       300ms;
   --dur-slow:  600ms;
   --ease:      cubic-bezier(0.16, 1, 0.3, 1);   /* out-expo */
+
+  /* theme transition (smooth when the switcher changes data-theme) */
+  --theme-fade: background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+/* ============================================================
+   THEME PALETTES  ::  one site, many worlds.
+   Components reference the same palette custom properties; each
+   theme just re-points them. `security` is the default (lives in
+   :root above). Aviation / electronics / photography override the
+   palette via [data-theme] on <html>. Heroes, fonts, and motifs
+   per world are layered on in later phases; this is the engine.
+   ============================================================ */
+
+/* Aviation — glass cockpit (EFIS): deep blue-black glass,
+   cyan primary, amber caution. */
+[data-theme='aviation'] {
+  --bg:            oklch(16% 0.022 250);
+  --surface:       oklch(20% 0.025 250);
+  --surface-2:     oklch(24% 0.028 250);
+  --surface-3:     oklch(28% 0.03 250);
+  --line:          oklch(38% 0.03 240);
+  --line-soft:     oklch(30% 0.025 245);
+  --fg:            oklch(91% 0.02 230);
+  --fg-bold:       oklch(97% 0.015 220);
+  --fg-dim:        oklch(70% 0.03 235);
+  --fg-faint:      oklch(56% 0.03 240);
+  --phosphor:      oklch(80% 0.13 215);   /* EFIS cyan */
+  --phosphor-dim:  oklch(68% 0.11 215);
+  --amber:         oklch(82% 0.14 75);    /* caution amber */
+  --amber-dim:     oklch(72% 0.12 75);
+  --glow-soft:     oklch(80% 0.13 215 / 0.24);
+  --glow-strong:   oklch(80% 0.13 215 / 0.45);
+  --code-bg:       oklch(14% 0.02 250);
+  --code-fg:       oklch(88% 0.02 225);
+  --header-bg:     oklch(16% 0.022 250 / 0.85);
+}
+
+/* Electronics — PCB: dark solder-mask green, copper-gold traces,
+   white silkscreen. */
+[data-theme='electronics'] {
+  --bg:            oklch(23% 0.045 158);
+  --surface:       oklch(27% 0.05 158);
+  --surface-2:     oklch(31% 0.052 158);
+  --surface-3:     oklch(35% 0.05 158);
+  --line:          oklch(44% 0.05 150);
+  --line-soft:     oklch(34% 0.045 155);
+  --fg:            oklch(93% 0.01 150);
+  --fg-bold:       oklch(98% 0.008 150);
+  --fg-dim:        oklch(76% 0.015 150);
+  --fg-faint:      oklch(62% 0.02 150);
+  --phosphor:      oklch(80% 0.12 80);    /* copper / gold trace */
+  --phosphor-dim:  oklch(70% 0.1 80);
+  --amber:         oklch(82% 0.13 70);
+  --amber-dim:     oklch(72% 0.11 70);
+  --glow-soft:     oklch(80% 0.12 80 / 0.24);
+  --glow-strong:   oklch(80% 0.12 80 / 0.45);
+  --code-bg:       oklch(18% 0.04 158);
+  --code-fg:       oklch(90% 0.02 120);
+  --header-bg:     oklch(23% 0.045 158 / 0.85);
+}
+
+/* Photography — gallery (light): warm museum paper, near-black ink,
+   safelight-red accent. Token flip turns the dark UI light. */
+[data-theme='photography'] {
+  --bg:            oklch(96% 0.006 85);
+  --surface:       oklch(98% 0.005 85);
+  --surface-2:     oklch(93% 0.007 85);
+  --surface-3:     oklch(90% 0.008 85);
+  --line:          oklch(82% 0.01 80);
+  --line-soft:     oklch(88% 0.008 82);
+  --fg:            oklch(26% 0.012 60);
+  --fg-bold:       oklch(18% 0.014 55);
+  --fg-dim:        oklch(45% 0.012 60);
+  --fg-faint:      oklch(60% 0.01 65);
+  --phosphor:      oklch(55% 0.19 25);    /* safelight red */
+  --phosphor-dim:  oklch(48% 0.16 25);
+  --amber:         oklch(58% 0.14 50);
+  --amber-dim:     oklch(50% 0.12 50);
+  --glow-soft:     oklch(55% 0.19 25 / 0.16);
+  --glow-strong:   oklch(55% 0.19 25 / 0.28);
+  --code-bg:       oklch(22% 0.012 60);
+  --code-fg:       oklch(90% 0.02 90);
+  --header-bg:     oklch(96% 0.006 85 / 0.85);
 }
 
 /* ---------- Reset / base ---------- */
@@ -90,14 +177,15 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  transition: var(--theme-fade);
 }
 
 /* CRT overlays: scanline + grain + tube vignette. Three fixed,
    pointer-events:none layers. All static (no constant flicker by
    design: a flicker is seen on every view, so it must not exist). */
 
-/* faint CRT scanline overlay */
-body::before {
+/* faint CRT scanline overlay (security world only) */
+[data-theme='security'] body::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -114,7 +202,7 @@ body::before {
 }
 
 /* tube vignette: darker corners + a faint phosphor bloom at centre */
-body::after {
+[data-theme='security'] body::after {
   content: '';
   position: fixed;
   inset: 0;
@@ -126,7 +214,7 @@ body::after {
 }
 
 /* static signal grain (surveillance-monitor texture) */
-html::before {
+html[data-theme='security']::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -421,7 +509,7 @@ body.landing #page-wrapper { padding-top: 0; }
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--gutter);
-  background: oklch(15% 0.012 160 / 0.85);
+  background: var(--header-bg);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line-soft);
   z-index: 1000;
@@ -1094,6 +1182,36 @@ table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.
 }
 .cv-entry ul:not(.techlist) { margin: 0.5rem 0 0.8rem; }
 .cv-entry .techlist { margin-top: 0.6rem; }
+
+/* ---------- Theme switcher (header) ---------- */
+.theme-switch { display: inline-flex; align-items: center; margin-right: 0.75rem; }
+#theme-cycle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.4em 0.7em;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform 140ms var(--ease);
+}
+#theme-cycle .ts-dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--phosphor);
+  box-shadow: 0 0 0.5em var(--glow-strong);
+}
+#theme-cycle:hover { color: var(--phosphor); border-color: var(--phosphor-dim); }
+#theme-cycle:active { transform: scale(0.96); }
+#theme-cycle:focus-visible { outline: 2px solid var(--phosphor); outline-offset: 2px; }
+@media (max-width: 736px) { #theme-cycle .ts-label { display: none; } }
 
 /* ---------- CRT power-on (first paint, runs once) ---------- */
 /* The whole screen wakes like a tube monitor: a bright horizontal

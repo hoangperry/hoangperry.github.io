@@ -19,6 +19,32 @@
     var menuClose = document.querySelector(".menu-close");
     var scrim = document.querySelector(".menu-scrim");
 
+    // (1.5) THEME SWITCHER — cycle the visual worlds, persist the choice.
+    (function () {
+      var THEMES = ["security", "aviation", "electronics", "photography"];
+      var root = document.documentElement;
+      var btn = document.getElementById("theme-cycle");
+      var label = btn ? btn.querySelector(".ts-label") : null;
+      var KEY = "site-theme";
+      function apply(theme) {
+        if (THEMES.indexOf(theme) === -1) return;
+        root.setAttribute("data-theme", theme);
+        if (label) label.textContent = theme;
+      }
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+      if (saved) apply(saved);                       // restore a chosen world
+      else if (label) label.textContent = root.getAttribute("data-theme") || "security";
+      if (btn) {
+        btn.addEventListener("click", function () {
+          var cur = root.getAttribute("data-theme") || "security";
+          var next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
+          apply(next);
+          try { localStorage.setItem(KEY, next); } catch (e) {}
+        });
+      }
+    })();
+
     // (2) MENU TOGGLE
     function openMenu(e) {
       if (e) e.preventDefault();
