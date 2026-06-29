@@ -1,0 +1,60 @@
+name: Deploy Jekyll site to Pages
+
+# Builds with the project's own Gemfile (Jekyll 4 + sassc), instead of the
+# legacy github-pages gem (Jekyll 3.10 + ancient Ruby Sass). Lets us use
+# modern CSS without fighting the old Sass engine.
+#
+# NOTE: this only takes over once GitHub Pages "Source" is set to
+# "GitHub Actions" (Settings -> Pages -> Build and deployment -> Source).
+# Until then the build job still runs and proves the site compiles.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment, don't cancel an in-progress one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'   # matches the pinned Jekyll 4.0.0 era
+          bundler-cache: true
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
