@@ -4,7 +4,24 @@
 
   {% include head.html %}
 
-  <body class="landing">
+  <body class="landing is-preload">
+
+    <!-- Hero WebGL canvas positioning (scoped; does not restyle existing UI) -->
+    <style>
+      #banner > .inner {
+        position: relative;
+        z-index: 1;
+      }
+      #banner > #hero-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        display: block;
+      }
+    </style>
 
     <!-- Page Wrapper -->
     <div id="page-wrapper">
@@ -13,14 +30,10 @@
 
         <!-- Banner -->
           <section id="banner">
+            <canvas id="hero-canvas" aria-hidden="true"></canvas>
             <div class="inner">
               <h1>{{ site.title }}</h1>
               <p>{{ site.description }}</p>
-              <!--
-              <ul class="actions">
-                <li><a href="#" class="button special">Activate</a></li>
-              </ul>
-              -->
             </div>{%
             if site.greeting %}
             <a href="#greeting" class="more scrolly">Continue</a>{%
@@ -30,25 +43,49 @@
           </section>
           {%
           if site.greeting %}
-        <!-- One -->
-          <section id="greeting" class="wrapper style1 special">
-            <div class="inner">
+        <!-- Greeting -->
+          <section id="greeting" class="wrapper style2">
+            <div class="inner reveal">
               <header class="major">
                 <h2>{% if site.greeting.title %}{{ site.greeting.title }}{% else %}{{ site.title }}{% endif %}</h2>
                 <p>{% if site.greeting.text %}{{ site.greeting.text | markdownify }}{% else %}{{ site.description | markdownify }}{% endif %}</p>
               </header>
-              <ul class="icons major">{%
+
+              <!-- focus areas (edit these to taste) -->
+              <ul class="focus-row">
+                <li>AI / ML</li>
+                <li>Computer Vision</li>
+                <li>3D &amp; Simulation</li>
+                <li class="sec">Security &amp; Bug Hunting</li>
+                <li>Distributed Systems</li>
+              </ul>
+
+              <!-- terminal-style profile readout -->
+              <dl class="profile-highlights">
+                <div>
+                  <dt>now</dt>
+                  <dd><strong>Senior Specialist</strong> @ Hung Thinh Innovation, smart-city &amp; metaverse R&amp;D</dd>
+                </div>
+                <div>
+                  <dt>security</dt>
+                  <dd>Bug hunting &amp; vulnerability research, credited in several GitHub Security Advisories</dd>
+                </div>
+                <div>
+                  <dt>research</dt>
+                  <dd>Co-author at ECONVN 2021, real-time AI services at scale</dd>
+                </div>
+              </dl>
+
+              <ul class="social-row">{%
               for socloc in site.social limit:3 %}{%
                 if socloc[1] %}{%
                   if socloc[0] == 'email' %}
                 <li><a target="_blank" href="{%
                     if socloc[1] contains '@' %}mailto:{{ socloc[1] }}{%
                     else %}{{ socloc[1] }}{%
-                    endif %}" class="icon fa-envelope major style1"
-                       ><span class="label">E-mail</span></a></li>{%
+                    endif %}">email</a></li>{%
                   else %}
-                <li><a target="_blank" href="{{ socloc[1] }}" class="icon fa-{{ socloc[0] }} major style{% cycle 1, 2, 3 %}"
-                       ><span class="label">{{ socloc[0] }}</span></a></li>{%
+                <li><a target="_blank" href="{{ socloc[1] }}">{{ socloc[0] | replace:'-square','' | replace:'-official','' }}</a></li>{%
                   endif %}{%
                 endif %}{%
               endfor %}
@@ -57,50 +94,51 @@
           </section>{%
           endif %}
 
-        <!-- Two -->
-          <section id="landing_pages" class="wrapper alt style2">{%
+        <!-- Landing index -->
+          <section id="landing_pages" class="wrapper alt style2">
+            <ul class="index-list">{%
             assign sorted_pages = site.pages | sort:"id" %}{%
+            assign idx = 0 %}{%
             for my_page in sorted_pages %}{%
               if my_page.title %}{%
-                unless my_page.options contains 'nolanding' %}
-            <section class="spotlight">
-              <div class="image">
+                unless my_page.options contains 'nolanding' %}{%
+                  assign idx = idx | plus:1 %}
+              <li class="index-row reveal">
                 <a href="{{ my_page.url | prepend:site.baseurl }}">
-                <img src="{{ site.baseurl }}/images/{% if my_page.image %}{{ my_page.image }}{% else %}banner.jpg{% endif %}"
-                     alt="{% if my_page.image_alt %}{{ my_page.image_alt }}{% else %}Image for {{ my_page.title | escape }}{% endif %}" />
+                  <span class="index-idx">{{ idx | prepend:'0' | slice: -2, 2 }}</span>
+                  <span class="index-body">
+                    <span class="index-title">{{ my_page.title }}</span>
+                    <span class="index-desc">{{ my_page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}</span>
+                  </span>
+                  <span class="index-arrow">&rarr;</span>
                 </a>
-              </div>
-              <div class="content-wrap">
-              <a href="{{ my_page.url | prepend:site.baseurl }}">
-              <div class="content">
-                <h2>{{ my_page.title }}</h2>
-                <p>{{ my_page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}</p>
-              </div>
-              </a></div>
-            </section>{%
+              </li>{%
                 endunless %}{%
               endif %}{%
             endfor %}
+            </ul>
           </section>
 
-        <!-- Three -->{%
+        <!-- Featured log -->{%
       if site.tags.featured %}
-          <section id="landing_features" class="wrapper style3 special">
+          <section id="landing_features" class="wrapper style2">
             <div class="inner">
               <header class="major">
                 <h2>{{ site.features-title }}</h2>
-                <!-- <p>Blog posts with decent content</p> -->
               </header>
-              <ul class="features">{%
+              <ul class="log-list">{%
+                assign i = 0 %}{%
                 for my_post in site.posts %}{%
                   if my_post.tags contains 'featured' %}{%
                     assign i = i | plus:1 %}
-                <li class="icon fa-{% if my_post.icon %}{{ my_post.icon }}{% else %}heart-o{% endif %}"><!-- featured:{{ i }} -->
+                <li class="log-row reveal">
                   <a href="{{ my_post.url | prepend:site.baseurl }}">
-                  <div class="container">
-                  <h3>{{ my_post.title }}</h3>
-                  <p>{{ my_post.data}}<br />{{ my_post.excerpt | strip_html | truncatewords: 16 }}</p>
-                  </div>
+                    <span class="log-meta">
+                      <span class="log-idx">{{ i | prepend:'0' | slice:-2,2 }}</span>
+                      <span class="log-date">{{ my_post.date | date: '%Y.%m.%d' }}</span>
+                    </span>
+                    <span class="log-title">{{ my_post.title }}</span>
+                    <span class="log-excerpt">{{ my_post.excerpt | strip_html | truncatewords: 18 }}</span>
                   </a>
                 </li>{%
                     if i == 8 %}{%
@@ -115,14 +153,13 @@
 
         <!-- CTA -->
           <section id="cta" class="wrapper style4">
-            <div class="inner">
+            <div class="inner reveal">
               <header>
                 <h2>{{ site.closing-head }}</h2>
                 <p>{{ site.closing-para }}</p>
               </header>
               <ul class="actions vertical">
-                <!-- <li><a href="#" class="button fit special">Activate</a></li> -->
-                <li><a href="{{ '/contact/' | prepend: site.baseurl }}" class="button fit special">Contact</a></li>
+                <li><a href="{{ '/contact/' | prepend: site.baseurl }}" class="button special">Contact</a></li>
               </ul>
             </div>
           </section>
@@ -130,6 +167,9 @@
       {% include footer.html %}
 
       {% include scripts.html %}
+
+      <!-- Hero recon-globe WebGL background (ES module, CDN Three.js, fails silently) -->
+      <script type="module" src="{{ '/js/hero-scene.js' | prepend: site.baseurl }}"></script>
 
     </div>
 
