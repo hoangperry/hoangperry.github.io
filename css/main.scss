@@ -88,28 +88,61 @@
    per world are layered on in later phases; this is the engine.
    ============================================================ */
 
-/* Aviation — glass cockpit (EFIS): deep blue-black glass,
-   cyan primary, amber caution. */
+/* Aviation — glass cockpit (EFIS): deep blue-black instrument glass,
+   cyan primary, amber caution, magenta course line. The dark glass is
+   tinted toward 255 (blue) and stays low-chroma so the cyan readouts
+   and amber cautions read as emissive against it. */
 [data-theme='aviation'] {
-  --bg:            oklch(16% 0.022 250);
-  --surface:       oklch(20% 0.025 250);
-  --surface-2:     oklch(24% 0.028 250);
-  --surface-3:     oklch(28% 0.03 250);
-  --line:          oklch(38% 0.03 240);
-  --line-soft:     oklch(30% 0.025 245);
-  --fg:            oklch(91% 0.02 230);
-  --fg-bold:       oklch(97% 0.015 220);
-  --fg-dim:        oklch(70% 0.03 235);
-  --fg-faint:      oklch(56% 0.03 240);
-  --phosphor:      oklch(80% 0.13 215);   /* EFIS cyan */
-  --phosphor-dim:  oklch(68% 0.11 215);
-  --amber:         oklch(82% 0.14 75);    /* caution amber */
-  --amber-dim:     oklch(72% 0.12 75);
-  --glow-soft:     oklch(80% 0.13 215 / 0.24);
-  --glow-strong:   oklch(80% 0.13 215 / 0.45);
-  --code-bg:       oklch(14% 0.02 250);
-  --code-fg:       oklch(88% 0.02 225);
-  --header-bg:     oklch(16% 0.022 250 / 0.85);
+  --bg:            oklch(15% 0.028 255);
+  --surface:       oklch(19% 0.032 255);
+  --surface-2:     oklch(23% 0.036 255);
+  --surface-3:     oklch(27% 0.038 252);
+  --line:          oklch(40% 0.045 240);
+  --line-soft:     oklch(31% 0.036 248);
+  --fg:            oklch(92% 0.022 225);
+  --fg-bold:       oklch(98% 0.015 215);
+  --fg-dim:        oklch(72% 0.035 232);
+  --fg-faint:      oklch(57% 0.035 240);
+  --phosphor:      oklch(83% 0.145 210);  /* EFIS cyan readout */
+  --phosphor-dim:  oklch(70% 0.12 210);
+  --amber:         oklch(84% 0.155 80);   /* caution amber */
+  --amber-dim:     oklch(74% 0.13 80);
+  /* magenta course line + sky/ground for the ADI hero (read by JS too) */
+  --course:        oklch(72% 0.2 330);
+  --efis-sky:      oklch(62% 0.13 235);
+  --efis-ground:   oklch(48% 0.09 65);
+  --glow-soft:     oklch(83% 0.145 210 / 0.26);
+  --glow-strong:   oklch(83% 0.145 210 / 0.5);
+  --code-bg:       oklch(13% 0.026 255);
+  --code-fg:       oklch(89% 0.025 220);
+  --header-bg:     oklch(15% 0.028 255 / 0.85);
+}
+
+/* Aviation (sectional chart) — LIGHT VFR variant: warm cream paper,
+   green terrain tint, magenta/blue airspace lines as accents. A page
+   opts in via `theme: aviation-chart`; same property names, light
+   values. No dedicated hero is required for this variant. */
+[data-theme='aviation-chart'] {
+  --bg:            oklch(94% 0.022 90);   /* aged sectional paper */
+  --surface:       oklch(96.5% 0.018 92);
+  --surface-2:     oklch(91% 0.03 105);   /* faint green terrain wash */
+  --surface-3:     oklch(87% 0.04 110);
+  --line:          oklch(70% 0.05 95);
+  --line-soft:     oklch(82% 0.035 100);
+  --fg:            oklch(30% 0.03 70);
+  --fg-bold:       oklch(22% 0.035 60);
+  --fg-dim:        oklch(46% 0.03 75);
+  --fg-faint:      oklch(60% 0.025 85);
+  --phosphor:      oklch(50% 0.2 330);    /* magenta airspace ink */
+  --phosphor-dim:  oklch(44% 0.17 330);
+  --amber:         oklch(50% 0.15 255);   /* blue airspace ink */
+  --amber-dim:     oklch(44% 0.13 255);
+  --course:        oklch(50% 0.2 330);
+  --glow-soft:     oklch(50% 0.2 330 / 0.14);
+  --glow-strong:   oklch(50% 0.2 330 / 0.24);
+  --code-bg:       oklch(28% 0.03 70);
+  --code-fg:       oklch(92% 0.03 95);
+  --header-bg:     oklch(94% 0.022 90 / 0.85);
 }
 
 /* Electronics — PCB: dark solder-mask green, copper-gold traces,
@@ -1459,6 +1492,220 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
     filter: none !important;
     will-change: auto;
   }
+}
+
+/* ============================================================
+   AVIATION WORLD  ::  Glass Cockpit / EFIS
+   Scoped to [data-theme='aviation']. Overrides the display font,
+   swaps the terminal glyphs for aviation idioms (HDG / heading tag,
+   ✈ marker), and lays a tasteful instrument-glass ambient over the
+   page. Never touches the security world. Chart variant inherits the
+   structural styles; it just runs on a light palette.
+   ============================================================ */
+
+/* ---------- Display font: Chakra Petch (instrument readout) ---------- */
+/* Scoped override only — body stays in the shared mono for legibility. */
+[data-theme='aviation'] {
+  --font-display: 'Chakra Petch', 'Martian Mono', 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ---------- Glyph idioms (replace terminal accents) ---------- */
+/* Header name: `~/` (security) -> a small aircraft mark. */
+[data-theme='aviation'] #header h1 a::before {
+  content: '\2708\00a0';   /* ✈ + nbsp */
+  color: var(--phosphor);
+}
+/* Major-heading prefix: `> ` (security) -> a heading/bearing tag. */
+[data-theme='aviation'] .major h1::before,
+[data-theme='aviation'] .major h2::before {
+  content: 'HDG ';
+  font-family: var(--font-display);
+  font-size: 0.62em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  vertical-align: 0.18em;
+  color: var(--phosphor);
+}
+/* Hero command prompt `$ ` -> runway/heading marker. */
+[data-theme='aviation'] #banner h1::before { content: '\2708\00a0'; }
+/* Menu + profile + post-date accents -> heading triangles / slashes
+   stay readable; nudge the menu caret to an aviation chevron. */
+[data-theme='aviation'] #menu ul > li > a::before { content: '\203a '; }
+
+/* ---------- Ambient: instrument-glass vignette + faint HUD grid ---------- */
+/* Two fixed, pointer-events:none layers, gated to the aviation world.
+   Subtle by design — must never reduce legibility. Static (no loop). */
+[data-theme='aviation'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(oklch(83% 0.145 210 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(83% 0.145 210 / 0.05) 1px, transparent 1px);
+  background-size: 46px 46px, 46px 46px;
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 36%, oklch(0% 0 0) 30%, transparent 78%);
+          mask-image: radial-gradient(120% 100% at 50% 36%, oklch(0% 0 0) 30%, transparent 78%);
+}
+/* curved-glass vignette: darker rim + faint cyan bloom at centre */
+[data-theme='aviation'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 100% at 50% 40%, transparent 56%, oklch(9% 0.02 255 / 0.66) 100%),
+    radial-gradient(80% 70% at 50% 30%, oklch(83% 0.145 210 / 0.05) 0%, transparent 55%);
+}
+
+/* ---------- ::selection + link underline tints follow the palette ---------- */
+[data-theme='aviation'] a {
+  border-bottom-color: oklch(83% 0.145 210 / 0.35);
+}
+
+/* ---------- Hero: ADI canvas behind the cockpit text ---------- */
+.cockpit-hero {
+  position: relative;
+  min-height: clamp(26rem, calc(18rem + 32vh), 40rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, calc(1rem + 4vw), 4rem) 0;
+  overflow: hidden;
+}
+.cockpit-hero .adi-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+#adi-canvas {
+  width: clamp(18rem, 46vw, 34rem);
+  height: clamp(18rem, 46vw, 34rem);
+  max-width: 100%;
+  /* sit behind the text, slightly desaturated so copy wins */
+  opacity: 0.92;
+  filter: drop-shadow(0 0 1.5rem oklch(83% 0.145 210 / 0.18));
+}
+.cockpit-hero .adi-text {
+  position: relative;
+  z-index: 2;
+  max-width: 34rem;
+}
+.cockpit-hero .adi-text h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5rem 0;
+  color: var(--fg-bold);
+  text-shadow: 0 0 0.6em var(--glow-soft);
+}
+.cockpit-hero .adi-text h1::before {
+  content: '\2708\00a0';
+  color: var(--phosphor);
+  text-shadow: 0 0 0.4em var(--glow-strong);
+}
+.cockpit-hero .adi-text p {
+  font-size: clamp(0.95rem, calc(0.85rem + 0.5vw), 1.2rem);
+  color: var(--fg-dim);
+  max-width: 42ch;
+  margin: 0;
+}
+.cockpit-hero .adi-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--phosphor);
+  margin: 0 0 1rem 0;
+}
+.cockpit-hero .adi-tag::before {
+  content: '';
+  width: 1.6rem;
+  height: 1px;
+  background: var(--phosphor);
+  box-shadow: 0 0 0.45em var(--glow-strong);
+}
+@media (max-width: 900px) {
+  .cockpit-hero .adi-stage { justify-content: center; opacity: 0.4; }
+  #adi-canvas { width: min(80vw, 22rem); height: min(80vw, 22rem); }
+}
+
+/* ---------- METAR status strip ---------- */
+.metar-strip {
+  margin: 2rem 0 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.metar-strip .metar-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--surface-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.metar-strip .metar-head .dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--phosphor);
+  box-shadow: 0 0 0.55em var(--glow-strong);
+  animation: hero-pulse 2.4s var(--ease) infinite;
+}
+.metar-strip .metar-head .icao { color: var(--phosphor); margin-left: auto; }
+.metar-strip .metar-body {
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--fg);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.metar-strip .metar-body b { color: var(--phosphor); font-weight: 600; }
+.metar-strip .metar-decode {
+  margin: 0;
+  padding: 0 1rem 0.9rem;
+  font-size: var(--fs-xs);
+  color: var(--fg-faint);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Aviation log list (reuses index-list structure) ---------- */
+/* The aviation showcase uses .index-list / .index-row; the EFIS palette
+   already re-points the hover tints. Add a small heading-tag prefix to
+   the leading index so each row reads like a waypoint. */
+[data-theme='aviation'] .index-idx::before {
+  content: 'WPT ';
+  font-size: 0.78em;
+  letter-spacing: 0.08em;
+  color: var(--phosphor-dim);
+}
+[data-theme='aviation'] .index-row > a:hover {
+  background: oklch(83% 0.145 210 / 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metar-strip .metar-head .dot { animation: none; }
+  [data-theme='aviation'] body::before { display: none; }
 }
 
 {% if site.custom_extensions == 'yes' %}

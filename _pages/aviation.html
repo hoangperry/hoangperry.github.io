@@ -1,0 +1,120 @@
+---
+key: 5
+title: Aviation
+permalink: /aviation/
+theme: aviation
+options: fullwidth
+excerpt: A glass-cockpit corner of the site: field notes on aircraft, engines, and flight.
+---
+
+<section class="cockpit-hero">
+  <div class="adi-stage" aria-hidden="true">
+    <canvas id="adi-canvas" role="img" aria-label="Artificial horizon attitude indicator"></canvas>
+  </div>
+  <div class="adi-text">
+    <p class="adi-tag">Primary Flight Display</p>
+    <h1>Wings level, heading west.</h1>
+    <p>Writing about the machines that fly: how the engines breathe, why the
+      wings hold, and what the cockpit is really telling you. Cleared for the
+      approach.</p>
+  </div>
+</section>
+
+<div class="metar-strip" aria-label="METAR status">
+  <div class="metar-head">
+    <span class="dot" aria-hidden="true"></span>
+    METAR
+    <span class="icao">VVTS: Tan Son Nhat Intl</span>
+  </div>
+  <p class="metar-body">VVTS 301230Z 21008KT 9999 FEW018 SCT040 <b>32/24</b> Q1008 NOSIG</p>
+  <p class="metar-decode">Wind 210° at 8 kt · visibility 10 km+ · few at 1,800 ft, scattered at 4,000 ft · 32 °C / dewpoint 24 °C · QNH 1008 hPa · no significant change.</p>
+</div>
+
+<header class="major" style="margin-top: 3rem;">
+  <h2>Logbook</h2>
+</header>
+
+<ul class="index-list">
+  <li class="index-row">
+    <a href="{{ '/topics/airbus-vs-boeing-vie/' | prepend: site.baseurl }}">
+      <span class="index-idx">001</span>
+      <span class="index-body">
+        <span class="index-title">Airbus vs Boeing</span>
+        <span class="index-desc">Two airframers, two philosophies: wide-body tech versus the workhorse single-aisle.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a href="{{ '/topics/jet/' | prepend: site.baseurl }}">
+      <span class="index-idx">002</span>
+      <span class="index-body">
+        <span class="index-title">Jet engine</span>
+        <span class="index-desc">Newton's third law turned into thrust: how a turbofan breathes, burns, and pushes.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a href="{{ '/topics/propellers/' | prepend: site.baseurl }}">
+      <span class="index-idx">003</span>
+      <span class="index-body">
+        <span class="index-title">Propellers and blade count</span>
+        <span class="index-desc">Why adding blades is not free lift: efficiency, noise, and the tradeoffs.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a href="{{ '/topics/pilot-license/' | prepend: site.baseurl }}">
+      <span class="index-idx">004</span>
+      <span class="index-body">
+        <span class="index-title">Pilot license</span>
+        <span class="index-desc">From student certificate to ATPL: the ratings ladder, in plain language.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a href="{{ '/topics/a-typical-flight-at-6/' | prepend: site.baseurl }}">
+      <span class="index-idx">005</span>
+      <span class="index-body">
+        <span class="index-title">A typical flight at 6:00 AM</span>
+        <span class="index-desc">A window-seat log of an A320 hop from Cam Ranh to HCMC, phase by phase.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a href="{{ '/topics/bomber/' | prepend: site.baseurl }}">
+      <span class="index-idx">006</span>
+      <span class="index-body">
+        <span class="index-title">Bombers</span>
+        <span class="index-desc">A short history of the heavy lifters: from the first raids to the modern fleet.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a href="{{ '/topics/apollo11/' | prepend: site.baseurl }}">
+      <span class="index-idx">007</span>
+      <span class="index-body">
+        <span class="index-title">Apollo 11</span>
+        <span class="index-desc">The flight that left the atmosphere: the engineering behind the first Moon landing.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+  <li class="index-row">
+    <a href="{{ '/topics/nato-phonetic-alphabet/' | prepend: site.baseurl }}">
+      <span class="index-idx">008</span>
+      <span class="index-body">
+        <span class="index-title">NATO phonetic alphabet</span>
+        <span class="index-desc">Alpha, Bravo, Charlie: the spelling alphabet that keeps the radio unambiguous.</span>
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+</ul>
+
+<script src="{{ '/js/aviation-hero.js' | prepend: site.baseurl }}" defer></script>
