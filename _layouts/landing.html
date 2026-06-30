@@ -20,6 +20,11 @@
         z-index: 0;
         pointer-events: none;
         display: block;
+        opacity: 0.8;
+      }
+      /* on small screens the globe sits well behind the headline */
+      @media (max-width: 736px) {
+        #banner > #hero-canvas { opacity: 0.4; }
       }
     </style>
 
