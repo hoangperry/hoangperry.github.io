@@ -298,7 +298,9 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.15;
   letter-spacing: -0.01em;
   margin: 0 0 0.6em 0;
+  text-wrap: balance;   /* keep multi-line headings evenly ragged, no orphans */
 }
+p { text-wrap: pretty; }   /* avoid single-word orphan lines in prose */
 h1 { font-size: var(--fs-h1); }
 h2 { font-size: var(--fs-h2); }
 h3 { font-size: var(--fs-h3); }
@@ -624,6 +626,8 @@ body.landing #page-wrapper { padding-top: 0; }
 #menu ul > li > a::before { content: '> '; color: var(--phosphor); opacity: 0; transition: opacity var(--dur-fast) var(--ease); }
 #menu ul > li > a:hover { color: var(--phosphor); }
 #menu ul > li > a:hover::before { opacity: 1; }
+#menu ul > li > a.is-current { color: var(--phosphor); }        /* mark the current page */
+#menu ul > li > a.is-current::before { opacity: 1; }
 .menu-close {
   position: absolute;
   top: 1rem; right: 1.5rem;
@@ -653,6 +657,7 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
 
 #banner {
   min-height: 100vh;
+  min-height: 100dvh;  /* dynamic viewport: avoids the iOS Safari toolbar jump */
   display: flex;
   flex-direction: column;
   justify-content: center;
