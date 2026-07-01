@@ -177,28 +177,33 @@
   --header-bg:     oklch(20% 0.055 158 / 0.85);
 }
 
-/* Photography — gallery (light): warm museum paper, near-black ink,
-   safelight-red accent. Token flip turns the dark UI light. */
+/* Photography — gallery / darkroom (LIGHT): warm museum paper, deep
+   near-black ink, disciplined safelight-red accent. This is the light
+   counterpoint to the three dark worlds; the palette leans into airy
+   paper surfaces and restrained ink so big imagery carries the page.
+   Token flip turns the dark UI light; later blocks layer the gallery
+   components, the Spectral display face, and a faint film-grain ambient
+   over the page (all scoped to [data-theme='photography']). */
 [data-theme='photography'] {
-  --bg:            oklch(96% 0.006 85);
-  --surface:       oklch(98% 0.005 85);
-  --surface-2:     oklch(93% 0.007 85);
-  --surface-3:     oklch(90% 0.008 85);
-  --line:          oklch(82% 0.01 80);
-  --line-soft:     oklch(88% 0.008 82);
-  --fg:            oklch(26% 0.012 60);
-  --fg-bold:       oklch(18% 0.014 55);
-  --fg-dim:        oklch(45% 0.012 60);
-  --fg-faint:      oklch(50% 0.01 65);
-  --phosphor:      oklch(55% 0.19 25);    /* safelight red */
-  --phosphor-dim:  oklch(48% 0.16 25);
-  --amber:         oklch(58% 0.14 50);
-  --amber-dim:     oklch(50% 0.12 50);
-  --glow-soft:     oklch(55% 0.19 25 / 0.16);
-  --glow-strong:   oklch(55% 0.19 25 / 0.28);
-  --code-bg:       oklch(22% 0.012 60);
-  --code-fg:       oklch(90% 0.02 90);
-  --header-bg:     oklch(96% 0.006 85 / 0.85);
+  --bg:            oklch(95.5% 0.008 78);   /* warm gallery paper */
+  --surface:       oklch(98.5% 0.005 80);   /* mat board / print white */
+  --surface-2:     oklch(92.5% 0.009 78);
+  --surface-3:     oklch(89% 0.011 76);
+  --line:          oklch(80% 0.012 74);
+  --line-soft:     oklch(87% 0.009 76);
+  --fg:            oklch(24% 0.012 56);      /* archival ink */
+  --fg-bold:       oklch(15% 0.014 50);      /* near-black wall label */
+  --fg-dim:        oklch(43% 0.012 58);
+  --fg-faint:      oklch(56% 0.011 64);
+  --phosphor:      oklch(53% 0.2 26);        /* safelight red */
+  --phosphor-dim:  oklch(46% 0.17 26);
+  --amber:         oklch(56% 0.13 52);       /* warm toner second accent */
+  --amber-dim:     oklch(48% 0.11 52);
+  --glow-soft:     oklch(53% 0.2 26 / 0.14);
+  --glow-strong:   oklch(53% 0.2 26 / 0.24);
+  --code-bg:       oklch(20% 0.012 56);
+  --code-fg:       oklch(91% 0.02 86);
+  --header-bg:     oklch(95.5% 0.008 78 / 0.86);
 }
 
 /* ---------- Reset / base ---------- */
@@ -2000,6 +2005,267 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .net-strip .net-head .dot { animation: none; }
   [data-theme='electronics'] body::before { display: none; }
+}
+
+/* ============================================================
+   PHOTOGRAPHY WORLD  ::  Gallery / Darkroom (LIGHT)
+   Scoped to [data-theme='photography']. The light counterpoint to the
+   three dark worlds: editorial Spectral display face, photographic glyph
+   idioms (an aperture mark for the header name + hero, a film-frame tick
+   for headings, frame-number indices), a faint film-grain + paper-warmth
+   ambient, and a real (small) gallery of the owner's own photographs:
+   a featured lead frame, a contact-sheet grid, and EXIF-style mono
+   captions that stay honest (frame index + mood/place, never invented
+   camera specifics). Never touches the other worlds.
+   ============================================================ */
+
+/* ---------- Display font: Spectral (editorial serif) ---------- */
+/* Scoped override only — body + EXIF captions stay in the shared mono. */
+[data-theme='photography'] {
+  --font-display: 'Spectral', Georgia, 'Times New Roman', serif;
+}
+
+/* ---------- Glyph idioms (replace terminal accents) ---------- */
+/* Header name: `~/` (security) -> an aperture mark. */
+[data-theme='photography'] #header h1 a::before {
+  content: '\25C9\00a0';   /* ◉ aperture + nbsp */
+  color: var(--phosphor);
+}
+/* Major-heading prefix: `> ` (security) -> a film-frame tick. */
+[data-theme='photography'] .major h1::before,
+[data-theme='photography'] .major h2::before {
+  content: '\275A\00a0';   /* ❚ heavy frame bar + nbsp */
+  font-size: 0.7em;
+  vertical-align: 0.06em;
+  color: var(--phosphor);
+}
+/* Hero command prompt `$ ` -> aperture mark (handled in .frame-hero). */
+[data-theme='photography'] #banner h1::before { content: '\25C9\00a0'; }
+/* Menu caret -> a small frame tick. */
+[data-theme='photography'] #menu ul > li > a::before { content: '\275A '; }
+
+/* light palette: heading prefix glow would muddy paper; drop the bloom */
+[data-theme='photography'] #header h1 a,
+[data-theme='photography'] .index-idx { text-shadow: none; }
+
+/* ---------- Ambient: film grain + paper warmth (gated, static) ---------- */
+/* Two fixed, pointer-events:none layers. Grain is a faint fractal-noise
+   tile under multiply; warmth is a soft radial paper tone. Both sit behind
+   content and never reduce legibility. No animation loop by design. */
+html[data-theme='photography']::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 150px 150px;
+}
+/* paper-warmth vignette: faint warm glow at centre, cooler toward the rim */
+[data-theme='photography'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 95% at 50% 32%, oklch(88% 0.04 70 / 0.18) 0%, transparent 60%),
+    radial-gradient(130% 100% at 50% 50%, transparent 62%, oklch(60% 0.02 60 / 0.07) 100%);
+}
+
+/* ---------- ::selection + link underline tints follow the palette ---------- */
+[data-theme='photography'] ::selection { background: var(--phosphor); color: var(--surface); }
+[data-theme='photography'] a { border-bottom-color: oklch(53% 0.2 26 / 0.35); }
+
+/* ---------- Hero: featured lead frame + caption ---------- */
+.frame-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem, calc(1rem + 4vw), 4rem) 0 0;
+}
+.frame-hero .frame-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--phosphor);
+  margin: 0 0 1rem 0;
+}
+.frame-hero .frame-tag::before {
+  content: '';
+  width: 1.6rem;
+  height: 1px;
+  background: var(--phosphor);
+}
+.frame-hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.6rem 0;
+  color: var(--fg-bold);
+}
+.frame-hero h1::before {
+  content: '\25C9\00a0';   /* ◉ aperture */
+  color: var(--phosphor);
+  -webkit-text-fill-color: var(--phosphor);
+}
+.frame-hero .frame-lede {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, calc(0.9rem + 0.6vw), 1.35rem);
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--fg-dim);
+  max-width: 46ch;
+  margin: 0 0 2rem 0;
+}
+
+/* the lead photograph: a large framed plate with a thin mat + label */
+.frame-plate {
+  margin: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: clamp(0.6rem, calc(0.3rem + 1vw), 1.1rem);
+  box-shadow: 0 1.4rem 3rem oklch(40% 0.02 60 / 0.1);
+}
+.frame-plate img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--surface-2);
+}
+.frame-plate figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.9rem;
+  margin-top: clamp(0.6rem, calc(0.3rem + 1vw), 1.1rem);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  color: var(--fg-faint);
+}
+.frame-plate figcaption .exif-frame { color: var(--phosphor); }
+.frame-plate figcaption .exif-title { color: var(--fg-dim); }
+
+/* ---------- Contact-sheet grid (the working selection) ---------- */
+.contact-sheet {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(0.9rem, calc(0.6rem + 1vw), 1.6rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+.contact-frame {
+  margin: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 0.55rem;
+  transition: transform var(--dur) var(--ease),
+              border-color var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease);
+}
+.contact-frame .sheet-img {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--surface-2);
+  aspect-ratio: 4 / 3;
+}
+.contact-frame .sheet-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* darkroom print: settle to full tone, lift slightly on hover */
+  filter: saturate(0.94) contrast(1.02);
+  transition: transform var(--dur-slow) var(--ease), filter var(--dur) var(--ease);
+  will-change: transform;
+}
+.contact-frame figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.7rem;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.03em;
+  color: var(--fg-faint);
+  line-height: 1.5;
+}
+.contact-frame figcaption .exif-frame {
+  color: var(--phosphor);
+  letter-spacing: 0.08em;
+}
+.contact-frame figcaption .exif-title { color: var(--fg-dim); }
+@media (hover: hover) and (pointer: fine) {
+  .contact-frame:hover {
+    transform: translateY(-3px);
+    border-color: var(--phosphor-dim);
+    box-shadow: 0 0.9rem 2.4rem oklch(40% 0.02 60 / 0.16);
+  }
+  .contact-frame:hover .sheet-img img { transform: scale(1.04); filter: saturate(1) contrast(1.04); }
+}
+
+/* ---------- Darkroom note strip (mirrors the METAR / NET strips) ---------- */
+.darkroom-strip {
+  margin: 2rem 0 0;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--surface);
+  overflow: hidden;
+}
+.darkroom-strip .dr-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.darkroom-strip .dr-head .dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--phosphor);
+  animation: hero-pulse 2.4s var(--ease) infinite;
+}
+.darkroom-strip .dr-head .roll { color: var(--phosphor); margin-left: auto; }
+.darkroom-strip .dr-body {
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--fg);
+}
+.darkroom-strip .dr-body b { color: var(--phosphor); font-weight: 600; }
+.darkroom-strip .dr-decode {
+  margin: 0;
+  padding: 0 1rem 0.9rem;
+  font-size: var(--fs-xs);
+  color: var(--fg-faint);
+  letter-spacing: 0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .darkroom-strip .dr-head .dot { animation: none; }
+  html[data-theme='photography']::before { display: none; }
 }
 
 {% if site.custom_extensions == 'yes' %}
