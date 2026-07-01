@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% include topcomment.html %}
+<html lang="{{ site.lang }}" data-theme="{{ page.theme | default: 'reading' }}" data-theme-lock="true">
+
+  {% include head.html %}
+
+  <body class="is-preload">
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+      {% include header.html %}
+
+      <article id="novel-chapter">
+        <div class="reading">
+
+          <div class="reading-top">
+            <a class="novel-home" href="{{ '/novel/' | prepend: site.baseurl }}">Mã Nguồn Ngược Dòng</a>
+            <span class="reading-idx">Chương {{ page.chapter }} / {{ site.novel | size }}</span>
+          </div>
+
+          <h1 class="chapter-title">{{ page.title }}</h1>
+
+          <div class="prose">
+            {{ content }}
+          </div>
+
+          {%- assign chapters = site.novel | sort: 'chapter' -%}
+          {%- assign total = chapters | size -%}
+          {%- assign curidx = 0 -%}
+          {%- for ch in chapters -%}{%- if ch.chapter == page.chapter -%}{%- assign curidx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+          {%- assign previdx = curidx | minus: 1 -%}
+          {%- assign nextidx = curidx | plus: 1 -%}
+          <nav class="chapter-nav" aria-label="Chapter navigation">
+            {%- if curidx > 0 -%}{%- assign prev = chapters[previdx] -%}
+            <a class="cn-link cn-prev" href="{{ prev.url | prepend: site.baseurl }}"><span class="cn-dir">&larr; Trước</span><span class="cn-name">{{ prev.title }}</span></a>
+            {%- else -%}
+            <span class="cn-link is-disabled"><span class="cn-dir">&larr; Trước</span></span>
+            {%- endif -%}
+            <a class="cn-toc" href="{{ '/novel/' | prepend: site.baseurl }}">Mục lục</a>
+            {%- if nextidx < total -%}{%- assign next = chapters[nextidx] -%}
+            <a class="cn-link cn-next" href="{{ next.url | prepend: site.baseurl }}"><span class="cn-dir">Sau &rarr;</span><span class="cn-name">{{ next.title }}</span></a>
+            {%- else -%}
+            <span class="cn-link is-disabled"><span class="cn-dir">Sau &rarr;</span></span>
+            {%- endif -%}
+          </nav>
+
+        </div>
+      </article>
+
+      {% include footer.html %}
+
+      {% include scripts.html %}
+
+    </div>
+
+  </body>
+
+</html>

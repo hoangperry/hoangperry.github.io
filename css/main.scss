@@ -1244,6 +1244,7 @@ table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.
 .world-card[data-world='aviation']    { --wc: oklch(80% 0.13 215); --wc-glow: oklch(80% 0.13 215 / 0.3); }
 .world-card[data-world='electronics'] { --wc: oklch(80% 0.12 80);  --wc-glow: oklch(80% 0.12 80 / 0.3); }
 .world-card[data-world='photography'] { --wc: oklch(58% 0.18 25);  --wc-glow: oklch(58% 0.18 25 / 0.3); }
+.world-card[data-world='reading']     { --wc: oklch(55% 0.09 55);   --wc-glow: oklch(55% 0.09 55 / 0.3); }
 .world-card {
   margin: 0;
   padding: 0;
@@ -2267,6 +2268,99 @@ html[data-theme='photography']::before {
   .darkroom-strip .dr-head .dot { animation: none; }
   html[data-theme='photography']::before { display: none; }
 }
+
+/* ============================================================
+   READING world  ::  the web-novel (light book mode).
+   A calm, warm-paper reading environment: Spectral serif prose,
+   narrow measure, generous line-height. Used by _layouts/novel.html
+   and _pages/novel.html (theme: reading, always theme-locked).
+   ============================================================ */
+[data-theme='reading'] {
+  --bg:            oklch(96.5% 0.009 82);
+  --surface:       oklch(98.5% 0.006 82);
+  --surface-2:     oklch(94% 0.009 82);
+  --surface-3:     oklch(91% 0.01 82);
+  --line:          oklch(84% 0.012 78);
+  --line-soft:     oklch(89% 0.009 80);
+  --fg:            oklch(28% 0.012 58);
+  --fg-bold:       oklch(18% 0.014 52);
+  --fg-dim:        oklch(44% 0.012 58);
+  --fg-faint:      oklch(56% 0.011 62);
+  --phosphor:      oklch(48% 0.12 40);   /* warm rust ink accent */
+  --phosphor-dim:  oklch(42% 0.1 40);
+  --amber:         oklch(52% 0.1 55);
+  --amber-dim:     oklch(46% 0.09 55);
+  --glow-soft:     oklch(48% 0.12 40 / 0.14);
+  --glow-strong:   oklch(48% 0.12 40 / 0.24);
+  --code-bg:       oklch(22% 0.012 60);
+  --code-fg:       oklch(90% 0.02 90);
+  --header-bg:     oklch(96.5% 0.009 82 / 0.9);
+  --font-display:  'Spectral', Georgia, 'Times New Roman', serif;
+}
+
+/* ---------- Chapter reading column ---------- */
+#novel-chapter { padding: calc(var(--header-h) + 2.5rem) var(--gutter) 4rem; }
+.reading { max-width: 38rem; margin: 0 auto; }
+.reading-top {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--fg-faint);
+  border-bottom: 1px solid var(--line); padding-bottom: 0.75rem; margin-bottom: 2.25rem;
+}
+.reading-top .novel-home { color: var(--fg-dim); border-bottom: 0; }
+.reading-top .novel-home:hover { color: var(--phosphor); }
+.chapter-title {
+  font-family: var(--font-display); font-weight: 700; line-height: 1.15;
+  font-size: clamp(1.6rem, calc(1.2rem + 1.5vw), 2.4rem);
+  margin: 0 0 2rem; color: var(--fg-bold); letter-spacing: -0.01em;
+}
+.prose { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.85; color: var(--fg); }
+.prose p { margin: 0 0 1.35em; }
+.prose em, .prose i { font-style: italic; color: var(--fg-dim); }
+.prose strong, .prose b { color: var(--fg-bold); font-weight: 700; }
+.prose h2, .prose h3 { font-family: var(--font-display); color: var(--fg-bold); margin: 1.8em 0 0.5em; }
+.prose hr { border: 0; border-top: 1px solid var(--line); width: 30%; margin: 2.4em auto; }
+.prose blockquote { border-left: 2px solid var(--phosphor-dim); }
+
+/* prev / next chapter nav */
+.chapter-nav {
+  display: flex; align-items: stretch; gap: 0.75rem;
+  margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+}
+.cn-link {
+  flex: 1; display: flex; flex-direction: column; gap: 0.2rem;
+  padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: 6px;
+  color: var(--fg); min-width: 0;
+  transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease), transform 140ms var(--ease);
+}
+.cn-next { text-align: right; }
+@media (hover: hover) and (pointer: fine) {
+  .cn-link:not(.is-disabled):hover { border-color: var(--phosphor); background: color-mix(in oklch, var(--phosphor) 5%, transparent); }
+}
+.cn-link:active { transform: scale(0.99); }
+.cn-dir { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--phosphor); }
+.cn-name { font-family: var(--font-display); font-size: var(--fs-sm); color: var(--fg-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cn-link.is-disabled { opacity: 0.3; pointer-events: none; }
+.cn-toc { align-self: center; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-faint); border-bottom: 0; padding: 0 0.4rem; white-space: nowrap; }
+
+/* ---------- Novel landing (synopsis + table of contents) ---------- */
+.novel-lede { max-width: 44rem; }
+.novel-kicker { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--phosphor); }
+.novel-title-big {
+  font-family: var(--font-display); font-weight: 700; line-height: 1.02;
+  font-size: clamp(2.4rem, calc(1.4rem + 4vw), 5rem);
+  margin: 0.4rem 0 1.25rem; color: var(--fg-bold); letter-spacing: -0.015em;
+}
+.novel-synopsis { font-family: var(--font-display); font-size: 1.1rem; line-height: 1.75; color: var(--fg-dim); max-width: 40rem; }
+.novel-synopsis p { margin: 0 0 1em; }
+.novel-cta { display: inline-block; margin-top: 0.5rem; }
+.toc { list-style: none; padding: 0; margin: 2.5rem 0 0; border-top: 1px solid var(--line); }
+.toc li { break-inside: avoid; border-bottom: 1px solid var(--line-soft); }
+.toc a { display: flex; gap: 1.1rem; align-items: baseline; padding: 0.6rem 0.25rem; color: var(--fg); border-bottom: 0; }
+.toc a:hover { color: var(--phosphor); background: color-mix(in oklch, var(--phosphor) 5%, transparent); }
+.toc .tc-num { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--phosphor-dim); min-width: 2.75rem; letter-spacing: 0.04em; }
+.toc .tc-title { font-family: var(--font-display); font-size: 1.02rem; }
+@media (min-width: 820px) { .toc { column-count: 2; column-gap: 3rem; } }
 
 {% if site.custom_extensions == 'yes' %}
 {% include _my/custom.scss %}
