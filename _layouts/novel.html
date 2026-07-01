@@ -6,17 +6,19 @@
 
   <body class="is-preload">
 
-    <!-- Page Wrapper -->
     <div id="page-wrapper">
 
       {% include header.html %}
+
+      {%- assign siblings = site.novel | where_exp: 'c', 'c.chapter' | where: 'novel', page.novel | sort: 'chapter' -%}
+      {%- assign total = siblings | size -%}
 
       <article id="novel-chapter">
         <div class="reading">
 
           <div class="reading-top">
-            <a class="novel-home" href="{{ '/novel/' | prepend: site.baseurl }}">Mã Nguồn Ngược Dòng</a>
-            <span class="reading-idx">Chương {{ page.chapter }} / {{ site.novel | size }}</span>
+            <a class="novel-home" href="{{ '/novel/' | append: page.novel | append: '/' | prepend: site.baseurl }}">{{ page.novel_title }}</a>
+            <span class="reading-idx">Chương {{ page.chapter }} / {{ total }}</span>
           </div>
 
           <h1 class="chapter-title">{{ page.title }}</h1>
@@ -25,20 +27,18 @@
             {{ content }}
           </div>
 
-          {%- assign chapters = site.novel | sort: 'chapter' -%}
-          {%- assign total = chapters | size -%}
           {%- assign curidx = 0 -%}
-          {%- for ch in chapters -%}{%- if ch.chapter == page.chapter -%}{%- assign curidx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+          {%- for ch in siblings -%}{%- if ch.chapter == page.chapter -%}{%- assign curidx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
           {%- assign previdx = curidx | minus: 1 -%}
           {%- assign nextidx = curidx | plus: 1 -%}
           <nav class="chapter-nav" aria-label="Chapter navigation">
-            {%- if curidx > 0 -%}{%- assign prev = chapters[previdx] -%}
+            {%- if curidx > 0 -%}{%- assign prev = siblings[previdx] -%}
             <a class="cn-link cn-prev" href="{{ prev.url | prepend: site.baseurl }}"><span class="cn-dir">&larr; Trước</span><span class="cn-name">{{ prev.title }}</span></a>
             {%- else -%}
             <span class="cn-link is-disabled"><span class="cn-dir">&larr; Trước</span></span>
             {%- endif -%}
-            <a class="cn-toc" href="{{ '/novel/' | prepend: site.baseurl }}">Mục lục</a>
-            {%- if nextidx < total -%}{%- assign next = chapters[nextidx] -%}
+            <a class="cn-toc" href="{{ '/novel/' | append: page.novel | append: '/' | prepend: site.baseurl }}">Mục lục</a>
+            {%- if nextidx < total -%}{%- assign next = siblings[nextidx] -%}
             <a class="cn-link cn-next" href="{{ next.url | prepend: site.baseurl }}"><span class="cn-dir">Sau &rarr;</span><span class="cn-name">{{ next.title }}</span></a>
             {%- else -%}
             <span class="cn-link is-disabled"><span class="cn-dir">Sau &rarr;</span></span>

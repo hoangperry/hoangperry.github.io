@@ -4,29 +4,27 @@ title: Novel
 permalink: /novel/
 theme: reading
 options: fullwidth nolanding
-excerpt: "A system-driven web novel: building a tech empire from a Saigon alley."
+excerpt: "Truyện dài tôi viết. Web novel tiếng Việt, cập nhật theo chương."
 ---
 
-{% assign chapters = site.novel | sort: 'chapter' %}
-
 <div class="novel-lede">
-  <span class="novel-kicker">Tiểu thuyết · web novel</span>
-  <h2 class="novel-title-big">Mã Nguồn Ngược Dòng</h2>
-  <div class="novel-synopsis">
-    <p>Một kỹ sư AI 27 tuổi từ năm 2026 tỉnh dậy trong thân xác chính mình năm 14 tuổi, giữa con hẻm Bình Thạnh, Sài Gòn 2014. Ngay đêm hồi sinh, trong đầu anh kích hoạt một HỆ THỐNG KIẾN QUỐC: giao diện chỉ mình anh thấy, giao nhiệm vụ thật, ra hạn chót, và phạt nặng khi thất bại.</p>
-    <p>Anh mang theo trí nhớ tương lai và kiến thức công nghệ thực chiến, nhưng phải sống như một cậu học sinh vô tiền vô quyền, giấu Hệ thống khỏi mọi người, và không làm lệch dòng thời gian mình nhớ. Mỗi thanh tiến độ đầy là một nhịp sướng; mỗi hạn chót là một cơn căng thật.</p>
-    <p>Từ con hẻm ấy, Hoàng dựng ba trụ cột: AI tầm cỡ quốc tế, hàng không chiến lược, và văn hoá Việt ra thế giới, để người tài không còn phải rời đi. Câu hỏi anh luôn trốn: anh đang tự định hướng, hay đang lệ thuộc vào Hệ thống?</p>
-  </div>
-  {% if chapters.first %}<a class="button special novel-cta" href="{{ chapters.first.url | prepend: site.baseurl }}">Bắt đầu đọc &rarr;</a>{% endif %}
+  <span class="novel-kicker">Thư viện · fiction</span>
+  <h2 class="novel-title-big">Tiểu thuyết</h2>
+  <p class="novel-synopsis-lead">Nơi tôi viết truyện dài. Chọn một cuốn để bắt đầu.</p>
 </div>
 
-<ol class="toc" aria-label="Mục lục">{%
-  for ch in chapters %}
-  <li>
-    <a href="{{ ch.url | prepend: site.baseurl }}">
-      <span class="tc-num">{{ ch.chapter | prepend: '000' | slice: -3, 3 }}</span>
-      <span class="tc-title">{{ ch.title }}</span>
+<ul class="novel-shelf">{%
+  for n in site.data.novels %}
+  <li class="novel-item">
+    <a href="{{ '/novel/' | append: n.slug | append: '/' | prepend: site.baseurl }}">
+      <span class="ni-index">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
+      <span class="ni-body">
+        <span class="ni-title">{{ n.title }}</span>
+        {% if n.tagline %}<span class="ni-tagline">{{ n.tagline }}</span>{% endif %}
+        <span class="ni-meta">{{ n.chapters }} chương · {{ n.status }}</span>
+      </span>
+      <span class="ni-arrow">&rarr;</span>
     </a>
   </li>{%
   endfor %}
-</ol>
+</ul>

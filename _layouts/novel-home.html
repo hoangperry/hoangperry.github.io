@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% include topcomment.html %}
+<html lang="{{ site.lang }}" data-theme="{{ page.theme | default: 'reading' }}" data-theme-lock="true">
+
+  {% include head.html %}
+
+  <body class="is-preload">
+
+    <div id="page-wrapper">
+
+      {% include header.html %}
+
+      {%- assign meta = site.data.novels | where: 'slug', page.novel | first -%}
+      {%- assign chapters = site.novel | where_exp: 'c', 'c.chapter' | where: 'novel', page.novel | sort: 'chapter' -%}
+
+      <article id="novel-home">
+        <div class="reading-wide">
+
+          <a class="novel-back" href="{{ '/novel/' | prepend: site.baseurl }}">&larr; Thư viện</a>
+
+          <div class="novel-lede">
+            <span class="novel-kicker">Tiểu thuyết{% if meta.tagline %} · {{ meta.tagline }}{% endif %}</span>
+            <h1 class="novel-title-big">{{ page.title }}</h1>
+            {% if meta.synopsis %}<div class="novel-synopsis">{{ meta.synopsis | markdownify }}</div>{% endif %}
+            <p class="novel-meta-line">{{ chapters | size }} chương · {{ meta.status | default: 'Đang cập nhật' }}</p>
+            {% if chapters.first %}<a class="button special novel-cta" href="{{ chapters.first.url | prepend: site.baseurl }}">Bắt đầu đọc &rarr;</a>{% endif %}
+          </div>
+
+          <ol class="toc" aria-label="Mục lục">{%
+            for ch in chapters %}
+            <li>
+              <a href="{{ ch.url | prepend: site.baseurl }}">
+                <span class="tc-num">{{ ch.chapter | prepend: '000' | slice: -3, 3 }}</span>
+                <span class="tc-title">{{ ch.title }}</span>
+              </a>
+            </li>{%
+            endfor %}
+          </ol>
+
+        </div>
+      </article>
+
+      {% include footer.html %}
+
+      {% include scripts.html %}
+
+    </div>
+
+  </body>
+
+</html>
