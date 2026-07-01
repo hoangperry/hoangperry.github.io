@@ -6,6 +6,9 @@
 
   <body class="is-preload">
 
+    <!-- reading progress: fills as the reader moves through the chapter -->
+    <div class="read-progress" aria-hidden="true"><span class="rp-bar"></span></div>
+
     <div id="page-wrapper">
 
       {% include header.html %}
@@ -51,6 +54,28 @@
       {% include footer.html %}
 
       {% include scripts.html %}
+
+      <!-- reading progress driven by scroll position (transform only) -->
+      <script>
+      (function () {
+        var bar = document.querySelector('.read-progress .rp-bar');
+        var art = document.getElementById('novel-chapter');
+        if (!bar || !art) return;
+        var ticking = false;
+        function update() {
+          ticking = false;
+          var start = art.offsetTop;
+          var span = art.offsetHeight - window.innerHeight;
+          var p = span > 0 ? (window.scrollY - start) / span : 0;
+          if (p < 0) p = 0; else if (p > 1) p = 1;
+          bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+        }
+        function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        update();
+      })();
+      </script>
 
     </div>
 

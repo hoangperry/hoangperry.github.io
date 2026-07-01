@@ -1144,7 +1144,8 @@ table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.
 
 #footer {
   padding: var(--space-section) var(--gutter);
-  background: oklch(12% 0.011 160);
+  /* recessed band, theme-aware: darker than bg on every world (no black band on light themes) */
+  background: color-mix(in oklch, var(--bg) 85%, oklch(12% 0.01 160) 15%);
   border-top: 1px solid var(--line-soft);
   text-align: left;
 }
@@ -2400,6 +2401,41 @@ html[data-theme='photography']::before {
 .ni-arrow { font-family: var(--font-mono); color: var(--phosphor); align-self: center; }
 @media (hover: hover) and (pointer: fine) {
   .novel-item > a:hover .ni-arrow { color: var(--phosphor); }
+}
+
+/* ---------- Reading world: functional motion + one semantic colour ---------- */
+:root { --status-live: oklch(72% 0.15 150); }   /* "ongoing" green, theme-agnostic */
+
+/* reading progress: fills as the reader scrolls a chapter (transform only) */
+.read-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 1200; pointer-events: none; }
+.read-progress .rp-bar {
+  display: block; height: 100%; width: 100%;
+  transform-origin: left center; transform: scaleX(0);
+  background: var(--phosphor);
+  box-shadow: 0 0 0.5em var(--glow-strong);
+}
+
+/* one-time chapter entrance (the single orchestrated moment) */
+@keyframes ch-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+#novel-chapter .reading-top { animation: ch-enter 500ms var(--ease) both; }
+#novel-chapter .chapter-title { animation: ch-enter 600ms var(--ease) both; animation-delay: 70ms; }
+#novel-chapter .prose { animation: ch-enter 700ms var(--ease) both; animation-delay: 160ms; }
+
+/* status pill: colour carries meaning (ongoing), with a slow live pulse */
+.novel-status { display: inline-flex; align-items: center; gap: 0.45em; }
+.novel-status .st-dot {
+  width: 0.55em; height: 0.55em; border-radius: 50%;
+  background: var(--status-live);
+  box-shadow: 0 0 0.5em color-mix(in oklch, var(--status-live) 55%, transparent);
+  animation: hero-pulse 2.4s var(--ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .read-progress { display: none; }
+  #novel-chapter .reading-top,
+  #novel-chapter .chapter-title,
+  #novel-chapter .prose { animation: none; }
+  .novel-status .st-dot { animation: none; }
 }
 
 {% if site.custom_extensions == 'yes' %}
