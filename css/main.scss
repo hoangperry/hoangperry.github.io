@@ -67,6 +67,14 @@
   /* rhythm */
   --space-section: clamp(3rem, calc(2.25rem + 3.5vw), 6rem);
   --gutter:    clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
+
+  /* spacing scale: one ramp so gaps read as intentional, not arbitrary */
+  --space-2xs: 0.3rem;
+  --space-xs:  0.55rem;
+  --space-sm:  0.85rem;
+  --space-md:  1.25rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
   --header-h:  3.25rem;
 
   /* motion */
@@ -934,7 +942,7 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
 
 /* ---------- CTA ---------- */
 
-#cta { background: transparent; }
+#cta { background: transparent; padding-top: 0; }  /* the index already leaves a section gap above */
 #cta .inner {
   display: flex;
   align-items: center;
