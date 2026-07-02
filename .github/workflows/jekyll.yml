@@ -72,3 +72,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # Pages backend has been slow to leave "queued/in_progress";
+          # give a slow-but-working deploy room past the 10 min default.
+          timeout: 1800000
