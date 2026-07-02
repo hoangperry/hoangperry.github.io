@@ -5,6 +5,7 @@ permalink: /topics/freepbx/
 background-image: topic_image/freepbx/back.png
 categories:
   - topics
+  - electronics
 date: 2020-10-15 11:11
 ---
 

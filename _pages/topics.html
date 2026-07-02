@@ -8,42 +8,89 @@ image: pic01.jpg
 background-image: pic01.jpg
 ---
 
-{%  if site.posts %}{%
-      if site.tags.featured %}
+{%- comment -%}
+  Posts are grouped into worlds by their second category. Legacy posts used
+  varied tags (network, comp-sci, space, travel), so each world folds a few
+  aliases in. Anything under `topics` that matches no world lands in "Khác".
+{%- endcomment -%}
+{%- assign ez = site.empty_array -%}
+{%- assign c_security    = site.categories.security     | default: ez -%}
+{%- assign c_network     = site.categories.network      | default: ez -%}
+{%- assign c_aiml        = site.categories['ai-ml']     | default: ez -%}
+{%- assign c_compsci     = site.categories['comp-sci']  | default: ez -%}
+{%- assign c_aviation    = site.categories.aviation     | default: ez -%}
+{%- assign c_space       = site.categories.space        | default: ez -%}
+{%- assign c_travel      = site.categories.travel       | default: ez -%}
+{%- assign c_electronics = site.categories.electronics  | default: ez -%}
+{%- assign w_security    = c_security | concat: c_network  | sort: 'date' | reverse -%}
+{%- assign w_aiml        = c_aiml     | concat: c_compsci  | sort: 'date' | reverse -%}
+{%- assign w_aviation    = c_aviation | concat: c_space | concat: c_travel | sort: 'date' | reverse -%}
+{%- assign w_electronics = c_electronics | sort: 'date' | reverse -%}
+{%- assign world_cats = 'security,network,ai-ml,comp-sci,aviation,space,travel,electronics' | split: ',' -%}
+
+{% if site.posts %}{%
+  if site.tags.featured %}
   <hr style="margin:0 0 1em 0;" />
   <h4>Featured</h4>
   <ul class="post-list">{%
-        for post in site.categories.topics %}{%
-          if post.tags contains "featured" %}
-      <li class="2u 3u(large) 5u(medium) 11u(small)">
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
-          <div class="container">
-            <p class="post-title">{{ post.title }}</p>
-            <p class="post-date">{{ post.date | date: "%Y-%m-%d" }}</p>
-            <p class="post-desc">{{ post.excerpt | strip_html | truncatewords: 12 }}</p>
-          </div>
-        </a>
-      </li>{%
-          endif %}{%
-        endfor %}
+    for post in site.categories.topics %}{%
+      if post.tags contains "featured" %}
+    <li class="2u 3u(large) 5u(medium) 11u(small)">
+      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+        <div class="container">
+          <p class="post-title">{{ post.title }}</p>
+          <p class="post-date">{{ post.date | date: "%Y-%m-%d" }}</p>
+          <p class="post-desc">{{ post.excerpt | strip_html | truncatewords: 12 }}</p>
+        </div>
+      </a>
+    </li>{%
+      endif %}{%
+    endfor %}
   </ul>{%
-      endif %}
+  endif %}
+
   <hr style="margin:1em 0 1em 0;" />
 
-    <ul style="list-style-type: none;">{%
-      assign p = '9999'
-%}{%  for post in site.categories.topics
-%}{%    assign n = post.date | date: "%Y"
-%}{%    if n != p
-%}{%      assign p = n
-%}
-      <br /><h5>{{ n }}</h5>{%
-        endif %}
-      <li style="padding-bottom: 6px;"><code>[{{ post.date | date: "%d %b" }}]</code>&nbsp;
-        <a href="{{ post.url | prepend: site.baseurl }}" style="white-space: nowrap;"><b>{{ post.title }}</b></a>&nbsp;
-          {{ post.excerpt | strip_html | truncatewords: 12 }}</li>{%
-      endfor
-%}
-    </ul>
+  {%- if w_security.size > 0 %}
+  <h4 id="security">Security &amp; Systems</h4>
+  {% include topic-year-list.html posts=w_security %}
+  {%- endif %}
 
-{%  endif %}
+  {%- if w_aiml.size > 0 %}
+  <h4 id="ai-ml">AI / Machine Learning</h4>
+  {% include topic-year-list.html posts=w_aiml %}
+  {%- endif %}
+
+  {%- if w_aviation.size > 0 %}
+  <h4 id="aviation">Aviation</h4>
+  {% include topic-year-list.html posts=w_aviation %}
+  {%- endif %}
+
+  {%- if w_electronics.size > 0 %}
+  <h4 id="electronics">Electronics</h4>
+  {% include topic-year-list.html posts=w_electronics %}
+  {%- endif %}
+
+  {%- comment -%} Khác: topics posts that match no world above {%- endcomment -%}
+  {%- assign yr = '0000' -%}
+  {%- assign misc_count = 0 -%}
+  {%- capture misc_html -%}
+  <ul style="list-style-type: none;">{%- for post in site.categories.topics -%}
+    {%- assign inworld = false -%}
+    {%- for wc in world_cats -%}{%- if post.categories contains wc -%}{%- assign inworld = true -%}{%- endif -%}{%- endfor -%}
+    {%- unless inworld -%}
+      {%- assign misc_count = misc_count | plus: 1 -%}
+      {%- assign y = post.date | date: '%Y' -%}
+      {%- if y != yr -%}{%- assign yr = y -%}
+    <br /><h5>{{ y }}</h5>{%- endif -%}
+    <li style="padding-bottom: 6px;"><code>[{{ post.date | date: '%d %b' }}]</code>&nbsp;
+      <a href="{{ post.url | prepend: site.baseurl }}" style="white-space: nowrap;"><b>{{ post.title }}</b></a>&nbsp;
+      {{ post.excerpt | strip_html | truncatewords: 12 }}</li>{%- endunless -%}{%- endfor -%}
+  </ul>
+  {%- endcapture -%}
+  {%- if misc_count > 0 %}
+  <h4 id="khac">Khác</h4>
+  {{ misc_html }}
+  {%- endif %}
+
+{% endif %}
