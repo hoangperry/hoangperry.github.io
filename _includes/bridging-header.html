@@ -1,0 +1,31 @@
+{%- comment -%}
+Dual-world header for bridging essays.
+Front matter: worlds: [security, aviation]  (two world keys)
+Renders both world glyphs + labels with a two-accent seam where the worlds meet.
+{%- endcomment -%}
+{%- assign w1 = page.worlds[0] -%}
+{%- assign w2 = page.worlds[1] -%}
+<div class="bridging-header">
+  <span class="bridge-kicker">bridging</span>
+  <div class="bridge-worlds">
+    {%- for wk in page.worlds -%}
+      {%- case wk -%}
+        {%- when 'security'    -%}{%- assign wglyph = '$_'      -%}{%- assign wname = 'Security &amp; Systems' -%}
+        {%- when 'aviation'    -%}{%- assign wglyph = '&#9992;'  -%}{%- assign wname = 'Aviation' -%}
+        {%- when 'electronics' -%}{%- assign wglyph = '&#9635;'  -%}{%- assign wname = 'Electronics' -%}
+        {%- when 'photography' -%}{%- assign wglyph = '&#9673;'  -%}{%- assign wname = 'Photography' -%}
+        {%- when 'reading'     -%}{%- assign wglyph = '&#10086;' -%}{%- assign wname = 'Fiction' -%}
+        {%- else               -%}{%- assign wglyph = '&#9679;'  -%}{%- assign wname = wk | capitalize -%}
+      {%- endcase -%}
+      {%- unless forloop.first -%}<span class="bridge-x" aria-hidden="true">&times;</span>{%- endunless -%}
+      <span class="bridge-world" data-world="{{ wk }}">
+        <span class="bw-glyph" aria-hidden="true">{{ wglyph }}</span>
+        <span class="bw-name">{{ wname }}</span>
+      </span>
+    {%- endfor -%}
+  </div>
+  <div class="bridge-seam" aria-hidden="true">
+    <span class="bridge-seam-half" data-world="{{ w1 }}"></span>
+    <span class="bridge-seam-half" data-world="{{ w2 }}"></span>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+{% comment %}
+  Operator's logbook stream. Renders site.log newest-first.
+  Optional include param `world` filters to one world's slice, e.g.
+    {% include log-stream.html world='aviation' %}
+  Each row carries data-world so its accent colour is inlined (see
+  .log-row[data-world=...] in main.scss), not a full theme switch.
+{% endcomment %}
+{% assign entries = site.log | sort: 'date' | reverse %}
+{% if include.world %}{% assign entries = entries | where: 'world', include.world %}{% endif %}
+{% if entries.size > 0 %}
+<ol class="log-stream" role="list">
+  {% for e in entries %}
+  <li class="log-row" data-world="{{ e.world }}">
+    <div class="log-meta">
+      <time class="log-date" datetime="{{ e.date | date_to_xmlschema }}">{{ e.date | date: '%Y-%m-%d' }}</time>
+      <span class="log-kind">{{ e.kind }}</span>
+      <span class="log-world">{{ e.world }}</span>
+    </div>
+    <div class="log-main">
+      <h3 class="log-title">{{ e.title }}</h3>
+      <div class="log-body">{{ e.content | markdownify }}</div>
+    </div>
+  </li>
+  {% endfor %}
+</ol>
+{% else %}
+<p class="log-empty">No entries logged{% if include.world %} for this world{% endif %} yet.</p>
+{% endif %}

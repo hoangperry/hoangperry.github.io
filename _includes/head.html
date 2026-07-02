@@ -68,4 +68,7 @@
 </style>{%
   endif %}
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+  {%- if page.novel %}
+  <link rel="alternate" type="application/atom+xml" title="{% if page.novel_title %}{{ page.novel_title | escape }}{% else %}{{ page.title | escape }}{% endif %}" href="https://hoang.tech/novel/{{ page.novel }}/feed.xml" />
+  {%- endif %}
 </head>

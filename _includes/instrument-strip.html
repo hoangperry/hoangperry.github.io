@@ -1,0 +1,57 @@
+{% comment %}
+  Compact build-time self-metrics readout. Values come from
+  site.data.generated_metrics (see _plugins/metrics_generator.rb), which
+  merges repo-derived counts with hand-maintained _data/metrics.yml.
+  Dense mono readout with thin CSS meter bars, not big-number hero cards.
+  Meter fill = --v (0-100), computed against a soft ceiling per row.
+{% endcomment %}
+{% assign m = site.data.generated_metrics %}
+{% if m %}
+<section class="instrument-strip" aria-label="Build-time self metrics">
+  <p class="instr-head"><span class="dot" aria-hidden="true"></span>INSTRUMENTS<span class="instr-sub">build-time readout</span></p>
+  <dl class="instr-grid">
+    {% assign ch = m.novel_chapters | default: 0 %}
+    <div class="instr" data-world="reading" style="--v: {% if ch > 260 %}100{% else %}{{ ch | times: 100 | divided_by: 260 }}{% endif %}">
+      <dt class="instr-label">novel ch.</dt>
+      <dd class="instr-val">{{ ch }}</dd>
+      <span class="instr-meter" aria-hidden="true"></span>
+    </div>
+
+    {% assign cm = m.novel_chapters_month | default: 0 %}
+    <div class="instr" data-world="reading" style="--v: {% if cm > 30 %}100{% else %}{{ cm | times: 100 | divided_by: 30 }}{% endif %}">
+      <dt class="instr-label">ch. this month</dt>
+      <dd class="instr-val">{{ cm }}</dd>
+      <span class="instr-meter" aria-hidden="true"></span>
+    </div>
+
+    {% assign lt = m.log_total | default: 0 %}
+    <div class="instr" style="--v: {% if lt > 24 %}100{% else %}{{ lt | times: 100 | divided_by: 24 }}{% endif %}">
+      <dt class="instr-label">log entries</dt>
+      <dd class="instr-val">{{ lt }}</dd>
+      <span class="instr-meter" aria-hidden="true"></span>
+    </div>
+
+    {% assign ps = m.posts | default: 0 %}
+    <div class="instr" style="--v: {% if ps > 40 %}100{% else %}{{ ps | times: 100 | divided_by: 40 }}{% endif %}">
+      <dt class="instr-label">posts</dt>
+      <dd class="instr-val">{{ ps }}</dd>
+      <span class="instr-meter" aria-hidden="true"></span>
+    </div>
+
+    {% assign gh = m.ghsa_credits | default: 0 %}
+    <div class="instr" data-world="security" style="--v: {% if gh > 5 %}100{% else %}{{ gh | times: 100 | divided_by: 5 }}{% endif %}">
+      <dt class="instr-label">GHSA credits</dt>
+      <dd class="instr-val">{{ gh }}</dd>
+      <span class="instr-meter" aria-hidden="true"></span>
+    </div>
+
+    {% for pair in m.log_by_world %}
+    <div class="instr" data-world="{{ pair[0] }}" style="--v: {% if pair[1] > 12 %}100{% else %}{{ pair[1] | times: 100 | divided_by: 12 }}{% endif %}">
+      <dt class="instr-label">{{ pair[0] }} log</dt>
+      <dd class="instr-val">{{ pair[1] }}</dd>
+      <span class="instr-meter" aria-hidden="true"></span>
+    </div>
+    {% endfor %}
+  </dl>
+</section>
+{% endif %}

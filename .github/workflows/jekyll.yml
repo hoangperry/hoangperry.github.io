@@ -54,6 +54,11 @@ jobs:
           # bundler 2.0.2 (uses String#untaint, removed in Ruby 3.2+) and crashes.
           JEKYLL_NO_BUNDLER_REQUIRE: "true"
 
+      # Index the novels for client-side full-text search. Runs against the
+      # built _site so the /pagefind/ bundle ships inside the same artifact.
+      - name: Build Pagefind index
+        run: npx --yes pagefind --site _site --glob "novel/**/*.html" --force-language vi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 

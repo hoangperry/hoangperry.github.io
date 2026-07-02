@@ -42,6 +42,45 @@ def yaml_str(str)
   '"' + str.gsub('\\', '\\\\').gsub('"', '\"') + '"'
 end
 
+def xml_escape(str)
+  str.gsub('&', '&amp;').gsub('<', '&lt;').gsub('>', '&gt;')
+     .gsub('"', '&quot;').gsub("'", '&apos;')
+end
+
+# Per-novel Atom feed. Front matter fixes the output path; the Liquid body
+# resolves that novel's chapters at build time (newest first, capped) so the
+# feed stays current without the ingest script re-running. `SITE` is hardcoded
+# because _config.yml `url` omits the protocol.
+SITE = 'https://hoang.tech'
+def feed_source(slug, title, subtitle)
+  base = "#{SITE}/novel/#{slug}/"
+  <<~FEED
+    ---
+    layout: null
+    permalink: /novel/#{slug}/feed.xml
+    sitemap: false
+    ---
+    <?xml version="1.0" encoding="utf-8"?>
+    <feed xmlns="http://www.w3.org/2005/Atom">
+      <title>#{xml_escape(title)}</title>
+      <subtitle>#{xml_escape(subtitle)}</subtitle>
+      <link href="#{base}feed.xml" rel="self" type="application/atom+xml"/>
+      <link href="#{base}" rel="alternate" type="text/html"/>
+      <id>#{base}</id>
+      <updated>{{ site.time | date_to_xmlschema }}</updated>
+      {%- assign chapters = site.novel | where: "novel", "#{slug}" | where_exp: "c", "c.chapter" | sort: "chapter" | reverse -%}
+      {%- for c in chapters limit: 30 %}
+      <entry>
+        <title>{{ c.title | xml_escape }}</title>
+        <link href="#{SITE}{{ c.url }}" rel="alternate" type="text/html"/>
+        <id>#{SITE}{{ c.url }}</id>
+        <updated>{{ site.time | date_to_xmlschema }}</updated>
+      </entry>
+      {%- endfor %}
+    </feed>
+  FEED
+end
+
 # Preserve curated fields from an existing novels.yml.
 existing = {}
 if File.exist?(DATA_FILE)
@@ -112,8 +151,13 @@ Dir.glob(File.join(SRC_ROOT, '*')).sort.each do |ndir|
   ifm << "---\n"
   File.write(File.join(out, 'index.html'), ifm)
 
-  # ----- library metadata (preserve curated fields) -----
+  # ----- per-novel Atom feed (readers / Feedly discovery) -----
   prev = existing[slug] || {}
+  subtitle = prev['tagline']
+  subtitle = seed if subtitle.nil? || subtitle.empty?
+  File.write(File.join(out, 'feed.xml'), feed_source(slug, title, subtitle))
+
+  # ----- library metadata (preserve curated fields) -----
   novels << {
     'slug'     => slug,
     'title'    => title,

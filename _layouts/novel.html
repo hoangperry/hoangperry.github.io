@@ -16,10 +16,10 @@
       {%- assign siblings = site.novel | where_exp: 'c', 'c.chapter' | where: 'novel', page.novel | sort: 'chapter' -%}
       {%- assign total = siblings | size -%}
 
-      <article id="novel-chapter">
+      <article id="novel-chapter" data-pagefind-body data-pagefind-meta="novel:{{ page.novel_title }}">
         <div class="reading">
 
-          <div class="reading-top">
+          <div class="reading-top" data-pagefind-ignore>
             <a class="novel-home" href="{{ '/novel/' | append: page.novel | append: '/' | prepend: site.baseurl }}">{{ page.novel_title }}</a>
             <span class="reading-idx">Chương {{ page.chapter }} / {{ total }}</span>
           </div>
@@ -34,7 +34,7 @@
           {%- for ch in siblings -%}{%- if ch.chapter == page.chapter -%}{%- assign curidx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
           {%- assign previdx = curidx | minus: 1 -%}
           {%- assign nextidx = curidx | plus: 1 -%}
-          <nav class="chapter-nav" aria-label="Chapter navigation">
+          <nav class="chapter-nav" aria-label="Chapter navigation" data-pagefind-ignore>
             {%- if curidx > 0 -%}{%- assign prev = siblings[previdx] -%}
             <a class="cn-link cn-prev" href="{{ prev.url | prepend: site.baseurl }}"><span class="cn-dir">&larr; Trước</span><span class="cn-name">{{ prev.title }}</span></a>
             {%- else -%}
@@ -61,6 +61,26 @@
         var bar = document.querySelector('.read-progress .rp-bar');
         var art = document.getElementById('novel-chapter');
         if (!bar || !art) return;
+
+        // Reading bookmark: persisted locally (no network) so the novel home
+        // can offer a "Đọc tiếp" jump. Throttled to at most once per second.
+        var STORE_KEY = 'hoang.tech:reading:' + {{ page.novel | jsonify }};
+        var mark = {
+          novel: {{ page.novel | jsonify }},
+          chapter: {{ page.chapter | jsonify }},
+          url: {{ page.url | prepend: site.baseurl | jsonify }},
+          title: {{ page.title | jsonify }}
+        };
+        var lastSave = 0;
+        function save() {
+          lastSave = Date.now();
+          try {
+            mark.scrollY = window.scrollY;
+            mark.ts = lastSave;
+            localStorage.setItem(STORE_KEY, JSON.stringify(mark));
+          } catch (e) {}
+        }
+
         var ticking = false;
         function update() {
           ticking = false;
@@ -69,10 +89,12 @@
           var p = span > 0 ? (window.scrollY - start) / span : 0;
           if (p < 0) p = 0; else if (p > 1) p = 1;
           bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+          if (Date.now() - lastSave > 1000) save();
         }
         function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll, { passive: true });
+        window.addEventListener('pagehide', save);
         update();
       })();
       </script>

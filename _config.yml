@@ -112,6 +112,10 @@ collections:
   novel:
     output: true
     permalink: /novel/:path/
+  # Operator's logbook: short dated entries tagged by world. Not written
+  # as standalone pages; rendered as a stream on /log/ and per-world slices.
+  log:
+    output: false
 #sass:
 #  style: compressed
 exclude: ['site.bat','compose.rb','README.md']
@@ -130,6 +134,11 @@ defaults:
       path: _drafts
     values:
       layout: post
+  - scope:
+      path: ""
+      type: log
+    values:
+      kind: build
 
 # to initialize arrays in assignments (assign myarr = site.empty_array)
 # (easier to grok than assign myarr = '' | split',')

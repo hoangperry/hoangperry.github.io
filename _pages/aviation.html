@@ -30,7 +30,7 @@ excerpt: "A glass-cockpit corner of the site: field notes on aircraft, engines, 
   <p class="metar-decode">Wind 210° at 8 kt · visibility 10 km+ · few at 1,800 ft, scattered at 4,000 ft · 32 °C / dewpoint 24 °C · QNH 1008 hPa · no significant change.</p>
 </div>
 
-<header class="major" style="margin-top: 3rem;">
+<header class="major" style="margin-top: var(--space-2xl);">
   <h2>Logbook</h2>
 </header>
 
@@ -116,5 +116,10 @@ excerpt: "A glass-cockpit corner of the site: field notes on aircraft, engines, 
     </a>
   </li>
 </ul>
+
+<header class="major" style="margin-top: var(--space-2xl);">
+  <h2>Field log</h2>
+</header>
+{% include log-stream.html world='aviation' %}
 
 <script src="{{ '/js/aviation-hero.js' | prepend: site.baseurl }}" defer></script>

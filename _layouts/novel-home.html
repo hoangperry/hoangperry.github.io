@@ -23,7 +23,15 @@
             <h1 class="novel-title-big">{{ page.title }}</h1>
             {% if meta.synopsis %}<div class="novel-synopsis">{{ meta.synopsis | markdownify }}</div>{% endif %}
             <p class="novel-meta-line">{{ chapters | size }} chương · <span class="novel-status"><span class="st-dot" aria-hidden="true"></span>{{ meta.status | default: 'Đang cập nhật' }}</span></p>
-            {% if chapters.first %}<a class="button special novel-cta" href="{{ chapters.first.url | prepend: site.baseurl }}">Bắt đầu đọc &rarr;</a>{% endif %}
+            <span class="novel-cta-row">
+              {% if chapters.first %}<a class="button special novel-cta" href="{{ chapters.first.url | prepend: site.baseurl }}">Bắt đầu đọc &rarr;</a>{% endif %}
+              <a class="button novel-cta-resume" data-novel-resume hidden></a>
+            </span>
+          </div>
+
+          <div class="novel-search" data-novel-search>
+            <input type="search" class="ns-trigger" placeholder="Tìm trong truyện&hellip;" aria-label="Tìm trong truyện" autocomplete="off">
+            <div class="ns-ui" id="novel-search-ui" hidden></div>
           </div>
 
           <ol class="toc" aria-label="Mục lục">{%
@@ -43,6 +51,54 @@
       {% include footer.html %}
 
       {% include scripts.html %}
+
+      <!-- "Đọc tiếp": read the local reading bookmark (no network) -->
+      <script>
+      (function () {
+        var link = document.querySelector('[data-novel-resume]');
+        if (!link) return;
+        try {
+          var raw = localStorage.getItem('hoang.tech:reading:' + {{ page.novel | jsonify }});
+          if (!raw) return;
+          var mark = JSON.parse(raw);
+          if (!mark || !mark.url) return;
+          link.href = mark.url;
+          link.textContent = 'Đọc tiếp · Chương ' + mark.chapter;
+          link.hidden = false;
+        } catch (e) {}
+      })();
+      </script>
+
+      <!-- Lazy-loaded Pagefind search over the novel library -->
+      <script>
+      (function () {
+        var base = {{ site.baseurl | jsonify }};
+        var wrap = document.querySelector('[data-novel-search]');
+        if (!wrap) return;
+        var trigger = wrap.querySelector('.ns-trigger');
+        var host = wrap.querySelector('.ns-ui');
+        var loaded = false;
+        function init() {
+          if (loaded) return;
+          loaded = true;
+          var css = document.createElement('link');
+          css.rel = 'stylesheet';
+          css.href = base + '/pagefind/pagefind-ui.css';
+          document.head.appendChild(css);
+          var s = document.createElement('script');
+          s.src = base + '/pagefind/pagefind-ui.js';
+          s.onload = function () {
+            new PagefindUI({ element: '#novel-search-ui', showSubResults: true, showImages: false });
+            host.hidden = false;
+            trigger.hidden = true;
+            var inp = host.querySelector('input');
+            if (inp) inp.focus();
+          };
+          document.head.appendChild(s);
+        }
+        trigger.addEventListener('focus', init);
+      })();
+      </script>
 
     </div>
 

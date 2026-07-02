@@ -190,8 +190,10 @@
               </header>
               <ul class="log-list">{%
                 assign i = 0 %}{%
+                comment %} pass 1: bridging essays pinned to the top {% endcomment %}{%
                 for my_post in site.posts %}{%
-                  if my_post.tags contains 'featured' %}{%
+                  if i >= 8 %}{% break %}{% endif %}{%
+                  if my_post.tags contains 'featured' and my_post.tags contains 'bridging' %}{%
                     assign i = i | plus:1 %}
                 <li class="log-row reveal">
                   <a href="{{ my_post.url | prepend:site.baseurl }}">
@@ -203,9 +205,25 @@
                     <span class="log-excerpt">{{ my_post.excerpt | strip_html | truncatewords: 18 }}</span>
                   </a>
                 </li>{%
-                    if i == 8 %}{%
-                      break %}{%
-                    endif %}{%
+                  endif %}{%
+                endfor %}{%
+                comment %} pass 2: remaining featured posts {% endcomment %}{%
+                for my_post in site.posts %}{%
+                  if i >= 8 %}{% break %}{% endif %}{%
+                  if my_post.tags contains 'featured' %}{%
+                    unless my_post.tags contains 'bridging' %}{%
+                    assign i = i | plus:1 %}
+                <li class="log-row reveal">
+                  <a href="{{ my_post.url | prepend:site.baseurl }}">
+                    <span class="log-meta">
+                      <span class="log-idx">{{ i | prepend:'0' | slice:-2,2 }}</span>
+                      <span class="log-date">{{ my_post.date | date: '%Y.%m.%d' }}</span>
+                    </span>
+                    <span class="log-title">{{ my_post.title }}</span>
+                    <span class="log-excerpt">{{ my_post.excerpt | strip_html | truncatewords: 18 }}</span>
+                  </a>
+                </li>{%
+                    endunless %}{%
                   endif %}{%
                 endfor %}
               </ul>

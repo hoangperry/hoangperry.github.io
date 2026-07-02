@@ -2450,3 +2450,269 @@ html[data-theme='photography']::before {
 {% if site.custom_extensions == 'yes' %}
 {% include _my/custom.scss %}
 {% endif %}
+
+/* ===== A-novel-reader (workflow-integrated) ===== */
+/* ── Novel reader: search UI + resume link (reading world) ─────────────── */
+.novel-search { margin: var(--space-lg) 0; }
+
+.ns-trigger {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: var(--space-sm) var(--space-md);
+  transition: border-color var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+.ns-trigger::placeholder { color: var(--fg-faint); }
+.ns-trigger:focus {
+  outline: none;
+  border-color: var(--phosphor);
+  box-shadow: 0 0 0 1px color-mix(in oklch, var(--phosphor) 40%, transparent);
+}
+.ns-trigger[hidden] { display: none; }
+
+/* CTA row: "Bắt đầu đọc" + optional "Đọc tiếp" resume */
+.novel-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+/* .button sets display:inline-block, overriding [hidden]; force it off */
+.novel-cta-resume[hidden] { display: none; }
+
+/* Pagefind UI mapped onto reading-theme tokens */
+[data-theme='reading'] .novel-search .pagefind-ui {
+  --pagefind-ui-primary: var(--phosphor);
+  --pagefind-ui-text: var(--fg);
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: var(--line-soft);
+  --pagefind-ui-tag: color-mix(in oklch, var(--phosphor) 14%, transparent);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 4px;
+  --pagefind-ui-font: var(--font-mono);
+}
+[data-theme='reading'] .novel-search .pagefind-ui__result-title a { color: var(--fg-bold); }
+[data-theme='reading'] .novel-search .pagefind-ui__result-title a:hover { color: var(--phosphor); }
+
+/* ===== C-logbook (workflow-integrated) ===== */
+/* ============================================================
+   Operator's logbook + build-time instrument strip (Unit C).
+   Per-world accent is inlined via a --wc custom property keyed off
+   data-world, NOT a full theme switch. Rows/instruments default to the
+   active theme's --phosphor when no world is set.
+   ============================================================ */
+
+.log-row[data-world='security'],
+.instr[data-world='security']     { --wc: oklch(82% 0.15 150); }   /* phosphor green */
+.log-row[data-world='aviation'],
+.instr[data-world='aviation']     { --wc: oklch(83% 0.145 210); }  /* EFIS cyan */
+.log-row[data-world='electronics'],
+.instr[data-world='electronics']  { --wc: oklch(82% 0.135 82); }   /* copper trace */
+.log-row[data-world='photography'],
+.instr[data-world='photography']  { --wc: oklch(60% 0.19 26); }    /* safelight red */
+.log-row[data-world='reading'],
+.instr[data-world='reading']      { --wc: oklch(72% 0.13 45); }    /* warm sepia */
+
+/* ---------- Log stream ---------- */
+
+.log-stream {
+  list-style: none;
+  margin: var(--space-lg) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.log-row {
+  --wc: var(--phosphor);
+  display: block;
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--line-soft);
+  transition: background var(--dur-fast) var(--ease);
+}
+.log-row:hover {
+  background: color-mix(in oklch, var(--wc) 6%, transparent);
+}
+
+.log-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xs);
+}
+.log-date {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-sm);
+  color: var(--fg-dim);
+}
+.log-kind {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.1em 0.5em;
+  color: var(--wc);
+  border: 1px solid color-mix(in oklch, var(--wc) 45%, transparent);
+  background: color-mix(in oklch, var(--wc) 10%, transparent);
+}
+.log-world {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-faint);
+}
+
+.log-title {
+  font-size: var(--fs-h4);
+  margin: 0 0 var(--space-2xs);
+}
+.log-body {
+  color: var(--fg-dim);
+  font-size: var(--fs-sm);
+  max-width: var(--measure);
+}
+.log-body p { margin: 0 0 var(--space-xs); }
+.log-body p:last-child { margin-bottom: 0; }
+
+.log-empty {
+  margin: var(--space-lg) 0 0;
+  padding: var(--space-md);
+  border: 1px dashed var(--line-soft);
+  color: var(--fg-faint);
+  font-size: var(--fs-sm);
+}
+
+/* ---------- Instrument strip ---------- */
+
+.instrument-strip {
+  margin: var(--space-xl) 0;
+  padding: var(--space-md);
+  border: 1px solid var(--line-soft);
+  background: color-mix(in oklch, var(--surface) 55%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+.instr-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.instr-sub {
+  color: var(--fg-faint);
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.instr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: var(--space-md);
+  margin: 0;
+}
+.instr {
+  --v: 0;
+  --wc: var(--phosphor);
+  display: grid;
+  gap: var(--space-2xs);
+}
+.instr-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-faint);
+}
+.instr-val {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1;
+  color: var(--fg-bold);
+  margin: 0;
+}
+.instr-meter {
+  position: relative;
+  display: block;
+  height: 3px;
+  margin-top: var(--space-2xs);
+  background: var(--line-soft);
+  overflow: hidden;
+}
+.instr-meter::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--v) * 1%);
+  background: var(--wc);
+  transition: width var(--dur) var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .log-row,
+  .instr-meter::after { transition: none; }
+}
+
+/* ===== D-bridging (workflow-integrated) ===== */
+/* ---- Bridging essay: dual-world header (two world accents meeting) ---- */
+.bridging-header {
+  margin: 0 0 var(--space-lg);
+}
+.bridge-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  margin-bottom: var(--space-2xs);
+}
+.bridge-worlds {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+}
+.bridge-world {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+.bridge-world .bw-glyph { color: var(--wc); }
+.bridge-world .bw-name {
+  color: var(--fg-bold);
+  font-size: var(--fs-sm);
+}
+.bridge-x {
+  color: var(--fg-faint);
+  font-size: var(--fs-sm);
+}
+/* the seam: two solid accent halves that meet at the centre */
+.bridge-seam {
+  display: flex;
+  height: 2px;
+  margin-top: var(--space-xs);
+}
+.bridge-seam-half {
+  flex: 1 1 0;
+  background: var(--wc);
+}
+/* per-world accent map (mirrors the home world-card palette) */
+.bridge-world[data-world='security'],    .bridge-seam-half[data-world='security']    { --wc: oklch(82% 0.15 150); }
+.bridge-world[data-world='aviation'],     .bridge-seam-half[data-world='aviation']     { --wc: oklch(80% 0.13 215); }
+.bridge-world[data-world='electronics'],  .bridge-seam-half[data-world='electronics']  { --wc: oklch(80% 0.12 80);  }
+.bridge-world[data-world='photography'],  .bridge-seam-half[data-world='photography']  { --wc: oklch(58% 0.18 25);  }
+.bridge-world[data-world='reading'],      .bridge-seam-half[data-world='reading']      { --wc: oklch(55% 0.09 55);  }
+.bridge-world:not([data-world]),          .bridge-seam-half:not([data-world])          { --wc: var(--phosphor); }
+

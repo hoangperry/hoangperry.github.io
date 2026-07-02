@@ -1,0 +1,7 @@
+# Hand-maintained metrics that cannot be derived from the repo at build time.
+# AUTHOR-EDITABLE: bump these by hand as real milestones land. The build-time
+# generator (_plugins/metrics_generator.rb) folds these into the instrument
+# strip alongside numbers it counts automatically.
+
+# Security advisory (GHSA) credits earned.
+ghsa_credits: 1

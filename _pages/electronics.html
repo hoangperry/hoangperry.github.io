@@ -30,7 +30,7 @@ excerpt: "A workbench corner of the site: notes from the bench on the boxes that
   <p class="net-decode">Power rails up · grounds bonded · continuity checked across the board · probe on channel 1. More builds get soldered as they happen, not before.</p>
 </div>
 
-<header class="major" style="margin-top: 3rem;">
+<header class="major" style="margin-top: var(--space-2xl);">
   <h2>Bench / Lab log</h2>
 </header>
 
@@ -74,5 +74,10 @@ excerpt: "A workbench corner of the site: notes from the bench on the boxes that
   Thin shelf for now, more soldering in progress. The pure hardware
   builds get posted here once they actually work on the bench.
 </p>
+
+<header class="major" style="margin-top: var(--space-2xl);">
+  <h2>Field log</h2>
+</header>
+{% include log-stream.html world='electronics' %}
 
 <script src="{{ '/js/electronics-hero.js' | prepend: site.baseurl }}" defer></script>

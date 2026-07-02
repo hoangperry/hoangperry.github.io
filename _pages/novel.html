@@ -13,6 +13,11 @@ excerpt: "Truyện dài tôi viết. Web novel tiếng Việt, cập nhật theo
   <p class="novel-synopsis-lead">Nơi tôi viết truyện dài. Chọn một cuốn để bắt đầu.</p>
 </div>
 
+<div class="novel-search" data-novel-search>
+  <input type="search" class="ns-trigger" placeholder="Tìm trong truyện&hellip;" aria-label="Tìm trong truyện" autocomplete="off">
+  <div class="ns-ui" id="novel-search-ui" hidden></div>
+</div>
+
 <ul class="novel-shelf">{%
   for n in site.data.novels %}
   <li class="novel-item">
@@ -28,3 +33,34 @@ excerpt: "Truyện dài tôi viết. Web novel tiếng Việt, cập nhật theo
   </li>{%
   endfor %}
 </ul>
+
+<!-- Lazy-loaded Pagefind search over the novel library -->
+<script>
+(function () {
+  var base = {{ site.baseurl | jsonify }};
+  var wrap = document.querySelector('[data-novel-search]');
+  if (!wrap) return;
+  var trigger = wrap.querySelector('.ns-trigger');
+  var host = wrap.querySelector('.ns-ui');
+  var loaded = false;
+  function init() {
+    if (loaded) return;
+    loaded = true;
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = base + '/pagefind/pagefind-ui.css';
+    document.head.appendChild(css);
+    var s = document.createElement('script');
+    s.src = base + '/pagefind/pagefind-ui.js';
+    s.onload = function () {
+      new PagefindUI({ element: '#novel-search-ui', showSubResults: true, showImages: false });
+      host.hidden = false;
+      trigger.hidden = true;
+      var inp = host.querySelector('input');
+      if (inp) inp.focus();
+    };
+    document.head.appendChild(s);
+  }
+  trigger.addEventListener('focus', init);
+})();
+</script>
