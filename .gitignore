@@ -1,0 +1,9 @@
+# Jekyll build output & caches (site is built fresh by GitHub Actions)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+
+# Ruby / bundler
+vendor/bundle/
+.bundle/
