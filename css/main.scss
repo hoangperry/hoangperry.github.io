@@ -70,11 +70,12 @@
 
   /* spacing scale: one ramp so gaps read as intentional, not arbitrary */
   --space-2xs: 0.3rem;
-  --space-xs:  0.55rem;
-  --space-sm:  0.85rem;
-  --space-md:  1.25rem;
-  --space-lg:  2rem;
-  --space-xl:  3rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
   --header-h:  3.25rem;
 
   /* motion */
@@ -764,9 +765,9 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
 #greeting .social-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: var(--space-sm);
   list-style: none;
-  margin: 1.5rem 0 0;
+  margin: var(--space-lg) 0 0;
   padding: 0;
 }
 #greeting .social-row li { margin: 0; padding: 0; }
@@ -788,9 +789,9 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
 #greeting .focus-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-xs);
   list-style: none;
-  margin: 1.75rem 0 0;
+  margin: var(--space-lg) 0 0;
   padding: 0;
 }
 #greeting .focus-row li {
@@ -812,11 +813,11 @@ body.is-menu-visible .menu-scrim { opacity: 1; visibility: visible; }
 
 /* terminal profile readout (key/value) */
 .profile-highlights {
-  margin: 1.9rem 0 0;
-  padding: 1.4rem 0 0;
+  margin: var(--space-xl) 0 0;
+  padding: var(--space-lg) 0 0;
   border-top: 1px solid var(--line-soft);
   display: grid;
-  gap: 0.85rem;
+  gap: var(--space-sm);
 }
 .profile-highlights > div {
   display: grid;
@@ -1201,16 +1202,16 @@ table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.
 .cv-intro {
   color: var(--fg-dim);
   max-width: var(--measure);
-  margin: 0 0 2rem;
+  margin: 0 0 var(--space-xl);
 }
 .cv-prompt { color: var(--phosphor); text-shadow: 0 0 0.45em var(--glow-soft); margin-right: 0.4em; }
-.cv-section { margin: 2.75rem 0 0; }
+.cv-section { margin: var(--space-2xl) 0 0; }
 .cv-section > h2 {
-  padding-bottom: 0.5rem;
+  padding-bottom: var(--space-xs);
   border-bottom: 1px solid var(--line);
 }
 .cv-entry {
-  padding: 1.4rem 0;
+  padding: var(--space-lg) 0;
   border-bottom: 1px solid var(--line-soft);
 }
 .cv-entry:last-child { border-bottom: 0; }
@@ -1219,7 +1220,7 @@ table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.2rem 1.5rem;
+  gap: var(--space-2xs) var(--space-lg);
 }
 .cv-org {
   font-family: var(--font-display);
@@ -1238,10 +1239,10 @@ table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.
   color: var(--fg-dim);
   font-size: var(--fs-sm);
   letter-spacing: 0.02em;
-  margin: 0.2rem 0 0.7rem;
+  margin: var(--space-2xs) 0 var(--space-sm);
 }
-.cv-entry ul:not(.techlist) { margin: 0.5rem 0 0.8rem; }
-.cv-entry .techlist { margin-top: 0.6rem; }
+.cv-entry ul:not(.techlist) { margin: var(--space-xs) 0 var(--space-sm); }
+.cv-entry .techlist { margin-top: var(--space-xs); }
 
 /* ---------- Worlds portal (home hub) ---------- */
 #worlds .inner { max-width: 62rem; margin: 0 auto; }
@@ -2316,17 +2317,17 @@ html[data-theme='photography']::before {
 #novel-chapter { padding: calc(var(--header-h) + 2.5rem) var(--gutter) 4rem; }
 .reading { max-width: 38rem; margin: 0 auto; }
 .reading-top {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-md);
   font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--fg-faint);
-  border-bottom: 1px solid var(--line); padding-bottom: 0.75rem; margin-bottom: 2.25rem;
+  border-bottom: 1px solid var(--line); padding-bottom: var(--space-sm); margin-bottom: var(--space-xl);
 }
 .reading-top .novel-home { color: var(--fg-dim); border-bottom: 0; }
 .reading-top .novel-home:hover { color: var(--phosphor); }
 .chapter-title {
   font-family: var(--font-display); font-weight: 700; line-height: 1.15;
   font-size: clamp(1.6rem, calc(1.2rem + 1.5vw), 2.4rem);
-  margin: 0 0 2rem; color: var(--fg-bold); letter-spacing: -0.01em;
+  margin: 0 0 var(--space-xl); color: var(--fg-bold); letter-spacing: -0.01em;
 }
 .prose { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.85; color: var(--fg); }
 .prose p { margin: 0 0 1.35em; }
@@ -2338,12 +2339,12 @@ html[data-theme='photography']::before {
 
 /* prev / next chapter nav */
 .chapter-nav {
-  display: flex; align-items: stretch; gap: 0.75rem;
-  margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+  display: flex; align-items: stretch; gap: var(--space-sm);
+  margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 1px solid var(--line);
 }
 .cn-link {
-  flex: 1; display: flex; flex-direction: column; gap: 0.2rem;
-  padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: 6px;
+  flex: 1; display: flex; flex-direction: column; gap: var(--space-2xs);
+  padding: var(--space-sm) var(--space-md); border: 1px solid var(--line); border-radius: 6px;
   color: var(--fg); min-width: 0;
   transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease), transform 140ms var(--ease);
 }
@@ -2355,7 +2356,7 @@ html[data-theme='photography']::before {
 .cn-dir { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--phosphor); }
 .cn-name { font-family: var(--font-display); font-size: var(--fs-sm); color: var(--fg-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cn-link.is-disabled { opacity: 0.3; pointer-events: none; }
-.cn-toc { align-self: center; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-faint); border-bottom: 0; padding: 0 0.4rem; white-space: nowrap; }
+.cn-toc { align-self: center; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-faint); border-bottom: 0; padding: 0 var(--space-2xs); white-space: nowrap; }
 
 /* ---------- Novel landing (synopsis + table of contents) ---------- */
 .novel-lede { max-width: 44rem; }
@@ -2363,24 +2364,24 @@ html[data-theme='photography']::before {
 .novel-title-big {
   font-family: var(--font-display); font-weight: 700; line-height: 1.02;
   font-size: clamp(2.4rem, calc(1.4rem + 4vw), 5rem);
-  margin: 0.4rem 0 1.25rem; color: var(--fg-bold); letter-spacing: -0.015em;
+  margin: var(--space-2xs) 0 var(--space-md); color: var(--fg-bold); letter-spacing: -0.015em;
 }
 .novel-synopsis { font-family: var(--font-display); font-size: 1.1rem; line-height: 1.75; color: var(--fg-dim); max-width: 40rem; }
 .novel-synopsis p { margin: 0 0 1em; }
-.novel-cta { display: inline-block; margin-top: 0.5rem; }
-.toc { list-style: none; padding: 0; margin: 2.5rem 0 0; border-top: 1px solid var(--line); }
+.novel-cta { display: inline-block; margin-top: var(--space-xs); }
+.toc { list-style: none; padding: 0; margin: var(--space-xl) 0 0; border-top: 1px solid var(--line); }
 .toc li { break-inside: avoid; border-bottom: 1px solid var(--line-soft); }
-.toc a { display: flex; gap: 1.1rem; align-items: baseline; padding: 0.6rem 0.25rem; color: var(--fg); border-bottom: 0; }
+.toc a { display: flex; gap: var(--space-md); align-items: baseline; padding: var(--space-xs) var(--space-2xs); color: var(--fg); border-bottom: 0; }
 .toc a:hover { color: var(--phosphor); background: color-mix(in oklch, var(--phosphor) 5%, transparent); }
 .toc .tc-num { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--phosphor-dim); min-width: 2.75rem; letter-spacing: 0.04em; }
 .toc .tc-title { font-family: var(--font-display); font-size: 1.02rem; }
-@media (min-width: 820px) { .toc { column-count: 2; column-gap: 3rem; } }
+@media (min-width: 820px) { .toc { column-count: 2; column-gap: var(--space-2xl); } }
 
 /* per-novel landing + library */
 #novel-home { padding: calc(var(--header-h) + 2rem) var(--gutter) 4rem; }
 .reading-wide { max-width: 46rem; margin: 0 auto; }
 .novel-back {
-  display: inline-block; margin-bottom: 1.5rem;
+  display: inline-block; margin-bottom: var(--space-lg);
   font-family: var(--font-mono); font-size: var(--fs-xs);
   letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--fg-faint); border-bottom: 0;
@@ -2388,21 +2389,21 @@ html[data-theme='photography']::before {
 .novel-back:hover { color: var(--phosphor); }
 .novel-meta-line {
   font-family: var(--font-mono); font-size: var(--fs-sm);
-  color: var(--fg-faint); letter-spacing: 0.04em; margin: 1.25rem 0 1.5rem;
+  color: var(--fg-faint); letter-spacing: 0.04em; margin: var(--space-md) 0 var(--space-lg);
 }
 .novel-synopsis-lead { font-family: var(--font-display); font-size: 1.15rem; color: var(--fg-dim); max-width: 40rem; }
 
 /* library shelf (list of novels) */
-.novel-shelf { list-style: none; padding: 0; margin: 2.5rem auto 0; max-width: 46rem; border-top: 1px solid var(--line); }
+.novel-shelf { list-style: none; padding: 0; margin: var(--space-xl) auto 0; max-width: 46rem; border-top: 1px solid var(--line); }
 .novel-item { border-bottom: 1px solid var(--line-soft); }
 .novel-item > a {
-  display: grid; grid-template-columns: 3rem 1fr auto; align-items: baseline; gap: 1.25rem;
-  padding: 1.5rem 0.5rem; color: var(--fg); border-bottom: 0;
+  display: grid; grid-template-columns: 3rem 1fr auto; align-items: baseline; gap: var(--space-md);
+  padding: var(--space-lg) var(--space-xs); color: var(--fg); border-bottom: 0;
   transition: background-color var(--dur-fast) var(--ease), padding-left var(--dur) var(--ease);
 }
-.novel-item > a:hover { background: color-mix(in oklch, var(--phosphor) 5%, transparent); padding-left: 1.25rem; }
+.novel-item > a:hover { background: color-mix(in oklch, var(--phosphor) 5%, transparent); padding-left: var(--space-md); }
 .ni-index { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--phosphor-dim); }
-.ni-body { display: grid; gap: 0.3rem; min-width: 0; }
+.ni-body { display: grid; gap: var(--space-2xs); min-width: 0; }
 .ni-title { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3); color: var(--fg-bold); line-height: 1.1; }
 .ni-tagline { font-family: var(--font-display); font-size: 1.02rem; color: var(--fg-dim); }
 .ni-meta { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.06em; color: var(--fg-faint); text-transform: uppercase; }
