@@ -6,6 +6,8 @@
 
   <body class="landing is-preload">
 
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <!-- Hero WebGL canvas positioning (scoped; does not restyle existing UI) -->
     <style>
       #banner > .inner {
@@ -32,18 +34,42 @@
     <div id="page-wrapper">
 
       {% include header.html %}
+      {% assign post_count = site.posts | size %}
+      {% assign log_count = site.log | size %}
+      {% assign chapter_count = site.novel | size %}
+
+      <main id="main-content" tabindex="-1">
 
         <!-- Banner -->
           <section id="banner">
             <canvas id="hero-canvas" aria-hidden="true"></canvas>
             <div class="inner">
               <h1 id="hero-name">{{ site.title }}</h1>
-              <p>{{ site.description }}<span class="hero-cursor" aria-hidden="true"></span></p>
-              <div class="hero-status" aria-hidden="true">
-                <span class="dot"></span><span>ONLINE</span>
-                <span class="sep">/</span><span>HCMC, VN</span>
-                <span class="sep">/</span><span>UTC+7</span>
+              <p class="hero-summary">{{ site.description }}<span class="hero-cursor" aria-hidden="true"></span></p>
+              <div class="hero-status">
+                <span class="dot" aria-hidden="true"></span><span>ONLINE</span>
+                <span class="sep" aria-hidden="true">/</span><span>HCMC, VN</span>
+                <span class="sep" aria-hidden="true">/</span><span>UTC+7</span>
               </div>
+              <ul class="hero-metrics" role="list">
+                <li><strong>{{ post_count }}</strong><span>posts</span></li>
+                <li><strong>{{ log_count }}</strong><span>logs</span></li>
+                <li><strong>{{ chapter_count }}</strong><span>chapters</span></li>
+                <li><strong>5</strong><span>worlds</span></li>
+              </ul>
+              <div class="hero-actions">
+                <a href="#worlds" class="button special scrolly">Explore worlds</a>
+                <a href="#landing_features" class="button scrolly">Latest writing</a>
+              </div>
+              <nav class="hero-jump-nav" aria-label="Homepage sections">{%
+                if site.greeting %}
+                <a href="#greeting" class="scrolly">About</a>{%
+                endif %}
+                <a href="#worlds" class="scrolly">Worlds</a>
+                <a href="#landing_features" class="scrolly">Latest</a>
+                <a href="#landing_pages" class="scrolly">Index</a>
+                <a href="#cta" class="scrolly">Contact</a>
+              </nav>
             </div>{%
             if site.greeting %}
             <a href="#greeting" class="more scrolly">Continue</a>{%
@@ -56,50 +82,64 @@
         <!-- Greeting -->
           <section id="greeting" class="wrapper style2">
             <div class="inner reveal">
-              <header class="major">
-                <h2>{% if site.greeting.title %}{{ site.greeting.title }}{% else %}{{ site.title }}{% endif %}</h2>
-                <p>{% if site.greeting.text %}{{ site.greeting.text | markdownify }}{% else %}{{ site.description | markdownify }}{% endif %}</p>
-              </header>
+              <div class="intro-grid">
+                <div class="intro-copy">
+                  <header class="major">
+                    <h2>{% if site.greeting.title %}{{ site.greeting.title }}{% else %}{{ site.title }}{% endif %}</h2>
+                    <p>{% if site.greeting.text %}{{ site.greeting.text | markdownify }}{% else %}{{ site.description | markdownify }}{% endif %}</p>
+                  </header>
 
-              <!-- focus areas (edit these to taste) -->
-              <ul class="focus-row">
-                <li>AI / ML</li>
-                <li>Computer Vision</li>
-                <li>3D &amp; Simulation</li>
-                <li class="sec">Security &amp; Bug Hunting</li>
-                <li>Distributed Systems</li>
-              </ul>
+                  <!-- focus areas (edit these to taste) -->
+                  <ul class="focus-row">
+                    <li>AI / ML</li>
+                    <li>Computer Vision</li>
+                    <li>3D &amp; Simulation</li>
+                    <li class="sec">Security &amp; Bug Hunting</li>
+                    <li>Distributed Systems</li>
+                  </ul>
 
-              <!-- terminal-style profile readout -->
-              <dl class="profile-highlights">
-                <div>
-                  <dt>now</dt>
-                  <dd><strong>Senior Specialist</strong> @ Hung Thinh Innovation, smart-city &amp; metaverse R&amp;D</dd>
-                </div>
-                <div>
-                  <dt>security</dt>
-                  <dd>Bug hunting &amp; vulnerability research, credited in several GitHub Security Advisories</dd>
-                </div>
-                <div>
-                  <dt>research</dt>
-                  <dd>Co-author at ECONVN 2021, real-time AI services at scale</dd>
-                </div>
-              </dl>
+                  <!-- terminal-style profile readout -->
+                  <dl class="profile-highlights">
+                    <div>
+                      <dt>now</dt>
+                      <dd><strong>Senior Specialist</strong> @ Hung Thinh Innovation, smart-city &amp; metaverse R&amp;D</dd>
+                    </div>
+                    <div>
+                      <dt>security</dt>
+                      <dd>Bug hunting &amp; vulnerability research, credited in several GitHub Security Advisories</dd>
+                    </div>
+                    <div>
+                      <dt>research</dt>
+                      <dd>Co-author at ECONVN 2021, real-time AI services at scale</dd>
+                    </div>
+                  </dl>
 
-              <ul class="social-row">{%
-              for socloc in site.social limit:3 %}{%
-                if socloc[1] %}{%
-                  if socloc[0] == 'email' %}
-                <li><a target="_blank" rel="noopener noreferrer" href="{%
-                    if socloc[1] contains '@' %}mailto:{{ socloc[1] }}{%
-                    else %}{{ socloc[1] }}{%
-                    endif %}">email</a></li>{%
-                  else %}
-                <li><a target="_blank" rel="noopener noreferrer" href="{{ socloc[1] }}">{{ socloc[0] | replace:'-square','' | replace:'-official','' }}</a></li>{%
-                  endif %}{%
-                endif %}{%
-              endfor %}
-              </ul>
+                  <ul class="social-row">{%
+                  for socloc in site.social limit:3 %}{%
+                    if socloc[1] %}{%
+                      if socloc[0] == 'email' %}
+                    <li><a target="_blank" rel="noopener noreferrer" href="{%
+                        if socloc[1] contains '@' %}mailto:{{ socloc[1] }}{%
+                        else %}{{ socloc[1] }}{%
+                        endif %}">email</a></li>{%
+                      else %}
+                    <li><a target="_blank" rel="noopener noreferrer" href="{{ socloc[1] }}">{{ socloc[0] | replace:'-square','' | replace:'-official','' }}</a></li>{%
+                      endif %}{%
+                    endif %}{%
+                  endfor %}
+                  </ul>
+                </div>
+                <figure class="intro-visual">
+                  <img
+                    src="{{ '/images/generated/world-atlas.webp' | prepend: site.baseurl }}"
+                    alt="A nighttime Ho Chi Minh City operator desk where a topology screen, cockpit display, circuit board, darkroom prints, and manuscript notebook meet."
+                    width="1600"
+                    height="901"
+                    loading="lazy"
+                    decoding="async" />
+                  <figcaption>Five worlds, one shared workspace.</figcaption>
+                </figure>
+              </div>
             </div>
           </section>{%
           endif %}
@@ -112,12 +152,27 @@
                 <p>Different sides of the same person. Pick a frequency.</p>
               </header>
               <ul class="world-grid">
+                <li class="world-card world-card--feature" data-world="reading">
+                  <a class="wc-inner" href="{{ '/novel/' | prepend: site.baseurl }}">
+                    <span class="wc-visual" aria-hidden="true">
+                      <img src="{{ '/images/generated/fiction-alley.webp' | prepend: site.baseurl }}" alt="" width="1440" height="960" loading="lazy" decoding="async" />
+                    </span>
+                    <span class="wc-content">
+                      <span class="wc-glyph" aria-hidden="true">❦</span>
+                      <span class="wc-name">Fiction</span>
+                      <span class="wc-desc">Vietnamese stories where memory, machinery, and the city fold back into one another.</span>
+                      <span class="wc-meta"><span>{{ chapter_count }} chapters</span><span>ongoing serial</span></span>
+                      <span class="wc-enter">continue the story &rarr;</span>
+                    </span>
+                  </a>
+                </li>
                 <li class="world-card" data-world="security">
                   <a class="wc-inner" href="{{ '/topics/' | prepend: site.baseurl }}">
                     <span class="wc-glyph" aria-hidden="true">$_</span>
                     <span class="wc-name">Security &amp; Systems</span>
                     <span class="wc-desc">Terminal notes on ML, software, and bug hunting.</span>
-                    <span class="wc-enter">enter &rarr;</span>
+                    <span class="wc-meta"><span>field notes</span><span>{{ log_count }} build logs</span></span>
+                    <span class="wc-enter">open terminal &rarr;</span>
                   </a>
                 </li>
                 <li class="world-card" data-world="aviation">
@@ -125,7 +180,8 @@
                     <span class="wc-glyph" aria-hidden="true">&#9992;</span>
                     <span class="wc-name">Aviation</span>
                     <span class="wc-desc">Glass cockpit: aircraft, engines, and flight.</span>
-                    <span class="wc-enter">enter &rarr;</span>
+                    <span class="wc-meta"><span>cockpit systems</span><span>flight notes</span></span>
+                    <span class="wc-enter">open cockpit &rarr;</span>
                   </a>
                 </li>
                 <li class="world-card" data-world="electronics">
@@ -133,7 +189,8 @@
                     <span class="wc-glyph" aria-hidden="true">&#9635;</span>
                     <span class="wc-name">Electronics</span>
                     <span class="wc-desc">PCB bench: boards that route, talk, and search.</span>
-                    <span class="wc-enter">enter &rarr;</span>
+                    <span class="wc-meta"><span>pcb lab</span><span>embedded builds</span></span>
+                    <span class="wc-enter">visit the bench &rarr;</span>
                   </a>
                 </li>
                 <li class="world-card" data-world="photography">
@@ -141,15 +198,8 @@
                     <span class="wc-glyph" aria-hidden="true">&#9673;</span>
                     <span class="wc-name">Photography</span>
                     <span class="wc-desc">Darkroom and gallery: frames kept from the light.</span>
-                    <span class="wc-enter">enter &rarr;</span>
-                  </a>
-                </li>
-                <li class="world-card" data-world="reading">
-                  <a class="wc-inner" href="{{ '/novel/' | prepend: site.baseurl }}">
-                    <span class="wc-glyph" aria-hidden="true">&#10086;</span>
-                    <span class="wc-name">Fiction</span>
-                    <span class="wc-desc">Vietnamese web novels I write, updated chapter by chapter.</span>
-                    <span class="wc-enter">enter &rarr;</span>
+                    <span class="wc-meta"><span>night frames</span><span>travel gallery</span></span>
+                    <span class="wc-enter">enter darkroom &rarr;</span>
                   </a>
                 </li>
               </ul>
@@ -158,6 +208,12 @@
 
         <!-- Landing index -->
           <section id="landing_pages" class="wrapper alt style2">
+            <div class="inner landing-index-head reveal">
+              <header class="major">
+                <h2>Elsewhere</h2>
+                <p>Selected work, the operator log, and the practical details.</p>
+              </header>
+            </div>
             <ul class="index-list">{%
             assign sorted_pages = site.pages | sort:"id" %}{%
             assign idx = 0 %}{%
@@ -181,20 +237,16 @@
             </ul>
           </section>
 
-        <!-- Featured log -->{%
-      if site.tags.featured %}
+        <!-- Latest writing -->
           <section id="landing_features" class="wrapper style2">
             <div class="inner">
               <header class="major">
-                <h2>{{ site.features-title }}</h2>
+                <h2>Latest transmissions</h2>
+                <p>Recent field notes from systems, aviation, and the spaces between.</p>
               </header>
               <ul class="log-list">{%
-                assign i = 0 %}{%
-                comment %} pass 1: bridging essays pinned to the top {% endcomment %}{%
-                for my_post in site.posts %}{%
-                  if i >= 8 %}{% break %}{% endif %}{%
-                  if my_post.tags contains 'featured' and my_post.tags contains 'bridging' %}{%
-                    assign i = i | plus:1 %}
+                for my_post in site.posts limit: 6 %}{%
+                  assign i = forloop.index %}
                 <li class="log-row reveal">
                   <a href="{{ my_post.url | prepend:site.baseurl }}">
                     <span class="log-meta">
@@ -205,31 +257,11 @@
                     <span class="log-excerpt">{{ my_post.excerpt | strip_html | truncatewords: 18 }}</span>
                   </a>
                 </li>{%
-                  endif %}{%
-                endfor %}{%
-                comment %} pass 2: remaining featured posts {% endcomment %}{%
-                for my_post in site.posts %}{%
-                  if i >= 8 %}{% break %}{% endif %}{%
-                  if my_post.tags contains 'featured' %}{%
-                    unless my_post.tags contains 'bridging' %}{%
-                    assign i = i | plus:1 %}
-                <li class="log-row reveal">
-                  <a href="{{ my_post.url | prepend:site.baseurl }}">
-                    <span class="log-meta">
-                      <span class="log-idx">{{ i | prepend:'0' | slice:-2,2 }}</span>
-                      <span class="log-date">{{ my_post.date | date: '%Y.%m.%d' }}</span>
-                    </span>
-                    <span class="log-title">{{ my_post.title }}</span>
-                    <span class="log-excerpt">{{ my_post.excerpt | strip_html | truncatewords: 18 }}</span>
-                  </a>
-                </li>{%
-                    endunless %}{%
-                  endif %}{%
                 endfor %}
               </ul>
+              <p class="latest-more"><a href="{{ '/topics/' | prepend: site.baseurl }}">Browse all field notes &rarr;</a></p>
             </div>
-          </section>{%
-      endif %}
+          </section>
 
         <!-- CTA -->
           <section id="cta" class="wrapper style4">
@@ -243,6 +275,8 @@
               </ul>
             </div>
           </section>
+
+      </main>
 
       {% include footer.html %}
 

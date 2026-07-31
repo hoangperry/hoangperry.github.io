@@ -1,30 +1,49 @@
 <!-- Header -->
+{% assign header_theme = page.theme | default: 'security' %}
 <header id="header"{% if page.layout == 'landing' %} class="alt"{% endif %}>
   <h1><a href="{{ site.baseurl }}/index.html">{{ site.title }}</a></h1>
+  <nav class="world-nav" aria-label="Explore worlds">
+    <a href="{{ '/topics/' | prepend: site.baseurl }}" data-theme-link="security"{% if page.url == '/topics/' %} aria-current="page"{% elsif page.url contains '/topics/' %} aria-current="location"{% endif %}><span>01</span>Systems</a>
+    <a href="{{ '/aviation/' | prepend: site.baseurl }}" data-theme-link="aviation"{% if page.url == '/aviation/' %} aria-current="page"{% endif %}><span>02</span>Aviation</a>
+    <a href="{{ '/electronics/' | prepend: site.baseurl }}" data-theme-link="electronics"{% if page.url == '/electronics/' %} aria-current="page"{% endif %}><span>03</span>Electronics</a>
+    <a href="{{ '/photography/' | prepend: site.baseurl }}" data-theme-link="photography"{% if page.url == '/photography/' %} aria-current="page"{% endif %}><span>04</span>Photos</a>
+    <a href="{{ '/novel/' | prepend: site.baseurl }}" data-theme-link="reading"{% if page.url == '/novel/' %} aria-current="page"{% elsif page.theme == 'reading' %} aria-current="location"{% endif %}><span>05</span>Fiction</a>
+  </nav>
   <nav id="nav">
     <ul>
       <li class="theme-switch">
-        <button id="theme-cycle" type="button" aria-label="Switch visual theme">
-          <span class="ts-dot" aria-hidden="true"></span><span class="ts-label">security</span>
+        <button id="theme-cycle" type="button"{% if page.theme %} disabled{% endif %} aria-label="{% if page.theme %}Theme locked to {{ header_theme }} on this world.{% else %}Current theme: {{ header_theme }}. Activate to switch visual theme.{% endif %}">
+          <span class="ts-dot" aria-hidden="true"></span><span class="ts-label">{{ header_theme }}</span>
         </button>
       </li>
-      <li><a href="#menu" class="menuToggle"><span>Menu</span></a></li>
+      <li><a id="menu-toggle" href="#menu" class="menuToggle" aria-controls="menu" aria-expanded="false"><span>Menu</span></a></li>
     </ul>
   </nav>
 </header>
-<nav id="menu" aria-label="Primary">
-  <button class="menu-close" aria-label="Close menu">x</button>
-  <ul>
-    <li><a href="{{ "/index.html#greeting" | prepend: site.baseurl }}"{% if page.layout == 'landing' %} aria-current="page" class="is-current"{% endif %}>Home</a></li>{%
-    assign sorted_pages = site.pages | sort: 'key','last' %}{%
-    for my_page in sorted_pages %}{%
-      if my_page.title %}{%
-        unless my_page.options contains 'nomenu' %}
-    <li><a href="{{ my_page.url | prepend: site.baseurl }}"{% if my_page.url == page.url %} aria-current="page" class="is-current"{% endif %}>{{ my_page.title }}</a></li>{%
-        endunless %}{%
-      endif %}{%
-    endfor %}
-    <li><a href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS Feed</a></li>
+<nav id="menu" role="dialog" aria-modal="true" aria-labelledby="menu-title" aria-hidden="true" tabindex="-1">
+  <button class="menu-close" type="button" aria-label="Close menu">×</button>
+  <div class="menu-intro">
+    <span>navigate / 01</span>
+    <strong id="menu-title">Choose a world</strong>
+  </div>
+  <ul class="menu-worlds">
+    <li><a href="{{ '/topics/' | prepend: site.baseurl }}" data-theme-link="security"{% if page.url == '/topics/' %} aria-current="page"{% elsif page.url contains '/topics/' %} aria-current="location"{% endif %}><span>$_</span>Security &amp; Systems</a></li>
+    <li><a href="{{ '/aviation/' | prepend: site.baseurl }}" data-theme-link="aviation"{% if page.url == '/aviation/' %} aria-current="page"{% endif %}><span>✈</span>Aviation</a></li>
+    <li><a href="{{ '/electronics/' | prepend: site.baseurl }}" data-theme-link="electronics"{% if page.url == '/electronics/' %} aria-current="page"{% endif %}><span>▣</span>Electronics</a></li>
+    <li><a href="{{ '/photography/' | prepend: site.baseurl }}" data-theme-link="photography"{% if page.url == '/photography/' %} aria-current="page"{% endif %}><span>◉</span>Photography</a></li>
+    <li><a href="{{ '/novel/' | prepend: site.baseurl }}" data-theme-link="reading"{% if page.url == '/novel/' %} aria-current="page"{% elsif page.theme == 'reading' %} aria-current="location"{% endif %}><span>❦</span>Fiction</a></li>
+  </ul>
+  <div class="menu-intro menu-intro--secondary">
+    <span>navigate / 02</span>
+    <strong>Elsewhere</strong>
+  </div>
+  <ul class="menu-utility">
+    <li><a href="{{ '/index.html#greeting' | prepend: site.baseurl }}"{% if page.layout == 'landing' %} aria-current="page" class="is-current"{% endif %}>Home</a></li>
+    <li><a href="{{ '/works/' | prepend: site.baseurl }}"{% if page.url == '/works/' %} aria-current="page" class="is-current"{% endif %}>Works</a></li>
+    <li><a href="{{ '/log/' | prepend: site.baseurl }}"{% if page.url == '/log/' %} aria-current="page" class="is-current"{% endif %}>Logbook</a></li>
+    <li><a href="{{ '/resume/' | prepend: site.baseurl }}"{% if page.url == '/resume/' %} aria-current="page" class="is-current"{% endif %}>Resume</a></li>
+    <li><a href="{{ '/contact/' | prepend: site.baseurl }}"{% if page.url == '/contact/' %} aria-current="page" class="is-current"{% endif %}>Contact</a></li>
+    <li><a href="{{ '/feed.xml' | prepend: site.baseurl }}">RSS Feed</a></li>
   </ul>
 </nav>
 <div class="menu-scrim" hidden></div>

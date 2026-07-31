@@ -15,21 +15,124 @@
   document.addEventListener("DOMContentLoaded", function () {
     var body = document.body;
     var menu = document.getElementById("menu");
-    var toggle = document.querySelector("a.menuToggle");
+    var header = document.getElementById("header");
+    var toggle = document.getElementById("menu-toggle") || document.querySelector("a.menuToggle");
     var menuClose = document.querySelector(".menu-close");
     var scrim = document.querySelector(".menu-scrim");
+    var skipLink = document.querySelector(".skip-link");
+    var mainContent = document.getElementById("main-content");
+    var backgroundRegions = document.querySelectorAll(
+      "body > :not(#page-wrapper), " +
+      "#page-wrapper > :not(#menu):not(.menu-scrim):not(script)"
+    );
+    var lastFocused = null;
+    var focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function getHeaderOffset() {
+      return header ? header.offsetHeight : 0;
+    }
+
+    function updateMenuState(isOpen) {
+      if (menu) {
+        menu.setAttribute("aria-hidden", isOpen ? "false" : "true");
+        if (isOpen) menu.removeAttribute("inert");
+        else menu.setAttribute("inert", "");
+      }
+      if (toggle) {
+        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      }
+      Array.prototype.forEach.call(backgroundRegions, function (region) {
+        if (isOpen) region.setAttribute("inert", "");
+        else region.removeAttribute("inert");
+      });
+    }
+
+    function keepFocusInMenu(event) {
+      if (!body.classList.contains("is-menu-visible") || event.key !== "Tab" || !menu) {
+        return;
+      }
+
+      var focusable = menu.querySelectorAll(focusableSelector);
+      if (!focusable.length) return;
+
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    function getSamePageTarget(link) {
+      if (!link || !link.hash) return null;
+      var url = new URL(link.href, window.location.href);
+      var normalizePath = function (path) {
+        return path.replace(/\/index\.html$/, "/");
+      };
+      if (
+        url.origin !== window.location.origin ||
+        normalizePath(url.pathname) !== normalizePath(window.location.pathname)
+      ) {
+        return null;
+      }
+      return document.getElementById(decodeURIComponent(url.hash.slice(1)));
+    }
+
+    function focusSection(target) {
+      var hadTabIndex = target.hasAttribute("tabindex");
+      if (!hadTabIndex) target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+      if (!hadTabIndex) {
+        target.addEventListener("blur", function () {
+          target.removeAttribute("tabindex");
+        }, { once: true });
+      }
+    }
 
     // (1.5) THEME SWITCHER — cycle the visual worlds, persist the choice.
     (function () {
-      var THEMES = ["security", "aviation", "electronics", "photography"];
+      var THEMES = ["security", "aviation", "electronics", "photography", "reading"];
+      var THEME_LABELS = {
+        security: "Security and Systems",
+        aviation: "Aviation",
+        electronics: "Electronics",
+        photography: "Photography",
+        reading: "Fiction"
+      };
       var root = document.documentElement;
       var btn = document.getElementById("theme-cycle");
       var label = btn ? btn.querySelector(".ts-label") : null;
+      var themeLinks = document.querySelectorAll("[data-theme-link]");
       var KEY = "site-theme";
+
+      function syncThemeLinks(theme) {
+        Array.prototype.forEach.call(themeLinks, function (link) {
+          var isCurrent = link.getAttribute("data-theme-link") === theme;
+          var themeName = THEME_LABELS[link.getAttribute("data-theme-link")] || "World";
+          link.classList.toggle("is-theme-current", isCurrent);
+          link.setAttribute(
+            "aria-label",
+            themeName + (isCurrent ? ", current visual theme" : "")
+          );
+        });
+      }
+
       function apply(theme) {
         if (THEMES.indexOf(theme) === -1) return;
         root.setAttribute("data-theme", theme);
         if (label) label.textContent = theme;
+        syncThemeLinks(theme);
+        if (btn) {
+          var next = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
+          btn.setAttribute(
+            "aria-label",
+            "Current theme: " + theme + ". Switch to " + next + "."
+          );
+        }
       }
       // World pages (front-matter theme) lock to their own world; the saved
       // override only applies to unlocked pages (home, posts).
@@ -37,8 +140,17 @@
       var saved = null;
       try { saved = localStorage.getItem(KEY); } catch (e) {}
       if (saved && !locked) apply(saved);            // restore a chosen world
-      else if (label) label.textContent = root.getAttribute("data-theme") || "security";
-      if (btn) {
+      else {
+        var currentTheme = root.getAttribute("data-theme") || "security";
+        apply(currentTheme);
+      }
+      if (btn && locked) {
+        btn.disabled = true;
+        btn.setAttribute(
+          "aria-label",
+          "Theme locked to " + (root.getAttribute("data-theme") || "security") + " on this world."
+        );
+      } else if (btn) {
         btn.addEventListener("click", function () {
           var cur = root.getAttribute("data-theme") || "security";
           var next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
@@ -52,24 +164,77 @@
     function openMenu(e) {
       if (e) e.preventDefault();
       if (!menu) return;
+      lastFocused = document.activeElement;
       menu.classList.add("is-visible");
       body.classList.add("is-menu-visible");
+      body.classList.add("menu-open");
       if (scrim) scrim.removeAttribute("hidden");
+      updateMenuState(true);
+      window.requestAnimationFrame(function () {
+        if (menuClose) menuClose.focus();
+      });
     }
-    function closeMenu() {
-      if (!menu) return;
+    function closeMenu(restoreFocus) {
+      if (!menu || !body.classList.contains("is-menu-visible")) return;
       menu.classList.remove("is-visible");
       body.classList.remove("is-menu-visible");
+      body.classList.remove("menu-open");
       if (scrim) scrim.setAttribute("hidden", "");
+      updateMenuState(false);
+      if (restoreFocus !== false) {
+        if (lastFocused && typeof lastFocused.focus === "function") {
+          lastFocused.focus();
+        } else if (toggle) {
+          toggle.focus();
+        }
+      }
     }
     if (toggle) toggle.addEventListener("click", openMenu);
     if (menuClose) menuClose.addEventListener("click", closeMenu);
     if (scrim) scrim.addEventListener("click", closeMenu);
+    if (menu) {
+      menu.addEventListener("click", function (e) {
+        var link = e.target && e.target.closest
+          ? e.target.closest('a[href]:not([href="#menu"])')
+          : null;
+        if (link && menu.contains(link)) {
+          var samePageTarget = getSamePageTarget(link);
+          if (samePageTarget) {
+            e.preventDefault();
+            closeMenu(false);
+            scrollToTarget(samePageTarget);
+            if (window.history && window.history.pushState) {
+              window.history.pushState(null, "", link.hash);
+            }
+            window.requestAnimationFrame(function () {
+              focusSection(samePageTarget);
+            });
+          } else {
+            closeMenu();
+          }
+        }
+      });
+    }
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") closeMenu();
+      keepFocusInMenu(e);
     });
+    updateMenuState(false);
 
     // (3) SMOOTH SCROLL for in-page scrolly anchors.
+    function scrollToTarget(target) {
+      var top =
+        target.getBoundingClientRect().top +
+        window.pageYOffset -
+        getHeaderOffset() -
+        16;
+
+      window.scrollTo({
+        top: Math.max(0, top),
+        behavior: reduceMotion ? "auto" : "smooth"
+      });
+    }
+
     var scrollyLinks = document.querySelectorAll("a.scrolly");
     Array.prototype.forEach.call(scrollyLinks, function (link) {
       link.addEventListener("click", function (e) {
@@ -78,11 +243,17 @@
         var target = document.getElementById(href.slice(1));
         if (!target) return;
         e.preventDefault();
-        target.scrollIntoView({
-          behavior: reduceMotion ? "auto" : "smooth"
-        });
+        scrollToTarget(target);
       });
     });
+
+    if (skipLink && mainContent) {
+      skipLink.addEventListener("click", function () {
+        window.requestAnimationFrame(function () {
+          focusSection(mainContent);
+        });
+      });
+    }
 
     // (4) REVEAL via IntersectionObserver.
     var reveals = document.querySelectorAll(".reveal");
@@ -96,7 +267,7 @@
             }
           });
         },
-        { threshold: 0.15 }
+        { threshold: 0.08, rootMargin: "0px 0px -8% 0px" }
       );
       Array.prototype.forEach.call(reveals, function (el) {
         observer.observe(el);
