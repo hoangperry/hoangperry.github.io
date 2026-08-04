@@ -1,0 +1,211 @@
+/* Homepage world navigation as an editorial chapter sequence. */
+
+#worlds { overflow: hidden; }
+
+.worlds-heading {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: clamp(3rem, 8vw, 7rem);
+}
+
+.worlds-heading .section-index { grid-column: 1 / -1; }
+
+.worlds-heading h2 {
+  grid-column: 1 / span 8;
+  margin: 0;
+  font-size: clamp(4.5rem, 10vw, 9.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.07em;
+  text-transform: none;
+}
+
+.worlds-heading p {
+  grid-column: 9 / -1;
+  margin: 0 0 0.35rem;
+  color: var(--fg-dim);
+}
+
+.worlds-heading::after { display: none; }
+
+.world-grid { display: block; margin-top: 0; }
+
+.world-card,
+.world-card[data-world] {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.world-card:last-child { border-bottom: 1px solid var(--line); }
+.world-card .wc-inner:focus-visible { outline-offset: -3px; }
+
+.world-card .wc-index {
+  position: absolute;
+  z-index: 0;
+  right: 1.5rem;
+  top: 50%;
+  color: color-mix(in oklch, var(--wc) 13%, transparent);
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 11vw, 10rem);
+  font-weight: 700;
+  line-height: 0.7;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: color var(--dur) var(--ease), transform var(--dur-slow) var(--ease);
+}
+
+.world-card:not(.world-card--feature) .wc-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 4rem minmax(14rem, 0.9fr) minmax(16rem, 1.1fr) auto;
+  grid-template-areas:
+    'glyph name desc enter'
+    'glyph meta desc enter';
+  gap: 0.45rem clamp(1.25rem, 3vw, 3rem);
+  align-items: center;
+  min-height: clamp(10rem, 14vw, 13rem);
+  padding: 1.5rem 0;
+}
+
+.world-card:not(.world-card--feature) .wc-glyph { grid-area: glyph; margin: 0; font-size: 2rem; }
+.world-card:not(.world-card--feature) .wc-name { grid-area: name; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1; }
+.world-card:not(.world-card--feature) .wc-desc { grid-area: desc; max-width: 40ch; font-size: 1rem; }
+.world-card:not(.world-card--feature) .wc-meta { grid-area: meta; }
+.world-card:not(.world-card--feature) .wc-enter { grid-area: enter; margin: 0; white-space: nowrap; }
+
+.world-card--feature {
+  min-height: clamp(34rem, 70vh, 49rem);
+  border-top-color: color-mix(in oklch, var(--wc) 55%, var(--line));
+}
+
+.world-card--feature .wc-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(19rem, 0.72fr);
+  align-items: stretch;
+  padding: 0;
+  isolation: isolate;
+}
+
+.wc-visual {
+  position: relative;
+  z-index: 0;
+  min-height: clamp(34rem, 70vh, 49rem);
+  overflow: hidden;
+}
+
+.wc-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 65%, color-mix(in oklch, var(--bg) 88%, transparent));
+}
+
+.wc-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.8) contrast(1.04);
+  transition: transform 1s var(--ease), filter var(--dur-slow) var(--ease);
+}
+
+.world-card--feature .wc-inner::after { display: none; }
+
+.world-card--feature .wc-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: end;
+  gap: 0.75rem;
+  max-width: none;
+  padding: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 3vw, 3rem);
+  background: var(--bg);
+}
+
+.world-card--feature .wc-name {
+  font-size: clamp(3.8rem, 5vw, 5.8rem);
+  line-height: 0.84;
+  letter-spacing: -0.06em;
+}
+
+.world-card--feature .wc-desc { color: var(--fg-dim); font-size: 1.05rem; }
+.world-card--feature .wc-meta span { color: var(--fg-faint); border-color: var(--line-soft); }
+.world-card--feature .wc-enter { margin-top: 0.85rem; }
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-atlas-visual:hover img { transform: scale(1.045); filter: saturate(0.92) contrast(1.08); }
+
+  .world-card:not(.is-soon):hover {
+    border-color: var(--wc);
+    box-shadow: none;
+    transform: none;
+  }
+
+  .world-card:not(.is-soon):hover .wc-index {
+    color: color-mix(in oklch, var(--wc) 24%, transparent);
+    transform: translate(-0.5rem, -50%);
+  }
+
+  .world-card:not(.world-card--feature):hover .wc-name { color: var(--wc); }
+  .world-card--feature:hover .wc-visual img { transform: scale(1.035); filter: saturate(0.92) contrast(1.06); }
+}
+
+@media (max-width: 1180px) {
+  .world-card:not(.world-card--feature) .wc-inner {
+    grid-template-columns: 3rem minmax(12rem, 0.8fr) minmax(14rem, 1fr) auto;
+  }
+}
+
+@media (max-width: 980px) {
+  .worlds-heading h2 { grid-column: 1 / span 7; }
+  .worlds-heading p { grid-column: 8 / -1; }
+
+  .world-card:not(.world-card--feature) .wc-inner {
+    grid-template-columns: 3rem 1fr auto;
+    grid-template-areas:
+      'glyph name enter'
+      'glyph desc enter'
+      'glyph meta enter';
+  }
+
+  .world-card--feature .wc-inner { grid-template-columns: 1fr; }
+  .world-card--feature .wc-visual { min-height: 28rem; }
+  .world-card--feature .wc-content { min-height: 23rem; }
+  .wc-visual::after { background: linear-gradient(0deg, var(--bg), transparent 38%); }
+}
+
+@media (max-width: 736px) {
+  .worlds-heading { display: block; }
+  .worlds-heading h2 { margin-bottom: 1.5rem; font-size: clamp(4rem, 19vw, 6.5rem); }
+  .worlds-heading p { max-width: 28rem; }
+
+  .world-card:not(.world-card--feature) .wc-inner {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    grid-template-areas:
+      'glyph name'
+      '. desc'
+      '. meta'
+      '. enter';
+    gap: 0.7rem 1rem;
+    min-height: 0;
+    padding: 2rem 0;
+  }
+
+  .world-card:not(.world-card--feature) .wc-name { font-size: 2rem; }
+  .world-card:not(.world-card--feature) .wc-enter { white-space: normal; }
+  .world-card .wc-index { right: 0; font-size: 6rem; }
+  .world-card.world-card--feature { min-height: 0; }
+  .world-card--feature .wc-visual { min-height: 22rem; }
+  .world-card--feature .wc-content { min-height: 21rem; padding: 2rem 1rem 2.5rem; }
+  .world-card--feature .wc-name { font-size: clamp(3.7rem, 18vw, 5.5rem); }
+}

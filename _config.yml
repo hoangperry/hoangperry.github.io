@@ -12,6 +12,9 @@
 
 # Site settings
 title: Truong Nhat Hoang
+hero_name:
+  line_one: Truong Nhat
+  line_two: Hoang
 description: Software engineer, building AI, hunting bugs, chasing aircraft.
 owner:
   name: Hoang Nhat Truong # or company name

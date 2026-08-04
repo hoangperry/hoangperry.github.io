@@ -244,6 +244,12 @@
         if (!target) return;
         e.preventDefault();
         scrollToTarget(target);
+        if (window.history && window.history.pushState) {
+          window.history.pushState(null, "", link.hash);
+        }
+        window.requestAnimationFrame(function () {
+          focusSection(target);
+        });
       });
     });
 

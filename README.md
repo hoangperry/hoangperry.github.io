@@ -22,7 +22,7 @@ Because it doesn't use any plugins, you can easily
 Even so, I recommend cloning your fork locally to create and preview your posts,
 regardless of where you choose to publish.
 
-With it downloaded and with Ruby, RubyGems, and Jekyll 3.1.2 or higher installed, you can use the post-creation script,
+With it downloaded and with Ruby 3.4.x and Bundler installed, you can use the post-creation script,
 preview how your site looks and functions, and properly view the theme's User Guide.
 
 1. Personalize the information in the [YAML files](http://www.yaml.org/start.html).
@@ -41,6 +41,12 @@ preview how your site looks and functions, and properly view the theme's User Gu
    **`banner.jpg`** | The main large image on the front page
    **`pic01.jpg`** | The topics image
    **`pic02.jpg`** | The works image
+
+1. From the repo's root directory, install the Ruby dependencies locked for this site.
+
+   ```
+   bundle install
+   ```
 
 1. From the repo's root directory, start Jekyll to preview as you write.
    
@@ -75,16 +81,16 @@ preview how your site looks and functions, and properly view the theme's User Gu
    site {dev|devnof|preview|prod|publish}
 
      dev     Runs Jekyll in development watch mode:
-               jekyll serve --future --drafts
+               bundle exec jekyll serve --future --drafts
 
      devnof  Runs Jekyll in development watch mode without future posts:
-               jekyll serve --drafts
+               bundle exec jekyll serve --drafts
 
      preview Runs Jekyll in production watch mode:
-               jekyll serve
+               bundle exec jekyll serve
 
      prod    Builds production content without watch mode:
-               jekyll build
+               bundle exec jekyll build
 
      publish Uses WinSCP's synchronize feature to mirror to a remote site.
    ```
@@ -94,4 +100,3 @@ This is a theme in the old sense of the word. This is not a newer _gem-based_ th
 
 ## License
 MIT
-

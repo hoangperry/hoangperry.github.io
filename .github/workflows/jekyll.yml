@@ -1,8 +1,7 @@
 name: Deploy Jekyll site to Pages
 
-# Builds with the project's own Gemfile (Jekyll 4 + sassc), instead of the
-# legacy github-pages gem (Jekyll 3.10 + ancient Ruby Sass). Lets us use
-# modern CSS without fighting the old Sass engine.
+# Builds with the project's locked Jekyll toolchain instead of the legacy
+# github-pages gem. Local and CI builds therefore compile the same Sass stack.
 #
 # NOTE: this only takes over once GitHub Pages "Source" is set to
 # "GitHub Actions" (Settings -> Pages -> Build and deployment -> Source).
@@ -33,26 +32,17 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
-
-      # Install Jekyll directly instead of `bundle install`: the committed
-      # Gemfile.lock is from 2019 and pins gems (sassc 2.2.0, listen 3.1.5)
-      # that no longer resolve. A fresh Jekyll 4.3 also brings modern dart-sass.
-      - name: Install Jekyll
-        run: gem install jekyll -v '~> 4.3'
+          ruby-version: '3.4.5'
+          bundler-cache: true
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
       - name: Build with Jekyll
-        run: jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
-          # Skip Jekyll's auto require-from-bundler: a Gemfile is present, but
-          # we install Jekyll directly. Without this, Jekyll loads the ancient
-          # bundler 2.0.2 (uses String#untaint, removed in Ruby 3.2+) and crashes.
-          JEKYLL_NO_BUNDLER_REQUIRE: "true"
 
       # Index the novels for client-side full-text search. Runs against the
       # built _site so the /pagefind/ bundle ships inside the same artifact.

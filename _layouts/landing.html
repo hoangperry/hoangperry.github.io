@@ -8,28 +8,6 @@
 
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <!-- Hero WebGL canvas positioning (scoped; does not restyle existing UI) -->
-    <style>
-      #banner > .inner {
-        position: relative;
-        z-index: 1;
-      }
-      #banner > #hero-canvas {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-        display: block;
-        opacity: 0.8;
-      }
-      /* on small screens the globe sits well behind the headline */
-      @media (max-width: 736px) {
-        #banner > #hero-canvas { opacity: 0.4; }
-      }
-    </style>
-
     <!-- Page Wrapper -->
     <div id="page-wrapper">
 
@@ -41,38 +19,46 @@
       <main id="main-content" tabindex="-1">
 
         <!-- Banner -->
-          <section id="banner">
-            <canvas id="hero-canvas" aria-hidden="true"></canvas>
+          <section id="banner" class="atlas-hero">
+            <figure class="hero-atlas-visual">
+              <img
+                src="{{ '/images/generated/world-atlas.webp' | prepend: site.baseurl }}"
+                alt="An abstract aerial field atlas rendered in night-vision green"
+                width="1600"
+                height="901"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async" />
+              <figcaption>Field atlas / Ho Chi Minh City / 2026</figcaption>
+            </figure>
             <div class="inner">
-              <h1 id="hero-name">{{ site.title }}</h1>
-              <p class="hero-summary">{{ site.description }}<span class="hero-cursor" aria-hidden="true"></span></p>
+              <p class="hero-edition"><span>Independent field atlas</span><span>HCMC / 10.7769&deg; N</span></p>
+              {% assign hero_line_one = site.hero_name.line_one | default: site.title %}
+              {% assign hero_line_two = site.hero_name.line_two %}
+              <h1 id="hero-name" aria-label="{{ site.title }}">
+                <span class="hero-name-line">{{ hero_line_one }}</span>{%
+                if hero_line_two %}
+                <span class="hero-name-line hero-name-line--accent">{{ hero_line_two }}</span>{%
+                endif %}
+              </h1>
+              <p class="hero-summary">{{ site.description }}</p>
               <div class="hero-status">
                 <span class="dot" aria-hidden="true"></span><span>ONLINE</span>
                 <span class="sep" aria-hidden="true">/</span><span>HCMC, VN</span>
                 <span class="sep" aria-hidden="true">/</span><span>UTC+7</span>
               </div>
-              <ul class="hero-metrics" role="list">
-                <li><strong>{{ post_count }}</strong><span>posts</span></li>
-                <li><strong>{{ log_count }}</strong><span>logs</span></li>
-                <li><strong>{{ chapter_count }}</strong><span>chapters</span></li>
-                <li><strong>5</strong><span>worlds</span></li>
-              </ul>
               <div class="hero-actions">
                 <a href="#worlds" class="button special scrolly">Explore worlds</a>
-                <a href="#landing_features" class="button scrolly">Latest writing</a>
+                <a href="#landing_features" class="hero-secondary-link scrolly">Latest transmission <span aria-hidden="true">&rarr;</span></a>
               </div>
-              <nav class="hero-jump-nav" aria-label="Homepage sections">{%
-                if site.greeting %}
-                <a href="#greeting" class="scrolly">About</a>{%
-                endif %}
-                <a href="#worlds" class="scrolly">Worlds</a>
-                <a href="#landing_features" class="scrolly">Latest</a>
-                <a href="#landing_pages" class="scrolly">Index</a>
-                <a href="#cta" class="scrolly">Contact</a>
-              </nav>
-            </div>{%
+            </div>
+            <dl class="hero-ledger" aria-label="Site snapshot">
+              <div><dt>worlds</dt><dd>05</dd></div>
+              <div><dt>transmissions</dt><dd>{{ post_count }}</dd></div>
+              <div><dt>serial chapters</dt><dd>{{ chapter_count }}</dd></div>
+            </dl>{%
             if site.greeting %}
-            <a href="#greeting" class="more scrolly">Continue</a>{%
+            <a href="#greeting" class="more scrolly">Begin at origin</a>{%
             else %}
             <a href="#landing_pages" class="more scrolly">Continue</a>{%
             endif %}
@@ -83,13 +69,16 @@
           <section id="greeting" class="wrapper style2">
             <div class="inner reveal">
               <div class="intro-grid">
-                <div class="intro-copy">
+                <div class="intro-statement">
+                  <span class="section-index">00 / Origin</span>
                   <header class="major">
                     <h2>{% if site.greeting.title %}{{ site.greeting.title }}{% else %}{{ site.title }}{% endif %}</h2>
-                    <p>{% if site.greeting.text %}{{ site.greeting.text | markdownify }}{% else %}{{ site.description | markdownify }}{% endif %}</p>
+                    <div class="greeting-copy">{% if site.greeting.text %}{{ site.greeting.text | markdownify }}{% else %}{{ site.description | markdownify }}{% endif %}</div>
                   </header>
+                </div>
+                <div class="intro-dossier">
+                  <p class="intro-manifesto">I work where code meets the physical world&mdash;from real-time AI and distributed systems to flight decks, circuit boards, and the stories cities leave behind.</p>
 
-                  <!-- focus areas (edit these to taste) -->
                   <ul class="focus-row">
                     <li>AI / ML</li>
                     <li>Computer Vision</li>
@@ -98,7 +87,6 @@
                     <li>Distributed Systems</li>
                   </ul>
 
-                  <!-- terminal-style profile readout -->
                   <dl class="profile-highlights">
                     <div>
                       <dt>now</dt>
@@ -129,16 +117,6 @@
                   endfor %}
                   </ul>
                 </div>
-                <figure class="intro-visual">
-                  <img
-                    src="{{ '/images/generated/world-atlas.webp' | prepend: site.baseurl }}"
-                    alt="A nighttime Ho Chi Minh City operator desk where a topology screen, cockpit display, circuit board, darkroom prints, and manuscript notebook meet."
-                    width="1600"
-                    height="901"
-                    loading="lazy"
-                    decoding="async" />
-                  <figcaption>Five worlds, one shared workspace.</figcaption>
-                </figure>
               </div>
             </div>
           </section>{%
@@ -147,13 +125,15 @@
         <!-- Worlds: portals into the themed sections -->
           <section id="worlds" class="wrapper alt style2">
             <div class="inner reveal">
-              <header class="major">
-                <h2>Worlds</h2>
-                <p>Different sides of the same person. Pick a frequency.</p>
+              <header class="major worlds-heading">
+                <span class="section-index">01 / Frequencies</span>
+                <h2>Five worlds.</h2>
+                <p>One person, five working frequencies. Enter wherever the signal feels strongest.</p>
               </header>
               <ul class="world-grid">
                 <li class="world-card world-card--feature" data-world="reading">
                   <a class="wc-inner" href="{{ '/novel/' | prepend: site.baseurl }}">
+                    <span class="wc-index" aria-hidden="true">05</span>
                     <span class="wc-visual" aria-hidden="true">
                       <img src="{{ '/images/generated/fiction-alley.webp' | prepend: site.baseurl }}" alt="" width="1440" height="960" loading="lazy" decoding="async" />
                     </span>
@@ -168,6 +148,7 @@
                 </li>
                 <li class="world-card" data-world="security">
                   <a class="wc-inner" href="{{ '/topics/' | prepend: site.baseurl }}">
+                    <span class="wc-index" aria-hidden="true">01</span>
                     <span class="wc-glyph" aria-hidden="true">$_</span>
                     <span class="wc-name">Security &amp; Systems</span>
                     <span class="wc-desc">Terminal notes on ML, software, and bug hunting.</span>
@@ -177,6 +158,7 @@
                 </li>
                 <li class="world-card" data-world="aviation">
                   <a class="wc-inner" href="{{ '/aviation/' | prepend: site.baseurl }}">
+                    <span class="wc-index" aria-hidden="true">02</span>
                     <span class="wc-glyph" aria-hidden="true">&#9992;</span>
                     <span class="wc-name">Aviation</span>
                     <span class="wc-desc">Glass cockpit: aircraft, engines, and flight.</span>
@@ -186,6 +168,7 @@
                 </li>
                 <li class="world-card" data-world="electronics">
                   <a class="wc-inner" href="{{ '/electronics/' | prepend: site.baseurl }}">
+                    <span class="wc-index" aria-hidden="true">03</span>
                     <span class="wc-glyph" aria-hidden="true">&#9635;</span>
                     <span class="wc-name">Electronics</span>
                     <span class="wc-desc">PCB bench: boards that route, talk, and search.</span>
@@ -195,6 +178,7 @@
                 </li>
                 <li class="world-card" data-world="photography">
                   <a class="wc-inner" href="{{ '/photography/' | prepend: site.baseurl }}">
+                    <span class="wc-index" aria-hidden="true">04</span>
                     <span class="wc-glyph" aria-hidden="true">&#9673;</span>
                     <span class="wc-name">Photography</span>
                     <span class="wc-desc">Darkroom and gallery: frames kept from the light.</span>
@@ -281,37 +265,6 @@
       {% include footer.html %}
 
       {% include scripts.html %}
-
-      <!-- Hero recon-globe WebGL background (ES module, CDN Three.js, fails silently) -->
-      <script type="module" src="{{ '/js/hero-scene.js' | prepend: site.baseurl }}"></script>
-
-      <!-- Hero name decrypt-reveal (runs once on load; skipped under reduced motion) -->
-      <script>
-      (function () {
-        var el = document.getElementById('hero-name');
-        if (!el) return;
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        var FINAL = el.textContent;
-        var chars = FINAL.split('');
-        var glyphs = '!<>-_\\/[]{}=+*^?#01x$';
-        // each character locks in left-to-right with a little jitter
-        var lockAt = chars.map(function (c, i) { return 8 + i * 1.5 + Math.floor(Math.random() * 4); });
-        var maxFrame = lockAt[lockAt.length - 1] + 6;
-        var frame = 0;
-        function rnd() { return glyphs.charAt(Math.floor(Math.random() * glyphs.length)); }
-        function tick() {
-          var out = '';
-          for (var i = 0; i < chars.length; i++) {
-            out += chars[i] === ' ' ? ' ' : (frame >= lockAt[i] ? chars[i] : rnd());
-          }
-          el.textContent = out;
-          if (frame++ < maxFrame) requestAnimationFrame(tick);
-          else el.textContent = FINAL;
-        }
-        // start just after the CRT power-on settles
-        setTimeout(function () { requestAnimationFrame(tick); }, 280);
-      })();
-      </script>
 
     </div>
 
