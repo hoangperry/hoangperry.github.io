@@ -22,7 +22,7 @@
             <span class="novel-kicker">Tiểu thuyết{% if meta.tagline %} · {{ meta.tagline }}{% endif %}</span>
             <h1 class="novel-title-big">{{ page.title }}</h1>
             {% if meta.synopsis %}<div class="novel-synopsis">{{ meta.synopsis | markdownify }}</div>{% endif %}
-            <p class="novel-meta-line">{{ chapters | size }} chương · <span class="novel-status"><span class="st-dot" aria-hidden="true"></span>{{ meta.status | default: 'Đang cập nhật' }}</span></p>
+            <p class="novel-meta-line">{{ chapters | size }} chương{% if meta.audio %} · có bản nghe{% endif %} · <span class="novel-status"><span class="st-dot" aria-hidden="true"></span>{{ meta.status | default: 'Đang cập nhật' }}</span></p>
             <span class="novel-cta-row">
               {% if chapters.first %}<a class="button special novel-cta" href="{{ chapters.first.url | prepend: site.baseurl }}">Bắt đầu đọc &rarr;</a>{% endif %}
               <a class="button novel-cta-resume" data-novel-resume hidden></a>

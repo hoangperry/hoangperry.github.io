@@ -1,0 +1,23 @@
+---
+layout: null
+permalink: /novel/dieu-khoan-cuoi/feed.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Điều Khoản Cuối</title>
+  <subtitle>- **Thể loại**: Giật gân tội phạm (Crime Thriller), Tâm lý giật gân (Psychological Noir), Hiện thực xã hội phê phán đương đại.</subtitle>
+  <link href="https://hoang.tech/novel/dieu-khoan-cuoi/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://hoang.tech/novel/dieu-khoan-cuoi/" rel="alternate" type="text/html"/>
+  <id>https://hoang.tech/novel/dieu-khoan-cuoi/</id>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  {%- assign chapters = site.novel | where: "novel", "dieu-khoan-cuoi" | where_exp: "c", "c.chapter" | sort: "chapter" | reverse -%}
+  {%- for c in chapters limit: 30 %}
+  <entry>
+    <title>{{ c.title | xml_escape }}</title>
+    <link href="https://hoang.tech{{ c.url }}" rel="alternate" type="text/html"/>
+    <id>https://hoang.tech{{ c.url }}</id>
+    <updated>{{ site.time | date_to_xmlschema }}</updated>
+  </entry>
+  {%- endfor %}
+</feed>
