@@ -12,13 +12,13 @@ Có một kỹ năng mà mình nghĩ ai làm hạ tầng hay bảo mật cũng n
 
 Bài này mình đi qua một luồng **TCP** từ lúc bắt, tới lúc đọc từng lớp, rồi cuối cùng nối lại với **access policy** trên firewall theo giá trị **IP** và **protocol**. Mình cố giữ nó thực tế, dùng đúng công cụ mà chúng ta hay có sẵn: **tcpdump** để bắt, **Wireshark** (hoặc **tshark**) để mổ xẻ.
 
-# Packet capture là gì?
+## Packet capture là gì?
 
 Về lý thuyết, **packet capture** là việc sao chép lại các khung dữ liệu đi qua một giao diện mạng, rồi lưu chúng ra đĩa theo một định dạng đọc được sau này. Định dạng phổ biến là **pcap** và bản mới hơn là **pcapng**. Mỗi bản ghi trong file gồm một timestamp, độ dài gói, và toàn bộ các byte đã bắt được, thường bắt đầu từ lớp liên kết (**Ethernet**) trở lên.
 
 Điểm quan trọng: capture không diễn giải gì cả. Nó chỉ chép byte. Việc diễn giải "đây là một cái SYN của TCP" là do phần mềm đọc (Wireshark) làm sau, dựa trên chồng giao thức. Cho nên khi đọc, chúng ta luôn đọc theo từng lớp: **Ethernet -> IP -> TCP/UDP -> payload**. Mô hình quen thuộc ở đây là chồng **TCP/IP**, và mỗi lớp bọc lớp trên nó lại (encapsulation).
 
-# Bắt gói bằng tcpdump
+## Bắt gói bằng tcpdump
 
 `tcpdump` là công cụ dòng lệnh gọn nhất để bắt. Trên một máy Linux, để bắt lưu lượng tới một web server và ghi ra file, mình hay dùng:
 
@@ -42,7 +42,7 @@ Muốn xem nhanh tại chỗ mà không mở Wireshark, thêm `-A` (in payload d
 sudo tcpdump -i eth0 -n -A 'tcp port 80 and host 203.0.113.10'
 ```
 
-# Bắt tay ba bước của TCP
+## Bắt tay ba bước của TCP
 
 Trước khi mở Wireshark, cần nhắc lại luồng mà chúng ta sẽ đi tìm. Một kết nối **TCP** luôn mở đầu bằng **three-way handshake**:
 
@@ -52,7 +52,7 @@ Trước khi mở Wireshark, cần nhắc lại luồng mà chúng ta sẽ đi t
 
 Khi đóng, chúng ta sẽ thấy **FIN, ACK** ở cả hai chiều, hoặc một cú **RST** nếu ai đó cắt phũ. Cái đẹp của việc đọc capture là ba bước này hiện ra rõ mồn một, và nếu nó không hiện ra đủ, đó chính là manh mối.
 
-# Mở bằng Wireshark và lọc lại
+## Mở bằng Wireshark và lọc lại
 
 Mở `capture.pcap` trong Wireshark, việc đầu tiên là thu hẹp tầm nhìn bằng **display filter**. Display filter khác BPF ở chỗ nó chỉ ẩn/hiện chứ không xoá gì, nên cứ thoải mái gõ. Vài filter mình dùng gần như mỗi ngày:
 
@@ -68,7 +68,7 @@ Dòng `tcp.flags.syn == 1 and tcp.flags.ack == 0` lọc ra đúng các gói SYN 
 
 Một mẹo rất thực dụng: chuột phải vào một gói bất kỳ trong luồng và chọn **Follow -> TCP Stream**. Wireshark sẽ ráp lại toàn bộ payload theo đúng thứ tự sequence number, hiển thị hai chiều bằng hai màu. Với HTTP thô, bạn đọc thẳng ra request và response. Với TLS thì chỉ thấy dữ liệu mã hoá, nhưng phần bắt tay (**ClientHello**, **ServerHello**) vẫn ở dạng rõ và nói cho bạn biết SNI, phiên bản, bộ mã.
 
-# Đọc từng lớp của một gói
+## Đọc từng lớp của một gói
 
 Chọn một gói SYN đầu luồng, khung chi tiết của Wireshark bung ra theo đúng chồng giao thức. Mình đọc từ dưới lên:
 
@@ -86,7 +86,7 @@ tshark -r capture.pcap -Y 'tcp.flags.syn==1' \
 
 Lệnh này cho ra một bảng gọn gàng: IP nguồn, IP đích, số hiệu protocol, cổng đích, và cờ. Đây gần như chính là ngôn ngữ mà một access policy nói.
 
-# Nối capture với access policy
+## Nối capture với access policy
 
 Đây là phần mình thấy hay nhất, vì nó biến việc đọc gói từ một trò tò mò thành một công cụ chẩn đoán thật.
 
@@ -115,7 +115,7 @@ Cách nối này rất máy móc, và đó là điểm mạnh của nó. Lấy `
 
 Nhân tiện nói tới **NAT**: nếu giữa client và server có NAT, thì IP nguồn bạn thấy ở hai đầu capture sẽ khác nhau. Bắt ở phía client thấy IP nội bộ, bắt ở phía server thấy IP đã dịch. Khi đối chiếu với policy, phải biết luật đang viết theo IP trước hay sau khi dịch. Đây là chỗ người ta hay chẩn đoán nhầm nhất, và cũng là lý do vì sao đôi khi cần bắt ở cả hai đầu rồi so timestamp và cổng để ghép cặp lại đúng luồng.
 
-# Một quy trình đọc gọn
+## Một quy trình đọc gọn
 
 Gộp lại, khi cầm một capture để điều tra một kết nối nghi bị chặn, mình thường đi thế này:
 
@@ -128,13 +128,13 @@ Gộp lại, khi cầm một capture để điều tra một kết nối nghi b�
 
 Mình để ý là bước 3 hay bị bỏ qua. Rất nhiều lần "firewall chặn" thật ra là handshake TCP hoàn tất bình thường, còn lỗi nằm ở TLS bắt tay thất bại hay ứng dụng trả về mã lỗi. Capture giúp chúng ta phân định rạch ròi ranh giới đó: tới đâu là mạng, từ đâu là ứng dụng.
 
-# Kết
+## Kết
 
 Đọc packet capture, nói cho cùng, là tập nhìn cùng một sự việc ở nhiều lớp: MAC ở L2, IP ở L3, cờ TCP ở L4, và payload ở trên. Access policy cũng chỉ đang đọc vài trong số những trường đó rồi ra phán quyết. Khi bạn quen với việc lấy `ip.src`, `ip.dst`, `ip.proto`, cổng từ một gói và soi ngược vào bảng luật, thì phần lớn các ca "không kết nối được" sẽ tự phân loại thành vài nhóm rất rõ.
 
 Mình không nghĩ có một kết luận gọn ghẽ kiểu "cứ làm X là xong", vì mỗi hạ tầng có cách chen NAT, proxy, và stateful inspection riêng. Nhưng cái khung ở trên, đọc theo lớp rồi ghép với luật theo IP và protocol, thì gần như luôn là điểm khởi đầu đúng. Phần còn lại là kiên nhẫn cuộn qua từng gói.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - tcpdump và libpcap, tài liệu chính thức: tcpdump.org
 - Wireshark User's Guide và tham chiếu display filter: wireshark.org

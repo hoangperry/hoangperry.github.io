@@ -10,7 +10,7 @@ date: 2026-06-19 09:00
 
 Nếu chúng ta từng mở một tổng đài **VoIP** ra Internet công cộng, dù chỉ vài giờ, gần như chắc chắn trong log đã có người gõ cửa. Không phải một người, mà là hàng loạt con bot quét cả dải IPv4 để tìm cổng **SIP** 5060 đang mở. Bài này mình muốn đi qua cách dùng **Fail2Ban** để chặn kiểu tấn công brute-force đó, và quan trọng hơn là ngồi đọc lại log tấn công thật để hiểu chúng ta đang chống lại cái gì.
 
-# SIP và bề mặt tấn công là gì?
+## SIP và bề mặt tấn công là gì?
 
 Về lý thuyết, **SIP** (*Session Initiation Protocol*, mô tả trong **RFC 3261**) là giao thức báo hiệu: nó không mang giọng nói, nó chỉ lo việc thiết lập, sửa đổi và kết thúc một cuộc gọi. Âm thanh thật đi qua **RTP** trên các cổng khác. SIP là giao thức dạng text, các bản tin trông rất giống HTTP, với những phương thức như `REGISTER`, `INVITE`, `OPTIONS`, `SUBSCRIBE`.
 
@@ -18,7 +18,7 @@ Về lý thuyết, **SIP** (*Session Initiation Protocol*, mô tả trong **RFC 
 
 Một biến thể tinh vi hơn dùng `OPTIONS` hoặc `INVITE` để dò xem extension nào tồn tại trước, dựa vào việc tổng đài trả về mã lỗi khác nhau cho số có thật và số không có thật. Đó là **extension enumeration**, bước do thám trước khi dồn sức đoán mật khẩu.
 
-# Fail2Ban hoạt động thế nào?
+## Fail2Ban hoạt động thế nào?
 
 **Fail2Ban** là một daemon viết bằng Python. Ý tưởng của nó đơn giản đến mức đẹp: đọc log của một dịch vụ, so từng dòng với một tập biểu thức chính quy (**regex**), và khi một địa chỉ IP vi phạm quá nhiều lần trong một khoảng thời gian, nó gọi firewall của hệ điều hành để chặn IP đó lại trong một khoảng thời gian nhất định.
 
@@ -30,7 +30,7 @@ Ba khái niệm cốt lõi:
 
 Công thức tinh thần rất gọn: nếu một IP tạo ra nhiều hơn **maxretry** dòng log khớp filter trong vòng **findtime** giây, chặn nó trong **bantime** giây.
 
-# Đọc log tấn công thật
+## Đọc log tấn công thật
 
 Đây là phần mình thấy thú vị nhất. Dưới đây là một đoạn log **Asterisk** đã được rút gọn và thay IP, nhưng cấu trúc thì đúng như những gì chúng ta gặp ngoài đời:
 
@@ -54,7 +54,7 @@ SIP/2.0 403 Forbidden
 
 `401` là "hãy xác thực lại", còn `403` là "tôi từ chối". Khi thấy một IP nhận về hàng trăm mã `403` trong một phút, không cần nghĩ nhiều nữa.
 
-# Viết một filter và một jail
+## Viết một filter và một jail
 
 Fail2Ban đã đóng gói sẵn filter `asterisk`, nhưng mình muốn dựng lại một phiên bản tối giản để chúng ta thấy cơ chế. File filter đặt tại `/etc/fail2ban/filter.d/asterisk-custom.conf`:
 
@@ -103,7 +103,7 @@ fail2ban-client status asterisk-custom
 
 Kết quả sẽ liệt kê số lần khớp tổng cộng, số IP đang bị chặn, và danh sách địa chỉ trong "banned IP list". Lần đầu nhìn con số này nhảy lên vài trăm chỉ sau một đêm, cảm giác vừa nhẹ nhõm vừa hơi rợn.
 
-# Vài lưu ý để không tự bắn vào chân
+## Vài lưu ý để không tự bắn vào chân
 
 Fail2Ban rất mạnh, và chính vì mạnh nên nó dễ chặn nhầm. Vài điều mình rút ra:
 
@@ -114,7 +114,7 @@ Fail2Ban rất mạnh, và chính vì mạnh nên nó dễ chặn nhầm. Vài �
 
 Thành thật mà nói, không có cấu hình nào chặn được tất cả. Một tổng đài mở ra Internet luôn là mục tiêu, và điều tốt nhất chúng ta làm được là nâng chi phí tấn công lên đủ cao để kẻ lười bỏ đi, đồng thời giữ cho bản thân đủ tỉnh táo để nhận ra khi kẻ kiên nhẫn xuất hiện. Fail2Ban làm rất tốt phần đầu tiên. Phần thứ hai vẫn nằm ở đôi mắt của chúng ta khi ngồi đọc từng dòng log lúc hai giờ sáng.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - RFC 3261, *SIP: Session Initiation Protocol*, IETF.
 - Fail2Ban, tài liệu và wiki chính thức trên GitHub (fail2ban/fail2ban).

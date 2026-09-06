@@ -19,7 +19,7 @@ date: 2020-02-20 10:47
 
 4. *Build the house following the blueprint. Building an information using the SDLC follows a similar set of four fundamental phases:*
 
-# 1. Planning
+## 1. Planning
 
 This phase is the fundamental process of understanding why an information system should be built and determining how the project team will go about building it. There are two steps:
 
@@ -35,7 +35,7 @@ The system request and feasibility are presented to an approval committee who wi
 
 2. During the project management, the project manager creates a project plan through the entire SDLC. This describes how the project team will go about developing the system.
 
-# 2. Analysis
+## 2. Analysis
 
 This phase answers the questions of 'who will use the system?', 'what the system will do?', 'where and when it will be used?'. This phase has three steps:
 
@@ -47,7 +47,7 @@ This phase answers the questions of 'who will use the system?', 'what the system
 
 The system proposal is describes what business requirements the new system should meet.
 
-# 3. Design
+## 3. Design
 
 This phase decides how the system will operate in terms. Although most of the strategic decisions about the system are mode in the analysis phase, the steps in the design phase determine exactly how the system will operate. There are four steps:
 
@@ -59,7 +59,7 @@ This phase decides how the system will operate in terms. Although most of the st
 
 4. The program design will define exactly what each program will do.
 
-# 4. Implementations
+## 4. Implementations
 
 This phase will get the most attention, because this phase is the longest and most expensive phase of the development process. There are three steps:
 
@@ -68,6 +68,6 @@ This phase will get the most attention, because this phase is the longest and mo
 
 3. The analyst team establishes a support plan for the system. This plan usually includes a post-implementation review, as well as a systematic way of identifying major and minor changes needed for the system.
 
-# References
+## References
 
 Dennis, A., Wixom, B. H., Roth, R. M. (n.d.). System Analysis Design (5th ed.).

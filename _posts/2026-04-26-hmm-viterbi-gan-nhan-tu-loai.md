@@ -12,7 +12,7 @@ Trong bài về **Hidden Markov Model (HMM)** trước đây, chúng ta đã d�
 
 *Ý tưởng cốt lõi: gán nhãn từ loại là bài toán tìm chuỗi trạng thái ẩn hợp lý nhất cho một chuỗi quan sát, và **thuật toán Viterbi** chính là công cụ giải nó.*
 
-# Gán nhãn từ loại là gì?
+## Gán nhãn từ loại là gì?
 
 **Part-of-Speech tagging**, hay gọi tắt là **POS tagging**, là việc gán cho mỗi từ trong câu một nhãn từ loại: danh từ, động từ, tính từ, giới từ, và vân vân. Ví dụ với câu "học sinh học bài", ta muốn máy đọc ra:
 
@@ -22,7 +22,7 @@ học sinh/N  học/V  bài/N
 
 Nghe qua thì tưởng đơn giản, tra từ điển là xong. Nhưng vấn đề nằm ở chỗ nhập nhằng **(ambiguity)**. Từ "học" trong ví dụ trên vừa có thể là danh từ (trong "học sinh") vừa có thể là động từ (trong "học bài"). Con người phân biệt được nhờ ngữ cảnh, còn máy thì cần một mô hình để lượng hóa cái ngữ cảnh đó. Tiếng Việt còn khó thêm một bậc vì ranh giới từ không trùng ranh giới âm tiết: "học sinh" là một từ gồm hai âm tiết, nên trước khi gán nhãn chúng ta ngầm giả định câu đã được **tách từ (word segmentation)** xong xuôi. Trong bài này mình giả định đầu vào đã là chuỗi token đã tách từ, để tập trung vào phần gán nhãn.
 
-# Vì sao dùng HMM cho việc này?
+## Vì sao dùng HMM cho việc này?
 
 Ta mô hình hóa câu như sau. Chuỗi các nhãn từ loại `t_1, t_2, ..., t_n` là **chuỗi trạng thái ẩn**: ta không quan sát trực tiếp được chúng, đó chính là thứ cần suy ra. Chuỗi các từ `w_1, w_2, ..., w_n` là **chuỗi quan sát**: đây là dữ liệu ta nhìn thấy. Mục tiêu là tìm chuỗi nhãn có xác suất hậu nghiệm lớn nhất:
 
@@ -43,7 +43,7 @@ Trong đó có hai bảng số cần học từ dữ liệu:
 
 Đây chính là mô hình HMM bậc một, còn gọi là **bigram tagger** vì transition chỉ nhìn một nhãn lùi về trước.
 
-# Huấn luyện: chỉ là đếm
+## Huấn luyện: chỉ là đếm
 
 Điểm dễ chịu của HMM có giám sát là "huấn luyện" thực ra chỉ là đếm tần suất trên một kho ngữ liệu **(corpus)** đã được gán nhãn tay. Không có gradient descent, không có epoch. Ta ước lượng theo hợp lý cực đại **(maximum likelihood estimation)**:
 
@@ -55,7 +55,7 @@ Ví dụ, nếu trong corpus nhãn `N` xuất hiện 1000 lần và trong đó t
 
 Có một cái bẫy kinh điển ở đây: nếu một từ chưa từng xuất hiện với nhãn nào đó, xác suất phát xạ sẽ bằng 0, và vì cả chuỗi là một tích, chỉ một số 0 duy nhất sẽ giết chết toàn bộ đường đi. Đây là vấn đề **từ chưa gặp (out-of-vocabulary)** và **thưa dữ liệu (data sparsity)**. Cách xử lý phổ biến là **làm mượt (smoothing)**, đơn giản nhất là **add-one smoothing (Laplace)**: cộng một lượng nhỏ vào mọi tần suất để không xác suất nào tuyệt đối bằng 0. Trong code phía dưới mình dùng một hằng số nhỏ cho từ chưa gặp.
 
-# Vì sao cần Viterbi, không thể brute force?
+## Vì sao cần Viterbi, không thể brute force?
 
 Giả sử có `T` nhãn khác nhau và câu dài `n` từ. Số chuỗi nhãn khả dĩ là `T^n`. Với `T = 15` nhãn và câu 20 từ, con số đó đã là `15^20`, lớn hơn số nguyên tử ta muốn đếm trong một buổi chiều. Không thể duyệt hết.
 
@@ -69,7 +69,7 @@ Song song với `V`, ta lưu một bảng `backpointer` để nhớ nhãn `t'` n
 
 Một chi tiết kỹ thuật đáng nói: nhân nhiều xác suất nhỏ với nhau sẽ dẫn tới **tràn số dưới (underflow)**, số bé tới mức máy tính làm tròn thành 0. Cách chuẩn là làm việc trong không gian **log**: thay tích bằng tổng các `log`, thay `max` của tích bằng `max` của tổng. Kết quả `argmax` không đổi vì `log` là hàm đơn điệu tăng. Code dưới đây dùng log để an toàn.
 
-# Cài đặt cho tiếng Việt
+## Cài đặt cho tiếng Việt
 
 Dưới đây là một bộ gán nhãn HMM bigram hoàn chỉnh bằng Python thuần, không phụ thuộc thư viện ngoài. Mình để corpus huấn luyện nhỏ ngay trong code để bài tự chạy được, còn trong thực tế bạn sẽ nạp một corpus lớn như **VLSP** hoặc **Vietnamese Treebank**.
 
@@ -172,7 +172,7 @@ Kết quả in ra sẽ là:
 
 Chú ý câu đầu: từ "học" được gán đúng là động từ `V` chứ không phải danh từ, mặc dù nó nằm giữa hai danh từ. Lý do là xác suất chuyển `P(V | N)` và `P(N | V)` trong corpus mẫu ủng hộ mẫu hình danh từ, động từ, danh từ hơn là ba danh từ liên tiếp. Đó chính là ngữ cảnh mà mô hình đã học được, chỉ từ việc đếm.
 
-# Những chỗ mô hình này còn yếu
+## Những chỗ mô hình này còn yếu
 
 Mình muốn thành thật về giới hạn, vì HMM bigram tuy đẹp về mặt sư phạm nhưng còn cách khá xa các bộ gán nhãn hiện đại.
 
@@ -184,7 +184,7 @@ Thứ ba, và đây là điều thực tế nhất: các bộ gán nhãn tốt n
 
 Vậy học HMM để làm gì khi đã có Transformer? Mình nghĩ giá trị của nó không nằm ở việc đem đi triển khai, mà ở chỗ nó là mô hình chuỗi tối giản mà bạn có thể hiểu trọn vẹn từ đầu tới cuối. Viterbi không biến mất khi ta lên BiLSTM-CRF: tầng giải mã của CRF vẫn dùng đúng thuật toán quy hoạch động đó để tìm chuỗi nhãn tối ưu. Nắm chắc HMM và Viterbi là nắm chắc cái xương sống mà rất nhiều mô hình chuỗi phức tạp hơn vẫn đang dựa vào. Còn chuyện nó có phải công cụ mình chọn cho một dự án thật hay không, thành thật mà nói, còn tùy dữ liệu và ràng buộc, và mình không nghĩ có một câu trả lời gọn gàng cho mọi trường hợp.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - Daniel Jurafsky, James H. Martin, *Speech and Language Processing*, chương về HMM và POS tagging (bản nháp chương 3 phiên bản 3 có công khai trên trang của tác giả tại Stanford).
 - L. R. Rabiner, "A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition", *Proceedings of the IEEE*, 1989.

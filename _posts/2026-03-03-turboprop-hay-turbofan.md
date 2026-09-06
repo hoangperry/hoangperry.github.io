@@ -12,7 +12,7 @@ date: 2026-03-03 09:00
 
 *Về bản chất, cả hai đều là cùng một trò chơi: đẩy một khối không khí về phía sau để lấy lực đẩy về phía trước.*
 
-# Cùng một lõi, khác cách tiêu thụ
+## Cùng một lõi, khác cách tiêu thụ
 
 Cả **turboprop** lẫn **turbofan** đều dùng chung một lõi khí động gọi là **gas generator**: máy nén khí, buồng đốt, và **turbine**. Khác biệt nằm ở chỗ năng lượng nóng ở đuôi lõi được xài vào việc gì.
 
@@ -22,7 +22,7 @@ Cả **turboprop** lẫn **turbofan** đều dùng chung một lõi khí động
 
 Nói ngắn gọn: turboprop là turbofan với **bypass ratio** cực lớn, chỉ khác là "cái fan" của nó không nằm trong vỏ mà là một cánh quạt trần lộ ra ngoài.
 
-# Tại sao đẩy nhiều khí chậm lại hiệu quả hơn
+## Tại sao đẩy nhiều khí chậm lại hiệu quả hơn
 
 Đây là điểm mấu chốt và cũng là chỗ nối trực tiếp với bài cánh quạt. Lực đẩy **(N)** sinh ra bằng lưu lượng khối khí nhân với độ thay đổi vận tốc của nó, đại khái `F = m_dot * (v_e - v_0)`, trong đó `v_e` là vận tốc khí ra và `v_0` là vận tốc bay.
 
@@ -35,7 +35,7 @@ Cách thứ hai luôn hiệu quả hơn về nhiên liệu, vì phần năng lư
 
 Chính vì vậy một cánh quạt lớn, hoặc một fan **bypass ratio** cao, luôn "ăn xăng" ít hơn một luồng phản lực nhỏ và nóng khi bay ở tốc độ vừa phải. Đó cũng là lý do suốt mấy chục năm qua **bypass ratio** của động cơ hàng không dân dụng cứ tăng dần, từ khoảng 1 ở thế hệ đầu lên tới quãng 10 tới 12 ở các động cơ hiện đại.
 
-# Vậy sao không dùng cánh quạt cho mọi thứ?
+## Vậy sao không dùng cánh quạt cho mọi thứ?
 
 Nếu đẩy nhiều khí chậm luôn hiệu quả hơn, đáng lẽ turboprop phải thắng tuyệt đối. Nhưng ở đây bài cánh quạt quay lại ám chúng ta.
 
@@ -45,7 +45,7 @@ Khi **tip Mach number** tiến gần 1, xuất hiện sóng xung kích cục b�
 
 **Turbofan** né được cái bẫy này bằng một mẹo đơn giản: nhốt cái fan vào trong một vỏ (**nacelle**). Vỏ này làm chậm và định hướng dòng khí trước khi nó chạm cánh fan, nên fan có thể quay trong khi máy bay bay ở **Mach 0.8 tới 0.85** mà đầu cánh chưa bị hiệu ứng nén khí phá hoại. Cái giá phải trả là vỏ nacelle thêm trọng lượng và thêm lực cản bề mặt, thứ mà cánh quạt trần của turboprop không có.
 
-# Ai thắng ở dải nào
+## Ai thắng ở dải nào
 
 Gộp lại, ta có một bức tranh khá gọn. Hãy nghĩ theo trục tốc độ hành trình:
 
@@ -58,7 +58,7 @@ Gộp lại, ta có một bức tranh khá gọn. Hãy nghĩ theo trục tốc �
 
 Đây cũng giải thích vì sao các máy bay khu vực chặng ngắn như ATR 72 hay Dash 8 vẫn trung thành với turboprop: chúng bay chặng ngắn, tốc độ vừa, và mỗi lít nhiên liệu tiết kiệm được đều đáng giá. Trong khi đó máy bay thân hẹp đường dài như A320 hay 737 dùng turbofan bypass cao, chấp nhận thiệt một chút hiệu suất thuần túy để đổi lấy tốc độ hành trình cao hơn, nghĩa là bay được nhiều chuyến hơn và hành khách tới nơi nhanh hơn.
 
-# Chỗ ranh giới đang mờ đi
+## Chỗ ranh giới đang mờ đi
 
 Điều mình thấy thú vị là ngành động cơ đang cố xóa nhòa chính cái ranh giới mình vừa vẽ. Ý tưởng **open rotor** hay **propfan** về cơ bản là cố lấy **bypass ratio** khổng lồ của turboprop nhưng vẫn bay được ở tốc độ của turbofan, bằng cách thiết kế cánh quạt cong hình lưỡi mã (**swept blades**) để đẩy lùi giới hạn tip Mach. Những thiết kế này từng được thử nghiệm từ thập niên 1980 và gần đây được hồi sinh dưới sức ép tiết kiệm nhiên liệu.
 
@@ -66,7 +66,7 @@ Nhưng chúng vẫn chưa phổ biến, vì đổi lại là tiếng ồn lớn 
 
 Nên câu hỏi "turboprop hay turbofan hiệu quả hơn" thật ra là một câu hỏi thiếu vế. Hiệu quả ở tốc độ nào, cho chặng bay nào, và ta chịu đánh đổi cái gì. Cùng một nguyên lý vật lý, chỉ là ta chọn điểm làm việc khác nhau trên cùng một đường cong.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - Rolls-Royce, *The Jet Engine* (ấn bản Wiley), chương về turbofan và bypass ratio.
 - NASA Glenn Research Center, Beginner's Guide to Propulsion (propulsive efficiency, turboprop, turbofan).

@@ -9,7 +9,7 @@ categories:
 date: 2020-05-04 13:00
 ---
 
-# Hiệu suất của cánh quạt
+## Hiệu suất của cánh quạt
 
 Đầu tiền, chúng ta cần phải hiểu hiệu suất của một cánh quạt là gì.
 
@@ -29,7 +29,7 @@ Trong đó v là tốc độ gió vào cánh quạt, *n* là tốc độ xoay(v�
 
 Vì vậy khi nói đến hiệu suất của cánh quạt thì ta đang tìm kiếm loại cánh quạt có thể tạo ra được lực cần thiết với năng lực đầu vào nhỏ hoặc là một cánh quạt có thể tạo ra một lực đẩy cực lớn với cùng một năng lượng trục. Chúng ta cần phải tính toán rất nhiều thứ như tốc độ góc, lực đẩy, lực của trục xoay, lực cản,.. Nhưng trong giới hạn của bài viết nên mình sẽ không nói quá sâu về hiệu suất cánh quạt.
 
-# 2 cánh 3 cánh hay 4 cánh?
+## 2 cánh 3 cánh hay 4 cánh?
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/propellers/3.jpg" %}
 
@@ -40,7 +40,7 @@ Các bạn có thể tham khảo về thiết kế cánh quạt [ở đây](http
 Có hai cách để đảm bảo công suất đó là giảm chiều ngang của cánh quạt hoặc giảm đường kính của nó. Hoặc có thể cả hai phương pháp trên. Khi chúng ta thêm 1, 2 cánh vào cánh quạt chúng ta cần phải đổi hình dạng của các cánh.
 
 
-# Hiệu quả sẽ bị ảnh hưởng như thế nào bởi số lượng cánh
+## Hiệu quả sẽ bị ảnh hưởng như thế nào bởi số lượng cánh
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/propellers/4.jpg" %}
 
@@ -73,6 +73,6 @@ Kết luận cuối cùng của bài viết thì cũng ta vẫn không có câu 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/propellers/8.jpg" %}
 
-# Tài liệu tham khảo:
+## Tài liệu tham khảo:
 
 [2-blade vs 3-blade and 4-blade propellers](http://aerotrash.over-blog.com/2015/02/2-blade-vs-3-blade-and-4-blade-propellers.html)

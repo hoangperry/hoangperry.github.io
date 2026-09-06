@@ -10,7 +10,7 @@ date: 2025-12-12 09:00
 
 Mình thích những bài toán mà một mẩu dữ liệu tưởng như vô hồn lại kể được cả một câu chuyện. Một vệt **ADS-B** là như vậy: chỉ là chuỗi các điểm (vĩ độ, kinh độ, độ cao, vận tốc) rơi về đều đặn mỗi giây, nhưng nếu nhìn đúng cách, chúng ta đọc ra được cả hành trình của một chuyến bay: xe kéo ra khỏi bến, taxi trên đường lăn, tăng tốc cất cánh, leo cao, bay bằng, hạ độ cao rồi tiếp đất. Bài này nói về cách gán nhãn **pha bay (flight phase)** cho từng điểm trong vệt đó, bằng một mô hình rất cổ điển của học máy: **Hidden Markov Model (HMM)**, giải bằng thuật toán **Viterbi**.
 
-# ADS-B là gì?
+## ADS-B là gì?
 
 **ADS-B** viết tắt của **Automatic Dependent Surveillance-Broadcast**. Về lý thuyết, đây là một cơ chế giám sát trong đó máy bay tự xác định vị trí của mình (thường qua **GNSS**, tức là GPS và các hệ tương đương) rồi tự động phát quảng bá thông tin đó ra không trung, không cần radar mặt đất hỏi trước. Chữ *dependent* nằm ở chỗ nó phụ thuộc vào hệ định vị trên máy bay, khác với radar sơ cấp vốn tự dội sóng và đo phản hồi.
 
@@ -18,7 +18,7 @@ Bản tin ADS-B phổ biến nhất phát ở tần số **1090 MHz** dưới d�
 
 Vấn đề: bản tin ADS-B *không* nói cho chúng ta biết máy bay đang ở pha nào. Nó chỉ nói độ cao và vận tốc. Việc suy ra "đây là lúc đang leo cao" hay "đây là lúc taxi" là việc của chúng ta.
 
-# Tại sao không chỉ dùng ngưỡng?
+## Tại sao không chỉ dùng ngưỡng?
 
 Cách đơn giản nhất, và cũng là cách đầu tiên ai cũng thử, là đặt luật cứng bằng ngưỡng **(threshold)**:
 
@@ -31,7 +31,7 @@ Cách này chạy được, nhưng nó giòn. Dữ liệu ADS-B thực tế đ�
 
 Đây chính xác là chỗ HMM tỏa sáng. Thay vì quyết định từng điểm một cách độc lập, HMM đưa vào hai loại kiến thức: **quan sát nhiễu** và **ràng buộc thời gian**. Nó tìm chuỗi pha *mượt và hợp lý nhất* trên toàn bộ vệt bay, chứ không giật cục theo từng mẫu.
 
-# Hidden Markov Model, nói cho gọn
+## Hidden Markov Model, nói cho gọn
 
 Một **HMM** mô tả một hệ diễn tiến qua các **trạng thái ẩn (hidden states)** mà chúng ta không quan sát trực tiếp. Ở mỗi bước thời gian, hệ đang ở một trạng thái, và nó phát ra một **quan sát (observation)** mà chúng ta *đo được*. Cái tên "ẩn" nằm ở chỗ: chúng ta thấy quan sát, nhưng phải suy ngược ra trạng thái.
 
@@ -48,7 +48,7 @@ Một HMM rời rạc được định nghĩa bởi ba nhóm tham số, thườn
 
 Giả định cốt lõi của Markov là **tính không nhớ (memoryless)**: trạng thái kế tiếp chỉ phụ thuộc trạng thái hiện tại, không phụ thuộc toàn bộ quá khứ. Đây là một giả định đơn giản hóa, không hoàn toàn đúng với chuyến bay thật (thời gian đã ở trong một pha *có* ảnh hưởng), nhưng nó đủ tốt và làm bài toán giải được nhanh.
 
-# Mô hình phát xạ: rời rạc hay liên tục?
+## Mô hình phát xạ: rời rạc hay liên tục?
 
 Có hai đường đi. Đường thứ nhất là **rời rạc hóa (discretize)** quan sát: chia tốc độ leo thành vài khoảng (`giảm mạnh`, `giảm nhẹ`, `bằng phẳng`, `tăng nhẹ`, `tăng mạnh`), chia độ cao và vận tốc tương tự, rồi mỗi điểm ADS-B trở thành một ký hiệu rời rạc. Khi đó `B` chỉ là một bảng xác suất. Cách này dễ hiểu, dễ debug, và mình khuyên nên bắt đầu từ đây.
 
@@ -56,7 +56,7 @@ Có hai đường đi. Đường thứ nhất là **rời rạc hóa (discretize
 
 Một mẹo nhỏ trong thực tế: đừng đưa độ cao *tuyệt đối* vào phát xạ một cách ngây thơ, vì sân bay ở các độ cao khác nhau. Nên dùng độ cao *so với sân bay khởi hành hoặc đích*, hoặc tốt hơn là để các đặc trưng động (tốc độ leo, gia tốc) gánh phần lớn công việc phân biệt pha.
 
-# Viterbi: tìm con đường tốt nhất
+## Viterbi: tìm con đường tốt nhất
 
 Có mô hình rồi, câu hỏi là: cho trước vệt quan sát, chuỗi pha *khả dĩ nhất* là gì? Đây là bài toán **decoding**, và lời giải kinh điển là thuật toán **Viterbi**, một dạng quy hoạch động **(dynamic programming)**.
 
@@ -76,7 +76,7 @@ Một lưu ý kỹ thuật bắt buộc: các xác suất nhân nhau hàng nghì
 
 Độ phức tạp là `O(T * N^2)` với `T` là số điểm trong vệt và `N` là số pha. Với `N` chỉ khoảng 5 và `T` vài nghìn, việc này chạy trong mili giây. Đây là điểm cộng lớn: rẻ, xác định **(deterministic)**, và dễ đưa lên pipeline xử lý hàng loạt.
 
-# Một khung xử lý thực tế
+## Một khung xử lý thực tế
 
 Gộp lại, một pipeline gán pha bay từ ADS-B thô thường gồm các bước sau:
 
@@ -89,7 +89,7 @@ Gộp lại, một pipeline gán pha bay từ ADS-B thô thường gồm các b�
 
 Về việc *chọn tham số*, có hai con đường. Con đường thủ công: đặt `A`, `B`, `π` bằng tay dựa trên hiểu biết hàng không (mình thấy cách này bất ngờ hiệu quả và rất dễ giải thích). Con đường học: nếu có dữ liệu gán nhãn, ước lượng tham số bằng đếm tần suất; nếu không có nhãn, dùng **Baum-Welch** (một dạng **EM**) để học không giám sát. Baum-Welch mạnh nhưng dễ rơi vào cực trị cục bộ và cho ra các pha khó diễn giải, nên nếu mục tiêu là một hệ minh bạch, khởi tạo tốt bằng tay rồi tinh chỉnh vẫn thường thắng.
 
-# Những chỗ mô hình sẽ vấp
+## Những chỗ mô hình sẽ vấp
 
 Thành thật mà nói, HMM không phải viên đạn bạc. Vài chỗ cần lường trước:
 
@@ -100,7 +100,7 @@ Thành thật mà nói, HMM không phải viên đạn bạc. Vài chỗ cần l
 
 Điều mình thích ở hướng tiếp cận này là nó nằm đúng giao điểm giữa hai thế giới mình quan tâm: một mô hình xác suất kinh điển của học máy, đặt lên một dòng dữ liệu rất vật lý của ngành hàng không. Nó không cần mạng nơ-ron, không cần GPU, chạy được trên một máy tính xách tay, mà vẫn cho ra kết quả có thể giải thích từng bước. Với mình, đó là kiểu công cụ đáng tin: khi nó sai, chúng ta biết vì sao nó sai. Và trong nhiều bài toán thực tế, một mô hình mà chúng ta hiểu tường tận vẫn quý hơn một mô hình mạnh nhưng khó đọc.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - Lawrence R. Rabiner, "A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition", Proceedings of the IEEE, 1989. (Bài tổng quan kinh điển về HMM, Viterbi, và Baum-Welch.)
 - Andrew J. Viterbi, "Error Bounds for Convolutional Codes and an Asymptotically Optimum Decoding Algorithm", IEEE Transactions on Information Theory, 1967.

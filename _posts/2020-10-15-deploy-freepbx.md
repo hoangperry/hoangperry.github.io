@@ -11,13 +11,13 @@ date: 2020-10-15 11:11
 
 Từ xưa đến nay việc giao tiếp giữa các loài vật là một điều rất cần thiết đối với việc sinh tồn và sinh sản các hầu hết các loài vật. Điều này càng đúng hơn với một loài có tổ chức xã hội phức tạp như còn người. Trong thời buổi hiện nay, chúng ta đều có nhu cầu trao đổi thông tin qua lại. Những sự trao đổi này không chỉ dùng ở việc gặp mặt hay những tương tác trực tiếp, giờ đây con người có thể gửi thư, gọi điện thoại cho nhau. Đế đáp ứng được nhu cầu nay con người đã phát triển cơ sở viễn thông cực kỳ tốt với nhiều công nghệ có thể truyền giọng nói của người này tới người kia cách đó một vòng trái đất với độ trễ gần như bằng không. VoIP là một trong những giao thức trong mạng Internet có thể làm được điều đó. Việc xay dựng những hệ thống VoIP rất phức tạp. Đồi hỏi phải có nhiều kiến thức, kinh nghiệm về mạng và viễn thông. Giờ đây chúng ta đã có phần mềm mã nguồn mở Asterisk, nó giúp chúng ta dễ dàng hơn trong việc triển khai những trung tâm tổng đài với rất nhiều tính năng đã được tích hợp sẵn bên trong nó. 
 
-# Xây dụng tổng đài VoIP với FreePBX và Asterisk
+## Xây dụng tổng đài VoIP với FreePBX và Asterisk
 
 Việc cấu hình Asterisk trên server bằn gthao tác thủ công trên từng file cấu hình sẽ làm mất rất nhiều thời gian và dễ gây sai sót. 
 
 Vì vậy FreePBX ra đời để giúp quản lí Asterisk trên giao diện đồ hoạ. Việc cấu hình sẽ dễ dàng hơn rất nhiều vì FreePBX xây dựng cơ sở dữ liệu cho những thông tin cấu hình Assterisk. Bên cạnh đó FreePBX cũng giúp sao lưu những thông tin cấu hình để chúng ta có thể khôi phục hệ thống nỗi có lỗi cấu hình xảy ra. 
 
-## Cài đặt hệ thống
+### Cài đặt hệ thống
 
 Để cài đặt một hệ thống tổng đài, chúng ta sẽ cần rất nhiều dịch vụ để có thể vận hành cũng như là đảm bảo tính bảo mật của hệ thống. Trước tiên chúng ta sẽ cần Asterísk để xây dựng tổng đài IP. Tiếp theo chúng ta sẽ dùng FreePBX để quản lý và cấu hình Asterisk. Để có thể vận hành được FreePBX chúng ta sẽ cần cài đặt thêm NodeJS, MariaDB (hoặc MySQL) và Fail2Ban để ngăn chặn việc tấn công brute force. Bên cạnh đó chúng ta cũng sẽ setup một DB dự phòng để backup cấu hình trên MariaDB về đó và sao lưu khi cần thiết.
 
@@ -34,7 +34,7 @@ Tất cả những môi trường, cấu hình, run script của từng ứng d�
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/docker.png" %}
 
-## Cấu hình
+### Cấu hình
 
 Sau khi cài đặt FreePBX và các dịch vụ cần thiết của nó. Chúng ta sẽ truy cập vào trang admin để tiến hành cấu hình hệ thống ở địa chỉ sau **localhost/admin**.
 Lần đầu tiền chúng ta đăng nhập vào hệ thống. FreePBX sẽ bắt chúng ta khởi tạo tài khoản admin.
@@ -69,7 +69,7 @@ Sau khi thiếp lập xong những số máy nhánh cần thiết, chúng ta san
 Ở đây chúng ta sẽ chỉ cấu hình lại range port của giao thức RTP để phù hợp với cấu hình mạng máy ảo bên ngoài. 
 
 
-## Cài đặt tổng đài IVR (Tương tác trả lời tự động)
+### Cài đặt tổng đài IVR (Tương tác trả lời tự động)
 
 FreePBX có hỗ trợ cho chúng ta module IVR, nhưng module này chưa được cài sẵn vào IVR mặc định. Vì vậy để cào IVR vào phần quản lý module trong "Module Admin" và tìm kiếm các package online và cài đặt module IVR vào server. 
 
@@ -85,7 +85,7 @@ Sau khi cài đặt xong IVR chúng ta sẽ thiết lập một số máy nhánh
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/freepbx/11.png" %}
 
-## Thực hiện cuộc gọi
+### Thực hiện cuộc gọi
 
 
 Để có thể kết nối với Asterisk đã cấu hình ở trên, chúng ta cần một SIP client. SIP client này chúng ta có thể dùng bất kì client nào, nhưng trong trường hơp này chúng ta sẽ dùng Zoiper để làm SIP client kết nối với Asterisk. Hiện nay, Zoiper đã hỗ trợ rất nhiều hệ điều hành trên nhiều nên tảng khác nhau. 

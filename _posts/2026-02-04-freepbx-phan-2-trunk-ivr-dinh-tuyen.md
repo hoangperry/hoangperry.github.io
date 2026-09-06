@@ -12,7 +12,7 @@ date: 2026-02-04 09:00
 
 *Về cơ bản, tổng đài của chúng ta cần ba thứ: một đường ra ngoài, một bộ luật để quyết định gọi số nào thì đi đường nào, và một người gác cổng để đón cuộc gọi vào.*
 
-# Trunk là gì?
+## Trunk là gì?
 
 **Trunk** là đường kết nối giữa tổng đài của chúng ta và thế giới bên ngoài, thường là nhà cung cấp dịch vụ thoại. Ngày xưa trunk là những đường vật lý thật: một đường **analog** (**FXO**, cắm dây điện thoại đồng như ở nhà), hoặc một luồng số kiểu **ISDN PRI** với 30 kênh thoại chạy trên một sợi **E1**. Muốn gọi được 30 cuộc đồng thời thì phải thuê nguyên một luồng E1, và phải có card giao tiếp cắm vào máy chủ.
 
@@ -20,7 +20,7 @@ Ngày nay đại đa số trunk là **SIP trunk**, tức là kết nối qua **V
 
 Điểm hay của SIP trunk là số kênh không còn bị đóng cứng theo phần cứng nữa. Muốn 5 kênh hay 50 kênh chỉ là chuyện cấu hình và hợp đồng, miễn là băng thông đủ. Mỗi cuộc gọi thoại nén bằng **codec** như **G.711** ngốn khoảng 64 kbit/s cho phần payload, chưa kể overhead của header, nên khi tính đường truyền cho một trunk nhiều kênh thì đừng quên nhân lên.
 
-## Cấu hình một SIP trunk
+### Cấu hình một SIP trunk
 
 Trong FreePBX, trunk được khai báo ở **Connectivity -> Trunks**. Với một SIP trunk (driver **chan_pjsip** là mặc định của các bản Asterisk hiện đại), nhà cung cấp sẽ đưa cho chúng ta một bộ thông tin quen thuộc:
 
@@ -50,7 +50,7 @@ asterisk -rx "pjsip show registrations"
 
 Nếu thấy trạng thái **Registered** thì trunk đã bắt tay xong với nhà cung cấp. Nếu thấy **Rejected** hoặc **Failed** thì gần như luôn là sai username/secret, sai host, hoặc **firewall** đang chặn cổng SIP (mặc định UDP 5060). Đây cũng là lúc nhắc lại: SIP và **NAT** là một cặp oan gia kinh điển, mình sẽ nói ở cuối bài.
 
-# Outbound Route: dẫn cuộc gọi ra ngoài
+## Outbound Route: dẫn cuộc gọi ra ngoài
 
 Có trunk rồi nhưng khi bấm số di động, tổng đài vẫn chưa biết phải đẩy cuộc gọi qua đường nào. Đó là việc của **Outbound Route** (**Connectivity -> Outbound Routes**). Nói ngắn gọn, outbound route là một bảng luật: nếu số người dùng bấm khớp một mẫu nào đó, thì gửi cuộc gọi qua trunk tương ứng.
 
@@ -71,7 +71,7 @@ Outbound route còn hai công dụng mà trong doanh nghiệp người ta rất 
 
 Điểm dễ vấp của người mới là quên rằng thứ tự route quan trọng. Nếu một route với mẫu `.` (khớp tất cả) nằm trên cùng, thì mọi cuộc gọi sẽ chui hết vào đó và các route phía dưới không bao giờ được dùng đến.
 
-# Inbound Route và DID: đón cuộc gọi vào
+## Inbound Route và DID: đón cuộc gọi vào
 
 Chiều ngược lại: có người gọi vào số thật của chúng ta, cuộc gọi đi qua trunk và rơi vào tổng đài. Bây giờ tổng đài phải quyết định dẫn nó đi đâu. Đó là **Inbound Route** (**Connectivity -> Inbound Routes**).
 
@@ -86,7 +86,7 @@ Mỗi inbound route trỏ tới một **đích** (**destination**). Đích có t
 - Một **Queue** (hàng đợi, dùng cho tổng đài chăm sóc khách hàng).
 - Một **IVR**, tức menu trả lời tự động, thứ mình muốn nói kỹ hơn ngay dưới đây.
 
-# IVR: người gác cổng biết nói
+## IVR: người gác cổng biết nói
 
 **IVR** (**Interactive Voice Response**) là cái giọng "xin bấm phím 1 để gặp phòng kinh doanh, phím 2 để gặp kỹ thuật" mà ai gọi tổng đài doanh nghiệp cũng từng nghe. Về bản chất nó chỉ là một cây quyết định: phát một đoạn ghi âm, chờ người gọi bấm phím trên bàn phím (tín hiệu **DTMF**), rồi dựa vào phím đó mà nhảy tới đích tương ứng.
 
@@ -112,7 +112,7 @@ Cuộc gọi vào số 02812345678 (DID)
 
 Ngoài giờ hành chính thì sao? FreePBX có **Time Conditions** và **Time Groups** để phân luồng theo giờ và theo ngày. Trong giờ làm việc thì inbound route dẫn vào IVR như trên; ngoài giờ thì dẫn thẳng tới một lời nhắn "hiện đã ngoài giờ làm việc" hoặc vào **Voicemail**. Đây là chỗ mà một tổng đài phần mềm ăn đứt tổng đài cứng đời cũ: đổi luật theo giờ chỉ là vài cú click, không phải gọi kỹ thuật viên tới.
 
-# Cái bẫy quen thuộc: SIP và NAT
+## Cái bẫy quen thuộc: SIP và NAT
 
 Mình không thể kết bài mà không nhắc tới nỗi khổ kinh điển của mọi người mới chơi VoIP. SIP là giao thức nhét địa chỉ IP vào ngay trong phần thân bản tin (khối **SDP**), chứ không chỉ ở header IP. Khi tổng đài của chúng ta nằm sau **NAT**, nó tự khai địa chỉ **private** (kiểu `192.168.x.x`) vào trong SDP, và đầu bên kia không tài nào gửi luồng RTP về đúng chỗ. Kết quả rất đặc trưng: cuộc gọi kết nối được, chuông reo bình thường, nhưng nhấc máy lên thì **một chiều im lặng** hoặc im cả hai chiều.
 
@@ -124,11 +124,11 @@ Cách xử lý thường gặp:
 
 Đây là loại lỗi không nằm ở cấu hình trunk hay route, nên người mới hay đi tìm nhầm chỗ. Nếu register OK, cuộc gọi thiết lập được mà chỉ mất tiếng, hãy nghĩ tới NAT và RTP trước tiên.
 
-# Kết
+## Kết
 
 Tới đây thì bức tranh đã tương đối trọn vẹn: extension để gọi nội bộ, trunk để nối ra ngoài, outbound route quyết định số nào đi đường nào, inbound route và DID đón cuộc gọi vào, IVR làm người gác cổng, time condition trực ngoài giờ. Nói vậy chứ mình cũng thành thật: cái khó của tổng đài thật ít khi nằm ở việc hiểu từng khối, mà nằm ở việc ghép chúng lại sao cho khớp thói quen thật của một tổ chức, và ở những chi tiết vặt như codec, NAT, chất lượng đường truyền. FreePBX cho chúng ta bộ công cụ khá đầy đủ, phần còn lại là chịu khó thử, đọc log, và chấp nhận rằng lần đầu dựng gần như chắc chắn sẽ vấp ở đâu đó. Mà thật ra, vấp rồi tự gỡ được mới là phần vui nhất của trò này.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - FreePBX Documentation, Sangoma (wiki.freepbx.org)
 - Asterisk Documentation, Sangoma (docs.asterisk.org)

@@ -13,7 +13,7 @@ date: 2020-02-15 10:47
 
 *Trong Bài viết mình sẽ sử dụng khá nhiều từ viết tắt các bạn có thể google search các từ này. Trong ngành hàng không người ta sử dụng các ký tự viết tắt rất nhiều. Đôi khi mình cũng quên mất những từ viết tắt này là viết tắt của từ gì :D*
 
-# Student Pilot License
+## Student Pilot License
 
 Student Pilot License (Bằng học viên) Đay là giấy phép tiên quyết để trước khi học viên có thể bay một mình.
 
@@ -24,7 +24,7 @@ Student Pilot License (Bằng học viên) Đay là giấy phép tiên quyết �
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/SPL.png" %}
 
-# Private Pilot's License - PPL
+## Private Pilot's License - PPL
 
 Private Pilot's License (PPL) tiếng Việt gọi là bằng lái máy bay tư nhân. Bằng PPL có thể được cấp bởi nhiều cơ quan ở các quốc gia khác nhau. Và mỗi tổ chức này đều có quy định khác nhau về điều kiện lấy bằng. 
 
@@ -37,7 +37,7 @@ Private Pilot's License (PPL) tiếng Việt gọi là bằng lái máy bay tư 
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/PPL.jpg" %}
 
-# Commercial Pilot's License
+## Commercial Pilot's License
 
 Commercial Pilot's License (CPL) hay tiếng Việt gọi là Bằng lái máy bay thương mại. Bằng CPL cho phép phi công có thể nhận tiền từ việc bay lượn. Thường thì trên bằng CPL cũng sẽ hiển thị thông tin về trình độ và xếp hạng của phi công. Ngoài ra bằng còn ghi rõ thông tin loại máy bay mà phi công có thể lái.
 
@@ -49,7 +49,7 @@ Commercial Pilot's License (CPL) hay tiếng Việt gọi là Bằng lái máy b
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/CPL.jpg" %}
 
-# Airline Transport Pilot's License
+## Airline Transport Pilot's License
 
 Instrument Flight Rules (ATPL) là bằng cấp cao nhất. Những phi công có bằng ATPL thì mới được lái máy bay có 9 hành khách trở lên. 
 
@@ -62,25 +62,25 @@ Instrument Flight Rules (ATPL) là bằng cấp cao nhất. Những phi công c�
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/ATPL.jpg" %}
 
-# Instrument Flight Rules
+## Instrument Flight Rules
 
 Instrument Flight Rules (IFR) hay còn gọi là giấy phép bay khí tài. Giấy phép này cho phép bạn bay trong các điều kiện thời tiết hạn chế. Đây là một giấy phép quan trọng đối với một phi công thương mại, bởi vì không phải lúc nào thời tiết cũng đẹp cả. Mỗi năm, các phi công đều phải trải qua vài lần kiểm tra giả lập định kỳ.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/IFR.jpg" %}
 
-# Multi-engine rating
+## Multi-engine rating
 
 Multi-engine rating là giấy phép bay các loại máy bay hạng nhẹ có nhiều hơn một động cơ. Còn đối với các máy bay hạng nặng có nhiều hơn một động cơ thì bạn phải có giấy phép huấn luyện đặc dụng (Type Rating).
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/MER.jpg" %}
 
-# Type Rating
+## Type Rating
 
 Type Rating hay còn gọi là giấy phép huấn luyện đặc dụng. Là giấy phép dành cho những loại máy bay có khối lượng lớn hoặc máy bay có tổ lái nhiều thành viên. Nếu muốn lái các máy bay chở khách lớn của Airbus hay Boeing thì bạn phải có giấy phép này.
 
 {% include post_picwrap.html pos="fit" src="/images/topic_image/pilot_license/FR.jpg" %}
 
-# Tài liệu tham khảo 
+## Tài liệu tham khảo 
 
 - <https://en.wikipedia.org/wiki/Airline_transport_pilot_licence>
 - <https://en.wikipedia.org/wiki/Commercial_pilot_licence>

@@ -9,7 +9,7 @@ date: 2026-03-30 09:00
 ---
 
 
-# Embedding là gì?
+## Embedding là gì?
 
 Về lý thuyết, **embedding** là cách chúng ta biểu diễn một đối tượng bất kỳ (một từ, một câu, một tấm ảnh, một sản phẩm) bằng một danh sách các con số. Danh sách đó chính là một **vector** trong một không gian nhiều chiều. Nếu một câu được biểu diễn bằng 768 con số, thì ta nói câu đó nằm trong không gian **768 chiều**, mỗi con số là một toạ độ theo một trục.
 
@@ -17,7 +17,7 @@ Về lý thuyết, **embedding** là cách chúng ta biểu diễn một đối 
 
 *Embedding không phải là dữ liệu gốc. Nó là một cách nén ý nghĩa của dữ liệu gốc thành toạ độ.*
 
-# Từ vector đặc trưng thủ công tới vector học được
+## Từ vector đặc trưng thủ công tới vector học được
 
 Ý tưởng biểu diễn một vật bằng vector đặc trưng có trước học sâu rất lâu. Trong xử lý ảnh cổ điển, người ta tự tay thiết kế các **feature** như histogram màu, cạnh, góc (kiểu **SIFT**, **HOG**). Trong xử lý văn bản, mô hình **bag-of-words** hay **TF-IDF** biểu diễn một văn bản bằng vector đếm từ, mỗi chiều ứng với một từ trong từ điển. Những vector này thường rất dài và **thưa (sparse)**: hầu hết các chiều bằng 0.
 
@@ -25,13 +25,13 @@ Bước ngoặt là khi chúng ta chuyển từ vector đặc trưng do con ngư
 
 Ngày nay các mô hình như **BERT**, **Sentence-Transformers**, hay các mô hình embedding thương mại đều xuất ra vector dày cho câu và đoạn văn. Chiều phổ biến rơi vào khoảng vài trăm tới vài nghìn, ví dụ 384, 768, hay 1536.
 
-# Đo "giống nhau" như thế nào?
+## Đo "giống nhau" như thế nào?
 
 Có embedding rồi thì câu hỏi thực sự đáng bàn mới xuất hiện: hai vector giống nhau tới mức nào? Đây không phải câu hỏi phụ. Toàn bộ các ứng dụng như tìm kiếm ngữ nghĩa, gợi ý sản phẩm, hay khâu truy hồi trong **RAG** đều đứng trên một phép đo khoảng cách. Chọn sai phép đo thì kết quả lệch, dù embedding có tốt tới đâu.
 
 Hai lựa chọn phổ biến nhất là **khoảng cách Euclid** và **độ tương đồng cosine**.
 
-## Khoảng cách Euclid
+### Khoảng cách Euclid
 
 Đây là khoảng cách "thước dây" quen thuộc. Với hai vector `a` và `b`, khoảng cách Euclid là
 
@@ -41,7 +41,7 @@ d(a, b) = sqrt( sum_i (a_i - b_i)^2 )
 
 Nó đo độ dài đường thẳng nối hai điểm trong không gian. Euclid nhạy với cả **hướng** lẫn **độ lớn (magnitude)** của vector. Hai vector chỉ về cùng một phía nhưng một cái dài, một cái ngắn thì vẫn bị coi là cách xa nhau.
 
-## Độ tương đồng cosine
+### Độ tương đồng cosine
 
 Cosine bỏ qua độ dài, chỉ quan tâm tới **góc** giữa hai vector:
 
@@ -51,7 +51,7 @@ cos(a, b) = (a · b) / (||a|| * ||b||)
 
 Trong đó `a · b` là tích vô hướng, còn `||a||` là độ dài (chuẩn) của vector. Giá trị nằm trong khoảng từ -1 tới 1: bằng 1 là cùng hướng hoàn toàn, bằng 0 là vuông góc, bằng -1 là ngược hướng. Người ta hay dùng **khoảng cách cosine** `1 - cos(a, b)` để biến nó thành một đại lượng "càng nhỏ càng gần".
 
-# Vì sao lựa chọn cosine hay Euclid mới là chuyện đáng bàn
+## Vì sao lựa chọn cosine hay Euclid mới là chuyện đáng bàn
 
 Nhiều người mặc định dùng cosine cho văn bản mà không hỏi tại sao. Để hiểu lựa chọn này cho tử tế, chúng ta cần nhìn vào một chi tiết: mối liên hệ giữa hai phép đo phụ thuộc rất nhiều vào việc vector đã được **chuẩn hoá (normalize)** hay chưa.
 
@@ -73,25 +73,25 @@ Khác biệt lộ ra khi vector **không** được chuẩn hoá, tức là đ�
 
 Vậy nên câu hỏi không phải "cosine tốt hơn hay Euclid tốt hơn" một cách trừu tượng. Câu hỏi đúng là: **trong không gian đặc trưng cụ thể của tôi, độ lớn của vector là tín hiệu hay là nhiễu?** Trả lời được câu đó thì lựa chọn phép đo gần như tự hiện ra.
 
-## Một vài lưu ý thực hành
+### Một vài lưu ý thực hành
 
 - Hãy kiểm tra xem mô hình embedding bạn dùng có khuyến nghị phép đo nào không. Rất nhiều mô hình câu được huấn luyện với mục tiêu cosine, nên dùng cosine (hoặc chuẩn hoá rồi dùng tích vô hướng) là hợp lý nhất, còn dùng Euclid trên vector chưa chuẩn hoá có thể cho thứ hạng lệch.
 - Nếu bạn dùng cơ sở dữ liệu vector như **FAISS**, **pgvector**, hay tương tự, hãy để ý loại chỉ mục và **metric** bạn khai báo phải khớp với cách vector được sinh ra. Một lỗi âm thầm hay gặp là dựng chỉ mục theo L2 (Euclid) trong khi mô hình lại được thiết kế cho cosine.
 - Chuẩn hoá là một thao tác rẻ và thường an toàn cho văn bản: đưa mọi vector về độ dài 1, rồi cosine và Euclid trở nên tương đương, và tích vô hướng cũng vậy. Chỉ đừng chuẩn hoá một cách máy móc khi độ lớn thật sự mang thông tin.
 
-# Một chút về "lời nguyền chiều cao"
+## Một chút về "lời nguyền chiều cao"
 
 Còn một lý do sâu hơn khiến việc chọn phép đo trở nên tinh tế: khi số chiều tăng lên vài trăm hay vài nghìn, trực giác hình học của chúng ta ở không gian hai, ba chiều gần như sụp đổ. Hiện tượng này thường được gọi là **lời nguyền chiều cao (curse of dimensionality)**. Trong không gian rất nhiều chiều, khoảng cách giữa điểm gần nhất và điểm xa nhất có xu hướng co lại gần nhau, khiến khái niệm "láng giềng gần nhất" trở nên kém sắc nét hơn ta tưởng.
 
 Điều này không có nghĩa là embedding vô dụng, thực tế chúng hoạt động rất tốt, nhưng nó nhắc chúng ta rằng khoảng cách trong không gian đặc trưng là một đại lượng cần được đối xử cẩn thận, không phải một con số hiển nhiên. Cosine thường tỏ ra bền hơn Euclid trong bối cảnh nhiều chiều vì nó chuẩn hoá đi một bậc tự do (độ lớn), giảm bớt một nguồn biến động. Đây là một trong những lý do thực dụng khiến cosine phổ biến trong tìm kiếm văn bản, dù không có định luật nào bắt buộc phải như vậy.
 
-# Tạm kết
+## Tạm kết
 
 Chúng ta hay coi embedding là phần thú vị và coi phép đo khoảng cách là chi tiết kỹ thuật buồn tẻ ở cuối. Mình nghĩ ngược lại. Sinh ra embedding tốt là việc của mô hình, và phần lớn thời gian chúng ta chỉ gọi một mô hình có sẵn. Còn quyết định đo "giống nhau" như thế nào, chuẩn hoá hay không, độ lớn là tín hiệu hay nhiễu, lại là việc của người xây hệ thống, và nó ảnh hưởng trực tiếp tới chất lượng kết quả mà người dùng cảm nhận được.
 
 Thành thật mà nói, không có câu trả lời phổ quát. Có những tập dữ liệu mà cả cosine lẫn Euclid cho kết quả gần như nhau, và có những tập mà đổi phép đo làm thứ hạng xáo trộn hẳn. Cách lành mạnh nhất, như thường lệ, là thử cả hai trên một tập đánh giá của chính bạn và đo bằng một chỉ số truy hồi cụ thể, thay vì tin vào một lựa chọn mặc định. Embedding cho ta toạ độ, còn phép đo mới cho ta ý nghĩa của khoảng cách giữa các toạ độ đó.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - Mikolov et al., "Efficient Estimation of Word Representations in Vector Space" (Word2Vec), 2013.
 - Devlin et al., "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding", 2019.

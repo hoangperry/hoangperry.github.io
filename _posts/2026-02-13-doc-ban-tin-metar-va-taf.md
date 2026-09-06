@@ -9,7 +9,7 @@ date: 2026-02-13 09:00
 ---
 
 
-# METAR là gì?
+## METAR là gì?
 
 Về lý thuyết, **METAR** (viết tắt của **Meteorological Aerodrome Report**) là một bản tin quan trắc thời tiết thực tế tại một sân bay, phát ra theo chu kỳ, thường là mỗi 30 phút hoặc mỗi 60 phút. Chữ "aerodrome" trong tên gọi nói lên tất cả: đây là ảnh chụp thời tiết ngay tại sân bay ở thời điểm quan trắc, chứ không phải dự báo. Nếu METAR nói gió đang 18 knot thì đó là gió người ta vừa đo được, không phải gió người ta nghĩ sẽ có.
 
@@ -17,13 +17,13 @@ Về lý thuyết, **METAR** (viết tắt của **Meteorological Aerodrome Repo
 
 Điểm dễ nhầm nhất khi mới học: METAR trả lời câu hỏi "bây giờ trời thế nào?", còn TAF trả lời "trong vài giờ tới trời sẽ ra sao?". Đọc nhầm hai cái này là nguồn gốc của rất nhiều quyết định sai.
 
-# Lịch sử một chút
+## Lịch sử một chút
 
 Định dạng mã hóa mà chúng ta đọc ngày nay không rơi từ trên trời xuống. Nó là kết quả của việc **ICAO** và **WMO** (**World Meteorological Organization**) chuẩn hóa cách các quốc gia trao đổi tin thời tiết hàng không, để một phi công Nhật có thể đọc bản tin của một sân bay Pháp mà không cần biết tiếng Pháp. Bản tin được thiết kế để ngắn, truyền qua đường teletype băng thông thấp ngày xưa, nên mọi thứ đều được viết tắt tới mức tối đa. Đó là lý do nó trông như một dòng ký tự khó hiểu với người mới, nhưng lại cực kỳ đặc (dense) với người quen.
 
 Có một khác biệt nhỏ hay gây bối rối: Mỹ dùng một biến thể riêng cho một vài quy ước (ví dụ đơn vị và cách ghi tầm nhìn), còn phần lớn thế giới theo chuẩn ICAO. Trong sim, tùy add-on thời tiết bạn dùng mà bản tin sẽ nghiêng về kiểu nào.
 
-# Giải phẫu một bản METAR
+## Giải phẫu một bản METAR
 
 Cách tốt nhất để học là mổ xẻ một ví dụ. Đây là một METAR mẫu (đúng định dạng chuẩn, số liệu minh họa):
 
@@ -42,7 +42,7 @@ Ta đọc từng khối một:
 7. **Q1010**: áp suất quy về mực nước biển, **QNH**, tính bằng **hectopascal (hPa)**. Mỹ hay ghi dạng `A2992` (inches of mercury). Đây là số bạn set vào altimeter để đọc đúng độ cao.
 8. **NOSIG**: "no significant change", không có thay đổi đáng kể được dự báo trong 2 giờ tới.
 
-## Đọc lớp mây cho đúng
+### Đọc lớp mây cho đúng
 
 Phần mây gồm một mã ba chữ chỉ độ phủ, cộng ba số chỉ độ cao chân mây tính theo trăm feet trên mặt sân (**AGL**, above ground level). Bốn mức phủ chính, theo số **okta** (phần tám bầu trời bị mây che):
 
@@ -56,7 +56,7 @@ Ví dụ `SCT025` nghĩa là mây rải rác ở 2500 feet AGL. Con số quan tr
 
 Ngoài ra bạn sẽ gặp `CB` (cumulonimbus, mây dông) hay `TCU` (towering cumulus) dán vào cuối một lớp mây, ví dụ `SCT018CB`. Thấy `CB` là thấy khả năng dông, gió giật mạnh, và turbulence. Trong sim, đó là lúc nên cân nhắc lại đường bay.
 
-# TAF khác METAR ở đâu
+## TAF khác METAR ở đâu
 
 TAF trông giống METAR nhưng có thêm các từ khóa chỉ diễn biến theo thời gian. Một ví dụ minh họa:
 
@@ -75,7 +75,7 @@ Cách đọc:
 
 Ngoài ra còn có **FM** (**from**, thay đổi nhanh và dứt khoát tại một mốc giờ) và **PROB30 / PROB40** (xác suất 30 hoặc 40 phần trăm xảy ra một kịch bản). Điểm cần nhớ: `TEMPO` là chớp nhoáng và có thể lặp lại, còn `BECMG` là chuyển trạng thái một chiều. Lập kế hoạch dựa vào hai từ này rất khác nhau.
 
-# Weather minima: biến lý thuyết thành thực dụng
+## Weather minima: biến lý thuyết thành thực dụng
 
 Đây là phần mà mình muốn nhấn mạnh cho anh em bay sim. Đọc được bản tin mới chỉ là một nửa. Nửa còn lại là biết con số đó có ý nghĩa gì với chuyến bay của bạn. Khái niệm trung tâm là **weather minima**: ngưỡng thời tiết tối thiểu để một loại tiếp cận (approach) hay một loại phép bay được phép thực hiện.
 
@@ -91,13 +91,13 @@ Cách mình biến điều này thành thói quen thực dụng trước mỗi c
 
 Cái hay của cách làm này là nó biến một dòng ký tự khô khan thành một chuỗi quyết định cụ thể: set altimeter bao nhiêu, dùng đường băng nào, có cần alternate không, và có nên bay ở khung giờ này không. Đó chính là chỗ mà lý thuyết weather minima trở nên thực dụng.
 
-# Vài lời kết, hơi mở
+## Vài lời kết, hơi mở
 
 Thành thật mà nói, không có một bộ minima "đúng" duy nhất cho mọi người bay sim. Phi công thật bị ràng buộc bởi minima của hãng, của tàu bay, của cơ trưởng, và của cơ quan quản lý bay. Chúng ta bay sim thì tự do hơn, và đó vừa là điểm sướng vừa là cái bẫy: dễ tặc lưỡi bay vào điều kiện mà ngoài đời sẽ bị hủy chuyến. Mình không cho rằng lúc nào cũng phải bay đúng như quy định thật, thỉnh thoảng lao vào một cơn dông trong sim để tập tay lái cũng là một cách học. Nhưng biết chính xác mình đang phá luật nào, và tại sao luật đó tồn tại, thì khác hẳn với việc mù mờ bấm nút cất cánh.
 
 Nếu bạn chỉ nhớ được một điều từ bài này, hãy nhớ thói quen nhỏ: mở METAR và TAF, đọc QNH, đọc ceiling, đọc gió, rồi mới quyết định. Chừng đó thôi đã tách một chuyến bay có kế hoạch khỏi một chuyến bay may rủi.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - ICAO, *Annex 3 to the Convention on International Civil Aviation: Meteorological Service for International Air Navigation*.
 - WMO, *Manual on Codes (WMO-No. 306), Volume I.1*, phần định nghĩa mã METAR, SPECI và TAF.

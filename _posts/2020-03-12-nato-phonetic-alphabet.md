@@ -9,7 +9,7 @@ categories:
 date: 2022-04-01 21:12
 ---
 
-# NATO phonetic alphabet
+## NATO phonetic alphabet
 
 - A: Alfa
 - B: Bravo

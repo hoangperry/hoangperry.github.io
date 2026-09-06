@@ -13,7 +13,7 @@ Khi nói về nhận diện khuôn mặt, đa số chúng ta hình dung ra bài 
 
 *Nhận đúng người là một chuyện, chắc chắn rằng người đó đang thật sự ở đó lại là một chuyện khác.*
 
-# Về lý thuyết, nhận diện khuôn mặt là gì
+## Về lý thuyết, nhận diện khuôn mặt là gì
 
 Một hệ thống nhận diện khuôn mặt hiện đại gần như luôn xoay quanh khái niệm **embedding**. Ý tưởng: đưa một ảnh khuôn mặt qua một mạng neural (thường là **CNN** hoặc gần đây là các kiến trúc **transformer**), rồi thu về một vector số thực có chiều cố định, ví dụ **128** hoặc **512** chiều. Vector này là **face embedding**, một điểm trong không gian nhiều chiều.
 
@@ -25,7 +25,7 @@ Nói cách khác, việc so khớp khuôn mặt quy về so sánh hai vector. V�
 
 Giá trị càng gần **1** thì hai khuôn mặt càng giống. Toàn bộ "trí thông minh" nằm ở mạng tạo embedding, còn khâu so khớp cuối cùng lại đơn giản đến bất ngờ. Đây là điểm đẹp và cũng là điểm nguy hiểm: nếu ai đó đưa vào một ảnh in hoặc một video phát lại mà mạng vẫn tạo ra embedding "đúng người", thì phần so khớp sẽ vui vẻ gật đầu.
 
-# Chọn ngưỡng: nơi lý thuyết gặp thực tế
+## Chọn ngưỡng: nơi lý thuyết gặp thực tế
 
 Giả sử ta đã có embedding của khuôn mặt đang đứng trước camera và embedding tham chiếu lưu trong cơ sở dữ liệu. Ta tính độ tương đồng, rồi phải quyết định: chấp nhận hay từ chối. Ranh giới đó là **ngưỡng**.
 
@@ -45,7 +45,7 @@ Một điểm dễ bị bỏ qua: ngưỡng học từ tập kiểm thử trong 
 
 Và đây là điều quan trọng nhất của phần này: dù ngưỡng có được chỉnh tinh tế đến đâu, nó chỉ trả lời câu hỏi "có giống người đúng không". Nó **không** trả lời câu hỏi "đây có phải người thật không". Một tấm ảnh in sắc nét của bạn có thể tạo ra embedding gần như trùng khớp với chính bạn. Ngưỡng, tự thân nó, hoàn toàn mù trước giả mạo.
 
-# Các kiểu tấn công trình diễn
+## Các kiểu tấn công trình diễn
 
 Trước khi nói phòng thủ, cần điểm qua kẻ tấn công định làm gì. Trong thuật ngữ chuẩn (tham chiếu chuẩn **ISO/IEC 30107**), những cách này gọi chung là **presentation attack**:
 
@@ -56,11 +56,11 @@ Trước khi nói phòng thủ, cần điểm qua kẻ tấn công định làm 
 
 Trong nhóm này, replay attack đáng bàn nhất vì nó vừa rẻ, vừa mang chuyển động nên đánh lừa được các phòng thủ ngây thơ.
 
-# Phòng thủ replay attack
+## Phòng thủ replay attack
 
 Ý tưởng cốt lõi của mọi liveness detection là tìm bằng chứng cho thấy trước camera là một khuôn mặt sống ba chiều, chứ không phải một bề mặt phẳng phát lại. Có hai nhánh lớn.
 
-## Liveness thụ động (passive)
+### Liveness thụ động (passive)
 
 Passive liveness cố phân biệt thật/giả chỉ từ hình ảnh, không yêu cầu người dùng làm gì. Nó bắt các dấu vết mà một màn hình hay tờ giấy để lại:
 
@@ -71,7 +71,7 @@ Passive liveness cố phân biệt thật/giả chỉ từ hình ảnh, không y
 
 Passive được ưa chuộng vì mượt, người dùng không phải làm gì thêm, nhưng nó chạy đua vũ trang với chất lượng màn hình và máy in ngày càng tốt.
 
-## Liveness chủ động (active / challenge-response)
+### Liveness chủ động (active / challenge-response)
 
 Active liveness yêu cầu người dùng phản ứng theo một thử thách ngẫu nhiên: chớp mắt, quay đầu sang trái, mỉm cười, đọc một dãy số. Cơ chế phòng thủ nằm ở tính **ngẫu nhiên và tức thời** của thử thách. Một video quay sẵn không thể biết trước hệ thống sẽ yêu cầu quay trái hay chớp mắt, nên không đáp ứng đúng và kịp lúc.
 
@@ -79,7 +79,7 @@ Active liveness yêu cầu người dùng phản ứng theo một thử thách n
 
 Nói thêm về deepfake injection: khi kẻ tấn công chèn thẳng luồng video giả, ngay cả active liveness cũng có thể bị qua mặt nếu deepfake đủ nhanh để phản ứng với thử thách theo thời gian thực. Vì vậy các hệ thống nghiêm túc còn xác thực cả **tính toàn vẹn của đường dẫn thu ảnh**: chứng thực rằng khung hình thật sự đến từ camera phần cứng của thiết bị chứ không phải một luồng ảo được inject, thường qua các cơ chế attestation ở tầng hệ điều hành.
 
-## Một khung phòng thủ nhiều lớp
+### Một khung phòng thủ nhiều lớp
 
 Trong thực tế không ai chọn một biện pháp duy nhất. Một pipeline hợp lý thường chồng nhiều lớp:
 
@@ -91,7 +91,7 @@ Trong thực tế không ai chọn một biện pháp duy nhất. Một pipeline
 
 Chỉ khi cả chuỗi này cùng gật đầu thì mới coi là xác thực thành công. Điểm hay của cách chồng lớp: kẻ tấn công phải vượt đồng thời nhiều rào có bản chất khác nhau, chi phí tấn công tăng phi tuyến.
 
-# Vài đánh đổi thành thật
+## Vài đánh đổi thành thật
 
 Không có hệ thống liveness nào hoàn hảo, và mình nghĩ điều lành mạnh là thừa nhận thẳng như vậy. Mỗi lớp phòng thủ đều kèm cái giá:
 
@@ -102,7 +102,7 @@ Không có hệ thống liveness nào hoàn hảo, và mình nghĩ điều lành
 
 Cuối cùng, liveness không phải bài toán giải một lần rồi thôi. Nó là một cuộc rượt đuổi: kẻ tấn công tìm cách mới, người phòng thủ vá lại, rồi lặp. Điều thực tế nhất mà một kỹ sư có thể làm là đừng tin vào một lớp duy nhất, đo lường FAR và FRR trên dữ liệu gần với thực tế, và chấp nhận rằng con số "an toàn" hôm nay chỉ đúng cho tới lần tấn công thông minh kế tiếp. Mình thấy đó không phải một kết luận bi quan, chỉ là cách nhìn trung thực về một bài toán vẫn đang mở.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - ISO/IEC 30107-1 và 30107-3, *Information technology, Biometric presentation attack detection*.
 - Schroff, Kalenichenko, Philbin, *FaceNet: A Unified Embedding for Face Recognition and Clustering*, CVPR 2015.

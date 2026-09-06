@@ -9,13 +9,13 @@ date: 2026-01-26 09:00
 ---
 
 
-# Máy chủ tại nhà là gì?
+## Máy chủ tại nhà là gì?
 
 Về lý thuyết, một **máy chủ** (server) không phải là một loại máy tính đặc biệt nào cả. Nó chỉ là một máy tính được cấu hình để chạy liên tục và phục vụ yêu cầu từ những máy khác trong mạng: cấp file, chạy website, giải quyết truy vấn **DNS**, đồng bộ dữ liệu. Điều làm nó khác một chiếc laptop bình thường là kỳ vọng về **uptime**: nó phải bật gần như mọi lúc, kể cả khi chúng ta ngủ.
 
 Một chiếc **Raspberry Pi** hợp với vai trò này một cách bất ngờ. Nó là một máy tính nhúng chạy vi xử lý kiến trúc **ARM**, tiêu thụ chỉ vài watt, và im lặng tuyệt đối vì phần lớn model không có quạt. Với một máy chạy 24/7, hai đặc tính đó (điện năng thấp và không tiếng ồn) quan trọng hơn nhiều so với sức mạnh thô. Bài này là một cuốn nhật ký phần cứng: mình sẽ đi qua ba thứ mà người mới hay xem nhẹ nhưng lại quyết định việc máy có chạy ổn định hay không, đó là **nguồn**, **tản nhiệt** và cách cài đặt **headless** (không màn hình).
 
-# Nguồn: thủ phạm số một
+## Nguồn: thủ phạm số một
 
 Nếu phải chọn một nguyên nhân gây ra những lỗi khó hiểu nhất trên Raspberry Pi, mình sẽ chọn **nguồn điện**. Rất nhiều báo cáo kiểu "thẻ nhớ bị hỏng", "máy tự khởi động lại", "USB rớt kết nối" thật ra bắt nguồn từ việc cấp điện không đủ, chứ không phải lỗi phần mềm.
 
@@ -39,7 +39,7 @@ dmesg | grep -i voltage
 
 Nếu `get_throttled` trả về khác `0x0`, hãy nghi ngờ nguồn hoặc cáp trước tiên. Kinh nghiệm gọn: dùng đúng bộ nguồn chính hãng, cáp ngắn và dày, và tránh cấp điện cho Pi qua cổng USB của máy tính khác.
 
-# Tản nhiệt: im lặng nhưng có giới hạn
+## Tản nhiệt: im lặng nhưng có giới hạn
 
 Con SoC trên Pi không có quạt theo mặc định, nên nó tản nhiệt thụ động qua vỏ chip ra không khí. Với tải nhẹ thì ổn. Nhưng một máy chủ thật sự (biên dịch code, phục vụ nhiều kết nối, chạy container) sẽ đẩy CPU lên tải cao kéo dài, và lúc đó nhiệt là vấn đề vật lý không né được.
 
@@ -63,7 +63,7 @@ Về mặt giải pháp, có một thang bậc rõ ràng, đi từ nhẹ tới n
 
 Lựa chọn phụ thuộc vào việc máy đặt ở đâu và làm gì. Một máy chủ file đặt trong tủ, tải thấp, thì một cái heatsink nhôm là quá đủ. Một máy build hay chạy nhiều container đặt cạnh chỗ ngủ thì mình sẽ cân nhắc vỏ nhôm để vừa mát vừa yên tĩnh.
 
-# Cài đặt headless
+## Cài đặt headless
 
 Một máy chủ đúng nghĩa thì không cần màn hình, bàn phím hay chuột. Chúng ta cấu hình nó một lần rồi điều khiển hoàn toàn qua mạng bằng **SSH**. Cách làm này gọi là **headless**, và điểm hay là ta chuẩn bị được mọi thứ ngay trên thẻ nhớ trước cả khi cắm điện lần đầu.
 
@@ -97,19 +97,19 @@ ssh-copy-id pi@raspberrypi.local
 
 Sau khi khóa hoạt động, có thể tắt hẳn đăng nhập mật khẩu trong `/etc/ssh/sshd_config`. Đây là thay đổi đáng giá nhất cho một máy luôn bật.
 
-# Một lưu ý về lưu trữ
+## Một lưu ý về lưu trữ
 
 Điểm yếu cố hữu của Pi khi làm máy chủ là thẻ **microSD**. Bộ nhớ flash loại này có số lần ghi hữu hạn, và một máy chủ ghi log liên tục sẽ bào mòn thẻ nhanh hơn ta tưởng. Thẻ hỏng thường không báo trước, một hôm máy đơn giản là không boot nữa.
 
 Có vài hướng giảm rủi ro, mỗi hướng một mức công sức. Nhẹ nhàng thì dùng thẻ chất lượng tốt và sao lưu định kỳ toàn bộ ảnh thẻ. Bài bản hơn thì cho Pi (từ đời 4 trở đi hỗ trợ **USB boot**) khởi động thẳng từ **SSD** gắn qua USB, vừa bền hơn nhiều vừa nhanh hơn hẳn thẻ nhớ. Mình sẽ không đi sâu ở đây, nhưng nếu định giao cho Pi một việc gì đó quan trọng dài hạn thì đây là nâng cấp nên tính tới.
 
-# Kết
+## Kết
 
 Dựng một máy chủ trên Raspberry Pi thú vị ở chỗ nó buộc chúng ta nghĩ về những thứ mà máy tính để bàn giấu kín: điện áp có đủ không, nhiệt thoát đi đâu, dữ liệu ghi lên môi trường nào. Phần mềm thì luôn có thể cài lại, nhưng ba yếu tố phần cứng ở trên (nguồn, tản nhiệt, lưu trữ) mới là thứ quyết định con máy tí hon này có thật sự chạy được hàng tháng trời mà ta quên nó đi hay không.
 
 Mình để ngỏ câu chuyện lưu trữ và chuyện chọn giữa quạt hay tản thụ động, vì thành thật mà nói câu trả lời phụ thuộc rất nhiều vào việc bạn định giao cho nó làm gì. Một máy chạy **Pi-hole** chặn quảng cáo và một máy build phần mềm là hai bài toán nhiệt hoàn toàn khác nhau. Cái hay của việc tự dựng là bạn sẽ dần cảm được ranh giới đó qua chính con `vcgencmd` và những lần máy tự khởi động lại lúc nửa đêm.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - Raspberry Pi Documentation, mục "Power supply" và "Frequency management and thermal control" (raspberrypi.com/documentation).
 - Raspberry Pi Documentation, "Getting started" và "Remote access" (hướng dẫn Imager, SSH, headless).

@@ -13,7 +13,7 @@ Mình có hai sở thích cứ va vào nhau: ngắm máy bay và nghịch mấy 
 
 *Ý tưởng cốt lõi: đừng bắt mô hình trả lời trực tiếp, hãy bắt nó so sánh.*
 
-# Về lý thuyết, tìm ảnh ngược là gì?
+## Về lý thuyết, tìm ảnh ngược là gì?
 
 **Reverse image search** là bài toán: cho một ảnh truy vấn, tìm trong một tập ảnh lớn những ảnh gần giống nó nhất về mặt nội dung. Điểm mấu chốt là chữ "gần giống". Máy tính không hiểu "chiếc **Boeing 737** này giống chiếc kia" theo kiểu con người. Nó cần một cách biến mỗi ảnh thành một dãy số, rồi định nghĩa "giống nhau" bằng khoảng cách giữa các dãy số đó.
 
@@ -21,7 +21,7 @@ Dãy số ấy gọi là **embedding**, hay vector đặc trưng. Một mô hìn
 
 So với hướng phân loại truyền thống, cách này có một ưu điểm rất hợp với thú chơi máy bay: thêm một loại mới không cần huấn luyện lại gì cả. Muốn hệ thống biết thêm chiếc **Airbus A350**? Chỉ cần thả vài chục ảnh A350 đã dán nhãn vào kho là xong. Với một lĩnh vực mà biến thể nhiều vô kể (cùng một dòng 737 đã có 737-700, -800, -900, MAX, rồi lại còn sơn màu của từng hãng), khả năng mở rộng kiểu này quý hơn nhiều so với một mô hình phân loại cứng nhắc.
 
-# Embedding ảnh đến từ đâu?
+## Embedding ảnh đến từ đâu?
 
 Phần "biến ảnh thành vector" là nơi mấy năm gần đây tiến bộ nhanh nhất. Có vài lựa chọn quen thuộc:
 
@@ -31,7 +31,7 @@ Phần "biến ảnh thành vector" là nơi mấy năm gần đây tiến bộ 
 
 Điều cần nhớ: embedding chỉ tốt trong phạm vi thứ nó từng thấy. Một mô hình tổng quát sẽ nắm được "đây là máy bay chở khách hai động cơ, cánh gắn dưới thân", nhưng phân biệt **A320** với **737** thì khó hơn nhiều, vì khác biệt nằm ở những chi tiết nhỏ: hình dáng chóp mũi, cửa hút gió động cơ, phần đuôi cánh (winglet hay sharklet). Nếu muốn nghiêm túc, bước tinh chỉnh (fine-tune) trên tập ảnh máy bay của riêng mình gần như là bắt buộc. Mình sẽ nói kỹ hơn ở phần trade-off.
 
-# Lắp mọi thứ lại với Milvus
+## Lắp mọi thứ lại với Milvus
 
 Có vector rồi thì cần một chỗ để cất và tìm cho nhanh. Với vài nghìn ảnh, một mảng numpy và phép nhân ma trận là đủ. Nhưng khi kho ảnh lên tới hàng trăm nghìn hay hàng triệu, so từng cặp một (brute force) trở nên chậm, và ta cần một **vector database** với **chỉ mục xấp xỉ** (approximate nearest neighbor). Mình dùng **Milvus** vì đã quen, nó chạy gọn trong **Docker** và hỗ trợ **HNSW** ngay.
 
@@ -62,7 +62,7 @@ def identify(image_path, k=10):
 
 Vài chi tiết đáng nói. Thứ nhất là **metric**: với embedding đã chuẩn hoá độ dài về 1 (L2-normalize), khoảng cách **cosine** và khoảng cách Euclid cho thứ tự xếp hạng tương đương, nhưng cosine đọc trực quan hơn (1 là trùng khớp, 0 là vuông góc). Thứ hai là cách bỏ phiếu: đừng đếm phiếu trơn, hãy cộng theo trọng số độ tương đồng, để một láng giềng rất giống có tiếng nói nặng hơn một láng giềng chỉ giống mờ mờ. Thứ ba là tham số `ef` của HNSW: đây chính là núm vặn đánh đổi giữa tốc độ và độ chính xác, `ef` lớn thì tìm kỹ hơn nhưng chậm hơn.
 
-# Những chỗ dễ vấp
+## Những chỗ dễ vấp
 
 Đây là phần mình thấy thú vị nhất, vì lý thuyết thì đẹp còn thực tế thì đầy cạm bẫy.
 
@@ -74,13 +74,13 @@ Vài chi tiết đáng nói. Thứ nhất là **metric**: với embedding đã c
 
 **Ngưỡng tin cậy.** Nếu chiếc máy bay trong ảnh thuộc một loại mà kho chưa từng có, hệ thống vẫn sẽ trả về một đáp án, chỉ là sai. Cần đặt một ngưỡng: nếu độ tương đồng của láng giềng gần nhất quá thấp, hãy trả lời "không chắc" thay vì đoán bừa. Một hệ thống biết nói "mình không biết" hữu ích hơn nhiều so với một hệ thống lúc nào cũng tự tin.
 
-# Kết
+## Kết
 
 Nói thật thì mình không nghĩ cách này sẽ đánh bại được một chuyên gia spotter dày dạn, những người liếc qua đã đọc ra cả biến thể lẫn số hiệu. Nhưng đó không phải mục tiêu. Cái hay của hướng tìm ảnh ngược là nó biến một bài toán "nhận dạng" khó thành một bài toán "so sánh" dễ hơn, mở rộng được, và không đòi huấn luyện lại mỗi khi có loại mới. Nó cũng phơi bày rõ ràng giới hạn của mình: chất lượng đầu ra phụ thuộc thẳng vào chất lượng và độ đa dạng của kho ảnh, chứ không phải vào một phép màu nào trong mô hình.
 
 Mình vẫn để ngỏ vài câu hỏi. Nên fine-tune tới mức nào trước khi lợi ích không còn bù nổi công sức gắn nhãn? DINOv2 có thực sự phân biệt biến thể tốt hơn CLIP trên đúng tập máy bay của mình không? Đây là mấy thứ mình chưa đo cẩn thận, và có lẽ để dành cho một bài sau. Còn bây giờ, nó đã đủ tốt để mình vui khi chụp được một chiếc lạ ngoài sân bay.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - Radford et al., *Learning Transferable Visual Models From Natural Language Supervision* (CLIP), OpenAI, 2021.
 - Oquab et al., *DINOv2: Learning Robust Visual Features without Supervision*, Meta AI, 2023.

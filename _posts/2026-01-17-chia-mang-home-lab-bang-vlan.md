@@ -8,7 +8,7 @@ categories:
 date: 2026-01-17 09:00
 ---
 
-# VLAN là gì?
+## VLAN là gì?
 
 Về lý thuyết, **VLAN** (Virtual LAN) là một cách chia một mạng vật lý phẳng thành nhiều mạng broadcast độc lập ở lớp 2 (Data Link) của mô hình **OSI**. Bình thường, khi chúng ta cắm tất cả thiết bị vào chung một switch, tất cả chúng nằm trong cùng một **broadcast domain**: một gói ARP broadcast do máy này gửi ra sẽ tới tai mọi máy khác. VLAN cắt cái miền broadcast đó thành nhiều mảnh, mỗi mảnh coi như một switch ảo riêng, dù chúng dùng chung một con switch vật lý.
 
@@ -16,7 +16,7 @@ Cơ chế để làm việc này là chuẩn **IEEE 802.1Q**. Nó chèn thêm 4 
 
 Điểm mấu chốt mà mình muốn nhấn mạnh từ đầu: **VLAN tự nó không phải là firewall**. Hai VLAN khác nhau không nói chuyện được với nhau ở lớp 2, nhưng ngay khi chúng ta cắm một **router** hay một **layer 3 switch** để định tuyến giữa chúng, lưu lượng lại chảy tự do trở lại, trừ khi chúng ta đặt một tập luật kiểm soát ở điểm định tuyến đó. VLAN cho chúng ta ranh giới; firewall mới cho chúng ta chính sách trên ranh giới đó.
 
-# Vì sao lại phải chia trong một home lab?
+## Vì sao lại phải chia trong một home lab?
 
 Nhiều người nghĩ nhà mình có mỗi cái router Wi-Fi thì chia làm gì. Nhưng một home lab hiện đại thường đang chứa những thứ rất khác nhau về mức độ tin cậy:
 
@@ -27,7 +27,7 @@ Nhiều người nghĩ nhà mình có mỗi cái router Wi-Fi thì chia làm gì
 
 Đặt tất cả vào chung một lớp mạng phẳng nghĩa là một cái camera Trung Quốc giá rẻ bị chiếm quyền cũng có đường thẳng tới cổng 5432 của database và cổng 5060 của tổng đài. Nguyên tắc thiết kế firewall kinh điển ở đây là **least privilege** và **defense in depth**: mỗi nhóm chỉ được nói chuyện với đúng thứ nó cần, và ranh giới tin cậy nên có nhiều lớp chứ không phải một hàng rào duy nhất ngoài cùng.
 
-# Thiết kế phân đoạn theo lý thuyết firewall
+## Thiết kế phân đoạn theo lý thuyết firewall
 
 Trước khi cắm dây, mình luôn vẽ ra bảng **zone**. Mỗi VLAN là một zone với mức tin cậy riêng. Đây là sơ đồ mình hay dùng cho một lab nhỏ:
 
@@ -54,17 +54,17 @@ Nguyên tắc viết luật giữa các zone nên tuân theo mấy điều sau, 
 5. GUEST tới mọi zone nội bộ: chặn. Chỉ ra Internet.
 6. Mọi zone tới MGMT: chặn, trừ TRUSTED (hoặc tốt hơn là chỉ một máy quản trị cụ thể).
 
-# Phân đoạn PBX và database cho đúng
+## Phân đoạn PBX và database cho đúng
 
 Đây là phần đáng nói nhất, vì PBX và database là hai loại dịch vụ có mô hình lưu lượng rất khác nhau, và người ta hay đặt sai.
 
-## Database
+### Database
 
 **Database** gần như luôn là dịch vụ chỉ phục vụ nội bộ. Một PostgreSQL nghe ở cổng 5432 không có lý do gì để lộ ra IOT, GUEST, hay tệ hơn là Internet. Trong sơ đồ trên, database nằm ở VLAN 20 (SERVERS), và luật duy nhất cho nó là: chấp nhận kết nối 5432 từ đúng những host cần (ví dụ web app cũng nằm trong SERVERS, hoặc một máy TRUSTED khi mình cần chạy migration). Ngay cả trong cùng VLAN 20, nếu con NAS hay cái container linh tinh khác cũng ở đó, chúng ta nên siết thêm ở tầng host bằng `pg_hba.conf` và `listen_addresses`, chứ không dựa hết vào firewall biên. Đó lại là **defense in depth**: firewall lớp mạng hỏng thì còn kiểm soát ở lớp ứng dụng.
 
 Một cạm bẫy phổ biến: đặt database và web frontend chung VLAN với IOT cho tiện. Đừng. Frontend có thể cần lộ ra ngoài, IOT thì bẩn, còn database thì phải sạch tuyệt đối. Ba mức tin cậy khác nhau, ba đối xử khác nhau.
 
-## PBX (tổng đài SIP)
+### PBX (tổng đài SIP)
 
 **PBX** khó hơn database vì bản chất giao thức. Một tổng đài IP thường dùng **SIP** cho báo hiệu (cổng UDP/TCP 5060, hoặc 5061 khi có TLS) và **RTP** cho luồng thoại thật, RTP dùng một dải cổng UDP động, ví dụ 10000 tới 20000. Đặc điểm này gây khó cho firewall stateful, vì địa chỉ và cổng RTP được thương lượng bên trong nội dung gói SIP (phần **SDP**), chứ không cố định.
 
@@ -76,7 +76,7 @@ Vài điểm mình luôn cân nhắc khi đặt PBX vào một VLAN riêng hoặ
 
 Nói ngắn gọn: database là con thú chỉ ăn ở trong nhà, còn PBX là con thú đôi khi phải thò đầu ra cửa, nên hai chính sách firewall của chúng phải khác nhau.
 
-# Làm trên thiết bị thật
+## Làm trên thiết bị thật
 
 Về mặt phần cứng, chúng ta cần hai thứ: một **managed switch** hỗ trợ 802.1Q, và một thiết bị làm nhiệm vụ định tuyến kèm firewall giữa các VLAN (router hỗ trợ VLAN, một con chạy **OpenWrt**, **pfSense**/**OPNsense**, hoặc **VyOS**). Router Wi-Fi phổ thông thường không đủ, vì chúng không cho viết luật giữa các subnet nội bộ.
 
@@ -118,13 +118,13 @@ table inet filter {
 
 Chú ý dòng `policy drop` ở đầu chain: đó chính là default deny được viết ra thành một dòng. Mọi thứ không được cho phép tường minh đều bị bỏ. Dòng `ct state established,related accept` là phần stateful, nó cho phép chúng ta chỉ khai báo chiều khởi tạo mà không phải viết luật ngược cho gói trả về.
 
-# Kết
+## Kết
 
 VLAN không khó về mặt bấm cấu hình. Phần khó, và cũng là phần đáng học, là suy nghĩ về **zone** và **hướng luồng** trước khi chạm vào thiết bị. Một khi chúng ta đã quen nhìn mạng nhà mình như một tập các miền tin cậy với những cánh cửa được canh gác theo least privilege, thì cái home lab bắt đầu giống một hệ thống được thiết kế, chứ không phải một mớ dây cắm chung một switch.
 
 Mình để ngỏ một điểm để bạn tự cân nhắc: nên tách bao nhiêu VLAN là đủ? Chia quá ít thì mất tác dụng phân đoạn, chia quá nhiều thì tập luật phình to tới mức chính chúng ta cũng không còn kiểm soát nổi, và một firewall mà người quản trị không hiểu hết cũng nguy hiểm chẳng kém gì không có firewall. Ranh giới hợp lý phụ thuộc vào việc bạn thật sự chạy những dịch vụ gì, chứ không có một con số vàng nào cả.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - IEEE 802.1Q-2018, "Bridges and Bridged Networks" (tiêu chuẩn VLAN tagging).
 - RFC 3261, "SIP: Session Initiation Protocol".

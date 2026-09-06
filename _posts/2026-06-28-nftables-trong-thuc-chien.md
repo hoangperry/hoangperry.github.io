@@ -12,11 +12,11 @@ Về lý thuyết, một **firewall** là một bộ lọc gói tin đặt giữ
 
 Mình sẽ viết như một buổi dựng máy chủ tại nhà: một con VPS hoặc một máy Linux trong LAN, chạy vài dịch vụ, và chúng ta muốn nó có một hàng rào tử tế.
 
-# nftables là gì?
+## nftables là gì?
 
 **nftables** là hệ thống lọc gói trong nhân Linux, ra mắt chính thức từ nhân **3.13** (năm 2014) để thay thế bộ công cụ cũ **iptables** (cùng họ với `ip6tables`, `arptables`, `ebtables`). Điểm mấu chốt: thay vì bốn công cụ riêng với bốn cú pháp, nftables gom tất cả vào một framework duy nhất, một ngôn ngữ luật duy nhất, và một tiện ích dòng lệnh duy nhất là `nft`. Bên dưới, nó dùng lại hạ tầng **Netfilter** (các hook trong đường đi của gói tin) mà iptables vẫn dùng, nên đây không phải là một cỗ máy hoàn toàn mới, mà là một lớp giao diện được thiết kế lại cho gọn.
 
-## Vì sao đáng chuyển sang
+### Vì sao đáng chuyển sang
 
 Có vài lý do rất thực tế, không phải chạy theo mốt:
 
@@ -27,7 +27,7 @@ Có vài lý do rất thực tế, không phải chạy theo mốt:
 
 Điểm 4 nghe nhỏ nhưng nó cứu chúng ta khỏi trạng thái firewall "dở dang" giữa chừng, một trong những cách tự khoá mình ra khỏi máy chủ kinh điển.
 
-# Ba khái niệm phải nắm trước khi gõ
+## Ba khái niệm phải nắm trước khi gõ
 
 Trước khi viết dòng luật đầu tiên, ba khái niệm này quyết định mọi thứ.
 
@@ -37,7 +37,7 @@ Trước khi viết dòng luật đầu tiên, ba khái niệm này quyết đ�
 
 **Policy mặc định.** Mỗi base chain có một chính sách: `accept` hoặc `drop`. Nguyên tắc an toàn là **default deny**: đặt policy `drop`, rồi chỉ mở đúng những gì cần. Đây là khác biệt tư duy giữa "chặn cái xấu tôi biết" và "chỉ cho cái tốt tôi cần", và cái sau luôn bền hơn.
 
-# Ruleset đầu tiên: bảo vệ chính máy chủ
+## Ruleset đầu tiên: bảo vệ chính máy chủ
 
 Giả sử máy chủ chạy **SSH** (port 22), một web server (**80**/**443**), và không làm router. Ta chỉ cần lọc lưu lượng đi vào chính nó, tức chain `input`. File luật đặt tại `/etc/nftables.conf`:
 
@@ -84,7 +84,7 @@ Vài điểm đáng dừng lại. Dòng `ct state established,related accept` đ
 
 Chain `output` mình để `policy accept` cho gọn. Ở một máy chủ cứng hơn, bạn có thể siết cả chiều ra, nhưng hãy làm sau khi đã hiểu rõ máy đang cần nói chuyện với ai.
 
-# Đừng tự khoá mình ra ngoài
+## Đừng tự khoá mình ra ngoài
 
 Đây là phần thực chiến quan trọng nhất mà lý thuyết ít nhắc. Nếu bạn đang **SSH** vào con VPS ở xa và nạp một ruleset default-drop bị sai, phiên của bạn đứt và bạn mất luôn đường vào. Có hai thói quen cứu mạng.
 
@@ -100,7 +100,7 @@ sudo nft -f /etc/nftables.conf
 
 Nếu sau khi thử thấy mọi thứ ổn, quay lại phiên A huỷ tiến trình `sleep`, rồi lưu luật cho khởi động sau. Thứ hai, luôn dùng `nft -c -f file` để kiểm tra cú pháp trước khi nạp thật; cờ `-c` chỉ kiểm mà không áp dụng.
 
-# Thêm NAT: khi máy chủ làm router
+## Thêm NAT: khi máy chủ làm router
 
 Nếu máy này định tuyến cho một mạng con phía sau (ví dụ một mạng lab, hoặc một đám container), chúng ta cần **NAT**. Trường hợp phổ biến nhất là **source NAT** kiểu **masquerade**: giấu toàn bộ mạng nội bộ sau một địa chỉ công cộng duy nhất trên giao diện ra ngoài.
 
@@ -141,7 +141,7 @@ ip saddr 10.0.0.0/24 oif "eth0" accept
 
 Ở đây mình cố tình tách bạch: **filter** quyết định gói có được đi qua không, **nat** quyết định gói bị viết lại địa chỉ ra sao. Trộn hai việc này trong đầu là nguồn gốc của rất nhiều giờ debug. Một điểm nữa thường gây bối rối: DNAT viết lại địa chỉ đích ở `prerouting`, nhưng luật `filter` ở `forward` lại nhìn thấy địa chỉ đích **đã bị viết lại** (10.0.0.5), không phải địa chỉ ban đầu. Vì thứ tự hook là `prerouting` rồi mới tới `forward`.
 
-# Logging: nhìn thấy cái mình đang chặn
+## Logging: nhìn thấy cái mình đang chặn
 
 Một firewall câm là một firewall khó tin. Chúng ta muốn thấy cái gì đang bị vứt, ít nhất trong lúc dựng. nftables ghi log qua nhật ký nhân, và bạn có thể gắn tiền tố để lọc về sau:
 
@@ -162,7 +162,7 @@ Một lưu ý thực tế: đừng log mọi gói bị drop trên một máy ch�
 limit rate 5/minute log prefix "nft-input-drop: " level info
 ```
 
-# Kiểm thử: chứng minh luật làm đúng việc
+## Kiểm thử: chứng minh luật làm đúng việc
 
 Viết luật xong chưa phải là xong. Chúng ta cần quan sát cả trạng thái lẫn hành vi.
 
@@ -191,7 +191,7 @@ Bạn muốn thấy 22/80/443 ở trạng thái `open`, còn 3306 (giả sử My
 sudo systemctl enable --now nftables
 ```
 
-# Lưu lại vài suy nghĩ chưa gọn
+## Lưu lại vài suy nghĩ chưa gọn
 
 Đến đây chúng ta đã có một firewall stateful đúng nghĩa: default-deny, cho phép kết nối đã thiết lập, mở đúng dịch vụ, làm NAT khi cần, và có mắt để nhìn. Nhưng mình không muốn kết bài kiểu "và thế là bạn đã an toàn", vì thật ra ranh giới ở đây khá mờ.
 
@@ -199,7 +199,7 @@ Một firewall gói tin lọc theo địa chỉ và cổng; nó gần như mù t
 
 Điều mình thấy đáng giá nhất khi tự tay viết ruleset, thay vì bật một GUI hay copy một script, là nó buộc mình phát biểu rõ ràng máy chủ được phép nói chuyện với ai. Phần lớn thời gian, chính việc phải viết ra điều đó đã dạy nhiều hơn bản thân tập luật.
 
-# Tài liệu tham khảo
+## Tài liệu tham khảo
 
 - nftables project wiki, "What is nftables?" và "Quick reference-nftables in 10 minutes" (wiki.nftables.org)
 - `nft(8)` manual page, Netfilter project
