@@ -132,7 +132,11 @@ collections:
     output: false
 #sass:
 #  style: compressed
-exclude: ['site.bat','compose.rb','README.md']
+# Working documents, not site content. Jekyll copies anything it does not
+# recognise straight into the build, so without these entries /plans/ and
+# /docs/ are served publicly: implementation plans, and an audit naming this
+# site's own weaknesses, on the site itself.
+exclude: ['site.bat','compose.rb','README.md','docs','plans','build.log','dump.rdb']
 include: ['_pages','.htaccess']
 defaults:
   - scope:
