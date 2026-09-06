@@ -1,0 +1,69 @@
+{% comment %}
+  Reader comments on a novel chapter, via Cusdis.
+
+  Per chapter, not per novel: a serialised story shares one comment stream at
+  its peril, because chapter 5 would then carry chapter 200's spoilers.
+
+  Renders nothing when site.cusdis.app_id is empty, so an unconfigured build
+  ships no heading and no empty widget shell.
+
+  The script is fetched only when the reader actually reaches the end of the
+  chapter, matching how the novel library defers Pagefind. A comment widget is
+  not worth a request on a page most readers will scroll past.
+{% endcomment %}{%
+if site.cusdis.app_id and site.cusdis.app_id != '' %}{%
+  assign cusdis_host = site.cusdis.host | default: 'https://cusdis.com' %}
+<section class="chapter-comments" data-pagefind-ignore>
+  <h2>Thảo luận chương này</h2>
+
+  {%- comment -%}
+    data-page-id keys the thread. Built from novel slug + chapter number rather
+    than the URL so the thread survives a permalink change, and so the
+    moderation queue names a chapter a human can recognise.
+    data-theme is fixed light: _layouts/novel.html locks every chapter to the
+    'reading' world, which is a light paper palette.
+  {%- endcomment -%}
+  <div id="cusdis_thread"
+       data-host="{{ cusdis_host }}"
+       data-app-id="{{ site.cusdis.app_id }}"
+       data-page-id="{{ page.novel }}-{{ page.chapter }}"
+       data-page-url="{{ page.url | prepend: site.baseurl | prepend: site.url }}"
+       data-page-title="{{ page.novel_title }} · {{ page.title }}"
+       data-theme="light"></div>
+
+  <noscript>
+    <p class="cc-note">Cần bật JavaScript để đọc và gửi bình luận.</p>
+  </noscript>
+</section>
+
+<script>
+(function () {
+  var box = document.getElementById('cusdis_thread');
+  if (!box) return;
+
+  var loaded = false;
+  function load() {
+    if (loaded) return;
+    loaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.defer = true;
+    s.src = {{ cusdis_host | jsonify }} + '/js/cusdis.es.js';
+    document.head.appendChild(s);
+  }
+
+  // Start fetching a little before the thread scrolls into view so it is ready
+  // by the time the reader finishes the last paragraph.
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) { io.disconnect(); load(); return; }
+      }
+    }, { rootMargin: '400px' });
+    io.observe(box);
+  } else {
+    load();
+  }
+})();
+</script>{%
+endif %}

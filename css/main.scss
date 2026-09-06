@@ -2594,6 +2594,41 @@ html[data-theme='photography']::before {
 .cn-link.is-disabled { opacity: 0.3; pointer-events: none; }
 .cn-toc { align-self: center; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-faint); border-bottom: 0; padding: 0 var(--space-2xs); white-space: nowrap; }
 
+/* ---------- Chapter comments (reading world) ---------- */
+
+/* Cusdis paints inside its own iframe, so only the frame and what surrounds it
+   answer to this stylesheet. Treated as book back matter: sits inside .reading
+   so it inherits the 38rem measure, separated by the same rule the chapter nav
+   uses, with room above so it never crowds the last line of prose.
+   Label colour is --fg-dim, not --fg-faint: the faint token is below 4.5:1 in
+   every palette, and this is a real heading rather than chrome. */
+.chapter-comments {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--line);
+}
+.chapter-comments > h2 {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin: 0 0 var(--space-lg);
+}
+/* Cusdis resizes its own iframe once the thread loads, but an <iframe> with no
+   height falls back to the HTML default of 150px, which letterboxes the reply
+   form behind an inner scrollbar if that resize is slow or never arrives.
+   min-height is a floor only: a taller height set by the widget still wins, so
+   long threads are unaffected. Measured against the empty-state form. */
+.chapter-comments #cusdis_thread { margin: 0; }
+.chapter-comments #cusdis_thread iframe {
+  width: 100%;
+  min-height: 340px;
+  border: 0;
+}
+.chapter-comments .cc-note { color: var(--fg-dim); font-size: var(--fs-sm); margin: 0; }
+
 /* ---------- Novel landing (synopsis + table of contents) ---------- */
 .novel-lede { max-width: 44rem; }
 .novel-kicker { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--phosphor); }

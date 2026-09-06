@@ -98,6 +98,17 @@ navlinks: bottom
 # expecting more works? mark your list as in-progress
 works_in_progress: yes
 
+# Reader comments on novel chapters (Cusdis).
+# app_id is a public identifier, not a secret: it ships inside the client-side
+# embed either way, so it lives here rather than in the git-excluded
+# _data/tokens.yml. A feature keyed to a file that CI never checks out is a
+# feature that silently breaks in production.
+# Leave app_id empty to turn comments off; the include then renders nothing at
+# all rather than an empty widget shell.
+cusdis:
+  host: https://cusdis.com
+  app_id: ""
+
 # Github pages posts future posts by default.
 # You'll want to move the user guide posts to _drafts if you set this to true.
 future: false
