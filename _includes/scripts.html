@@ -96,13 +96,6 @@
     // (1.5) THEME SWITCHER — cycle the visual worlds, persist the choice.
     (function () {
       var THEMES = ["security", "aviation", "electronics", "photography", "reading"];
-      var THEME_LABELS = {
-        security: "Security and Systems",
-        aviation: "Aviation",
-        electronics: "Electronics",
-        photography: "Photography",
-        reading: "Fiction"
-      };
       var root = document.documentElement;
       var btn = document.getElementById("theme-cycle");
       var label = btn ? btn.querySelector(".ts-label") : null;
@@ -112,12 +105,7 @@
       function syncThemeLinks(theme) {
         Array.prototype.forEach.call(themeLinks, function (link) {
           var isCurrent = link.getAttribute("data-theme-link") === theme;
-          var themeName = THEME_LABELS[link.getAttribute("data-theme-link")] || "World";
           link.classList.toggle("is-theme-current", isCurrent);
-          link.setAttribute(
-            "aria-label",
-            themeName + (isCurrent ? ", current visual theme" : "")
-          );
         });
       }
 

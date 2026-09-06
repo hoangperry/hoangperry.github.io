@@ -2,6 +2,8 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+@use 'sass:meta';
+
 @import 'vendor/disqus.css';
 
 /* ============================================================
@@ -2890,5 +2892,5 @@ html[data-theme='photography']::before {
 .bridge-world[data-world='reading'],      .bridge-seam-half[data-world='reading']      { --wc: oklch(55% 0.09 55);  }
 .bridge-world:not([data-world]),          .bridge-seam-half:not([data-world])          { --wc: var(--phosphor); }
 
-@import 'homepage-refresh';
-@import 'homepage-worlds';
+@include meta.load-css('homepage-refresh');
+@include meta.load-css('homepage-worlds');
