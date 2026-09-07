@@ -18,11 +18,13 @@
     </div>
 
     {% assign cm = m.novel_chapters_month | default: 0 %}
+    {% if cm > 0 %}
     <div class="instr" data-world="reading" style="--v: {% if cm > 30 %}100{% else %}{{ cm | times: 100 | divided_by: 30 }}{% endif %}">
       <dt class="instr-label">ch. this month</dt>
       <dd class="instr-val">{{ cm }}</dd>
       <span class="instr-meter" aria-hidden="true"></span>
     </div>
+    {% endif %}
 
     {% assign lt = m.log_total | default: 0 %}
     <div class="instr" style="--v: {% if lt > 24 %}100{% else %}{{ lt | times: 100 | divided_by: 24 }}{% endif %}">

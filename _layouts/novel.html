@@ -6,12 +6,15 @@
 
   <body class="is-preload">
 
+    <a class="skip-link" href="#main-content">Bỏ qua đến nội dung</a>
+
     <!-- reading progress: fills as the reader moves through the chapter -->
     <div class="read-progress" aria-hidden="true"><span class="rp-bar"></span></div>
 
     <div id="page-wrapper">
 
       {% include header.html %}
+      <main id="main-content" tabindex="-1">
 
       {%- assign siblings = site.novel | where_exp: 'c', 'c.chapter' | where: 'novel', page.novel | sort: 'chapter' -%}
       {%- assign total = siblings | size -%}
@@ -29,7 +32,7 @@
 
           {%- if page.image -%}
           <figure class="chapter-art" data-pagefind-ignore>
-            <img src="{{ page.image | prepend: site.baseurl }}" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <img src="{{ page.image | prepend: site.baseurl }}" alt="Minh họa {{ page.title }}" width="1280" height="720" loading="lazy" decoding="async">
           </figure>
           {%- endif -%}
 
@@ -86,6 +89,8 @@
 
         </div>
       </article>
+
+      </main>
 
       {% include footer.html %}
 

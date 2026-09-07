@@ -6,9 +6,12 @@
 
   <body class="is-preload">
 
+    <a class="skip-link" href="#main-content">Bỏ qua đến nội dung</a>
+
     <div id="page-wrapper">
 
       {% include header.html %}
+      <main id="main-content" tabindex="-1">
 
       {%- assign meta = site.data.novels | where: 'slug', page.novel | first -%}
       {%- assign chapters = site.novel | where_exp: 'c', 'c.chapter' | where: 'novel', page.novel | sort: 'chapter' -%}
@@ -26,7 +29,8 @@
             <span class="novel-kicker">Tiểu thuyết{% if meta.tagline %} · {{ meta.tagline }}{% endif %}</span>
             <h1 class="novel-title-big">{{ page.title }}</h1>
             {% if meta.synopsis %}<div class="novel-synopsis">{{ meta.synopsis | markdownify }}</div>{% endif %}
-            <p class="novel-meta-line">{{ chapters | size }} chương{% if meta.audio %} · có bản nghe{% endif %} · <span class="novel-status"><span class="st-dot" aria-hidden="true"></span>{{ meta.status | default: 'Đang cập nhật' }}</span></p>
+            {%- assign audio_n = chapters | where_exp: 'c', 'c.audio' | size -%}
+            <p class="novel-meta-line">{{ chapters | size }} chương{% if audio_n > 0 %} · nghe {{ audio_n }}{% if audio_n != chapters.size %}/{{ chapters | size }}{% endif %}{% endif %} · <span class="novel-status{% if meta.status == 'Hoàn thành' %} is-done{% endif %}"><span class="st-dot" aria-hidden="true"></span>{{ meta.status | default: 'Đang cập nhật' }}</span></p>
             <span class="novel-cta-row">
               {% if chapters.first %}<a class="button special novel-cta" href="{{ chapters.first.url | prepend: site.baseurl }}">Bắt đầu đọc &rarr;</a>{% endif %}
               <a class="button novel-cta-resume" data-novel-resume hidden></a>
@@ -44,7 +48,7 @@
             <li>
               <a href="{{ ch.url | prepend: site.baseurl }}">
                 <span class="tc-num">{{ ch.chapter | prepend: '000' | slice: -3, 3 }}</span>
-                <span class="tc-title">{{ ch.title }}</span>
+                <span class="tc-title">{{ ch.title }}</span>{% if ch.audio %}<span class="tc-audio" title="Có bản nghe">♪</span>{% endif %}
               </a>
             </li>{%
             endfor %}
@@ -52,6 +56,7 @@
 
         </div>
       </article>
+      </main>
 
       {% include footer.html %}
 

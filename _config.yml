@@ -26,7 +26,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
             # Note you'll have to move your robots.txt to the root if you want it used.
             # And list multiple sitemaps if there are other subdirectories you want indexed
             # besides this blog.
-lang: vi-VI # used in HTML lang attributes
+lang: vi # BCP-47; novels are Vietnamese, chrome is mixed vi/en
 
 # on landing page
 # - set the greeting only if you want to display the first green section
@@ -56,7 +56,7 @@ social:
   #delicious:
   #pied-piper:
   #digg:
-  soundcloud: soundcloud.com/hoang6969/
+  soundcloud: https://soundcloud.com/hoang6969/
   #deviantart:
   #angellist:
   #tumblr-square:
@@ -135,8 +135,8 @@ collections:
   # as standalone pages; rendered as a stream on /log/ and per-world slices.
   log:
     output: false
-#sass:
-#  style: compressed
+sass:
+  style: compressed
 # Working documents, not site content. Jekyll copies anything it does not
 # recognise straight into the build, so without these entries /plans/ and
 # /docs/ are served publicly: implementation plans, and an audit naming this

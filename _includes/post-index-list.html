@@ -1,0 +1,21 @@
+{%- assign items = include.posts -%}
+{%- if items == nil or items.size == 0 -%}
+<p class="index-empty">Nothing filed here yet.</p>
+{%- else -%}
+<ul class="index-list">
+{%- for post in items -%}
+  <li class="index-row">
+    <a href="{{ post.url | prepend: site.baseurl }}">
+      <span class="index-idx">{{ forloop.index | prepend: '000' | slice: -3, 3 }}</span>
+      <span class="index-body">
+        <span class="index-title">{{ post.title }}</span>
+        {%- if post.excerpt -%}
+        <span class="index-desc">{{ post.excerpt | strip_html | truncate: 140 }}</span>
+        {%- endif -%}
+      </span>
+      <span class="index-arrow" aria-hidden="true">→</span>
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
+{%- endif -%}

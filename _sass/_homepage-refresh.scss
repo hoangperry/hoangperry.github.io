@@ -20,12 +20,12 @@ html { overflow-x: clip; }
   border: 0;
   color: var(--fg-faint);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.world-nav a span { color: var(--line); }
+.world-nav a span { color: var(--fg-dim); }
 .world-nav a:hover,
 .world-nav a.is-theme-current { color: var(--phosphor); }
 

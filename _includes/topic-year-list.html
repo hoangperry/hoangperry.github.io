@@ -1,13 +1,16 @@
 {%- comment -%}
   Renders a list of posts (include.posts) grouped by year.
-  Reuses the site's <code>[dd Mon]</code> log-list style.
+  Reuses the site's [dd Mon] log-list style. Year labels are list
+  items, not stray <br>/<h5> children of the <ul>.
 {%- endcomment -%}
 {%- assign yr = '0000' -%}
-<ul style="list-style-type: none;">{%- for post in include.posts -%}
+<ul class="topic-year-list">{%- for post in include.posts -%}
   {%- assign y = post.date | date: '%Y' -%}
   {%- if y != yr -%}{%- assign yr = y -%}
-  <br /><h5>{{ y }}</h5>{%- endif -%}
-  <li style="padding-bottom: 6px;"><code>[{{ post.date | date: '%d %b' }}]</code>&nbsp;
-    <a href="{{ post.url | prepend: site.baseurl }}" style="white-space: nowrap;"><b>{{ post.title }}</b></a>&nbsp;
-    {{ post.excerpt | strip_html | truncatewords: 12 }}</li>{%- endfor -%}
+  <li class="tyl-year"><p class="tyl-year-label">{{ y }}</p></li>{%- endif -%}
+  <li class="tyl-row">
+    <code>[{{ post.date | date: '%d %b' }}]</code>
+    <a href="{{ post.url | prepend: site.baseurl }}"><b>{{ post.title }}</b></a>
+    {{ post.excerpt | strip_html | truncatewords: 12 }}
+  </li>{%- endfor -%}
 </ul>

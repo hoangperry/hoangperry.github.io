@@ -1,6 +1,6 @@
 ---
 key: 8
-title: Novel
+title: Tiểu thuyết
 permalink: /novel/
 theme: reading
 options: fullwidth nolanding
@@ -20,13 +20,16 @@ excerpt: "Truyện dài tôi viết. Web novel tiếng Việt, cập nhật theo
 
 <ul class="novel-shelf">{%
   for n in site.data.novels %}
+  {%- assign chs = site.novel | where: 'novel', n.slug | where_exp: 'c', 'c.chapter' -%}
+  {%- assign aud = chs | where_exp: 'c', 'c.audio' | size -%}
+  {%- assign nch = chs | size -%}
   <li class="novel-item{% if n.cover %} has-cover{% endif %}">
     <a href="{{ '/novel/' | append: n.slug | append: '/' | prepend: site.baseurl }}">
-      {% if n.cover %}<img class="ni-cover" src="{{ n.cover | prepend: site.baseurl }}" alt="" width="120" height="180" loading="lazy" decoding="async">{% else %}<span class="ni-index">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>{% endif %}
+      {% if n.cover %}<img class="ni-cover" src="{{ n.cover | prepend: site.baseurl }}" alt="Bìa {{ n.title }}" width="120" height="180" loading="lazy" decoding="async">{% else %}<span class="ni-index">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>{% endif %}
       <span class="ni-body">
         <span class="ni-title">{{ n.title }}</span>
         {% if n.tagline %}<span class="ni-tagline">{{ n.tagline }}</span>{% endif %}
-        <span class="ni-meta">{{ n.chapters }} chương{% if n.audio %} · có audio{% endif %} · <span class="novel-status"><span class="st-dot" aria-hidden="true"></span>{{ n.status }}</span></span>
+        <span class="ni-meta">{{ nch }} chương{% if aud > 0 %} · nghe {{ aud }}{% if aud != nch %}/{{ nch }}{% endif %}{% endif %} · <span class="novel-status{% if n.status == 'Hoàn thành' %} is-done{% endif %}"><span class="st-dot" aria-hidden="true"></span>{{ n.status }}</span></span>
       </span>
       <span class="ni-arrow">&rarr;</span>
     </a>

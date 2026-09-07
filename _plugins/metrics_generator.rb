@@ -15,9 +15,10 @@ module Jekyll
       metrics = {}
 
       begin
-        chapters = collection_docs(site, 'novel')
+        chapters = collection_docs(site, 'novel').select { |doc| doc.data['chapter'] }
         metrics['novel_chapters'] = chapters.size
         metrics['novel_chapters_month'] = chapters_this_month(chapters)
+        metrics['novel_books'] = (site.data['novels'] || []).size
 
         logs = collection_docs(site, 'log')
         by_world = Hash.new(0)
@@ -53,8 +54,8 @@ module Jekyll
 
     def chapters_this_month(chapters)
       dated = chapters.select { |doc| doc.data['date'] }
-      # No chapter carries a date: fall back to the running total.
-      return chapters.size if dated.empty?
+      # No chapter carries a date: do not pretend the whole library is new.
+      return 0 if dated.empty?
 
       now = Time.now
       dated.count do |doc|

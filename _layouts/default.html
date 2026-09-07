@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 {% include topcomment.html %}
-<html lang="{{ site.lang }}" data-theme="{{ page.theme | default: 'security' }}"{% if page.theme %} data-theme-lock="true"{% endif %}>
+<html lang="{{ page.lang | default: site.lang }}" data-theme="{{ page.theme | default: 'security' }}"{% if page.theme %} data-theme-lock="true"{% endif %}>
 
   {% include head.html %}
 
   <body class="is-preload">
+
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <!-- Page Wrapper -->
     <div id="page-wrapper">
 
       {% include header.html %}
 
+      <main id="main-content" tabindex="-1">
       <article{%
         if page.background-image %} id="main"{%
         elsif page.options contains 'minihead' %} id="minihead"{%
@@ -22,6 +25,7 @@
         {{ content }}
 
       </article>
+      </main>
 
       {% include footer.html %}
 

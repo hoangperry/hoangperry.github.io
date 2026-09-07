@@ -25,11 +25,13 @@
   --line:          oklch(34% 0.014 160);
   --line-soft:     oklch(28% 0.013 160);
 
+  color-scheme: dark;
+
   /* text */
   --fg:            oklch(90% 0.012 150);
   --fg-bold:       oklch(96% 0.01 150);
   --fg-dim:        oklch(68% 0.012 155);
-  --fg-faint:      oklch(54% 0.011 158);
+  --fg-faint:      oklch(62% 0.011 158);
 
   /* accents */
   --phosphor:      oklch(82% 0.15 150);   /* primary green-phosphor */
@@ -196,6 +198,7 @@
    components, the Spectral display face, and a faint film-grain ambient
    over the page (all scoped to [data-theme='photography']). */
 [data-theme='photography'] {
+  color-scheme: light;
   --bg:            oklch(95.5% 0.008 78);   /* warm gallery paper */
   --surface:       oklch(98.5% 0.005 80);   /* mat board / print white */
   --surface-2:     oklch(92.5% 0.009 78);
@@ -652,7 +655,8 @@ body.landing #page-wrapper { padding-top: 0; }
   transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 #header.alt { background: transparent; border-bottom-color: transparent; }
-#header h1 {
+#header h1,
+#header .site-brand {
   margin: 0;
   font-family: var(--font-mono);
   font-size: 0.95rem;
@@ -660,9 +664,12 @@ body.landing #page-wrapper { padding-top: 0; }
   letter-spacing: 0.02em;
   text-transform: none;
 }
-#header h1 a { color: var(--fg-bold); border-bottom: 0; }
-#header h1 a::before { content: '~/'; color: var(--phosphor); }
-#header h1 a:hover { color: var(--phosphor); }
+#header h1 a,
+#header .site-brand a { color: var(--fg-bold); border-bottom: 0; }
+#header h1 a::before,
+#header .site-brand a::before { content: '~/'; color: var(--phosphor); }
+#header h1 a:hover,
+#header .site-brand a:hover { color: var(--phosphor); }
 
 #header nav > ul { display: flex; align-items: center; gap: 0; margin: 0; padding: 0; list-style: none; }
 #header nav > ul > li { margin: 0; padding: 0; }
@@ -1584,6 +1591,7 @@ table.alt td.Nvar3 { border-color: oklch(70% 0.16 25);  background: oklch(70% 0.
 
 /* ---------- Phosphor glow on accents + chrome (never body text) ---------- */
 #header h1 a,
+#header .site-brand a,
 .index-idx,
 #post-date::before,
 #banner .more::after,
@@ -1840,7 +1848,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 /* ---------- Glyph idioms (replace terminal accents) ---------- */
 /* Header name: `~/` (security) -> a small aircraft mark. */
-[data-theme='aviation'] #header h1 a::before {
+[data-theme='aviation'] #header h1 a::before,
+[data-theme='aviation'] #header .site-brand a::before {
   content: '\2708\00a0';   /* ✈ + nbsp */
   color: var(--phosphor);
 }
@@ -1998,6 +2007,11 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   box-shadow: 0 0 0.55em var(--glow-strong);
   animation: hero-pulse 2.4s var(--ease) infinite;
 }
+.metar-strip .metar-head .dot.is-sample {
+  animation: none;
+  background: var(--fg-dim);
+  box-shadow: none;
+}
 .metar-strip .metar-head .icao { color: var(--phosphor); margin-left: auto; }
 .metar-strip .metar-body {
   margin: 0;
@@ -2055,7 +2069,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 /* ---------- Glyph idioms (replace terminal accents) ---------- */
 /* Header name: `~/` (security) -> an IC / chip mark. */
-[data-theme='electronics'] #header h1 a::before {
+[data-theme='electronics'] #header h1 a::before,
+[data-theme='electronics'] #header .site-brand a::before {
   content: '\25A3\00a0';   /* ▣ chip mark + nbsp */
   color: var(--phosphor);
 }
@@ -2273,7 +2288,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 /* ---------- Glyph idioms (replace terminal accents) ---------- */
 /* Header name: `~/` (security) -> an aperture mark. */
-[data-theme='photography'] #header h1 a::before {
+[data-theme='photography'] #header h1 a::before,
+[data-theme='photography'] #header .site-brand a::before {
   content: '\25C9\00a0';   /* ◉ aperture + nbsp */
   color: var(--phosphor);
 }
@@ -2292,6 +2308,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 /* light palette: heading prefix glow would muddy paper; drop the bloom */
 [data-theme='photography'] #header h1 a,
+[data-theme='photography'] #header .site-brand a,
 [data-theme='photography'] .index-idx { text-shadow: none; }
 
 /* ---------- Ambient: film grain + paper warmth (gated, static) ---------- */
@@ -2521,6 +2538,7 @@ html[data-theme='photography']::before {
    and _pages/novel.html (theme: reading, always theme-locked).
    ============================================================ */
 [data-theme='reading'] {
+  color-scheme: light;
   --bg:            oklch(96.5% 0.009 82);
   --surface:       oklch(98.5% 0.006 82);
   --surface-2:     oklch(94% 0.009 82);
@@ -2667,6 +2685,7 @@ html[data-theme='photography']::before {
 .toc a:hover { color: var(--phosphor); background: color-mix(in oklch, var(--phosphor) 5%, transparent); }
 .toc .tc-num { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--phosphor-dim); min-width: 2.75rem; letter-spacing: 0.04em; }
 .toc .tc-title { font-family: var(--font-display); font-size: 1.02rem; }
+.toc .tc-audio { margin-left: auto; font-size: var(--fs-xs); color: var(--phosphor-dim); }
 @media (min-width: 820px) { .toc { column-count: 2; column-gap: var(--space-2xl); } }
 
 /* per-novel landing + library */
@@ -2748,6 +2767,11 @@ html[data-theme='photography']::before {
   box-shadow: 0 0 0.5em color-mix(in oklch, var(--status-live) 55%, transparent);
   animation: hero-pulse 2.4s var(--ease) infinite;
 }
+.novel-status.is-done .st-dot {
+  background: var(--fg-dim);
+  box-shadow: none;
+  animation: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .read-progress { display: none; }
@@ -2756,6 +2780,50 @@ html[data-theme='photography']::before {
   #novel-chapter .prose { animation: none; }
   .novel-status .st-dot { animation: none; }
 }
+
+/* ---------- 404 ---------- */
+.notfound {
+  max-width: 36rem;
+  padding: var(--space-xl) 0 var(--space-2xl);
+}
+.nf-sub {
+  color: var(--fg-dim);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-prose);
+}
+.nf-actions { margin-top: var(--space-lg); }
+
+.topic-year-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tyl-year { margin: 1.4rem 0 0.4rem; padding: 0; }
+.tyl-year-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--phosphor-dim);
+}
+.tyl-row {
+  padding: 0.35rem 0 0.55rem;
+  color: var(--fg-dim);
+  font-size: var(--fs-sm);
+}
+.tyl-row a {
+  display: inline;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.works-lede {
+  margin: 0 0 1.2rem;
+  color: var(--fg-dim);
+  max-width: 40rem;
+}
+.index-empty { color: var(--fg-dim); }
 
 {% if site.custom_extensions == 'yes' %}
 {% include _my/custom.scss %}

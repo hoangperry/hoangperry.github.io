@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% include topcomment.html %}
-<html lang="{{ site.lang }}" data-theme="{{ page.theme | default: 'security' }}"{% if page.theme %} data-theme-lock="true"{% endif %}>
+<html lang="{{ page.lang | default: site.lang }}" data-theme="{{ page.theme | default: 'security' }}"{% if page.theme %} data-theme-lock="true"{% endif %}>
 
   {% include head.html %}
 
@@ -14,7 +14,8 @@
       {% include header.html %}
       {% assign post_count = site.posts | size %}
       {% assign log_count = site.log | size %}
-      {% assign chapter_count = site.novel | size %}
+      {% assign chapter_count = site.novel | where_exp: 'c', 'c.chapter' | size %}
+      {% assign book_count = site.data.novels | size %}
 
       <main id="main-content" tabindex="-1">
 
@@ -141,7 +142,7 @@
                       <span class="wc-glyph" aria-hidden="true">❦</span>
                       <span class="wc-name">Fiction</span>
                       <span class="wc-desc">Vietnamese stories where memory, machinery, and the city fold back into one another.</span>
-                      <span class="wc-meta"><span>{{ chapter_count }} chapters</span><span>ongoing serial</span></span>
+                      <span class="wc-meta"><span>{{ book_count }} books</span><span>{{ chapter_count }} chapters</span></span>
                       <span class="wc-enter">continue the story &rarr;</span>
                     </span>
                   </a>
