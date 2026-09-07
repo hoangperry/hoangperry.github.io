@@ -144,6 +144,7 @@ def copy_chapter_audio(ndir, slug, num, name)
   end
   if !FFMPEG.empty?
     ok = system(FFMPEG, '-y', '-loglevel', 'error', '-i', src,
+                '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11',
                 '-codec:a', 'libmp3lame', '-b:a', '48k', '-ac', '1', '-ar', '24000', dest)
     return "/audio/#{slug}/#{dest_name}" if ok && File.file?(dest)
   end
