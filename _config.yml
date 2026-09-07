@@ -109,6 +109,11 @@ cusdis:
   host: https://cusdis.com
   app_id: ""
 
+# GA4 measurement ID. Public, same class as cusdis.app_id: it ships in the
+# page source. Keep it here (not gitignored tokens.yml) so CI actually emits
+# the tag. Empty string turns the snippet off.
+google_analytics: G-DX4S7WNNQ4
+
 # Github pages posts future posts by default.
 # You'll want to move the user guide posts to _drafts if you set this to true.
 future: false
