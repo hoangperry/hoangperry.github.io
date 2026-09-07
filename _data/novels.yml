@@ -10,6 +10,19 @@
 
     Từ con hẻm ấy, Hoàng dựng ba trụ cột: AI tầm cỡ quốc tế, hàng không chiến lược, và văn hoá Việt ra thế giới, để người tài không còn phải rời đi. Câu hỏi anh luôn trốn: anh đang tự định hướng, hay đang lệ thuộc vào Hệ thống?
   status: Hoàn thành
+- slug: long-mach-so
+  title: Thầy Cúng Chạy Bằng Cơm
+  chapters: 195
+  tagline: Hài đen công sở. Thầy phong thủy chạy bằng kiến trúc máy chủ.
+  synopsis: |
+    Trần Khải là kỹ sư IT thất nghiệp, bị gắn cờ đen sau một vụ rò rỉ dữ liệu. Để trả nợ và giữ nghề, anh khoác áo "chuyên gia phong thủy công nghệ" ở Tân Phú Cường — một thung lũng startup nơi sếp tin bùa hơn tin log.
+
+    Mọi tai ương phòng máy, nhân viên ngất xỉu, đèn chớp tắt đều không phải ma. Đó là tản nhiệt kém, cáp nhiễu, cắt giảm hạ tầng. Khải dùng nghi thức trừ tà để ép ban lãnh đạo mua máy chủ, giảm OT, và trả lương cho anh em kỹ thuật.
+
+    Hài đen công sở, châm biếm công nghệ, đấu trí với quỹ đầu tư Thiên Long Capital. Không siêu nhiên. Chỉ có hệ thống hỏng và người sửa hệ thống.
+  status: Đang cập nhật
+  audio: true
+  cover: "/images/novel/long-mach-so/cover.webp"
 - slug: dieu-khoan-cuoi
   title: Điều Khoản Cuối
   chapters: 72

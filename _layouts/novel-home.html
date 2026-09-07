@@ -18,7 +18,11 @@
 
           <a class="novel-back" href="{{ '/novel/' | prepend: site.baseurl }}">&larr; Thư viện</a>
 
-          <div class="novel-lede">
+          <div class="novel-lede{% if meta.cover %} has-cover{% endif %}">
+            {% if meta.cover %}
+            <img class="novel-cover" src="{{ meta.cover | prepend: site.baseurl }}" alt="Bìa {{ page.title }}" width="832" height="1248" decoding="async">
+            {% endif %}
+            <div class="novel-lede-copy">
             <span class="novel-kicker">Tiểu thuyết{% if meta.tagline %} · {{ meta.tagline }}{% endif %}</span>
             <h1 class="novel-title-big">{{ page.title }}</h1>
             {% if meta.synopsis %}<div class="novel-synopsis">{{ meta.synopsis | markdownify }}</div>{% endif %}
@@ -27,6 +31,7 @@
               {% if chapters.first %}<a class="button special novel-cta" href="{{ chapters.first.url | prepend: site.baseurl }}">Bắt đầu đọc &rarr;</a>{% endif %}
               <a class="button novel-cta-resume" data-novel-resume hidden></a>
             </span>
+            </div>
           </div>
 
           <div class="novel-search" data-novel-search>

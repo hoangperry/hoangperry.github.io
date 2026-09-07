@@ -2559,6 +2559,13 @@ html[data-theme='photography']::before {
   font-size: clamp(1.6rem, calc(1.2rem + 1.5vw), 2.4rem);
   margin: 0 0 var(--space-xl); color: var(--fg-bold); letter-spacing: -0.01em;
 }
+.chapter-art {
+  margin: calc(var(--space-xl) * -0.4) 0 var(--space-xl);
+}
+.chapter-art img {
+  display: block; width: 100%; height: auto; border-radius: 6px;
+  background: var(--line-soft);
+}
 .chapter-audio-wrap { margin: calc(var(--space-xl) * -0.5) 0 var(--space-xl); }
 .chapter-audio-label {
   font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em;
@@ -2658,6 +2665,19 @@ html[data-theme='photography']::before {
   color: var(--fg-faint); border-bottom: 0;
 }
 .novel-back:hover { color: var(--phosphor); }
+.novel-lede.has-cover {
+  display: grid; grid-template-columns: minmax(7.5rem, 11rem) minmax(0, 1fr);
+  gap: var(--space-xl); align-items: start;
+}
+.novel-cover {
+  display: block; width: 100%; height: auto; border-radius: 6px;
+  box-shadow: 0 12px 32px color-mix(in oklch, black 22%, transparent);
+}
+.novel-lede-copy { min-width: 0; }
+@media (max-width: 640px) {
+  .novel-lede.has-cover { grid-template-columns: 1fr; }
+  .novel-cover { max-width: 14rem; }
+}
 .novel-meta-line {
   font-family: var(--font-mono); font-size: var(--fs-sm);
   color: var(--fg-faint); letter-spacing: 0.04em; margin: var(--space-md) 0 var(--space-lg);
@@ -2671,6 +2691,11 @@ html[data-theme='photography']::before {
   display: grid; grid-template-columns: 3rem 1fr auto; align-items: baseline; gap: var(--space-md);
   padding: var(--space-lg) var(--space-xs); color: var(--fg); border-bottom: 0;
   transition: background-color var(--dur-fast) var(--ease), padding-left var(--dur) var(--ease);
+}
+.novel-item.has-cover > a { grid-template-columns: 4.2rem 1fr auto; align-items: center; }
+.ni-cover {
+  width: 4.2rem; height: 6.3rem; object-fit: cover; border-radius: 4px;
+  background: var(--line-soft);
 }
 .novel-item > a:hover { background: color-mix(in oklch, var(--phosphor) 5%, transparent); padding-left: var(--space-md); }
 .ni-index { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--phosphor-dim); }

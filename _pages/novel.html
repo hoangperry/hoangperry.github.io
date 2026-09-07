@@ -20,9 +20,9 @@ excerpt: "Truyện dài tôi viết. Web novel tiếng Việt, cập nhật theo
 
 <ul class="novel-shelf">{%
   for n in site.data.novels %}
-  <li class="novel-item">
+  <li class="novel-item{% if n.cover %} has-cover{% endif %}">
     <a href="{{ '/novel/' | append: n.slug | append: '/' | prepend: site.baseurl }}">
-      <span class="ni-index">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
+      {% if n.cover %}<img class="ni-cover" src="{{ n.cover | prepend: site.baseurl }}" alt="" width="120" height="180" loading="lazy" decoding="async">{% else %}<span class="ni-index">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>{% endif %}
       <span class="ni-body">
         <span class="ni-title">{{ n.title }}</span>
         {% if n.tagline %}<span class="ni-tagline">{{ n.tagline }}</span>{% endif %}
