@@ -15,8 +15,9 @@
 
       {%- assign siblings = site.novel | where_exp: 'c', 'c.chapter' | where: 'novel', page.novel | sort: 'chapter' -%}
       {%- assign total = siblings | size -%}
+      {%- assign novel_meta = site.data.novels | where: 'slug', page.novel | first -%}
 
-      <article id="novel-chapter" data-pagefind-body data-pagefind-meta="novel:{{ page.novel_title }}">
+      <article id="novel-chapter" data-pagefind-body data-pagefind-meta="novel:{{ page.novel_title }}" data-novel="{{ page.novel }}" data-chapter="{{ page.chapter }}" data-chapter-title="{{ page.title | escape }}" data-chapter-url="{{ page.url | prepend: site.baseurl }}">
         <div class="reading">
 
           <div class="reading-top" data-pagefind-ignore>
@@ -34,10 +35,28 @@
 
           {%- if page.audio -%}
           <div class="chapter-audio-wrap" data-pagefind-ignore>
-            <p class="chapter-audio-label">Nghe chương này</p>
-            <audio class="chapter-audio" controls preload="none" src="{{ page.audio | prepend: site.baseurl }}">
-              Trình duyệt không phát được mp3. <a href="{{ page.audio | prepend: site.baseurl }}">Tải file nghe</a>.
+            <div class="chapter-audio-head">
+              <p class="chapter-audio-label">{{ page.title }}</p>
+              <label class="chapter-audio-autonext">
+                <input type="checkbox" id="chapter-autonext" checked>
+                <span>Tự sang sau</span>
+              </label>
+            </div>
+            <audio class="chapter-audio" controls preload="none" playsinline webkit-playsinline src="{{ page.audio | prepend: site.baseurl }}">
+              Trình duyệt không phát được mp3. <a class="chapter-audio-dl" href="{{ page.audio | prepend: site.baseurl }}">Tải file nghe</a>.
             </audio>
+            <script type="application/json" id="novel-audio-queue">
+[
+{%- assign qfirst = true -%}
+{%- for ch in siblings -%}
+{%- if ch.audio -%}
+{%- unless qfirst -%},{%- endunless -%}
+{"n":{{ ch.chapter }},"title":{{ ch.title | jsonify }},"url":{{ ch.url | prepend: site.baseurl | jsonify }},"src":{{ ch.audio | prepend: site.baseurl | jsonify }}}
+{%- assign qfirst = false -%}
+{%- endif -%}
+{%- endfor -%}
+]
+            </script>
           </div>
           {%- endif -%}
 
@@ -112,9 +131,30 @@
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll, { passive: true });
         window.addEventListener('pagehide', save);
+        document.addEventListener('novel:chapter', function (e) {
+          var d = e.detail || {};
+          if (d.n != null) mark.chapter = d.n;
+          if (d.url) mark.url = d.url;
+          if (d.title) mark.title = d.title;
+          save();
+        });
         update();
       })();
       </script>
+      {%- if page.audio -%}
+      <script src="{{ '/js/novel-audio.js' | prepend: site.baseurl }}"></script>
+      <script>
+      if (window.hoangNovelAudio) {
+        window.hoangNovelAudio.init({
+          novel: {{ page.novel | jsonify }},
+          novelTitle: {{ page.novel_title | jsonify }},
+          chapter: {{ page.chapter | jsonify }},
+          total: {{ total | jsonify }},
+          cover: {% if novel_meta.cover %}{{ novel_meta.cover | prepend: site.baseurl | jsonify }}{% else %}""{% endif %}
+        });
+      }
+      </script>
+      {%- endif -%}
 
     </div>
 
