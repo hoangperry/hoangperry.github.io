@@ -10,22 +10,23 @@
 
     Từ con hẻm ấy, Hoàng dựng ba trụ cột: AI tầm cỡ quốc tế, hàng không chiến lược, và văn hoá Việt ra thế giới, để người tài không còn phải rời đi. Câu hỏi anh luôn trốn: anh đang tự định hướng, hay đang lệ thuộc vào Hệ thống?
   status: Hoàn thành
+  cover: "/images/novel/ma-nguon-nguoc-dong/cover.webp"
 - slug: vet-nang-tren-them-cua
   title: Vệt Nắng Trên Thềm Cửa
-  chapters: 50
+  chapters: 64
   tagline: Hiện thực đời thường. Một kiếp chó cỏ trên bậc thềm xóm nghèo.
   synopsis: |
     Mi là chó cỏ vàng, nhìn thế giới ngang đầu gối. Từ sọt tre góc chợ huyện, chú được cậu út bế về căn nhà xiêu vẹo, nằm trong vệt nắng chiều trên bậc thềm xi măng nứt.
 
     Rồi nợ nần, rượu, và những đôi chân lần lượt bước qua cổng rỉ sét. Mi không hiểu cơm áo. Chú chỉ giữ mùi người thân, giữ bậc thềm, và chờ một bước chân quen trở lại.
 
-    Văn hiện thực, góc nhìn loài vật, không phép màu. Có bản nghe đủ 50 chương.
+    Văn hiện thực, góc nhìn loài vật, không phép màu. Có bản nghe 50 chương; phần sau đang cập nhật.
   status: Đang cập nhật
   audio: true
   cover: "/images/novel/vet-nang-tren-them-cua/cover.webp"
 - slug: long-mach-so
   title: Thầy Cúng Chạy Bằng Cơm
-  chapters: 195
+  chapters: 210
   tagline: Hài đen công sở. Thầy phong thủy chạy bằng kiến trúc máy chủ.
   synopsis: |
     Trần Khải là kỹ sư IT thất nghiệp, bị gắn cờ đen sau một vụ rò rỉ dữ liệu. Để trả nợ và giữ nghề, anh khoác áo "chuyên gia phong thủy công nghệ" ở Tân Phú Cường — một thung lũng startup nơi sếp tin bùa hơn tin log.
@@ -48,3 +49,4 @@
     Crime thriller hiện thực, đấu trí ba phía giữa giám định viên, kẻ tống tiền, và công an hình sự TP.HCM.
   status: Hoàn thành
   audio: true
+  cover: "/images/novel/dieu-khoan-cuoi/cover.webp"
