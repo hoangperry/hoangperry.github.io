@@ -1,0 +1,16 @@
+---
+layout: default
+---
+{% comment %}
+  How Things Work article shell. The site header, page title and footer come
+  from the default layout; the article body (page content) holds the model
+  root with its story, reader/explore slots and console. This section sets no
+  overflow on purpose: the reader figure is position: sticky, and any clipping
+  ancestor between it and the viewport would silently disable that.
+{% endcomment %}
+<section class="wrapper style5 htw-article-wrap">
+  <div class="inner{% if page.options contains 'fullwidth' %} fullwidth{% endif %} htw-article">
+    <p class="htw-trail"><a href="{{ '/how-things-work/' | relative_url }}"><span aria-hidden="true">&larr;</span> How Things Work</a><span class="htw-trail-sub">Cơ chế của những điều quen thuộc</span></p>
+    {{ content }}
+  </div>
+</section>

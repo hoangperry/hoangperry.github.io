@@ -40,6 +40,7 @@
   <ul class="menu-utility">
     <li><a href="{{ '/index.html#greeting' | prepend: site.baseurl }}"{% if page.layout == 'landing' %} aria-current="page" class="is-current"{% endif %}>Home</a></li>
     <li><a href="{{ '/works/' | prepend: site.baseurl }}"{% if page.url == '/works/' %} aria-current="page" class="is-current"{% endif %}>Works</a></li>
+    <li><a href="{{ '/how-things-work/' | prepend: site.baseurl }}"{% if page.url == '/how-things-work/' %} aria-current="page" class="is-current"{% elsif page.url contains '/how-things-work/' %} aria-current="location" class="is-current"{% endif %}>How Things Work</a></li>
     <li><a href="{{ '/log/' | prepend: site.baseurl }}"{% if page.url == '/log/' %} aria-current="page" class="is-current"{% endif %}>Logbook</a></li>
     <li><a href="{{ '/resume/' | prepend: site.baseurl }}"{% if page.url == '/resume/' %} aria-current="page" class="is-current"{% endif %}>Resume</a></li>
     <li><a href="{{ '/contact/' | prepend: site.baseurl }}"{% if page.url == '/contact/' %} aria-current="page" class="is-current"{% endif %}>Contact</a></li>

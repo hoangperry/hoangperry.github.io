@@ -1,0 +1,38 @@
+---
+title: How Things Work
+permalink: /how-things-work/
+lang: vi
+excerpt: "Cơ chế của những điều quen thuộc. Mỗi bài giải thích một cơ chế bằng những đoạn ngắn và một mô hình bạn có thể tự thử."
+social-image: /assets/how-things-work/c-41/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+---
+
+<div class="htw-hub">
+  <section class="htw-hub-intro" aria-labelledby="htw-hub-about">
+    <p class="htw-kicker">Thư viện · tiếng Việt</p>
+    <h2 id="htw-hub-about">Nhìn vào bên trong, rồi tự thử</h2>
+    <p>Từ máy móc, mạch điện đến phần mềm, có nhiều thứ ta dùng hằng ngày mà chưa hiểu chúng hoạt động thế nào. Mỗi bài ở đây chọn một cơ chế, kể lại bằng những đoạn ngắn cho người chưa biết gì về nó, và đặt cạnh lời kể một mô hình vẽ cắt mở. Khi bạn đọc tới bộ phận nào, hình sẽ hướng tới bộ phận đó. Đọc hết phần giải thích, bạn có thể tự điều khiển chính mô hình ấy.</p>
+    <p>Bạn không cần kiến thức chuyên môn. Thuật ngữ được giải thích ở lần đầu xuất hiện, và mỗi bài ghi rõ nguồn tham khảo cùng những chỗ mô hình đã giản lược.</p>
+  </section>
+
+  <section class="htw-hub-list" aria-labelledby="htw-hub-articles">
+    <h2 id="htw-hub-articles" class="htw-hub-list-title">Các bài</h2>
+    <ol class="htw-entries">{% for entry in site.data.how_things_work %}
+      <li class="htw-entry">
+        <a class="htw-entry-link" href="{{ entry.url | relative_url }}">
+          <span class="htw-entry-media">
+            <img src="{{ entry.thumbnail | relative_url }}" alt="" loading="lazy" decoding="async" />
+          </span>
+          <span class="htw-entry-body">
+            <span class="htw-entry-meta"><span class="htw-entry-num">{{ entry.number }}</span>{{ entry.subjects }}</span>
+            <span class="htw-entry-title">{{ entry.title }}</span>
+            <span class="htw-entry-summary">{{ entry.summary }}</span>
+            <span class="htw-entry-cta">Đọc bài <span aria-hidden="true">&rarr;</span></span>
+          </span>
+        </a>
+      </li>{% endfor %}
+    </ol>
+    <p class="htw-hub-note">Thư viện mới bắt đầu, hiện có một bài. Bài mới chỉ được thêm khi đã viết xong và có mô hình thật đi kèm.</p>
+  </section>
+</div>
