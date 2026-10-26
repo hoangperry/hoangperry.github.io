@@ -1,0 +1,10 @@
+# How Things Work — the library index rendered by _pages/how-things-work.html.
+# One entry per published article. Add an entry only when its page and its
+# generated model package actually exist; the hub never shows empty slots.
+- id: c-41
+  number: "01"
+  url: /how-things-work/c-41/
+  title: "Máy tráng phim C‑41 hoạt động thế nào?"
+  subjects: "Nhiếp ảnh · Máy móc"
+  summary: "Đi cùng một cuộn phim màu qua máy tráng: vì sao phải kín sáng, thuốc hiện tạo ra màu thế nào, tẩy bạc và định hình làm gì, rồi tự thử trên chính cỗ máy đó."
+  thumbnail: /assets/how-things-work/c-41/thumbnail.webp

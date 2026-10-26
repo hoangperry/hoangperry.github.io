@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "topic": "c-41",
+  "sourceDigest": "3184083331e98e41572ef82fac7502e622862eea0f1bd33a01dd2163084e1c40",
+  "files": {
+    "_includes/how-things-work/c-41-console.html": "7465de78560c465a8bedb7bf982209001b4dd79914e1c8a739f7f2d3119f874d",
+    "_includes/how-things-work/c-41-scene.html": "1d9bc5060326810b69e564da53db030365d2740bed4d3e4b1fc20c3de7efd8fc",
+    "assets/how-things-work/c-41/NOTICE.txt": "2361dc571feb5b7c10ba713daf08e0afb281ec5c5608587de3316aced027f534",
+    "assets/how-things-work/c-41/c41.css": "f8c12ebe7065ac6a5bf52c5358246fcb84c4dd522121524ea8340b183d0984c9",
+    "assets/how-things-work/c-41/c41.js": "550b7aaf0a9557170100b30a6bdd6933164ad649d82adf22fba6a0de611fdd63",
+    "assets/how-things-work/c-41/thumbnail.webp": "a7e44ff8c1e6afa4303834b87e4ee5ec1051f6d919233f8705886912ec6f9201"
+  }
+}

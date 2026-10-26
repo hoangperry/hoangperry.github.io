@@ -39,10 +39,16 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Test How Things Work validator
+        run: node --test scripts/check-how-things-work.test.mjs
+
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+
+      - name: Validate How Things Work export and routes
+        run: node scripts/check-how-things-work.mjs --site _site --baseurl "${{ steps.pages.outputs.base_path }}"
 
       # Index the novels for client-side full-text search. Runs against the
       # built _site so the /pagefind/ bundle ships inside the same artifact.

@@ -1,0 +1,220 @@
+---
+title: "Máy tráng phim C‑41 hoạt động thế nào?"
+permalink: /how-things-work/c-41/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Đi cùng một cuộn phim màu qua máy tráng C‑41: vì sao phải kín sáng, thuốc hiện tạo ra màu thế nào, tẩy bạc và định hình làm gì, rồi tự thử trên chính cỗ máy ấy."
+social-image: /assets/how-things-work/c-41/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /assets/how-things-work/c-41/c41.css
+script-includes:
+  - /assets/how-things-work/c-41/c41.js
+# Status probe only: reports whether the model runtime attached itself to the
+# root (root.htwC41), so the page never claims an interactive model that did
+# not load. It does not mount, schedule, scroll or change the model.
+script: |
+  (function () {
+    var root = document.querySelector('.htw-c41[data-htw-figure="c-41"]');
+    if (!root) return;
+    var status = root.querySelector('[data-htw-status]');
+    function settle(final) {
+      if (root.htwC41) {
+        root.setAttribute('data-htw-runtime', 'ready');
+        if (status) status.hidden = true;
+        return true;
+      }
+      if (final) {
+        root.setAttribute('data-htw-runtime', 'failed');
+        if (status) {
+          status.textContent = 'Không tải được phần tương tác của mô hình. Bạn vẫn đọc được toàn bộ bài và phần nguồn bên dưới; hình máy có thể chỉ hiện ở dạng tĩnh.';
+          status.hidden = false;
+        }
+      }
+      return false;
+    }
+    if (status) status.hidden = false;
+    if (settle(false)) return;
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!settle(false)) window.addEventListener('load', function () { settle(true); }, { once: true });
+    }, { once: true });
+  })();
+---
+
+<div class="htw-c41 iso" data-htw-figure="c-41" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-htw-reader-slot>
+      {% include how-things-work/c-41-scene.html %}
+      <div class="htw-reader-bar">
+        <p class="htw-status" data-htw-status role="status" hidden>Đang tải mô hình tương tác. Bài viết vẫn đọc được trong lúc chờ.</p>
+        <noscript><p class="htw-status">JavaScript đang tắt: hình máy chỉ hiện ở dạng tĩnh, không đổi góc nhìn theo đoạn đọc và phần Tự thử không hoạt động. Toàn bộ bài viết vẫn đọc được.</p></noscript>
+        <button type="button" class="htw-collapse" data-htw-collapse aria-expanded="true" aria-controls="machine-scene"><span class="htw-collapse-name">Hình máy C‑41</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+
+    <div class="htw-story" data-htw-story>
+      <nav class="htw-toc" aria-label="Các phần của bài">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#tu-cuon-phim-den-am-ban">Từ cuộn phim đến dải âm bản</a></li>
+            <li><a href="#anh-tiem-an">Ảnh tiềm ẩn</a></li>
+            <li><a href="#nap-phim">Nạp phim kín sáng</a></li>
+            <li><a href="#duong-di-cua-phim">Con lăn dẫn đường</a></li>
+            <li><a href="#hien-mau">Hiện màu</a></li>
+            <li><a href="#nhiet-va-tuan-hoan">Nhiệt độ và tuần hoàn</a></li>
+            <li><a href="#tay-bac">Tẩy bạc</a></li>
+            <li><a href="#dinh-hinh">Định hình</a></li>
+            <li><a href="#rua-va-trang-cuoi">Rửa và tráng cuối</a></li>
+            <li><a href="#say-kho">Sấy khô</a></li>
+            <li><a href="#cham-bu">Châm bù</a></li>
+            <li><a href="#am-ban-khong-phai-anh-so">Âm bản và scan</a></li>
+            <li><a href="#try">Tự thử</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="tu-cuon-phim-den-am-ban" class="htw-step" data-htw-step="all" aria-labelledby="tu-cuon-phim-den-am-ban-h">
+        <p class="htw-step-label">01 · Toàn máy</p>
+        <h2 id="tu-cuon-phim-den-am-ban-h" tabindex="-1">Từ cuộn phim đến dải âm bản</h2>
+        <p>Khi mang một cuộn phim màu ra tiệm tráng, thứ bạn nhận lại trước tiên là một dải phim trong, nền cam nhạt, trên đó các khung hình có màu đảo ngược. Đó là <dfn>âm bản</dfn>: chỗ sáng trong cảnh thành chỗ tối trên phim, màu đỏ hiện thành xanh lơ.</p>
+        <p>Giữa cuộn phim và dải âm bản là một cỗ máy kéo phim lần lượt qua nhiều bể dung dịch, mỗi bể làm đúng một việc. Chuỗi bước hóa học mà máy thực hiện có tên <dfn>C‑41</dfn>, quy trình chuẩn cho phim âm bản màu. Bài này đi cùng dải phim từ đầu tới cuối.</p>
+        <aside class="htw-figure-note" aria-labelledby="htw-figure-note-title">
+          <p class="htw-figure-note-title" id="htw-figure-note-title">Cách đọc hình</p>
+          <ul>
+            <li>Mặt trước máy được vẽ cắt mở để bạn nhìn vào trong. Máy thật kín hoàn toàn cho tới khi phim định hình xong.</li>
+            <li>Dải phim viền đứt là đường đi xem trước. Chỉ đoạn viền liền trong hộp nạp mới là phim thật của mô hình.</li>
+            <li>Màu của bể, ống và bình chỉ để nhận ra bộ phận. Đó không phải màu thật của dung dịch Kodak, cũng không cho biết hóa chất tốt hay xấu.</li>
+            <li>Cuộn trang chỉ đổi góc nhìn. Nó không đổ dung dịch, không bật nhiệt và không đưa phim qua máy; trạng thái thật của mô hình nằm ở phần Tự thử. Tiến độ xem trước không phải thời gian tráng, và các liên động là cơ chế minh họa của mô hình, không phải bản vẽ của một máy thương mại.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="anh-tiem-an" class="htw-step" data-htw-step="loading" aria-labelledby="anh-tiem-an-h">
+        <p class="htw-step-label">02 · Trước khi tráng</p>
+        <h2 id="anh-tiem-an-h" tabindex="-1">Ảnh tiềm ẩn: đã chụp nhưng chưa thấy</h2>
+        <p>Mặt phim phủ một lớp rất mỏng gọi là <dfn>nhũ tương</dfn>: vô số tinh thể <dfn>bạc halide</dfn>, một loại muối bạc nhạy sáng, rải trong lớp gelatin. Lúc bạn bấm máy, ánh sáng chỉ kịp tạo ra vài cụm nguyên tử bạc li ti trên những tinh thể nhận sáng. Thay đổi đó nhỏ tới mức mắt không thấy được, nên người ta gọi nó là <dfn>ảnh tiềm ẩn</dfn>.</p>
+        <p>Việc của hóa chất tráng phim là khuếch đại những dấu vết li ti ấy thành một hình ảnh thật. Trước khi được tráng, cả cuộn phim vẫn nhạy sáng như lúc chưa chụp. Chỉ một chút ánh sáng lọt vào cũng đủ làm khung hình mờ, cháy hoặc ám màu. Hiện tượng này gọi là <dfn>lộ sáng</dfn>, tiếng Anh là fog.</p>
+      </section>
+
+      <section id="nap-phim" class="htw-step" data-htw-step="loading" aria-labelledby="nap-phim-h">
+        <p class="htw-step-label">03 · Hộp nạp</p>
+        <h2 id="nap-phim-h" tabindex="-1">Nạp phim mà không để lọt sáng</h2>
+        <p>Vì vậy, việc đầu tiên là đưa phim vào máy mà không để nó gặp ánh sáng. Phim 135 nằm trong một vỏ nhỏ gọi là <dfn>cassette</dfn>, che kín phần phim bên trong. Người vận hành chỉ chuẩn bị đoạn đầu phim bỏ đi và nối nó vào một <dfn>thẻ dẫn</dfn>, miếng dẫn cứng giúp con lăn kéo dải phim mềm đi đúng đường. Sau đó nắp đóng lại; gioăng và <dfn>bẫy sáng</dfn>, một khe gấp khúc cho phim đi qua nhưng ánh sáng không theo vào được, giữ cho buồng nạp tối.</p>
+        <p>Nếu mở nắp khi đoạn phim có ảnh đã ra khỏi cassette, cuộn phim bị lộ sáng, và đóng nắp lại cũng không sửa được. Một điều hay bị nhầm: đèn đỏ trong phòng tối đen trắng không an toàn cho phim màu, vì phim màu nhạy cả với ánh sáng đỏ.</p>
+      </section>
+
+      <section id="duong-di-cua-phim" class="htw-step" data-htw-step="all" aria-labelledby="duong-di-cua-phim-h">
+        <p class="htw-step-label">04 · Đường đi của phim</p>
+        <h2 id="duong-di-cua-phim-h" tabindex="-1">Con lăn dẫn đường</h2>
+        <p>Bên trong máy, phim được kéo bởi các <dfn>giá con lăn</dfn>: những khung đặt chìm trong từng bể, mang các cặp con lăn quay cùng nhịp nhờ một trục truyền động phía trên. Dải phim đi xuống, vòng qua con lăn dưới đáy rồi đi lên, thành hình chữ U trong mỗi bể, sau đó vượt qua vách sang bể kế tiếp.</p>
+        <p>Máy không bấm giờ riêng cho từng bể. Thời gian phim ngâm trong một bể, gọi là <dfn>thời gian lưu</dfn>, bằng chiều dài đường đi trong bể chia cho tốc độ kéo phim. Muốn bể nào ngâm lâu hơn thì đường chữ U ở đó phải dài hơn, hoặc cả dải phải chạy chậm lại.</p>
+      </section>
+
+      <section id="hien-mau" class="htw-step" data-htw-step="developer" aria-labelledby="hien-mau-h">
+        <p class="htw-step-label">05 · Bể hiện màu</p>
+        <h2 id="hien-mau-h" tabindex="-1">Hiện màu: nơi hình ảnh xuất hiện</h2>
+        <p>Bể đầu tiên chứa <dfn>thuốc hiện màu</dfn>. Ở những tinh thể mang ảnh tiềm ẩn, thuốc hiện biến muối bạc thành bạc kim loại. Trong phản ứng đó, chính thuốc hiện bị <dfn>oxy hóa</dfn>, tức là bị biến đổi khi nhường electron cho bạc. Phần thuốc hiện đã oxy hóa gặp các <dfn>chất tạo màu</dfn> (coupler) được trộn sẵn trong phim và cùng nhau sinh ra <dfn>thuốc nhuộm</dfn>.</p>
+        <p>Các lớp nhạy sáng trong phim màu được tổ chức theo ba nhóm màu chính: lớp nhạy ánh sáng xanh lam tạo thuốc nhuộm vàng, lớp nhạy xanh lục tạo đỏ tím, lớp nhạy đỏ tạo xanh lơ. Mỗi thuốc nhuộm mang màu bù của thứ ánh sáng đã chạm tới lớp đó, vì thế ảnh trên phim là âm bản. Nền cam nhạt của âm bản là một mặt nạ màu thiết kế sẵn trong phim, giúp bù sai lệch của thuốc nhuộm khi in hoặc scan về sau.</p>
+        <p>Ra khỏi bể này, phim vẫn tối sẫm vì mang cả bạc kim loại lẫn thuốc nhuộm. Tài liệu Kodak Z‑131 ghi mốc tham chiếu cho bước hiện màu là 37,8 ± 0,15 °C trong 3 phút 15 giây; máy và hóa chất cụ thể có thể dùng thông số khác.</p>
+      </section>
+
+      <section id="nhiet-va-tuan-hoan" class="htw-step" data-htw-step="developer" aria-labelledby="nhiet-va-tuan-hoan-h">
+        <p class="htw-step-label">06 · Nhiệt và tuần hoàn</p>
+        <h2 id="nhiet-va-tuan-hoan-h" tabindex="-1">Vì sao bể hiện phải ấm và đều</h2>
+        <p>Phản ứng hiện màu rất nhạy với nhiệt độ. Theo Kodak, bể nóng hơn mốc tạo ra nhiều thuốc nhuộm hơn, bể nguội hơn tạo ra ít hơn, và màu trên phim lệch theo. Vì thế trong bể hiện có một <dfn>thanh nhiệt</dfn>, một <dfn>đầu dò</dfn> đo nhiệt độ dung dịch, và một <dfn>bộ điều nhiệt</dfn> bật tắt thanh nhiệt để giữ dung dịch quanh mốc đặt. Máy chỉ giữ ấm, không đun sôi.</p>
+        <p>Nhiệt chỉ đều khi dung dịch được trộn. Một <dfn>bơm tuần hoàn</dfn> hút dung dịch qua bộ lọc rồi trả lại bể; dòng chảy vừa giữ nhiệt độ đồng đều, vừa liên tục thay lớp dung dịch sát mặt phim bằng dung dịch mới. Đèn “sẵn sàng” trong mô hình chỉ báo các điều kiện vận hành được kiểm tra, như mức dung dịch, nhiệt độ và tuần hoàn; nó không chứng minh hóa chất còn đạt chất lượng. Phòng lab thật còn kiểm tra bằng nhiệt kế chính xác và <dfn>dải kiểm tra</dfn> (control strip): mẩu phim đã được phơi sáng chuẩn, cho chạy qua máy rồi đo lại để biết quy trình có lệch hay không.</p>
+      </section>
+
+      <section id="tay-bac" class="htw-step" data-htw-step="bleach" aria-labelledby="tay-bac-h">
+        <p class="htw-step-label">07 · Bể tẩy</p>
+        <h2 id="tay-bac-h" tabindex="-1">Tẩy bạc: dọn bạc, giữ lại màu</h2>
+        <p>Sau bể hiện, trên phim có hai thứ chồng lên nhau: thuốc nhuộm màu mà ta cần, và bạc kim loại màu đen mà ta không cần. <dfn>Thuốc tẩy</dfn> (bleach) oxy hóa bạc kim loại, đưa nó trở lại thành muối bạc để bước sau hòa tan được.</p>
+        <p>Cái tên dễ gây hiểu lầm: “tẩy” ở đây là tẩy bạc, không phải tẩy màu. Thuốc nhuộm vẫn nằm nguyên trong phim. Mỗi bể cũng có nhu cầu riêng: Kodak lưu ý bể tẩy cần được khuấy hoặc sục khí phù hợp để giữ khả năng tẩy, trong khi thuốc hiện thì không được khuấy bằng không khí.</p>
+      </section>
+
+      <section id="dinh-hinh" class="htw-step" data-htw-step="fix" aria-labelledby="dinh-hinh-h">
+        <p class="htw-step-label">08 · Bể định hình</p>
+        <h2 id="dinh-hinh-h" tabindex="-1">Định hình: lúc phim hết sợ ánh sáng</h2>
+        <p><dfn>Thuốc định hình</dfn> (fixer) hòa tan mọi muối bạc còn lại thành hợp chất tan trong nước: cả những tinh thể chưa từng nhận sáng, lẫn phần muối bạc vừa được tạo ra ở bể tẩy. Khi bước này xong, trên phim chủ yếu chỉ còn thuốc nhuộm và không còn gì nhạy sáng.</p>
+        <p>Đó là lý do mọi quy tắc kín sáng kéo dài tới tận đây. Chỉ khi định hình hoàn tất, phim mới an toàn với ánh sáng; phim vừa chạm vào bể định hình thì chưa. Mô hình trong bài theo đúng quy ước này: phim chỉ được coi là an toàn ánh sáng từ bước rửa trở đi. Dung dịch định hình đã dùng có chứa bạc, nên phải được thu gom và xử lý theo quy định, không đổ ra cống.</p>
+      </section>
+
+      <section id="rua-va-trang-cuoi" class="htw-step" data-htw-step="rinse" aria-labelledby="rua-va-trang-cuoi-h">
+        <p class="htw-step-label">09 · Rửa và tráng cuối</p>
+        <h2 id="rua-va-trang-cuoi-h" tabindex="-1">Rửa sạch, rồi tráng cuối</h2>
+        <p>Mỗi lần đi từ bể này sang bể kia, phim kéo theo một lớp dung dịch cũ; hiện tượng này gọi là <dfn>carryover</dfn>. Con lăn gạt bớt dung dịch ở chỗ chuyển bể, và các bước rửa loại phần hóa chất còn dính trên phim. Sau cùng là <dfn>tráng cuối</dfn> (final rinse) bằng dung dịch của đúng hệ hóa chất, giúp mặt phim khô đều và ít vết nước.</p>
+        <p>Hình vẽ gộp phần này thành một bể cho dễ nhìn. Máy thật thường có nhiều ngăn nối tiếp: hệ C‑41RA trong tài liệu Kodak cho phim định hình qua hai ngăn và tráng cuối qua ba ngăn nối <dfn>ngược dòng</dfn>. Nghĩa là dung dịch mới vào ngăn cuối rồi chảy ngược về phía phim đi tới, nên phim càng gần cuối càng gặp dung dịch sạch hơn.</p>
+      </section>
+
+      <section id="say-kho" class="htw-step" data-htw-step="dry" aria-labelledby="say-kho-h">
+        <p class="htw-step-label">10 · Buồng sấy</p>
+        <h2 id="say-kho-h" tabindex="-1">Sấy khô</h2>
+        <p>Chặng cuối trong máy là buồng sấy. Quạt thổi không khí ấm đã qua lọc dọc theo dải phim để nước bay hơi đều, rồi phim đi ra khay nhận ở đầu kia. Không khí phải sạch vì nhũ tương còn mềm khi ướt: hạt bụi bám vào lúc này có thể dính chặt hoặc để lại vết trên âm bản.</p>
+      </section>
+
+      <section id="cham-bu" class="htw-step" data-htw-step="replenishment" aria-labelledby="cham-bu-h">
+        <p class="htw-step-label">11 · Châm bù</p>
+        <h2 id="cham-bu-h" tabindex="-1">Châm bù: giữ bể ổn định khi làm việc</h2>
+        <p>Mỗi cuộn đi qua lấy đi một ít thành phần của thuốc hiện và để lại sản phẩm phụ trong bể. Nếu không làm gì, cuộn thứ một trăm sẽ gặp một bể yếu hơn cuộn đầu tiên. Máy giải quyết bằng <dfn>châm bù</dfn>: một bơm định lượng đưa <dfn>replenisher</dfn>, dung dịch bổ sung đã pha sẵn trong bình riêng, vào bể theo lượng phim đã xử lý chứ không theo vạch mức. Phần dư tràn qua gờ sang bình thu gom.</p>
+        <p>Có ba thứ hay bị gọi chung là “thuốc”. <dfn>Dung dịch làm việc</dfn> (working solution) là thứ thật sự nằm trong bể và chạm vào phim. Replenisher là thứ châm thêm trong lúc máy làm việc. <dfn>Starter</dfn> chỉ dùng khi pha một bể mới với một số loại replenisher, không phải thứ châm sau mỗi cuộn. Lượng châm thật phụ thuộc loại phim, độ phơi sáng và hỗn hợp phim đi qua máy; bảng của Kodak chỉ đưa ra mức khởi điểm cho từng sản phẩm trong một cấu hình cụ thể, không có liều chung cho mọi cuộn hay mọi máy.</p>
+      </section>
+
+      <section id="am-ban-khong-phai-anh-so" class="htw-step" data-htw-step="all" aria-labelledby="am-ban-khong-phai-anh-so-h">
+        <p class="htw-step-label">12 · Đầu ra</p>
+        <h2 id="am-ban-khong-phai-anh-so-h" tabindex="-1">Thứ bạn nhận về: âm bản, chưa phải ảnh số</h2>
+        <p>Đầu ra của máy tráng là một dải âm bản khô. Máy không in ảnh và cũng không tạo ra tệp ảnh. Muốn xem ảnh trên điện thoại, âm bản phải được <dfn>scan</dfn>: máy quét chụp lại từng khung, rồi phần mềm đảo màu và loại nền cam để ra ảnh dương bản. Muốn có ảnh giấy, âm bản được phóng hoặc in qua một quy trình khác.</p>
+        <p>Vì vậy, khi một cuộn phim “ra màu lạ”, nguyên nhân có thể nằm ở lúc chụp, ở các bể tráng hoặc ở bước scan. Hiểu cỗ máy giúp bạn biết nên hỏi phòng lab câu gì.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="try" class="htw-try" aria-labelledby="try-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="try-h" tabindex="-1">Tự thử trên chính cỗ máy này</h2>
+      <p>Phần giải thích dừng ở đây. Khi bạn mở chế độ tự thử, cỗ máy phía trên chuyển xuống phần này cùng bảng điều khiển đầy đủ. Vẫn là một máy, không có bản sao, và quay lại bài đọc không xóa những gì bạn đã làm.</p>
+      <ul class="htw-try-list">
+        <li><strong>Xem trước đường đi.</strong> Chọn công đoạn, kéo thanh tiến độ hoặc cho tự chạy để theo dải phim qua sáu công đoạn. Đây là đường đi minh họa, không phải đồng hồ tráng.</li>
+        <li><strong>Nạp phim.</strong> Đặt cassette, nối thẻ dẫn, đóng nắp; thử mở nắp sai lúc để thấy cuộn bị lộ sáng.</li>
+        <li><strong>Chuẩn bị bể hiện.</strong> Nạp dung dịch làm việc, bật tuần hoàn, gia nhiệt và xem nhiệt độ tăng dần theo mô hình.</li>
+        <li><strong>Châm bù.</strong> Ghi số cuộn đã xử lý và xem bơm chuyển replenisher, phần dư đi vào bình thu gom. Liều ở đây lấy từ một hồ sơ hóa chất có nguồn và chỉ đúng cho sản phẩm, khổ phim được ghi kèm.</li>
+        <li><strong>Sự cố.</strong> Thử các tình huống như quá nhiệt, bay hơi, oxy hóa hay nhiễm chéo để thấy vì sao không lỗi nào được chữa bằng một đèn “sẵn sàng”.</li>
+      </ul>
+      <p class="htw-try-note">Bể hiện trong mô hình bắt đầu trống. Các con số về nhiệt, dung tích và tốc độ bơm là giả định để học, được ghi rõ ở phần nguồn bên dưới.</p>
+      <p class="htw-try-fallback">Phần tự thử cần JavaScript và tệp mô hình của trang. Nếu nút mở không xuất hiện, mô hình chưa tải được; bài viết và nguồn vẫn đầy đủ.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-htw-mode="explore">Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-htw-explore-slot></div>
+      <div class="htw-explore-controls" data-htw-explore-controls hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-htw-mode="reader">Quay lại bài đọc</button></p>
+        {% include how-things-work/c-41-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="nguon-va-gioi-han" class="htw-sources" aria-labelledby="nguon-va-gioi-han-h">
+  <h2 id="nguon-va-gioi-han-h">Nguồn, giả định và giới hạn</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li><a href="https://business.kodakmoments.com/sites/default/files/wysiwyg/pro/chemistry/z131.pdf" target="_blank" rel="noopener noreferrer">Kodak Z‑131: Using KODAK FLEXICOLOR Chemicals</a>. Nhiệt độ và thời gian hiện màu: trang 4‑1, bảng 4‑1. Tuần hoàn, lọc và không khuấy thuốc hiện bằng không khí: trang 2‑2; sục khí bể tẩy: trang 2‑12. Carryover và các yếu tố quyết định mức châm: trang 2‑3. Replenisher và starter: trang 1‑2, 1‑5. Mức châm khởi điểm: trang 4‑1, bảng 4‑2. Ảnh hưởng của nhiệt độ tới thuốc nhuộm: trang 5‑29; dải kiểm tra: Section 5.</li>
+        <li><a href="https://asset.fujifilm.com/www/cz/files/2020-11/233b5409ee4420f9315b4d991121893b/TB_C41_E01_10-20.pdf" target="_blank" rel="noopener noreferrer">Fujifilm: Process C‑41 technical bulletin</a>.</li>
+      </ul>
+      <p>Z‑131 là tài liệu tham chiếu đã cũ. Tên sản phẩm, quy cách và hướng dẫn trên bao bì hoặc bảng dữ liệu an toàn (SDS) hiện hành vẫn phải được kiểm tra khi vận hành thật.</p>
+    </div>
+    <div>
+      <h3>Giả định của mô hình</h3>
+      <p>Bể hiện 2 L, bình bổ sung 1 L, môi trường 22 °C, thanh nhiệt 400 W, thất thoát nhiệt 2 W/K, ngưỡng gia nhiệt 1.500 mL, bơm định lượng 0,5 mL/s và đồng hồ tăng tốc ×30 đều là giả định giáo dục, không phải thông số của một máy Kodak. Việc chỉ cho gia nhiệt khi bể đủ dung dịch và đang tuần hoàn là liên động của mô hình; không phải máy thật nào cũng có đúng liên động đó.</p>
+      <p>Mô hình không tính mật độ, độ tương phản hay cân bằng màu, và không dự đoán tuổi thọ hóa chất. Hình đã giản lược các bể rửa trung gian và các bể lặp. Đây là tài liệu để hiểu cơ chế, không phải hướng dẫn vận hành hay công thức pha hóa chất.</p>
+    </div>
+    <div>
+      <h3>An toàn</h3>
+      <p>Hóa chất tráng phim cần được dùng theo nhãn và SDS của sản phẩm: kính chống văng, găng tương thích và thông gió phù hợp. Không đổ lẫn các bể với nhau hoặc với chất tẩy rửa gia dụng. Dung dịch đã dùng, nhất là dòng chứa bạc từ bể định hình, phải được thu gom theo quy định địa phương.</p>
+    </div>
+  </div>
+</section>

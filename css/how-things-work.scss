@@ -1,0 +1,529 @@
+---
+---
+
+/* Page styles for the How Things Work hub and articles. Loaded only through
+   the style-includes hook of those pages; it never styles the rest of the site.
+   The machine itself (SVG, scene chrome, console) is styled by the generated
+   /assets/how-things-work/<topic>/*.css, which loads after this file. */
+
+/* ============================================================
+   How Things Work :: library hub + guided article layout.
+   Uses the profile's world tokens (whichever world the reader has
+   chosen; articles do not lock a theme). Blog tokens are captured
+   into --htw-* on an ancestor of the model root, so the model's own
+   palette variables can never re-point the prose colours.
+   ============================================================ */
+
+.htw-hub,
+.htw-article {
+  --htw-bg:        var(--bg);
+  --htw-surface:   var(--surface);
+  --htw-surface-2: var(--surface-2);
+  --htw-line:      var(--line);
+  --htw-line-soft: var(--line-soft);
+  --htw-fg:        var(--fg);
+  --htw-fg-bold:   var(--fg-bold);
+  --htw-fg-dim:    var(--fg-dim);
+  --htw-fg-faint:  var(--fg-faint);
+  --htw-accent:    var(--phosphor);
+  --htw-accent-2:  var(--amber);
+  --htw-mono:      var(--font-mono);
+  --htw-display:   var(--font-display);
+  --htw-prose:     'Spectral', Georgia, 'Times New Roman', serif;
+  --htw-header:    var(--header-h, 3.25rem);
+}
+
+.htw-kicker,
+.htw-step-label {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--htw-accent);
+  margin: 0 0 0.6rem;
+}
+
+/* ---------- Hub ---------- */
+
+.htw-hub-intro { max-width: var(--measure); }
+.htw-hub-intro h2 { font-size: var(--fs-h3); }
+.htw-hub-intro p:not(.htw-kicker) { color: var(--htw-fg); }
+
+.htw-hub-list { margin-top: var(--space-2xl); }
+.htw-hub-list-title {
+  font-size: var(--fs-h5);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--htw-fg-dim);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--htw-line);
+  margin-bottom: 0;
+}
+.htw-entries { list-style: none; margin: 0; padding: 0; }
+.htw-entry { border-bottom: 1px solid var(--htw-line-soft); }
+.htw-entry-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: center;
+  padding: var(--space-xl) 0;
+  border-bottom: 0;
+  color: var(--htw-fg);
+}
+.htw-entry-link:hover { color: var(--htw-fg); }
+.htw-entry-media {
+  display: block;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--htw-line);
+  border-radius: 4px;
+  background: var(--htw-surface-2);
+  overflow: hidden;
+}
+.htw-entry-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform var(--dur) var(--ease);
+}
+.htw-entry-body { display: grid; gap: 0.6rem; min-width: 0; }
+.htw-entry-meta {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--htw-fg-faint);
+}
+.htw-entry-num { color: var(--htw-accent); margin-right: 0.75em; }
+.htw-entry-title {
+  font-family: var(--htw-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--htw-fg-bold);
+  text-wrap: balance;
+}
+.htw-entry-summary { color: var(--htw-fg-dim); font-size: var(--fs-sm); line-height: 1.65; }
+.htw-entry-cta {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--htw-accent);
+}
+.htw-entry-cta span { display: inline-block; transition: transform var(--dur) var(--ease); }
+.htw-entry-link:hover .htw-entry-title { color: var(--htw-accent); }
+.htw-entry-link:hover .htw-entry-cta span { transform: translateX(4px); }
+.htw-entry-link:focus-visible { outline: 2px solid var(--htw-accent); outline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  .htw-entry-link:hover .htw-entry-media img { transform: scale(1.02); }
+}
+.htw-hub-note { margin-top: var(--space-lg); color: var(--htw-fg-faint); font-size: var(--fs-sm); }
+
+@media (max-width: 736px) {
+  .htw-entry-link { grid-template-columns: 1fr; gap: var(--space-md); }
+}
+
+/* ---------- Article shell ---------- */
+
+/* The default-layout title block shares the article's wider measure. This file
+   only loads on How Things Work pages, and :has() keeps it to the article. */
+#standard:has(.htw-article) > header { max-width: 80rem; }
+
+.htw-article { max-width: 80rem; margin: 0 auto; }
+.htw-trail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  margin: 0 0 var(--space-xl);
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.htw-trail a { display: inline-flex; align-items: center; gap: 0.4em; min-height: 44px; }
+.htw-trail-sub { color: var(--htw-fg-faint); text-transform: none; letter-spacing: 0.02em; }
+
+/* Sticky fix, article pages only. The profile sets html { overflow-x: clip }
+   and body { overflow-x: hidden }; with the root not visible, body's overflow
+   is no longer handed to the viewport, so body becomes a scroll container that
+   never scrolls and every position: sticky inside it silently stops working.
+   Horizontal overflow stays clipped by html. The open-menu scroll lock
+   (body.menu-open) is left untouched. */
+body:not(.menu-open):has(.htw-c41) { overflow-x: visible; }
+
+/* The model root holds the prose too. Keep it transparent and in the blog's
+   type, so only the machine plate carries the model's own palette. */
+.htw-c41.iso[data-htw-figure] {
+  background: transparent;
+  color: var(--htw-fg);
+  font-family: var(--htw-mono);
+  font-size: var(--fs-base);
+  line-height: var(--lh-prose);
+}
+.htw-c41 [hidden] { display: none !important; }
+
+/* One movable scene: never sticky by itself, the slot that holds it decides. */
+.htw-c41.iso [data-htw-scene],
+.htw-c41.iso [data-htw-scene] .scene-column { position: relative; top: auto; }
+
+/* ---------- Story ---------- */
+
+.htw-c41 .htw-story { min-width: 0; }
+.htw-c41 .htw-story p,
+.htw-c41 .htw-story li,
+.htw-c41 .htw-try-intro p,
+.htw-c41 .htw-try-intro li {
+  font-family: var(--htw-prose);
+  font-size: 1.12rem;
+  line-height: 1.72;
+  color: var(--htw-fg);
+  text-wrap: pretty;
+}
+.htw-c41 .htw-story p,
+.htw-c41 .htw-try-intro p { margin: 0 0 1.1em; max-width: 38rem; }
+.htw-c41 .htw-story p.htw-step-label,
+.htw-c41 .htw-try-intro p.htw-step-label {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: var(--htw-accent);
+  margin-bottom: 0.6rem;
+}
+.htw-c41 .htw-story dfn {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--htw-fg-bold);
+  border-bottom: 1px dotted var(--htw-fg-faint);
+}
+.htw-c41 .htw-story a,
+.htw-c41 .htw-try-intro a { color: var(--htw-accent); }
+.htw-c41 .htw-story a:hover,
+.htw-c41 .htw-try-intro a:hover { color: var(--htw-accent-2); }
+
+.htw-c41 .htw-step,
+.htw-c41 .htw-try {
+  scroll-margin-top: calc(var(--htw-header) + 1.25rem);
+}
+.htw-c41 .htw-step { padding: var(--space-2xl) 0; border-top: 1px solid var(--htw-line-soft); }
+.htw-c41 .htw-step:first-of-type { border-top: 0; padding-top: var(--space-lg); }
+.htw-c41 .htw-step h2,
+.htw-c41 .htw-try h2 {
+  font-family: var(--htw-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--htw-fg-bold);
+  margin: 0 0 0.8em;
+  text-wrap: balance;
+}
+.htw-c41 .htw-step h2:focus,
+.htw-c41 .htw-try h2:focus { outline: none; }
+.htw-c41 .htw-step h2:focus-visible,
+.htw-c41 .htw-try h2:focus-visible { outline: 2px solid var(--htw-accent); outline-offset: 4px; }
+
+.htw-c41 .htw-figure-note {
+  margin: var(--space-lg) 0 0;
+  padding: var(--space-md) var(--space-lg);
+  max-width: 38rem;
+  border: 1px solid var(--htw-line);
+  border-left: 3px solid var(--htw-accent);
+  border-radius: 4px;
+  background: color-mix(in oklch, var(--htw-surface-2) 70%, transparent);
+}
+.htw-c41 .htw-figure-note p.htw-figure-note-title {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--htw-fg-bold);
+  margin: 0 0 0.5rem;
+}
+.htw-c41 .htw-figure-note ul { margin: 0; padding-left: 1.1rem; }
+.htw-c41 .htw-story .htw-figure-note li { font-size: 0.98rem; line-height: 1.6; margin: 0 0 0.35rem; }
+
+.htw-c41 .htw-toc { margin: 0 0 var(--space-md); max-width: 38rem; }
+.htw-c41 .htw-toc summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--htw-fg-dim);
+  cursor: pointer;
+}
+.htw-c41 .htw-toc summary:focus-visible { outline: 2px solid var(--htw-accent); outline-offset: 2px; }
+.htw-c41 .htw-toc ol {
+  margin: 0 0 var(--space-md);
+  padding-left: 1.6rem;
+  columns: 2 14rem;
+  column-gap: var(--space-xl);
+}
+.htw-c41 .htw-story .htw-toc li {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  break-inside: avoid;
+}
+.htw-c41 .htw-toc a { display: inline-block; min-height: 44px; padding: 0.55rem 0; }
+
+/* ---------- Reader slot (figure beside / above the prose) ---------- */
+
+/* The runtime appends the scene to the end of the slot, so the bar is ordered
+   visually after it. At phone widths the model makes the scene column
+   display: contents, which turns its parts into items of this column. */
+.htw-c41 .htw-reader-slot {
+  display: flex;
+  flex-direction: column;
+  background: var(--htw-surface);
+  min-width: 0;
+}
+.htw-c41 .htw-reader-bar {
+  order: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+.htw-c41 .htw-status {
+  margin: var(--space-xs) 0 0;
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--htw-fg-dim);
+}
+.htw-c41 .htw-collapse { display: none; }
+
+/* Until the runtime attaches, the scene's theme button cannot do anything. */
+.htw-c41:not([data-htw-runtime='ready']) [data-htw-scene] .scene-tools { display: none; }
+
+/* In reading mode scrolling chooses the view, so the free focus buttons and
+   the drag hint stand down; "Cách đọc hình" in the story carries the same
+   caveats. Explore restores the complete scene. */
+.htw-c41[data-mode='reader'] .htw-reader-slot .focus-nav,
+.htw-c41[data-mode='reader'] .htw-reader-slot .iso-plate-corner[data-corner='hint'] { display: none; }
+
+.htw-c41[data-mode='explore'] .htw-reader-slot { display: none; }
+
+/* Desktop: prose left, the one real machine sticky on the right. */
+@media (min-width: 981px) {
+  .htw-c41[data-mode='reader'] .htw-reading {
+    display: grid;
+    grid-template-columns: minmax(19rem, 25rem) minmax(0, 1fr);
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+  .htw-c41[data-mode='reader'] .htw-reader-slot {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: calc(var(--htw-header) + 1rem);
+    align-self: start;
+    background: transparent;
+  }
+  .htw-c41[data-mode='reader'] .htw-story { grid-column: 1; grid-row: 1; }
+  /* Room to scroll: each chapter holds the view for a while. */
+  .htw-c41[data-mode='reader'] .htw-step { min-height: 62vh; min-height: 62svh; }
+  .htw-c41[data-mode='reader'] .htw-step:last-of-type { min-height: 80vh; min-height: 80svh; }
+  .htw-c41[data-mode='reader'] .htw-reader-slot .fp-svg {
+    max-height: calc(100vh - var(--htw-header) - 22rem);
+    max-height: calc(100svh - var(--htw-header) - 22rem);
+  }
+  .htw-c41 .htw-toc ol { columns: 1; }
+}
+
+/* Phone and tablet: a compact sticky band under the site header. Image plus
+   controls stay under 40% of a portrait viewport; the band can collapse. */
+@media (max-width: 980px) {
+  .htw-c41[data-mode='reader'] .htw-reader-slot {
+    position: sticky;
+    top: var(--htw-header);
+    z-index: 5;
+    margin: 0 calc(-1 * var(--gutter));
+    padding: var(--space-xs) var(--gutter) var(--space-2xs);
+    border-bottom: 1px solid var(--htw-line);
+    box-shadow: 0 10px 18px -16px color-mix(in oklch, var(--htw-bg) 80%, transparent);
+  }
+  .htw-c41[data-mode='reader'] .htw-reader-slot .iso-plate { padding: 1.5rem 0.5rem 1.6rem; }
+  /* The model's phone layout pins its plate to the top; inside the band the
+     band itself is what sticks. */
+  .htw-c41[data-mode='reader'] .htw-reader-slot .op-plate { position: relative; top: auto; }
+  /* The theme button rides in the bar row (left), the collapse button right,
+     so the band does not grow by a separate toolbar line. */
+  .htw-c41.iso[data-mode='reader'] .htw-reader-slot [data-htw-scene] { position: static; }
+  .htw-c41.iso[data-mode='reader'] .htw-reader-slot [data-htw-scene] .scene-tools {
+    position: absolute;
+    left: var(--gutter);
+    bottom: var(--space-2xs);
+    z-index: 1;
+    margin: 0;
+  }
+  .htw-c41[data-mode='reader'] .htw-reader-bar { min-height: 44px; }
+  .htw-c41[data-mode='reader'] .htw-reader-slot .iso-plate-corner[data-corner='fig'],
+  .htw-c41[data-mode='reader'] .htw-reader-slot .figure-caption { display: none; }
+  .htw-c41[data-mode='reader'] .htw-reader-slot .fp-stage { width: 100%; margin-left: 0; margin-right: 0; }
+  .htw-c41[data-mode='reader'] .htw-reader-slot .fp-svg {
+    max-height: 24vh;
+    max-height: 24svh;
+  }
+  .htw-c41[data-htw-runtime='ready'] .htw-collapse {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    min-height: 44px;
+    min-width: 44px;
+    margin-left: auto;
+    padding: 0 0.9rem;
+    font-family: var(--htw-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--htw-fg-bold);
+    background: transparent;
+    border: 1px solid var(--htw-line);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .htw-c41 .htw-collapse:focus-visible { outline: 2px solid var(--htw-accent); outline-offset: 2px; }
+  .htw-c41 .htw-collapse-name { color: var(--htw-fg-dim); }
+  .htw-c41 .htw-collapse-state::after { content: 'Thu gọn \25B4'; color: var(--htw-accent); }
+  .htw-c41[data-htw-collapsed='true'] .htw-collapse-state::after { content: 'Mở hình \25BE'; }
+  .htw-c41[data-mode='reader'][data-htw-collapsed='true'] .htw-reader-slot [data-htw-scene] { display: none; }
+
+  /* Jumped-to headings land below the sticky band, not under it. */
+  .htw-c41[data-mode='reader'] .htw-step {
+    scroll-margin-top: calc(var(--htw-header) + 24vh + 6.5rem);
+    scroll-margin-top: calc(var(--htw-header) + 24svh + 6.5rem);
+  }
+  .htw-c41[data-mode='reader'][data-htw-collapsed='true'] .htw-step {
+    scroll-margin-top: calc(var(--htw-header) + 4.5rem);
+  }
+  .htw-c41 .htw-step { padding: var(--space-xl) 0; }
+  .htw-c41 .htw-story p,
+  .htw-c41 .htw-story li,
+  .htw-c41 .htw-try-intro p,
+  .htw-c41 .htw-try-intro li { font-size: 1.06rem; }
+}
+
+/* ---------- Try it: mode switch, explore slot, console ---------- */
+
+.htw-c41 .htw-try {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-2xl);
+  border-top: 2px solid var(--htw-line);
+}
+.htw-c41 .htw-try-list { margin: 0 0 1.2em; padding-left: 1.2rem; max-width: 38rem; }
+.htw-c41 .htw-try-list li { margin: 0 0 0.5rem; }
+.htw-c41 .htw-try-list strong { color: var(--htw-fg-bold); }
+.htw-c41 .htw-try-intro p.htw-try-note,
+.htw-c41 .htw-try-intro p.htw-try-fallback {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--htw-fg-dim);
+}
+.htw-c41[data-htw-runtime='ready'] .htw-try-fallback { display: none; }
+
+.htw-c41 .htw-try-actions { margin: var(--space-lg) 0 0; }
+.htw-c41 .htw-mode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.7em 1.4em;
+  font-family: var(--htw-mono);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+.htw-c41 .htw-mode-button.special {
+  color: var(--htw-bg);
+  background: var(--htw-accent);
+  border: 1px solid var(--htw-accent);
+}
+.htw-c41 .htw-mode-button.special:hover { background: var(--htw-accent-2); border-color: var(--htw-accent-2); }
+.htw-c41 .htw-mode-button:not(.special) {
+  color: var(--htw-fg-bold);
+  background: transparent;
+  border: 1px solid var(--htw-line);
+}
+.htw-c41 .htw-mode-button:not(.special):hover { color: var(--htw-accent); border-color: var(--htw-accent); }
+.htw-c41 .htw-mode-button:focus-visible { outline: 2px solid var(--htw-accent); outline-offset: 3px; }
+
+/* The explore button only exists once the runtime has attached. */
+.htw-c41:not([data-htw-runtime='ready']) [data-htw-mode] { display: none; }
+.htw-c41[data-mode='explore'] .htw-try-actions { display: none; }
+
+.htw-c41 .htw-explore-slot:empty { display: none; }
+.htw-c41 .htw-explore-return { margin: 0 0 var(--space-md); }
+.htw-c41 .htw-try-grid { margin-top: var(--space-xl); }
+.htw-c41 .htw-explore-slot,
+.htw-c41 .htw-explore-controls { min-width: 0; }
+.htw-c41 .htw-explore-slot { margin-bottom: var(--space-xl); }
+
+/* On phones the model keeps its plate in view while the console scrolls;
+   in the blog that band must sit below the fixed site header. */
+.htw-c41[data-mode='explore'] .htw-explore-slot .op-plate { top: var(--htw-header); }
+@media (max-width: 560px) {
+  /* Let the pinned plate's containing block span the console as well, as it
+     does in the standalone page, instead of ending with the slot. */
+  .htw-c41[data-mode='explore'] .htw-explore-slot:not(:empty) { display: contents; }
+}
+
+/* Explore on wide screens: the same machine beside the full console, held in
+   view while it is operated (like the standalone model). Narrower screens
+   keep it in the page flow, full width, with no sticky copy above. */
+@media (min-width: 1100px) {
+  .htw-c41[data-mode='explore'] .htw-try-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.62fr) minmax(380px, 1fr);
+    column-gap: 40px;
+    align-items: start;
+  }
+  .htw-c41[data-mode='explore'] .htw-explore-slot {
+    position: sticky;
+    top: calc(var(--htw-header) + 0.75rem);
+    margin-bottom: 0;
+  }
+  .htw-c41[data-mode='explore'] .htw-explore-slot .fp-stage {
+    max-width: calc((100vh - var(--htw-header) - 16rem) * 980 / 600);
+    max-width: calc((100svh - var(--htw-header) - 16rem) * 980 / 600);
+  }
+}
+
+/* ---------- Sources and limits (after the model root) ---------- */
+
+.htw-sources {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--htw-line);
+  scroll-margin-top: calc(var(--htw-header) + 1.25rem);
+}
+.htw-sources h2 { font-size: var(--fs-h4); letter-spacing: 0.04em; text-transform: uppercase; }
+.htw-sources h3 {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--htw-fg-dim);
+}
+.htw-sources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--space-lg) var(--space-2xl);
+}
+.htw-sources p,
+.htw-sources li { font-size: var(--fs-sm); line-height: 1.65; color: var(--htw-fg-dim); }
+.htw-sources ul { padding-left: 1.1rem; margin: 0 0 1em; }
+.htw-sources li { margin-bottom: 0.6rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .htw-entry-media img,
+  .htw-entry-cta span { transition: none; }
+  .htw-entry-link:hover .htw-entry-media img { transform: none; }
+}
