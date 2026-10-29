@@ -8,3 +8,10 @@
   subjects: "Nhiếp ảnh · Máy móc"
   summary: "Đi cùng một cuộn phim màu qua máy tráng: vì sao phải kín sáng, thuốc hiện tạo ra màu thế nào, tẩy bạc và định hình làm gì, rồi tự thử trên chính cỗ máy đó."
   thumbnail: /assets/how-things-work/c-41/thumbnail.webp
+- id: drum-scanner
+  number: "02"
+  url: /how-things-work/drum-scanner/
+  title: "Máy scan trống biến phim thành ảnh số thế nào?"
+  subjects: "Nhiếp ảnh · Máy móc"
+  summary: "Theo ánh sáng xuyên phim qua ba ống nhân quang và bộ đổi số: vì sao trống phải quay, từng điểm ảnh được ghi thế nào và âm bản cần diễn giải ra sao."
+  thumbnail: /assets/how-things-work/drum-scanner/thumbnail.webp

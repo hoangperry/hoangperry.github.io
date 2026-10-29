@@ -1,0 +1,23 @@
+{% raw %}
+<div class="htw-machine-console-panel" id="drum-scanner-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Máy scan trống PMT">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span data-machine-run-label>Quét</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+</div>
+<div class="htw-machine-film" role="group" aria-labelledby="drum-scanner-film-label">
+<span class="htw-machine-film-label" id="drum-scanner-film-label">Loại phim</span>
+<button type="button" class="htw-machine-chip" data-machine-film="positive" aria-pressed="true" disabled>Dương bản slide</button>
+<button type="button" class="htw-machine-chip" data-machine-film="negative" aria-pressed="false" disabled>Âm bản màu C‑41</button>
+</div>
+<ol class="htw-machine-steps" aria-label="Các bước của một chu kỳ Máy scan trống PMT">
+<li class="htw-machine-step" data-machine-step-item="light"><span class="htw-machine-step-num" aria-hidden="true">01</span><span class="htw-machine-step-copy"><strong>Ánh sáng qua điểm phim</strong> <span>Trống quay đưa đúng điểm phim tới cửa đọc đứng yên; ánh sáng từ đèn trục đi qua điểm đó. Chỉ lúc điểm thật tới cửa đọc mới lấy mẫu.</span></span></li>
+<li class="htw-machine-step" data-machine-step-item="rgb"><span class="htw-machine-step-num" aria-hidden="true">02</span><span class="htw-machine-step-copy"><strong>Tách RGB</strong> <span>Bộ tách và lọc quang học chia ánh sáng của điểm vừa đọc thành ba kênh đỏ, lục, lam.</span></span></li>
+<li class="htw-machine-step" data-machine-step-item="pmt"><span class="htw-machine-step-num" aria-hidden="true">03</span><span class="htw-machine-step-copy"><strong>PMT tạo tín hiệu tương tự</strong> <span>Ba ống nhân quang (PMT) biến ánh sáng mỗi kênh thành tín hiệu điện tương tự. Hình chỉ hiện mức tương đối, chưa phải số.</span></span></li>
+<li class="htw-machine-step" data-machine-step-item="adc"><span class="htw-machine-step-num" aria-hidden="true">04</span><span class="htw-machine-step-copy"><strong>ADC 12 bit</strong> <span>Bộ chuyển đổi tương tự–số lượng hóa mỗi kênh thành một số từ 0 đến 4095. Đây là dữ liệu đọc thô, chưa diễn giải âm bản.</span></span></li>
+<li class="htw-machine-step" data-machine-step-item="write"><span class="htw-machine-step-num" aria-hidden="true">05</span><span class="htw-machine-step-copy"><strong>Ghi điểm ảnh</strong> <span>Ba số được ghi vào đúng ô của điểm vừa đọc. Năm khâu mới ghi một điểm; 384 điểm tạo ảnh mẫu 24 × 16.</span></span></li>
+</ol>
+<div class="htw-machine-output" id="drum-scanner-output" data-machine-output role="group" aria-label="Kết quả của mô hình"></div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái. Chỉ nút “Quét lại” mới bắt đầu một chu kỳ mới.</p>
+</div>
+{% endraw %}

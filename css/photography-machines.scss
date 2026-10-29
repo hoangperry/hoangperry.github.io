@@ -1,0 +1,253 @@
+---
+---
+
+/* Article layout for the photography machine pages (roots .htw-machine[data-htw-figure]). Loaded only through the
+   style-includes of those pages, after /css/how-things-work.css (which provides the --htw-* blog tokens, trail
+   and sources styles). The machine plate/console chrome comes from each topic's machine.css. This file follows
+   the C-41 article layout but uses the shared data-machine-* hooks; it never styles the C-41 root. */
+
+/* Sticky fix as for C-41: with html { overflow-x: clip } the body must not become a scroll container. */
+body:not(.menu-open):has(.htw-machine) { overflow-x: visible; }
+
+/* The root holds the prose too: transparent, blog type. Only the plate/console carry the machine palette. */
+.htw-machine[data-htw-figure] {
+  background: transparent;
+  color: var(--htw-fg);
+  font-family: var(--htw-mono);
+  font-size: var(--fs-base);
+  line-height: var(--lh-prose);
+}
+.htw-machine [hidden] { display: none !important; }
+
+/* ---------- Story ---------- */
+
+.htw-machine .htw-story { min-width: 0; }
+.htw-machine .htw-story p,
+.htw-machine .htw-story li,
+.htw-machine .htw-try-intro p,
+.htw-machine .htw-try-intro li {
+  font-family: var(--htw-prose);
+  font-size: 1.12rem;
+  line-height: 1.72;
+  color: var(--htw-fg);
+  text-wrap: pretty;
+}
+.htw-machine .htw-story p,
+.htw-machine .htw-try-intro p { margin: 0 0 1.1em; max-width: 38rem; }
+.htw-machine .htw-story p.htw-step-label,
+.htw-machine .htw-try-intro p.htw-step-label {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: var(--htw-accent);
+  margin-bottom: 0.6rem;
+}
+.htw-machine .htw-story dfn {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--htw-fg-bold);
+  border-bottom: 1px dotted var(--htw-fg-faint);
+}
+.htw-machine .htw-story a,
+.htw-machine .htw-try-intro a { color: var(--htw-accent); }
+.htw-machine .htw-story a:hover,
+.htw-machine .htw-try-intro a:hover { color: var(--htw-accent-2); }
+
+.htw-machine .htw-step,
+.htw-machine .htw-try { scroll-margin-top: calc(var(--htw-header) + 1.25rem); }
+.htw-machine .htw-step { padding: var(--space-2xl) 0; border-top: 1px solid var(--htw-line-soft); }
+.htw-machine .htw-step:first-of-type { border-top: 0; padding-top: var(--space-lg); }
+.htw-machine .htw-step h2,
+.htw-machine .htw-try h2 {
+  font-family: var(--htw-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--htw-fg-bold);
+  margin: 0 0 0.8em;
+  text-wrap: balance;
+}
+.htw-machine .htw-step h2:focus,
+.htw-machine .htw-try h2:focus { outline: none; }
+.htw-machine .htw-step h2:focus-visible,
+.htw-machine .htw-try h2:focus-visible { outline: 2px solid var(--htw-accent); outline-offset: 4px; }
+
+/* ---------- Reader slot (figure beside / above the prose) ---------- */
+
+.htw-machine .htw-reader-slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+  background: var(--htw-surface);
+}
+.htw-machine .htw-reader-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+.htw-machine .htw-reader-bar:empty { display: none; }
+.htw-machine .htw-noscript {
+  margin: 0;
+  font-family: var(--htw-mono);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--htw-fg-dim);
+}
+.htw-machine .htw-collapse { display: none; }
+.htw-machine[data-mode='explore'] .htw-reader-slot { display: none; }
+
+/* Desktop: prose left, the one real machine sticky on the right. */
+@media (min-width: 981px) {
+  .htw-machine[data-mode='reader'] .htw-reading {
+    display: grid;
+    grid-template-columns: minmax(19rem, 25rem) minmax(0, 1fr);
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+  .htw-machine[data-mode='reader'] .htw-reader-slot {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: calc(var(--htw-header) + 1rem);
+    align-self: start;
+    background: transparent;
+  }
+  .htw-machine[data-mode='reader'] .htw-story { grid-column: 1; grid-row: 1; }
+  .htw-machine[data-mode='reader'] .htw-step { min-height: 62vh; min-height: 62svh; }
+  .htw-machine[data-mode='reader'] .htw-step:last-of-type { min-height: 80vh; min-height: 80svh; }
+  .htw-machine[data-mode='reader'] .htw-reader-slot [data-machine-view] {
+    max-height: calc(100vh - var(--htw-header) - 14rem);
+    max-height: calc(100svh - var(--htw-header) - 14rem);
+  }
+}
+
+/* Phone and tablet: a compact sticky band under the site header; it can collapse. */
+@media (max-width: 980px) {
+  .htw-machine[data-mode='reader'] .htw-reader-slot {
+    position: sticky;
+    top: var(--htw-header);
+    z-index: 5;
+    margin: 0 calc(-1 * var(--gutter));
+    padding: var(--space-xs) var(--gutter) var(--space-2xs);
+    border-bottom: 1px solid var(--htw-line);
+    box-shadow: 0 10px 18px -16px color-mix(in oklch, var(--htw-bg) 80%, transparent);
+  }
+  .htw-machine[data-mode='reader'] .htw-reader-slot .htw-machine-plate { padding: 0 0.5rem 0.4rem; }
+  .htw-machine[data-mode='reader'] .htw-reader-slot .htw-machine-caption .htw-machine-status,
+  .htw-machine[data-mode='reader'] .htw-reader-slot .htw-machine-caption .htw-machine-readout { display: none; }
+  .htw-machine[data-mode='reader'] .htw-reader-slot [data-machine-view] {
+    max-height: 24vh;
+    max-height: 24svh;
+  }
+  .htw-machine[data-machine-runtime='ready'] .htw-collapse {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    min-height: 44px;
+    min-width: 44px;
+    margin-left: auto;
+    padding: 0 0.9rem;
+    font-family: var(--htw-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--htw-fg-bold);
+    background: transparent;
+    border: 1px solid var(--htw-line);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .htw-machine .htw-collapse:focus-visible { outline: 2px solid var(--htw-accent); outline-offset: 2px; }
+  .htw-machine .htw-collapse-name { color: var(--htw-fg-dim); }
+  .htw-machine .htw-collapse-state::after { content: 'Thu gọn \25B4'; color: var(--htw-accent); }
+  .htw-machine[data-machine-collapsed='true'] .htw-collapse-state::after { content: 'Mở hình \25BE'; }
+  .htw-machine[data-mode='reader'][data-machine-collapsed='true'] .htw-reader-slot [data-machine-scene] { display: none; }
+
+  .htw-machine[data-mode='reader'] .htw-step {
+    scroll-margin-top: calc(var(--htw-header) + 24vh + 7rem);
+    scroll-margin-top: calc(var(--htw-header) + 24svh + 7rem);
+  }
+  .htw-machine[data-mode='reader'][data-machine-collapsed='true'] .htw-step {
+    scroll-margin-top: calc(var(--htw-header) + 4.5rem);
+  }
+  .htw-machine .htw-step { padding: var(--space-xl) 0; }
+  .htw-machine .htw-story p,
+  .htw-machine .htw-story li,
+  .htw-machine .htw-try-intro p,
+  .htw-machine .htw-try-intro li { font-size: 1.06rem; }
+}
+
+/* ---------- Try it: mode switch, explore slot, console ---------- */
+
+.htw-machine .htw-try {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-2xl);
+  border-top: 2px solid var(--htw-line);
+}
+.htw-machine .htw-try-list { margin: 0 0 1.2em; padding-left: 1.2rem; max-width: 38rem; }
+.htw-machine .htw-try-list li { margin: 0 0 0.5rem; }
+.htw-machine .htw-try-list strong { color: var(--htw-fg-bold); }
+.htw-machine .htw-try-intro p.htw-try-fallback {
+  font-family: var(--htw-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--htw-fg-dim);
+}
+.htw-machine[data-machine-runtime='ready'] .htw-try-fallback { display: none; }
+
+.htw-machine .htw-try-actions { margin: var(--space-lg) 0 0; }
+.htw-machine .htw-mode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.7em 1.4em;
+  font-family: var(--htw-mono);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+.htw-machine .htw-mode-button.special {
+  color: var(--htw-bg);
+  background: var(--htw-accent);
+  border: 1px solid var(--htw-accent);
+}
+.htw-machine .htw-mode-button.special:not(:disabled):hover { background: var(--htw-accent-2); border-color: var(--htw-accent-2); }
+.htw-machine .htw-mode-button:not(.special) {
+  color: var(--htw-fg-bold);
+  background: transparent;
+  border: 1px solid var(--htw-line);
+}
+.htw-machine .htw-mode-button:not(.special):not(:disabled):hover { color: var(--htw-accent); border-color: var(--htw-accent); }
+.htw-machine .htw-mode-button:focus-visible { outline: 2px solid var(--htw-accent); outline-offset: 3px; }
+/* Disabled until the runtime is ready (or for good if it failed): visibly inert, explained by the fallback note. */
+.htw-machine .htw-mode-button:disabled { opacity: 0.45; cursor: not-allowed; }
+.htw-machine[data-mode='explore'] .htw-try-actions { display: none; }
+
+.htw-machine .htw-explore-slot:empty { display: none; }
+.htw-machine .htw-explore-return { margin: 0 0 var(--space-md); }
+.htw-machine .htw-try-grid { margin-top: var(--space-xl); }
+.htw-machine .htw-explore-slot,
+.htw-machine .htw-explore-controls { min-width: 0; }
+.htw-machine .htw-explore-slot { margin-bottom: var(--space-xl); }
+
+/* Explore on wide screens: the same machine beside the console, held in view while it is operated. */
+@media (min-width: 1100px) {
+  .htw-machine[data-mode='explore'] .htw-try-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.62fr) minmax(340px, 1fr);
+    column-gap: 40px;
+    align-items: start;
+  }
+  .htw-machine[data-mode='explore'] .htw-explore-slot {
+    position: sticky;
+    top: calc(var(--htw-header) + 0.75rem);
+    margin-bottom: 0;
+  }
+}
