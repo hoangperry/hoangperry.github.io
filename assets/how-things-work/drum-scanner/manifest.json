@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "topic": "drum-scanner",
+  "sourceDigest": "26a8bc9283bbfbed320539e761df60085a5475bdedf0d33cbdf9495b5e3dfce9",
+  "files": {
+    "_includes/how-things-work/drum-scanner-scene.html": "df6801d076f6ee9cde81f86f3d641546ece001b53dcb673ef51f8c49db0e8269",
+    "_includes/how-things-work/drum-scanner-console.html": "597d6526fde38aea9fec002044886b2c11c01a2792cf43c690738c1dfa0b4297",
+    "assets/how-things-work/drum-scanner/machine.js": "7e019ee0f4f4e1f97154de29881e330e76e5c42bf546fdede5e3e2785d9ba5e1",
+    "assets/how-things-work/drum-scanner/machine.css": "951a6d4caeeae56be1ae6e4bbef05e173936d302693e299873f8dc01cb363d74",
+    "assets/how-things-work/drum-scanner/thumbnail.webp": "ce680921e960c7458a005acdfd95ec75cf941bee4ffd3a332c74167a2850b174",
+    "assets/how-things-work/drum-scanner/NOTICE.txt": "a77b2f18c27f405ccbe8f0702135f40490765a88b7d63d302c308fae3d36786a"
+  }
+}

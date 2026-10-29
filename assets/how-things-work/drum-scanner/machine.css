@@ -1,0 +1,327 @@
+/* Shared machine chrome for the photography machines: the scene plate and the console only. Every rule is scoped
+   under .htw-machine[data-htw-figure="drum-scanner"] and the palette lives on the scene/console subtrees, so the article prose (blog tokens) is
+   never repainted by a machine theme. Topic CSS (artifact.css) is scoped under .htw-machine[data-htw-figure="drum-scanner"][data-htw-figure="<slug>"].
+   Palette: the approved "neutral instrument finish" of the drum-scanner preview, with Anatomy token names. */
+
+.htw-machine[data-htw-figure="drum-scanner"] [data-machine-scene],
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-console-panel {
+  --htw-machine-mono: var(--htw-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
+  --htw-machine-dur: 160ms;
+  --htw-machine-ease: cubic-bezier(.32, .72, 0, 1);
+  --htw-machine-card: #161b1e;
+  --htw-machine-text: #9fb0b6;
+  --htw-machine-strong: #e2eaec;
+  --htw-machine-muted: #8698a0;
+  --htw-machine-line: #2e3c43;
+  --htw-machine-accent: #9ae3ae;
+  --htw-machine-on-accent: #0f1a14;
+  --anatomy-card: var(--htw-machine-card);
+  --anatomy-paper: #161b1e; --anatomy-face: #58666c; --anatomy-top: #64757d;
+  --anatomy-shade-0: #242e33; --anatomy-shade-1: #303e45; --anatomy-shade-2: #40525b; --anatomy-shade-3: #53666f;
+  --anatomy-lit-top: #82949b; --anatomy-lit-shade: #607880;
+  --anatomy-hi: #c4d0d3; --anatomy-mid: #94a6ad; --anatomy-lo: #647a85; --anatomy-faint: #465b64; --anatomy-lit: #edf5f4;
+  --anatomy-halo: #080d10; --anatomy-halo-opacity: .9; --anatomy-dot: #c4d0d3;
+  --anatomy-red: #ff6b6b; --anatomy-green: #6be0a0; --anatomy-blue: #6b9bff;
+  --anatomy-weight: .6px;
+  --anatomy-mono: var(--htw-machine-mono);
+  --anatomy-lift: inset 0 1px 0 0 #ffffff0a, 0 0 0 1px #00000026, 0 3px 3px -1.5px #00000014, 0 12px 12px -6px #00000014;
+  color-scheme: dark;
+}
+
+.htw-machine[data-htw-figure="drum-scanner"][data-theme="light"] [data-machine-scene],
+.htw-machine[data-htw-figure="drum-scanner"][data-theme="light"] .htw-machine-console-panel {
+  --htw-machine-card: #f7f7f2;
+  --htw-machine-text: #3d4f54;
+  --htw-machine-strong: #132c33;
+  --htw-machine-muted: #53696f;
+  --htw-machine-line: #cdd6d5;
+  --htw-machine-accent: #1d7148;
+  --htw-machine-on-accent: #ffffff;
+  --anatomy-paper: #f7f7f2; --anatomy-face: #e8eeec; --anatomy-top: #f9fcf8;
+  --anatomy-shade-0: #94a2a6; --anatomy-shade-1: #adbabe; --anatomy-shade-2: #c6d1d1; --anatomy-shade-3: #dde5e2;
+  --anatomy-lit-top: #ffffff; --anatomy-lit-shade: #cbdad9;
+  --anatomy-hi: #33474d; --anatomy-mid: #53696f; --anatomy-lo: #71878e; --anatomy-faint: #94a7ac; --anatomy-lit: #132c33;
+  --anatomy-halo: #64756e; --anatomy-halo-opacity: .32; --anatomy-dot: #3a5058;
+  --anatomy-red: #e5484d; --anatomy-green: #30a46c; --anatomy-blue: #3e63dd;
+  --anatomy-lift: inset 0 1px 0 0 #ffffff, 0 0 0 1px #0000000f, 0 3px 3px -1.5px #0000000a, 0 12px 12px -6px #0000000a;
+  color-scheme: light;
+}
+
+/* ---------- Scene plate (the one movable figure) ---------- */
+
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-scene {
+  margin: 0;
+  display: grid;
+  gap: .5rem;
+  min-width: 0;
+  color: var(--htw-machine-text);
+  font-family: var(--htw-machine-mono);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-scene:focus { outline: none; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-scene:focus-visible { outline: 2px solid var(--htw-machine-accent); outline-offset: 4px; }
+
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-plate {
+  min-width: 0;
+  padding: .35rem .75rem .75rem;
+  background: var(--htw-machine-card);
+  border: 1px solid var(--htw-machine-line);
+  border-radius: 6px;
+  box-shadow: var(--anatomy-lift);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-plate-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  min-height: 44px;
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-plate-title {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--htw-machine-mono);
+  font-size: .72rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--htw-machine-strong);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-view { min-width: 0; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-view > svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .2rem 1rem;
+  font-size: .75rem;
+  line-height: 1.5;
+  color: var(--htw-machine-text);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-stage { color: var(--htw-machine-strong); font-weight: 600; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-readout { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--htw-machine-muted); }
+.htw-machine[data-htw-figure="drum-scanner"][data-machine-runtime="failed"] .htw-machine-status { color: var(--htw-machine-strong); }
+
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Controls (lab styling, still native buttons) ---------- */
+
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-chip,
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  min-height: 44px;
+  min-width: 44px;
+  margin: 0;
+  padding: 0 .9rem;
+  font-family: var(--htw-machine-mono);
+  font-size: .72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--htw-machine-strong);
+  background: transparent;
+  border: 1px solid var(--htw-machine-line);
+  border-radius: 4px;
+  box-shadow: none;
+  cursor: pointer;
+  transition: color var(--htw-machine-dur) var(--htw-machine-ease), background-color var(--htw-machine-dur) var(--htw-machine-ease), border-color var(--htw-machine-dur) var(--htw-machine-ease);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button { font-size: .78rem; padding: 0 1.1rem; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button--primary {
+  color: var(--htw-machine-on-accent);
+  background: var(--htw-machine-accent);
+  border-color: var(--htw-machine-accent);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-chip:not(:disabled):not([aria-disabled="true"]):hover,
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button:not(.htw-machine-button--primary):not(:disabled):not([aria-disabled="true"]):hover {
+  color: var(--htw-machine-accent);
+  border-color: var(--htw-machine-accent);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button--primary:not(:disabled):not([aria-disabled="true"]):hover {
+  background: color-mix(in oklab, var(--htw-machine-accent) 85%, var(--htw-machine-strong));
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-chip[aria-pressed="true"] {
+  color: var(--htw-machine-accent);
+  border-color: var(--htw-machine-accent);
+  background: color-mix(in oklab, var(--htw-machine-accent) 12%, transparent);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-chip:disabled,
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button:disabled,
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button[aria-disabled="true"] {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-chip:focus-visible,
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button:focus-visible {
+  outline: 2px solid var(--htw-machine-accent);
+  outline-offset: 2px;
+}
+
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-theme-icon {
+  width: .8rem;
+  height: .8rem;
+  flex: none;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-run-icon,
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-pause-icon,
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-step-icon { width: .7rem; height: .8rem; flex: none; background: currentColor; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-run-icon { clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-pause-icon { clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%, 0 0, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 0); }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-step-icon { clip-path: polygon(0 0, 70% 50%, 0 100%, 0 0, 78% 0, 100% 0, 100% 100%, 78% 100%, 78% 0); }
+
+/* ---------- Console panel ---------- */
+
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-console-panel {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem;
+  color: var(--htw-machine-text);
+  font-family: var(--htw-machine-mono);
+  background: var(--htw-machine-card);
+  border: 1px solid var(--htw-machine-line);
+  border-radius: 6px;
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-controls,
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-film { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-film-label {
+  margin-right: .25rem;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--htw-machine-muted);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-steps { display: grid; gap: .25rem; margin: 0; padding: 0; list-style: none; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-step {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: .5rem;
+  margin: 0;
+  padding: .55rem .65rem;
+  font-size: .8rem;
+  line-height: 1.55;
+  color: var(--htw-machine-text);
+  border-left: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+  transition: background-color var(--htw-machine-dur) var(--htw-machine-ease), border-color var(--htw-machine-dur) var(--htw-machine-ease);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-step[aria-current="step"] {
+  border-left-color: var(--htw-machine-accent);
+  background: color-mix(in oklab, var(--htw-machine-accent) 9%, transparent);
+}
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-step strong { color: var(--htw-machine-strong); font-weight: 600; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-step-num { color: var(--htw-machine-muted); font-variant-numeric: tabular-nums; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-output { min-width: 0; padding-top: .75rem; border-top: 1px solid var(--htw-machine-line); }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-output:empty { display: none; }
+.htw-machine[data-htw-figure="drum-scanner"] .htw-machine-note { margin: 0; font-size: .72rem; line-height: 1.6; color: var(--htw-machine-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .htw-machine[data-htw-figure="drum-scanner"] .htw-machine-chip,
+  .htw-machine[data-htw-figure="drum-scanner"] .htw-machine-button,
+  .htw-machine[data-htw-figure="drum-scanner"] .htw-machine-step { transition: none; }
+}
+
+/* Drum-scanner topic CSS. Every selector is scoped to this topic root. The palette is the approved "neutral
+   instrument finish" that the shared chrome already defines on the scene/console; this file only scopes the
+   Anatomy part classes the apparatus uses (from the pinned kit's ISO_CSS, not shipped raw), the approved hero
+   rules (formerly #machine, plans/visuals/drum-scanner-hero/build-hero.mjs) and the output panel. No keyframes. */
+
+.htw-machine[data-htw-figure="drum-scanner"] [data-machine-scene] { --hero-red: #c07a74; --hero-green: #6fa07f; --hero-blue: #7b9cc0; }
+.htw-machine[data-htw-figure="drum-scanner"][data-theme="light"] [data-machine-scene] { --hero-red: #a24f4b; --hero-green: #3f7b55; --hero-blue: #3f6b9a; }
+
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine { display: block; width: 100%; height: auto; aspect-ratio: 980 / 640; isolation: isolate; }
+
+/* Anatomy solids, lines, dots and face text (scoped subset of the pinned kit's ISO_CSS). */
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-fill { fill: var(--anatomy-paper); stroke: none; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-lit] > .iso-fill { fill: var(--anatomy-face); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-shade,
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-top { stroke: none; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-shade[data-shade="0"] { fill: var(--anatomy-shade-0); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-shade[data-shade="1"] { fill: var(--anatomy-shade-1); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-shade[data-shade="2"] { fill: var(--anatomy-shade-2); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-shade[data-shade="3"] { fill: var(--anatomy-shade-3); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-top { fill: var(--anatomy-top); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-lit] > .iso-top { fill: var(--anatomy-lit-top); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-lit] > .iso-shade { fill: var(--anatomy-lit-shade); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless] > .iso-shade,
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless] > .iso-top { stroke-width: .4; stroke-linejoin: round; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless] > .iso-shade[data-shade="0"] { stroke: var(--anatomy-shade-0); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless] > .iso-shade[data-shade="1"] { stroke: var(--anatomy-shade-1); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless] > .iso-shade[data-shade="2"] { stroke: var(--anatomy-shade-2); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless] > .iso-shade[data-shade="3"] { stroke: var(--anatomy-shade-3); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless] > .iso-top { stroke: var(--anatomy-top); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless][data-lit] > .iso-top { stroke: var(--anatomy-lit-top); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-seamless][data-lit] > .iso-shade { stroke: var(--anatomy-lit-shade); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-solid[data-lit] > .iso-edge { stroke: var(--anatomy-lit); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-halo { fill: var(--anatomy-halo); stroke: none; filter: blur(9px); opacity: var(--anatomy-halo-opacity); transform: translateY(3px); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-line { fill: none; stroke: var(--anatomy-lo); stroke-width: var(--anatomy-weight); stroke-linecap: round; stroke-linejoin: round; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-line[data-tone="hi"] { stroke: var(--anatomy-hi); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-line[data-tone="mid"] { stroke: var(--anatomy-mid); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-line[data-tone="lo"] { stroke: var(--anatomy-lo); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-line[data-tone="faint"] { stroke: var(--anatomy-faint); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-line[data-tone="lit"] { stroke: var(--anatomy-lit); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-dots circle { fill: var(--anatomy-dot); stroke: none; opacity: .32; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-dots[data-tone="hi"] circle { opacity: .85; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-dots[data-tone="mid"] circle { opacity: .45; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-dots[data-tone="lo"] circle { opacity: .22; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-dots[data-tone="faint"] circle { opacity: .12; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-face-text { fill: var(--anatomy-mid); font-family: var(--anatomy-mono); letter-spacing: .04em; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-face-text[data-tone="hi"] { fill: var(--anatomy-hi); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-face-text[data-tone="lo"] { fill: var(--anatomy-lo); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .iso-face-text[data-tone="faint"] { fill: var(--anatomy-faint); }
+
+/* Approved hero rules: glass, vents, conceptual light rays and the stage emphasis. */
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-glass > .iso-solid > .iso-fill { fill-opacity: .32; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-glass > .iso-solid > .iso-shade,
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-glass > .iso-solid > .iso-top { fill-opacity: .38; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-vent { fill: var(--anatomy-shade-0); stroke: none; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-ray path { fill: none; stroke: var(--anatomy-hi); stroke-width: .8; stroke-linecap: round; stroke-linejoin: round; opacity: .42; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-ray circle { fill: var(--anatomy-hi); opacity: .6; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-red path { stroke: var(--hero-red); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-red circle { fill: var(--hero-red); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-green path { stroke: var(--hero-green); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-green circle { fill: var(--hero-green); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-blue path { stroke: var(--hero-blue); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine .hero-blue circle { fill: var(--hero-blue); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine[data-stage="0"] [data-hero-stage="0"] .iso-edge,
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine[data-stage="1"] [data-hero-stage="1"] .iso-edge,
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine[data-stage="2"] [data-hero-stage="2"] .iso-edge,
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine[data-stage="3"] [data-hero-stage="3"] .iso-edge,
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine[data-stage="4"] [data-hero-stage="4"] .iso-edge { stroke: var(--anatomy-lit); stroke-width: 1; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine[data-stage="0"] .hero-ray[data-hero-stage="0"] path,
+.htw-machine[data-htw-figure="drum-scanner"] .ds-machine[data-stage="1"] .hero-ray[data-hero-stage="1"] path { opacity: .95; stroke-width: 1.1; }
+
+/* Output panel: the flat film, raw ADC data and the interpreted image grow from the same written points. */
+.htw-machine[data-htw-figure="drum-scanner"] .ds-output { display: grid; gap: .9rem; color: var(--htw-machine-text); font-family: var(--htw-machine-mono); font-size: .75rem; line-height: 1.5; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-images { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-sample { margin: 0; display: grid; gap: .35rem; min-width: 0; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-sample canvas { display: block; width: 100%; height: auto; aspect-ratio: 24 / 16; image-rendering: pixelated; background: var(--anatomy-shade-0); border: 1px solid var(--htw-machine-line); border-radius: 3px; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-sample figcaption { font-size: .7rem; line-height: 1.35; color: var(--htw-machine-muted); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-trace { display: grid; gap: .4rem; padding: .7rem .8rem; border: 1px solid var(--htw-machine-line); border-radius: 4px; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-trace-head { margin: 0; font-weight: 600; color: var(--htw-machine-strong); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-trace dl { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .2rem .9rem; }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-trace dt { color: var(--htw-machine-muted); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-trace dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; color: var(--htw-machine-strong); }
+.htw-machine[data-htw-figure="drum-scanner"] .ds-note { margin: 0; font-size: .7rem; color: var(--htw-machine-muted); }
+@media (max-width: 420px) {
+  .htw-machine[data-htw-figure="drum-scanner"] .ds-images { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .htw-machine[data-htw-figure="drum-scanner"] .ds-trace dl { grid-template-columns: minmax(0, 1fr); }
+  .htw-machine[data-htw-figure="drum-scanner"] .ds-trace dd { text-align: left; }
+}

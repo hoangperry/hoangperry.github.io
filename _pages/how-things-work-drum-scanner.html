@@ -1,0 +1,159 @@
+---
+title: "Máy scan trống biến phim thành ảnh số thế nào?"
+permalink: /how-things-work/drum-scanner/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Từ dải phim còn cầm được trên tay đến những con số màu: theo trống quay, ánh sáng xuyên phim, ba ống nhân quang và từng điểm ảnh được ghi lại."
+social-image: /assets/how-things-work/drum-scanner/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/drum-scanner/machine.css
+script-includes:
+  - /assets/how-things-work/drum-scanner/machine.js
+---
+
+<div class="htw-machine iso" data-htw-figure="drum-scanner" data-mode="reader" data-theme="dark">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/drum-scanner-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: hình máy ở dạng tĩnh, không đổi phần nhấn mạnh theo bài đọc; các nút tương tác và phần Tự thử không hoạt động. Bạn vẫn đọc được toàn bộ bài và nguồn bên dưới.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="drum-scanner-scene" disabled><span class="htw-collapse-name">Hình máy scan trống</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài máy scan trống">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#drum-phim-chua-la-tep">Phim chưa phải tệp ảnh</a></li>
+            <li><a href="#drum-ga-phim">Gá phim lên trống trong</a></li>
+            <li><a href="#drum-doc-tung-diem">Đưa từng điểm qua cửa đọc</a></li>
+            <li><a href="#drum-tach-mau">Tách ánh sáng thành ba kênh</a></li>
+            <li><a href="#drum-nhan-quang">Ống nhân quang đo ánh sáng</a></li>
+            <li><a href="#drum-so-hoa">Từ tín hiệu điện đến số 12 bit</a></li>
+            <li><a href="#drum-ghi-anh">Ghép các điểm thành ảnh</a></li>
+            <li><a href="#drum-am-ban">Vì sao âm bản cần diễn giải?</a></li>
+            <li><a href="#drum-tu-thu">Tự thử</a></li>
+            <li><a href="#drum-nguon">Nguồn và giới hạn</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="drum-phim-chua-la-tep" class="htw-step" data-machine-focus="all" aria-labelledby="drum-phim-chua-la-tep-h">
+        <p class="htw-step-label">01 · Từ phim sang dữ liệu</p>
+        <h2 id="drum-phim-chua-la-tep-h" tabindex="-1">Tráng xong, phim vẫn chưa phải tệp ảnh</h2>
+        <p>Sau khi đi qua <a href="{{ '/how-things-work/c-41/' | relative_url }}">máy tráng C‑41</a>, cuộn phim đã thành một dải âm bản khô, có thể cầm lên và soi dưới ánh sáng. Hình ảnh nằm trong các lớp thuốc nhuộm trên một vật liệu trong. Trong đó chưa có điểm ảnh, chưa có tệp JPEG, cũng chưa có thứ gì gửi thẳng vào điện thoại được.</p>
+        <p>Để có ảnh số, ta phải đo ánh sáng đi qua phim. <dfn>Máy scan trống</dfn> làm việc ấy bằng cách gắn phim lên một ống trong suốt, quay ống và lần lượt đọc những vị trí rất nhỏ. Một dương bản slide đã xử lý cũng có thể là đầu vào: khác âm bản ở cách diễn giải màu, không khác ở nhu cầu đo ánh sáng xuyên qua vật liệu.</p>
+        <p>Trong hình, vỏ máy được mở để nhìn thấy cơ cấu. Cuộn trang chỉ đổi bộ phận được nhấn mạnh, không quay trống, không lấy mẫu và không ghi thêm điểm ảnh. Muốn vận hành, hãy dùng phần Tự thử sau bài đọc. Hình trong hai chế độ là cùng một cỗ máy, không phải hai bản chạy riêng.</p>
+      </section>
+
+      <section id="drum-ga-phim" class="htw-step" data-machine-focus="light" aria-labelledby="drum-ga-phim-h">
+        <p class="htw-step-label">02 · Chuẩn bị bản gốc</p>
+        <h2 id="drum-ga-phim-h" tabindex="-1">Gá phim lên một chiếc trống trong</h2>
+        <p>Chiếc trống là một ống trong suốt, không phải cuộn giấy và cũng không phải cảm biến. Phim ôm theo mặt ngoài của trống; băng gá giữ nó đúng vị trí để cùng quay mà không xê dịch. Máy vì thế có thể đưa cùng một vùng phim qua cửa đọc theo một quỹ đạo xác định.</p>
+        <p>Tài liệu Howtek ScanMaster 4500 yêu cầu đặt ảnh và vật liệu gá trong vùng cho phép, không che <dfn>dải chuẩn trắng</dfn>. Dải chuẩn là mốc tham chiếu cho máy thật, không phải một phần của ảnh cần quét. Trên hình, phim, băng gá và dải chuẩn cùng chuyển động với trống. Bài này không mô phỏng thao tác gá, trạm gá hay một quy trình hiệu chuẩn hoàn chỉnh.</p>
+        <p>Bụi và vết xước cũng chặn hoặc tán xạ ánh sáng, nên máy có thể ghi chúng cùng với ảnh. Scan không tự phục hồi phần thông tin mà phim đã mất. Đây là lý do chuẩn bị bản gốc sạch và gá chắc quan trọng trước cả khi bấm quét; với thiết bị thật, vẫn phải theo hướng dẫn của đúng máy và vật liệu.</p>
+      </section>
+
+      <section id="drum-doc-tung-diem" class="htw-step" data-machine-focus="light" aria-labelledby="drum-doc-tung-diem-h">
+        <p class="htw-step-label">03 · Chuyển động và truyền sáng</p>
+        <h2 id="drum-doc-tung-diem-h" tabindex="-1">Trống quay, cả bàn trống dịch ngang, cửa đọc đứng yên</h2>
+        <p>Có hai chuyển động cần nhìn riêng. Động cơ truyền qua dây đai làm trống quay, lần lượt đưa các vị trí quanh chu vi tới cửa đọc. Vít me dịch <dfn>bàn trống</dfn>, tức cụm đỡ trống, dọc theo trục để cửa đọc tiếp cận các cột kế bên. Không phải toàn bộ đầu thu sáng chạy đuổi theo phim.</p>
+        <p>Trong mô hình, đèn phía trục và cụm thu sáng giữ nguyên vị trí. Ánh sáng đi từ phía trong trống, xuyên qua trống và điểm phim đang ở cửa đọc, rồi đến cụm quang học bên ngoài. Bàn trống giữ vị trí khi đọc một cột; tới đoạn trống không mang ảnh, nó dịch sang cột tiếp theo. Chỉ khi điểm phim thật sự tới cửa đọc, mô hình mới nhận mẫu của điểm ấy.</p>
+        <p>Chỗ phim trong cho nhiều ánh sáng qua; chỗ đậm cho ít ánh sáng qua. <dfn>Độ truyền qua</dfn> là tỉ lệ ánh sáng đi qua so với ánh sáng tham chiếu. <dfn>Mật độ quang học</dfn> diễn tả mức cản sáng trên thang logarit: mật độ tăng 1 tương ứng lượng truyền qua giảm mười lần. Đó là thuộc tính của phim, không phải một giá trị sáng màn hình có thể đọc trực tiếp bằng mắt.</p>
+      </section>
+
+      <section id="drum-tach-mau" class="htw-step" data-machine-focus="rgb" aria-labelledby="drum-tach-mau-h">
+        <p class="htw-step-label">04 · Tách RGB</p>
+        <h2 id="drum-tach-mau-h" tabindex="-1">Một điểm phim, ba phép đo màu</h2>
+        <p>Chỉ biết một điểm sáng hay tối thì chưa đủ để giữ màu. Cụm quang học chia ánh sáng vừa đi qua điểm phim thành ba đường đo: đỏ, lục và lam, thường viết là <dfn>RGB</dfn>. Các bộ tách chùm và bộ lọc chọn vùng bước sóng cho từng kênh.</p>
+        <p>Đặc tả Howtek 4500 ghi bộ tách lưỡng sắc, bộ lọc giao thoa và ba cảm biến PMT cho ba màu. Những tia đỏ, lục, lam trong hình giúp lần theo ba kênh; chúng không phải ba tia laser đang vẽ màu lên phim. Cả ba phép đo đều thuộc về cùng một vị trí trên bản gốc.</p>
+        <p>Đường quang và vị trí các linh kiện ở đây được bố trí để dễ giải thích. Chúng không xác nhận vị trí lắp thật bên trong Howtek. Điều cần theo dõi là thứ tự: ánh sáng qua phim trước, tách theo màu sau, rồi mới chuyển thành tín hiệu điện.</p>
+      </section>
+
+      <section id="drum-nhan-quang" class="htw-step" data-machine-focus="pmt" aria-labelledby="drum-nhan-quang-h">
+        <p class="htw-step-label">05 · Ba ống nhân quang</p>
+        <h2 id="drum-nhan-quang-h" tabindex="-1">Đo một lượng ánh sáng rất nhỏ</h2>
+        <p><dfn>Ống nhân quang</dfn>, hay PMT (photomultiplier tube), biến ánh sáng thành tín hiệu điện và khuếch đại tín hiệu đó bên trong ống. Mỗi kênh màu có một PMT riêng. Lúc này ta có ba mức điện tương tự, nghĩa là các mức có thể biến thiên liên tục, chưa phải ba con số điểm ảnh.</p>
+        <p>Phần phim càng cản sáng thì tín hiệu nhận được càng nhỏ. Khả năng phân biệt các mức nhỏ còn phụ thuộc nhiễu, nguồn sáng và cả hệ đo, chứ không chỉ tên cảm biến. Trong mô hình, mức PMT chỉ là mức tương đối của từng kênh; không phải phép đo dòng điện, điện áp hay độ nhạy đã hiệu chuẩn của một chiếc máy thật.</p>
+        <p>Đây cũng không phải camera đang nhìn toàn bộ ảnh rồi xuất sẵn một khung hình. Cụm thu đang đọc điểm phim vừa tới cửa đọc. Muốn có ảnh đầy đủ, máy phải lặp lại phép đo ở những vị trí còn lại.</p>
+      </section>
+
+      <section id="drum-so-hoa" class="htw-step" data-machine-focus="adc" aria-labelledby="drum-so-hoa-h">
+        <p class="htw-step-label">06 · ADC 12 bit</p>
+        <h2 id="drum-so-hoa-h" tabindex="-1">Từ mức điện liên tục đến một con số</h2>
+        <p>Máy tính cần số, nên tín hiệu từ PMT đi tới <dfn>bộ chuyển đổi tương tự–số</dfn>, viết tắt là ADC. Bộ này lượng hóa mức tín hiệu: đặt nó vào một trong những mức số có thể biểu diễn, thay vì giữ một giá trị liên tục.</p>
+        <p>Đặc tả Howtek 4500 dùng 12 bit cho mỗi màu. Nghĩa là mỗi kênh có 4.096 mức, đánh số từ 0 đến 4.095. Một điểm vì thế có ba số R, G, B; không phải toàn bộ ảnh chỉ có 4.096 màu. Đây là thông số của máy tham chiếu, không phải quy luật chung cho mọi máy scan trống.</p>
+        <p>Số bit cho biết số mức biểu diễn, không tự chứng minh máy đọc được mọi chi tiết trong vùng phim đậm. Và bộ số ADC vẫn là kết quả đo thô ánh sáng xuyên phim: âm bản chưa tự biến thành dương bản ở bước này.</p>
+      </section>
+
+      <section id="drum-ghi-anh" class="htw-step" data-machine-focus="write" aria-labelledby="drum-ghi-anh-h">
+        <p class="htw-step-label">07 · Ghi đúng ô</p>
+        <h2 id="drum-ghi-anh-h" tabindex="-1">Năm khâu mới ghi được một điểm ảnh</h2>
+        <p>Sau ánh sáng, tách RGB, PMT và ADC là bước ghi: ba số của điểm vừa đọc được đặt vào đúng hàng, đúng cột của ảnh. Trống tiếp tục đưa điểm khác tới cửa đọc, rồi chuỗi năm khâu lặp lại. Vị trí cơ khí và địa chỉ điểm ảnh phải khớp nhau; nếu không, có đo đúng màu thì cũng không dựng đúng hình.</p>
+        <p>Ảnh mẫu trong bài chỉ rộng 24, cao 16 điểm, tổng cộng <strong>384 điểm</strong>. Đây là ảnh phong cảnh tổng hợp do tác giả tự tạo, không phải ảnh chụp được lấy từ camera trực tiếp, ảnh mẫu của hãng hay một bức hình đẹp thay cho kết quả quét. Các ô đầu ra chỉ được điền khi mô hình đã thực sự đọc và ghi các điểm tương ứng.</p>
+        <p>Lưới thưa giúp nhìn được từng ô xuất hiện. Nó không mô tả độ phân giải làm việc của Howtek. Ảnh đọc thô được đưa về mức hiển thị trên màn hình; việc nhìn các ô màu không biến bảng hiển thị thành một phép đo 12 bit đã hiệu chuẩn hay một tệp ảnh xuất chuyên nghiệp.</p>
+      </section>
+
+      <section id="drum-am-ban" class="htw-step" data-machine-focus="write" aria-labelledby="drum-am-ban-h">
+        <p class="htw-step-label">08 · Đọc thô khác với diễn giải</p>
+        <h2 id="drum-am-ban-h" tabindex="-1">Vì sao âm bản không chỉ cần đảo RGB?</h2>
+        <p>Với dương bản slide, hình trên phim đã mang quan hệ sáng tối theo chiều ta muốn xem. Với âm bản màu C‑41, vùng cảnh sáng tạo nhiều thuốc nhuộm hơn và cản nhiều ánh sáng hơn. Bên cạnh quan hệ ngược ấy còn có nền cam và đáp ứng riêng của các lớp thuốc nhuộm.</p>
+        <p>Phép đảo đơn giản kiểu lấy 255 trừ từng giá trị R, G, B chỉ đảo các mức hiển thị. Nó không tự tách nền cam, không đổi đúng quan hệ logarit giữa mật độ và truyền sáng, cũng không hiệu chỉnh đáp ứng của phim cùng máy quét. Bởi vậy, đọc được ba số màu và diễn giải âm bản thành ảnh để xem là hai việc khác nhau.</p>
+        <p>Mô hình đặt một nền cam tổng hợp, tạo độ truyền qua theo mật độ rồi diễn giải ngược theo chính giả định ấy. Hãy so ảnh đọc thô với ảnh sau diễn giải khi chọn âm bản: cùng các mẫu đã đọc, nhưng vai trò hiển thị khác nhau. Kết quả chỉ minh họa nguyên lý; nó không phải bộ nghịch đảo C‑41 đã hiệu chuẩn và không dự đoán màu của cuộn phim bạn mang đi scan.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="drum-tu-thu" class="htw-try" aria-labelledby="drum-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="drum-tu-thu-h" tabindex="-1">Tự thử trên chính chiếc máy này</h2>
+      <p>Mở chế độ tự thử để đưa hình máy từ cạnh bài đọc xuống bảng điều khiển. Vẫn là cùng một cảnh và cùng trạng thái; không có bản sao hay lượt quét tự chạy chỉ vì bạn cuộn trang.</p>
+      <ol class="htw-try-list">
+        <li><strong>Đọc chậm một điểm.</strong> Giữ lựa chọn Dương bản slide và bấm Từng bước để đi qua ánh sáng, RGB, PMT, ADC rồi ghi. Đừng nhầm năm khâu với năm điểm ảnh: phải tới bước ghi, một ô mới được hoàn thành.</li>
+        <li><strong>Theo dõi cả lượt quét.</strong> Bấm Quét để máy tiếp tục tự chạy. Quan sát trống quay và bàn trống đổi vị trí trong khi cụm thu đứng yên. Bấm Dừng để giữ nguyên các ô đã có, rồi Quét để tiếp tục.</li>
+        <li><strong>So âm bản với dương bản.</strong> Chọn Âm bản màu C‑41. Đổi loại phim sẽ dừng và đặt lại lượt quét, xóa kết quả cũ. Thử Từng bước hoặc Quét rồi so phần đọc thô với phần đã diễn giải; nền cam không biến mất ở ADC.</li>
+        <li><strong>Thử giữ trạng thái.</strong> Quay lại bài đọc rồi mở lại phần này: kết quả được giữ, máy không tự quét tiếp. Rời tab cũng làm máy dừng. Khi đủ 384 điểm, Từng bước không xóa ảnh; chỉ bấm Quét lại nếu muốn bắt đầu một lượt mới.</li>
+      </ol>
+      <p>Thời gian và tốc độ đã được làm chậm để nhìn rõ. Mô hình không có nút chỉnh gain, DPI, số bit hay tốc độ; đây là bài học về đường đi của dữ liệu, không phải bảng cài đặt vận hành Howtek.</p>
+      <p class="htw-try-fallback">Tự thử cần JavaScript và gói mô hình của trang. Nút mở chỉ được bật khi phần tương tác sẵn sàng. Nếu nút vẫn bị khóa, bạn vẫn đọc được bài và xem hình tĩnh.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="drum-scanner-scene drum-scanner-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="drum-scanner-scene" disabled>Quay lại bài đọc</button></p>
+        {% include how-things-work/drum-scanner-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="drum-nguon" class="htw-sources" aria-labelledby="drum-nguon-h">
+  <h2 id="drum-nguon-h" tabindex="-1">Nguồn, giả định và giới hạn</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li><a href="http://www.aztek.com/Howtek%20Pages/Guides/Scanners/Scanmaster4500.pdf" target="_blank" rel="noopener noreferrer">Howtek ScanMaster 4500 User Guide, HTM092 Rev. D</a>: hình 2–1, 2–2 về máy; hình 3–1 về vùng gá phim và dải chuẩn; mục bảo trì 4–8 về đai truyền động, 4–10 về vít me và bàn trống. Đây là đường dẫn HTTP của kho tài liệu cũ.</li>
+        <li><a href="https://www.scansolutionsonline.com/media/1174/scanmaster4500specs.pdf" target="_blank" rel="noopener noreferrer">Đặc tả Howtek ScanMaster 4500</a>: ba PMT đỏ, lục, lam; bộ tách lưỡng sắc và bộ lọc giao thoa; 12 bit mỗi màu, 4.096 mức. Đối chiếu với chương 7 của User Guide.</li>
+      </ul>
+      <p>Trang chỉ liên kết tới tài liệu công khai, không đăng lại PDF, ảnh hay bản vẽ của nhà sản xuất. Hình máy là minh họa tự dựng; ảnh mẫu 24 × 16 là ảnh tự tạo, không dùng ảnh nguồn chưa có quyền xuất bản.</p>
+    </div>
+    <div>
+      <h3>Hình minh họa, không phải bản vẽ nhà máy</h3>
+      <p>Vỏ máy, gá và cần gài trống, nắp có gân, dây đai cùng vít me dịch bàn trống phỏng theo Howtek ScanMaster 4500 User Guide HTM092 Rev. D. Mọi kích thước là minh họa. Bố trí quang học, đường sáng và vị trí điện tử thật chưa được xác minh; các cụm đèn, thu sáng, RGB, PMT và ADC được đặt để giải thích cơ chế.</p>
+      <p>Bài dùng lại hình máy đã duyệt, gồm 141 phần chính và 189 item vẽ. Trong 190 khối được ghi nhận có 188 khối cơ khí và hai vùng quét bảo thủ cho phim, băng gá, dải chuẩn; không nên gọi cả 190 là chi tiết cơ khí thật. Kiểm tra hình học đã lấy mẫu 298 tư thế, không phải chứng nhận đúng liên tục ở mọi vị trí.</p>
+    </div>
+    <div>
+      <h3>Giới hạn của phép đo và kết quả</h3>
+      <p>Mức sáng và PMT chỉ là tương đối. ADC 12 bit là đặc tả của Howtek 4500, không đại diện mọi máy scan. Tốc độ quay, dịch bàn trống và thời gian từng khâu đều minh họa; không dùng chúng suy ra thời gian quét thực tế.</p>
+      <p>Lưới 24 × 16 có 384 điểm tổng hợp; đầu ra được vẽ từ trạng thái đã đạt của mô hình, không phải camera trực tiếp hay ảnh dựng sẵn thay kết quả. Diễn giải âm bản dựa trên nền cam và mật độ giả định, chưa hiệu chuẩn. Mô hình không mô phỏng đầy đủ nhiễu, đặc tính phổ, hiệu chuẩn màu, gain hay DPI và không thay thế hướng dẫn vận hành hoặc bảo trì thiết bị.</p>
+    </div>
+  </div>
+</section>
