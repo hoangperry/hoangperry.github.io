@@ -1,0 +1,46 @@
+Photography machine: bw-enlarger
+Educational mechanical/optical illustration, not a calibrated device or factory specification.
+Sample imagery must be self-created or licensed; this package makes no claim of continuous audit coverage beyond the recorded audit.
+Audit coverage: {"type":"sampled","states":["initial","lift-mid","lift-end","focus-mid","focus-end","expose-partial","lamp-off","complete","t=0.0000","t=0.0688","t=0.1375","t=0.2063","t=0.2750","t=0.3438","t=0.4125","t=0.4813","t=0.5500","t=0.6188","t=0.6875","t=0.7563","t=0.8250","t=0.8938","t=0.9625","t=1.0313","t=1.1000","t=1.1688","t=1.2375","t=1.3063","t=1.3750","t=1.4438","t=1.5125","t=1.5813","t=1.6500","t=1.7188","t=1.7875","t=1.8563","t=1.9250","t=1.9938","t=2.0625","t=2.1313","t=2.2000","t=2.7000","t=10.2000","t=10.6000","replay","new-paper","back-to-initial","back-to-focus"],"intervals":[],"range":{"H":[280,360],"V":[212,300],"U":[60,68]}}
+Limitations:
+- Durst M605 + SIRIOKIT BW, âm bản 35 mm, lens 50 mm, một SIRIOCON 50. Kích thước và chuyển động là minh họa, không phải CAD nhà sản xuất.
+- 150 W là công suất điện của bóng opal; mức đèn và liều là tương đối, không phải công suất quang hay lux đã hiệu chuẩn.
+- Quang học paraxial ống kính mỏng, mẫu mật độ tự tạo 6 × 4; bảng liều 20 × 12 tích phân phần giao với ảnh chiếu và mặt nạ. Đảo cả hai trục do model sở hữu.
+- Preset nâng đầu, lấy nét rồi phơi không phải autofocus hoặc interlock của hãng. Khẩu f/8 và 8 giây phơi là lựa chọn giáo dục.
+- Màu quy ước cố định 0–8 biểu diễn ảnh tiềm ẩn, không phải bản in dương đã xử lý. Không mô phỏng hóa học giấy.
+- Camera cố định −135°/22° giữ che khuất cơ khí thật: vòng condenser.retainer che hoàn toàn ô âm bản 17/22/23 (0/25 tia); mật độ D tương ứng là 1,1/1,0/0,2. Ô 16/21 chỉ thấy 5/25 tia. Bảng giá trị đọc được vẫn ghi các mật độ này; chỉ số ô bắt đầu từ 0.
+- Vùng phơi 170 × 110 mm tại H=360, V=300, M=5 khớp tia chính trong cùng world z=0. Đây là mô hình chief-ray paraxial với mặt nạ cứng, không phải miền mọi tia f/8: dải bán dạ x=84,9758566–85,0241434 mm và y=54,9968719–55,0031281 mm, đối xứng ở mép âm. Bán rộng khoảng ±0,0241434 mm theo x và ±0,0031281 mm theo y; liều không tích phân phần bán dạ này.
+- Kẹp và ren bóng là khớp tĩnh lý tưởng đã duyệt, không chứng nhận helix, E27, preload, thao tác lắp hoặc giữ bóng theo +Z. Strain relief chỉ chứng nhận đường tiếp xúc liên tục; khả năng chịu tải vẫn UNKNOWN. Bốn cặp bạc lý tưởng (trục pinion–bạc carriage, hai bạc lens–ray, trục roller–bracket) có contactArea=null, không được gọi là mặt tiếp xúc hữu hạn hoặc chứng chỉ lực/ma sát.
+- One same-world illustrative DurstM605/SIRIOKITBW, singleSIRIOCON50,35mm negative,50mm lens,f8,8s,150W electrical,latent paper.
+- No extra user control/DOF. Dimensions are not factory CAD. Ideal thread/bearing laws do not imply literal full surface contact.
+- Camera −135°/22°: negative cells 17/22/23 have 0/25 visible rays because of condenser.retainer. Their densities D are respectively 1.1/1.0/0.2; cells 16/21 have 5/25 visible rays. The readable article table retains the values.
+- Chief-ray paraxial exposure uses a 170×110 mm hard easel crop at H360/V300/M5. Finite f/8 penumbra is x 84.97585656701378–85.02414343298624 mm and y 54.996871871871875–55.003128128128125 mm (symmetric at negative edges). Dose does not integrate that penumbra.
+- Kẹp và ren bóng là mối ghép tĩnh lý tưởng đã duyệt; không chứng nhận helix, E27, preload, thao tác lắp hoặc giữ bóng theo +Z.
+- Strain relief chỉ có chứng chỉ liên tục tiếp xúc; khả năng chịu tải là UNKNOWN.
+- Four ideal bearing boundaries have contactArea=null: carriage.pinion-shaft/carriage.shaft-bushings, lens.bushing-left/focus.rail-left, lens.bushing-right/focus.rail-right, focus.roller-shaft/focus.roller-brackets. No finite bearing contact, preload or strength certificate is claimed.
+- Native reference audit has solids but no painter items or tubes; zero native failures is not whole-Hero depth, line-end, electrical safety or load acceptance.
+- Installed static joints do not certify an assembly/disassembly corridor; historical C3 corridor and UNKNOWN counts remain historical, not current C4 measurements.
+- Receipt chỉ chứng nhận các gate sampled đã ghi trong audit-report.json; browser/lifecycle và kiểm xuất bản là kiểm hậu-dist riêng, chưa được receipt chứng nhận.
+
+Vendored Anatomy kit:
+MIT License
+
+Copyright (c) 2026 Ryan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -15,3 +15,10 @@
   subjects: "Nhiếp ảnh · Máy móc"
   summary: "Theo ánh sáng xuyên phim qua ba ống nhân quang và bộ đổi số: vì sao trống phải quay, từng điểm ảnh được ghi thế nào và âm bản cần diễn giải ra sao."
   thumbnail: /assets/how-things-work/drum-scanner/thumbnail.webp
+- id: bw-enlarger
+  number: "03"
+  url: /how-things-work/bw-enlarger/
+  title: "Máy phóng biến âm bản thành ảnh trên giấy thế nào?"
+  subjects: "Nhiếp ảnh · Máy móc"
+  summary: "Theo ánh sáng từ bóng đèn qua gương, tụ quang, âm bản và ống kính xuống giấy: nâng đầu để đổi độ phóng, lấy nét, phơi rồi vì sao tắt đèn vẫn chưa thấy ảnh."
+  thumbnail: /assets/how-things-work/bw-enlarger/thumbnail.webp
