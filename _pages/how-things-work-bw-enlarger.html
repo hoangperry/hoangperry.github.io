@@ -1,0 +1,167 @@
+---
+title: "Máy phóng biến âm bản thành ảnh trên giấy thế nào?"
+permalink: /how-things-work/bw-enlarger/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Ánh sáng xuyên âm bản, đầu máy đổi độ phóng, ống kính lấy nét và giấy tích lũy liều. Tắt đèn rồi, vì sao vẫn chưa nhìn thấy bức ảnh?"
+social-image: /assets/how-things-work/bw-enlarger/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/bw-enlarger/machine.css
+script-includes:
+  - /assets/how-things-work/bw-enlarger/machine.js
+---
+
+<div class="htw-machine iso" data-htw-figure="bw-enlarger" data-mode="reader" data-theme="dark">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/bw-enlarger-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: hình máy ở dạng tĩnh, các nút tương tác không hoạt động. Bạn vẫn đọc được toàn bộ bài và nguồn bên dưới.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="bw-enlarger-scene" disabled><span class="htw-collapse-name">Hình máy phóng đen trắng</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài máy phóng đen trắng">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#bw-am-ban-va-giay">Từ âm bản nhỏ đến ảnh giấy</a></li>
+            <li><a href="#bw-duong-sang">Bóng đèn và đường sáng gấp</a></li>
+            <li><a href="#bw-mat-do">Âm bản điều khiển lượng sáng</a></li>
+            <li><a href="#bw-do-phong">Nâng đầu để đổi độ phóng</a></li>
+            <li><a href="#bw-lay-net">Lấy nét bằng bàn ống kính</a></li>
+            <li><a href="#bw-phoi">Khẩu độ và thời gian phơi</a></li>
+            <li><a href="#bw-khung-giay">Khung che và mép giấy</a></li>
+            <li><a href="#bw-tiem-an">Tắt đèn chưa phải hiện ảnh</a></li>
+            <li><a href="#bw-tu-thu">Tự thử</a></li>
+            <li><a href="#bw-nguon">Nguồn và giới hạn</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="bw-am-ban-va-giay" class="htw-step" data-machine-focus="all" aria-labelledby="bw-am-ban-va-giay-h">
+        <p class="htw-step-label">01 · Một ảnh được chiếu lên giấy</p>
+        <h2 id="bw-am-ban-va-giay-h" tabindex="-1">Một khung phim nhỏ làm thành ảnh giấy lớn bằng cách nào?</h2>
+        <p>Âm bản đen trắng đã xử lý chỉ nhỏ bằng một khung phim. Đặt nó vào máy phóng, ta có thể chiếu hình lớn hơn lên giấy nhạy sáng. Máy không đọc phim thành điểm ảnh rồi điều khiển đầu in: ánh sáng thực sự đi qua âm bản và ống kính tới giấy.</p>
+        <p>Bài này theo một cấu hình Durst M605 với đầu SIRIOKIT BW, âm bản 35 mm và ống kính 50 mm. Hình máy được mở bằng các cửa cắt để thấy bên trong; kích thước dựng và chuyển động là minh họa. Cuộn bài không chạy chu kỳ hay phơi thêm giấy. Phần Tự thử dùng lại chính cảnh máy và trạng thái này.</p>
+      </section>
+
+      <section id="bw-duong-sang" class="htw-step" data-machine-focus="expose" aria-labelledby="bw-duong-sang-h">
+        <p class="htw-step-label">02 · Đường quang</p>
+        <h2 id="bw-duong-sang-h" tabindex="-1">Bóng đèn nằm bên cạnh, ánh sáng đi xuống dưới</h2>
+        <p>Trong đầu BW này, bóng opal nằm ở bên. Một gương 45° gấp đường sáng xuống qua bộ tụ quang, khay âm bản và ống kính. Không phải bóng đèn được đặt thẳng trên trục phim. Bộ tụ giúp phân bố và đưa ánh sáng vào đường quang; nó không tự biến mọi tia thành những đường song song hoàn hảo.</p>
+        <p>Sách hướng dẫn của hãng chỉ định bóng <strong>150 W điện</strong> và một bộ tụ <strong>SIRIOCON 50</strong> cho phim 35 mm với ống kính 50 mm. Công suất điện ấy không phải công suất quang tới giấy hay một phép đo lux. Đây cũng không phải đầu màu CLS605 hoặc buồng trộn được ghép thêm vào cùng một mô hình.</p>
+      </section>
+
+      <section id="bw-mat-do" class="htw-step" data-machine-focus="expose" aria-labelledby="bw-mat-do-h">
+        <p class="htw-step-label">03 · Mật độ và truyền sáng</p>
+        <h2 id="bw-mat-do-h" tabindex="-1">Chỗ phim đậm để ít ánh sáng đi qua</h2>
+        <p>Âm bản không phải một tấm kính có ảnh sáng sẵn. Chỗ đậm cản nhiều ánh sáng hơn chỗ trong. Mô hình dùng <dfn>mật độ quang học</dfn> D và độ truyền qua T = 10<sup>−D</sup>: mật độ tăng 1 thì lượng sáng truyền qua giảm mười lần.</p>
+        <p>Bảng 6 × 4 trên khay là mẫu mật độ tự tạo, bất đối xứng để nhìn được hướng ảnh. Nó không phải một bức ảnh lấy sẵn thay kết quả. Sau ống kính, ảnh quay 180° trên mặt giấy: cả hai chiều đều đảo. Màu quy ước trên giấy biểu diễn lượng phơi đã nhận, không phải phép đảo RGB của bảng âm bản.</p>
+
+        <p>Góc nhìn cố định −135°/22° giữ đúng che khuất cơ khí thật: vòng giữ tụ quang che hoàn toàn các ô âm bản 17, 22 và 23 (0/25 tia mẫu); mật độ D tương ứng là 1,1/1,0/0,2. Ô 16 và 21 chỉ thấy 5/25 tia mẫu. Bảng giá trị đọc được vẫn ghi các mật độ này; chỉ số ô bắt đầu từ 0.</p>
+        <table class="bw-negative-values">
+          <caption>Mật độ những ô bị vòng giữ tụ che; chỉ số ô từ 0, hàng 0 ở phía y thấp, cột 0 ở phía x thấp. Giá trị thuộc chart cố định, không phải cảm biến.</caption>
+          <thead><tr><th scope="col">Ô</th><th scope="col">Mật độ D</th><th scope="col">Tia mẫu thấy được / 25</th></tr></thead>
+          <tbody>
+            <tr data-bw-density-cell="16"><th scope="row">16</th><td>0,7</td><td>5/25</td></tr>
+            <tr data-bw-density-cell="17"><th scope="row">17</th><td>1,1</td><td>0/25</td></tr>
+            <tr data-bw-density-cell="21"><th scope="row">21</th><td>0,3</td><td>5/25</td></tr>
+            <tr data-bw-density-cell="22"><th scope="row">22</th><td>1,0</td><td>0/25</td></tr>
+            <tr data-bw-density-cell="23"><th scope="row">23</th><td>0,2</td><td>0/25</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="bw-do-phong" class="htw-step" data-machine-focus="height" aria-labelledby="bw-do-phong-h">
+        <p class="htw-step-label">04 · Độ phóng</p>
+        <h2 id="bw-do-phong-h" tabindex="-1">Nâng cả đầu máy, không chỉ kéo riêng ống kính</h2>
+        <p>Tay quay và thanh răng đưa cả cụm đầu lên cột: bóng đèn, gương, tụ và khay phim đi cùng nhau. Bàn ống kính ban đầu cũng đi theo đầu. Khoảng cách từ cụm quang xuống giấy thay đổi, nhưng chỉ nâng đầu chưa bảo đảm ảnh đã sắc nét.</p>
+        <p>Trong preset minh họa, mặt phim lên từ 280 tới 360 mm so với giấy. Ống kính lúc này ở 292 mm, vẫn chưa đúng nét. Sau khi lấy nét ở bước kế tiếp, độ phóng là 5 lần: khung 36 × 24 mm chiếu thành 180 × 120 mm. Các số này là lựa chọn của bài học, không phải kích thước đo trên chiếc Durst thật.</p>
+      </section>
+
+      <section id="bw-lay-net" class="htw-step" data-machine-focus="focus" aria-labelledby="bw-lay-net-h">
+        <p class="htw-step-label">05 · Khoảng vật và khoảng ảnh</p>
+        <h2 id="bw-lay-net-h" tabindex="-1">Đầu máy đứng lại, bàn ống kính vẫn phải dịch</h2>
+        <p>Bộ truyền ma sát dịch bàn ống kính trên ray, làm ống xếp đổi chiều dài mà khay phim không đi theo. Với ống kính mỏng, khoảng phim–kính U và kính–giấy V cần thỏa 1/f = 1/U + 1/V. Nếu sai quan hệ này, mặt ảnh sắc nét nằm phía trên hoặc dưới giấy, không thể sửa bằng cách tô nét hơn lên bảng đầu ra.</p>
+        <p>Ở cuối bước lấy nét, f = 50 mm, U = 60 mm và V = 300 mm. Bàn kính đã dịch 8 mm so với vị trí ngay sau nâng đầu. Máy thật cần người vận hành lấy nét; đây là thiết lập có sẵn (preset), không phải lấy nét tự động. Việc demo tắt đèn trong lúc nâng và lấy nét là chính sách minh họa, không phải khóa liên động (interlock) của M605: thao tác thật thường dùng đèn và giấy trắng cùng độ dày để lấy nét trước khi đặt giấy nhạy sáng.</p>
+      </section>
+
+      <section id="bw-phoi" class="htw-step" data-machine-focus="expose" aria-labelledby="bw-phoi-h">
+        <p class="htw-step-label">06 · Ánh sáng tích lũy theo thời gian</p>
+        <h2 id="bw-phoi-h" tabindex="-1">Khẩu độ giữ cố định, đồng hồ hẹn giờ cho giấy nhận sáng</h2>
+        <p>Khẩu độ giới hạn chùm sáng đi qua ống kính. Đóng khẩu làm lượng sáng giảm; thời gian bật đèn quyết định giấy tích lũy lượng phơi trong bao lâu. Trong bài, khẩu giữ ở f/8 và đèn phơi đúng 8 giây theo đồng hồ của mô hình sau khi lấy nét. Đó không phải khuyến nghị thời gian in cho một loại phim hay giấy thương mại.</p>
+        <p><dfn>Liều tương đối</dfn> là lượng sáng tích lũy trên từng vùng giấy theo thời gian. Dừng demo thì cả thời gian và liều cùng đứng lại. Tới bước tắt đèn, trường sáng tức thời về 0 nhưng liều cũ vẫn còn trên đúng tờ giấy ấy. Thang màu 0–8 giữ nguyên suốt chu kỳ, không tự co giãn để phần vừa phơi trông đậm hơn.</p>
+      </section>
+
+      <section id="bw-khung-giay" class="htw-step" data-machine-focus="expose" aria-labelledby="bw-khung-giay-h">
+        <p class="htw-step-label">07 · Phần giấy thật sự nhận sáng</p>
+        <h2 id="bw-khung-giay-h" tabindex="-1">Khung che tạo mép trắng, không xóa liều bằng phần mềm</h2>
+        <p>Giấy trong bài rộng 200 × 150 mm. Ảnh chiếu ở độ phóng 5 lần rộng 180 × 120 mm, còn cửa khung che chỉ mở 170 × 110 mm. Trong mô hình tia chính, phần bị mặt nạ che hoặc ngoài khung ảnh không nhận liều. Chùm tia thật qua khẩu có một dải chuyển tiếp rất hẹp, nên không thể gọi là khớp tuyệt đối với mặt nạ cứng.</p>
+        <p>Bảng liều có 20 × 12 ô diện tích. Ô sát mép có thể chỉ nhận sáng trên một phần diện tích, nên mô hình tính phần giao thật giữa ô, ảnh chiếu và cửa khung, không chỉ hỏi tâm ô có nằm trong ảnh hay không. Bảng này bám cùng tờ giấy và cùng phép đảo ảnh với âm bản phía trên.</p>
+        <p>Vùng phơi 170 × 110 mm tại H=360, V=300, M=5 khớp với tia chính trên cùng mặt phẳng giấy z = 0. Đây là mô hình tia chính, gần trục, với mặt nạ cứng, không phải miền của mọi tia qua khẩu f/8: dải bán dạ nằm trong x=84,9758566–85,0241434 mm và y=54,9968719–55,0031281 mm, và đối xứng ở hai mép phía tọa độ âm (x = −85, y = −55). Bán rộng khoảng ±0,0241434 mm theo x và ±0,0031281 mm theo y; liều không tích phân phần bán dạ này.</p>
+      </section>
+
+      <section id="bw-tiem-an" class="htw-step" data-machine-focus="latent" aria-labelledby="bw-tiem-an-h">
+        <p class="htw-step-label">08 · Ảnh tiềm ẩn</p>
+        <h2 id="bw-tiem-an-h" tabindex="-1">Tắt đèn rồi, bức ảnh vẫn chưa hiện ra</h2>
+        <p>Máy phóng chỉ phơi giấy. Sau đó trên vật liệu nhạy sáng có <dfn>ảnh tiềm ẩn</dfn>, chưa phải bức ảnh đen trắng nhìn được dưới ánh sáng phòng. Những ô màu trong hình chỉ giúp đọc lượng phơi; giấy thật không xuất hiện bảng màu đó.</p>
+        <p>Giấy còn cần được xử lý bằng quy trình thích hợp: hiện, dừng, định hình, rửa và làm khô. Các khâu ấy nằm ngoài máy phóng và ngoài demo này. Không đưa giấy B&amp;W qua <a href="{{ '/how-things-work/c-41/' | relative_url }}">chu trình tráng phim C‑41</a> để thay cho xử lý giấy. Khi demo hoàn tất, Từng bước giữ tờ giấy cũ; chỉ lệnh chạy lại rõ ràng mới cấp một tờ giấy trắng mới.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="bw-tu-thu" class="htw-try" aria-labelledby="bw-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="bw-tu-thu-h" tabindex="-1">Theo một tờ giấy từ trắng đến ảnh tiềm ẩn</h2>
+      <p>Mở Tự thử để đưa cùng hình máy xuống bảng điều khiển. Trạng thái không bị tạo lại khi đổi chế độ hoặc cuộn trang.</p>
+      <ol class="htw-try-list">
+        <li><strong>Tách nâng đầu khỏi lấy nét.</strong> Bấm Từng bước một lần để nâng đầu, rồi một lần nữa để lấy nét. So H, V và U: lần sau khay phim đứng yên nhưng bàn ống kính và ống xếp thay đổi.</li>
+        <li><strong>Theo ánh sáng và liều.</strong> Bấm Chạy chu kỳ để tiếp tục, hoặc Từng bước để đi hết bước phơi. Khi đèn tắt, liều không biến mất; giấy vẫn chưa tráng.</li>
+        <li><strong>Dừng ở giữa.</strong> Dùng Dừng rồi quay lại bài đọc. Thời gian, cơ cấu và lượng phơi giữ nguyên. Mở Tự thử lại không tự chạy tiếp; chỉ lệnh chạy mới tiếp tục demo.</li>
+        <li><strong>Giữ giấy cũ hoặc lấy giấy mới.</strong> Sau hoàn tất, Từng bước không xóa liều. Chạy lại với giấy mới bắt đầu một chu kỳ trắng khác, không phơi chồng lên tờ đã xong.</li>
+      </ol>
+      <p>Demo chỉ có các lệnh chạy, dừng và từng bước; không có nút chỉnh độ phóng, khẩu độ hoặc thời gian phơi. Chế độ giảm chuyển động đi qua các mốc nguyên trạng thái, không đổi riêng cơ cấu mà để liều chạy ở một nhịp khác.</p>
+      <p class="htw-try-fallback">Tự thử cần JavaScript và gói mô hình của trang. Nếu nút vẫn khóa, bạn vẫn đọc được bài và xem hình tĩnh.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="bw-enlarger-scene bw-enlarger-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="bw-enlarger-scene" disabled>Quay lại bài đọc</button></p>
+        {% include how-things-work/bw-enlarger-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="bw-nguon" class="htw-sources" aria-labelledby="bw-nguon-h">
+  <h2 id="bw-nguon-h" tabindex="-1">Nguồn, giả định và giới hạn</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li><a href="https://www.cs.helsinki.fi/u/kpalin/Durst_M605_Manual.pdf" target="_blank" rel="noopener noreferrer">Durst M605 manual</a>: mục 2.2–2.4 về carriage, carrier và condenser; 3.1.3–3.1.8 về nâng đầu và lấy nét; 3.2.1–3.2.2 về đầu BW, bóng 150 W và SIRIOCON 50; 4.4–4.6 về độ phóng, lấy nét và phơi.</li>
+        <li><a href="https://www.ilfordphoto.com/wp/wp-content/uploads/2017/04/Making-your-first-print.pdf" target="_blank" rel="noopener noreferrer">ILFORD, Making your first black &amp; white print</a>: giấy cần được xử lý sau phơi; máy phóng không làm thay bước hiện, dừng, định hình, rửa và làm khô.</li>
+      </ul>
+      <p>Trang liên kết tới nguồn công khai, không phân phối lại ảnh manual hay bản vẽ của hãng. Bảng mật độ và hình máy là nội dung tự dựng.</p>
+    </div>
+    <div>
+      <h3>Một cấu hình minh họa, không phải CAD nhà máy</h3>
+      <p>Chủ thể là M605 với SIRIOKIT BW, phim 35 mm, lens 50 mm và một SIRIOCON 50. Kích thước, số răng, biên dạng chi tiết, khoảng dịch và tốc độ trong hình là minh họa; không suy ra tỷ số truyền, lực ma sát hay dung sai của máy thật.</p>
+      <p>Kẹp và ren đui bóng được mô hình như mối ghép cố định lý tưởng; bài không mô phỏng đường ren, chuẩn đui E27, lực siết, thao tác lắp hay khả năng giữ bóng. Bộ chống giật dây chỉ được kiểm là có tiếp xúc liên tục; khả năng chịu lực của nó chưa được kiểm. Bốn cặp trục–bạc (trục bánh răng với bạc của xe trượt, hai bạc bàn ống kính với ray, trục con lăn với giá đỡ) là ổ trượt lý tưởng, không có diện tích tiếp xúc thật; không dùng chúng để suy ra lực hay ma sát.</p>
+      <p>Hình máy gồm 965 khối thuộc 108 bộ phận, 4 nhóm chuyển động, 2 mặt phẳng ảnh (âm bản và giấy) và 65 khối co giãn như ống xếp. Bản kiểm tra phát hành xét 48 tư thế lấy mẫu: không có khối nào xuyên vào bộ phận khác, không còn cặp khối nào chưa xác định được sau phép kiểm hình trụ chính xác, và thứ tự vẽ đạt ở cả 98 lần sắp xếp (hai cảnh tham chiếu và hai cách dựng cho mỗi tư thế). Đây là kiểm tra lấy mẫu của một mô hình minh họa, không phải chứng nhận chuyển động liên tục, chịu lực hay an toàn điện của máy thật.</p>
+      <p>Preset nâng đầu, lấy nét rồi mới phơi là chuỗi thao tác đã định sẵn. Demo không mô phỏng người thay giấy trắng bằng giấy nhạy sáng, không có autofocus và không có interlock đèn của hãng.</p>
+    </div>
+    <div>
+      <h3>Liều tương đối không phải ảnh đã tráng</h3>
+      <p>Quang học dùng ống kính mỏng paraxial và mật độ T = 10<sup>−D</sup>. Không mô phỏng quang sai, nhiễu xạ, phổ đèn, nhiệt hoặc hiệu chuẩn bộ tụ. Số 150 W là công suất điện; liều không mang đơn vị lux hoặc optical watt.</p>
+      <p>Màu 0–8 chỉ biểu diễn liều tiềm ẩn trên 20 × 12 ô. Không có đáp ứng giấy thương mại, quy trình hiện giấy hoặc ảnh dương hoàn thành. Tám giây phơi và f/8 chỉ thuộc preset giáo dục, không thay hướng dẫn vận hành thiết bị thật.</p>
+    </div>
+  </div>
+</section>

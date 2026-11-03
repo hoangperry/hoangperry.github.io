@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "topic": "bw-enlarger",
+  "sourceDigest": "c0fe30f6cb786e641ea88ff620b855d707e293cac958dfaf97f4ce2e1f97dc81",
+  "files": {
+    "_includes/how-things-work/bw-enlarger-scene.html": "161d8b9ea0a25e2fab4d1a79740f49b87da85b233f89c62fce7963927bfcbfed",
+    "_includes/how-things-work/bw-enlarger-console.html": "6e90dd6abd00035944782eadad5f204bb5f25731a74ffe3004ef2bd1b7b91a0e",
+    "assets/how-things-work/bw-enlarger/machine.js": "d630e49c0d19a10cdd241c63f4b0df8c36ee9839c83693b116ccf8bd9ddc78e7",
+    "assets/how-things-work/bw-enlarger/machine.css": "8571c349c46abe9424cc9e948db21bcbea1de121ec149c7ff837c9ff0c501363",
+    "assets/how-things-work/bw-enlarger/thumbnail.webp": "5faa5ba7489aadee047104778ef4c2b4b37bb8fe26ea57ef4b0b29d800315aec",
+    "assets/how-things-work/bw-enlarger/NOTICE.txt": "205f262c56ce9d012762f18155d416da9e3e3a199d146ae37317b63ff4e241f1"
+  }
+}
