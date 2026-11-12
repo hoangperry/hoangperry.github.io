@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "topic": "swing-lens-panorama",
+  "sourceDigest": "f1c7ad4ebc5803e9d5b42ef8a87e007c297f7eb1522424ad61ef84558d9f906a",
+  "files": {
+    "_includes/how-things-work/swing-lens-panorama-scene.html": "04ab99738cb04cb3b4aa45797b6bfdc215f8f6898a6abe51c79541e7b99b0628",
+    "_includes/how-things-work/swing-lens-panorama-console.html": "9b0953cdad2a519d410ffd96c9a35d16018b09f6de79648492773ee6f7580f89",
+    "assets/how-things-work/swing-lens-panorama/machine.js": "13d7c170a08f380de6de4490e0791584769d13ab7f1b400887b98aa6c6b6017e",
+    "assets/how-things-work/swing-lens-panorama/machine.css": "a81f447ed9da897066b86509f9513a9aa183a8cda4bcc499c9941f654dc7f677",
+    "assets/how-things-work/swing-lens-panorama/thumbnail.webp": "c1090daefd25787afdf4e879edd829f8f30fb66cb37ca31353246b1035734110",
+    "assets/how-things-work/swing-lens-panorama/NOTICE.txt": "520d9009ee8663201c310badd555fb5fe9bb5a929c099d1a18961254aae0ca28"
+  }
+}
