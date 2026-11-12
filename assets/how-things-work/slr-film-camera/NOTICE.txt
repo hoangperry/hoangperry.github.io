@@ -4,11 +4,11 @@ Sample imagery must be self-created or licensed; this package makes no claim of 
 Audit coverage: {"type":"sampled","states":["initial","mirror-up","partial-first","full-open","partial-second","closed","mirror-return","wind-partway","wind-end","sweep-1","sweep-2","sweep-3","sweep-4","sweep-5","sweep-6","second-cycle-held","wind-early","reduced-commit"],"intervals":[],"range":{"time":[0,8.766666666666667],"mirror":[0,90],"aperture":[4,8],"advance":[0,38]}}
 Limitations:
 - Kích thước và bố trí là minh họa theo nguyên lý K1000, không phải CAD hay kích thước nhà máy; không chứng nhận lực, vật liệu, tải hoặc độ bền.
-- Một hình học cho mỗi trạng thái đạt được; pose tham chiếu có 1116 khối/106 bộ phận. RAW và thứ tự vẽ native được kiểm ở 18 pose đạt được, không phải chứng minh liên tục.
-- Che khuất thật tạo 76–78 forced picks và 479 pixel lệch trong các SCC đã chứng minh ở 18 pose kiểm; không có pixel lệch ngoài vùng ấy. Không tuyên bố mọi chi tiết đều nhìn thấy hoặc forced bằng 0.
+- Ở 18 tư thế được kiểm, không thấy chi tiết nào xuyên vào bộ phận khác. Đây là kiểm tra lấy mẫu, không bảo đảm đúng ở mọi tư thế giữa các mẫu.
+- Một số chi tiết che khuất nhau theo vòng nên thứ tự vẽ phải chọn theo quy ước. Có 76–78 lần chọn như vậy và 479 điểm ảnh vẽ lệch trong các vùng ấy ở mỗi tư thế được kiểm; ngoài các vùng đó không thấy sai khác. Không bảo đảm mọi chi tiết đều nhìn thấy.
 - Khớp then, tiếp xúc con lăn và các khe gần tiếp xúc là minh họa lý tưởng. Gờ dẫn rèm có khe 0,125 mm; không phải chứng nhận dung sai hoặc chịu lực.
-- Lò xo dải hữu hạn không được chứng nhận bảo toàn thể tích, lực hoặc độ mỏi. Truyền động kéo phim là thí nghiệm lưới hữu hạn, không chứng minh ăn khớp liên tục; chưa có bộ truyền bánh răng đầy đủ và profile trục/hub không quay liên tục theo clock.
-- Ảnh trên phim là liều tiềm ẩn tương đối chưa tráng, không phải ảnh dương, RAW hay JPEG. Liều được tích phân trên cửa trập và pose đã đạt, bám chính dải phim; SLR không tráng phim. Browser và xuất bản được kiểm riêng, không do receipt hình học chứng nhận.
+- Hình lò xo là minh họa; không chứng nhận lực, tải hay độ mỏi. Bộ truyền kéo phim chỉ được kiểm ở một số vị trí rời rạc; mô hình chưa có bộ bánh răng đầy đủ và các khớp trục trong hình chưa quay liên tục.
+- Màu trên phim biểu diễn lượng sáng tương đối đã nhận, tức ảnh tiềm ẩn chưa tráng, không phải ảnh dương hay tệp ảnh số. Lượng sáng được cộng theo phần cửa trập thực sự mở trong mô hình và hiển thị trên chính dải phim; SLR không tráng phim. Kiểm tra hình học không thay cho kiểm tra trình duyệt hoặc bản xuất bản.
 
 Vendored Anatomy kit:
 MIT License
