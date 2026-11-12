@@ -1,0 +1,34 @@
+Photography machine: slr-film-camera
+Educational mechanical/optical illustration, not a calibrated device or factory specification.
+Sample imagery must be self-created or licensed; this package makes no claim of continuous audit coverage beyond the recorded audit.
+Audit coverage: {"type":"sampled","states":["initial","mirror-up","partial-first","full-open","partial-second","closed","mirror-return","wind-partway","wind-end","sweep-1","sweep-2","sweep-3","sweep-4","sweep-5","sweep-6","second-cycle-held","wind-early","reduced-commit"],"intervals":[],"range":{"time":[0,8.766666666666667],"mirror":[0,90],"aperture":[4,8],"advance":[0,38]}}
+Limitations:
+- Kích thước và bố trí là minh họa theo nguyên lý K1000, không phải CAD hay kích thước nhà máy; không chứng nhận lực, vật liệu, tải hoặc độ bền.
+- Một hình học cho mỗi trạng thái đạt được; pose tham chiếu có 1116 khối/106 bộ phận. RAW và thứ tự vẽ native được kiểm ở 18 pose đạt được, không phải chứng minh liên tục.
+- Che khuất thật tạo 76–78 forced picks và 479 pixel lệch trong các SCC đã chứng minh ở 18 pose kiểm; không có pixel lệch ngoài vùng ấy. Không tuyên bố mọi chi tiết đều nhìn thấy hoặc forced bằng 0.
+- Khớp then, tiếp xúc con lăn và các khe gần tiếp xúc là minh họa lý tưởng. Gờ dẫn rèm có khe 0,125 mm; không phải chứng nhận dung sai hoặc chịu lực.
+- Lò xo dải hữu hạn không được chứng nhận bảo toàn thể tích, lực hoặc độ mỏi. Truyền động kéo phim là thí nghiệm lưới hữu hạn, không chứng minh ăn khớp liên tục; chưa có bộ truyền bánh răng đầy đủ và profile trục/hub không quay liên tục theo clock.
+- Ảnh trên phim là liều tiềm ẩn tương đối chưa tráng, không phải ảnh dương, RAW hay JPEG. Liều được tích phân trên cửa trập và pose đã đạt, bám chính dải phim; SLR không tráng phim. Browser và xuất bản được kiểm riêng, không do receipt hình học chứng nhận.
+
+Vendored Anatomy kit:
+MIT License
+
+Copyright (c) 2026 Ryan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

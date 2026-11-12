@@ -22,3 +22,10 @@
   subjects: "Nhiếp ảnh · Máy móc"
   summary: "Theo ánh sáng từ bóng đèn qua gương, tụ quang, âm bản và ống kính xuống giấy: nâng đầu để đổi độ phóng, lấy nét, phơi rồi vì sao tắt đèn vẫn chưa thấy ảnh."
   thumbnail: /assets/how-things-work/bw-enlarger/thumbnail.webp
+- id: slr-film-camera
+  number: "04"
+  url: /how-things-work/slr-film-camera/
+  title: "Máy ảnh SLR dùng cùng một ống kính để ngắm và chụp thế nào?"
+  subjects: "Nhiếp ảnh · Máy móc"
+  summary: "Theo ánh sáng qua gương, khẩu và hai rèm tới phim: vì sao kính ngắm tối đi lúc chụp, mỗi điểm phim nhận sáng thế nào và khi nào mới được lên khung kế."
+  thumbnail: /assets/how-things-work/slr-film-camera/thumbnail.webp
