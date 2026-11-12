@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "topic": "slr-film-camera",
+  "sourceDigest": "bbb3947fef8309bf35147080e258e69047a081bf7ea85ef38147b90bea773bfb",
+  "files": {
+    "_includes/how-things-work/slr-film-camera-scene.html": "3316890dabd9d2d69803fadb87fc9ccf588a52df107c6ba75077b105f87bfab7",
+    "_includes/how-things-work/slr-film-camera-console.html": "df2604141a413c2ca8bd2401583aee879e2ada2a19f8f3b0f4281ce9a2798092",
+    "assets/how-things-work/slr-film-camera/machine.js": "0613204853a99d7f1815773c7f5018dea3ff5a13f7e632d5f359451e5d71bbdc",
+    "assets/how-things-work/slr-film-camera/machine.css": "385861d7c0217a2220600a5cac6270bd2c02ea39f5f43ed07574208603905caa",
+    "assets/how-things-work/slr-film-camera/thumbnail.webp": "99574ee76ed52bc885d449613567b1a3ef3984093d90214afeb93be8a2121944",
+    "assets/how-things-work/slr-film-camera/NOTICE.txt": "0e19c02ab25d2288f6ed448014741957e4230020c5e41cd2bbe8191ba1b01978"
+  }
+}
