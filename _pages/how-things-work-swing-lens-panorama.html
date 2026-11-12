@@ -1,0 +1,155 @@
+---
+title: "Máy ảnh panorama quét cảnh lên cuộn phim đứng yên thế nào?"
+permalink: /how-things-work/swing-lens-panorama/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Ống kính đổi hướng qua một khe hẹp, phim ôm theo mặt cong: mỗi dải ảnh được phơi vào một thời điểm khác nhau."
+social-image: /assets/how-things-work/swing-lens-panorama/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/swing-lens-panorama/machine.css
+script-includes:
+  - /assets/how-things-work/swing-lens-panorama/machine.js
+---
+
+<div class="htw-machine iso" data-htw-figure="swing-lens-panorama" data-mode="reader" data-theme="dark">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/swing-lens-panorama-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: hình máy ở dạng tĩnh và các nút tương tác không hoạt động. Bạn vẫn đọc được toàn bộ bài và nguồn bên dưới.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="swing-lens-panorama-scene" disabled><span class="htw-collapse-name">Hình máy ảnh panorama quay ống kính</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài máy ảnh panorama quay ống kính">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#h202-khung-rong">Ảnh rộng không cần ghép nhiều tệp</a></li>
+            <li><a href="#h202-phim-cong">Phim theo cung cong nhưng đứng yên khi chụp</a></li>
+            <li><a href="#h202-nha-va-khe">Nhả cơ cấu, mở khe, nhưng chưa phơi cả khung</a></li>
+            <li><a href="#h202-quet-dan">Các cột của ảnh không cùng một thời điểm</a></li>
+            <li><a href="#h202-goc-anh">120° × 45° là góc ảnh, không phải cữ cơ khí</a></li>
+            <li><a href="#h202-goc-va-lieu">Một góc tương ứng một đoạn cung trên phim</a></li>
+            <li><a href="#h202-dong-che">Che kín trước khi đưa ống kính trở lại</a></li>
+            <li><a href="#h202-hoi-va-len">Lên cò và lên phim với khe đã đóng</a></li>
+            <li><a href="#h202-tu-thu">Tự thử</a></li>
+            <li><a href="#h202-nguon">Nguồn và giới hạn</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="h202-khung-rong" class="htw-step" data-machine-focus="all" aria-labelledby="h202-khung-rong-h">
+        <p class="htw-step-label">01 · Một khung dài trên phim</p>
+        <h2 id="h202-khung-rong-h" tabindex="-1">Ảnh rộng không cần ghép nhiều tệp</h2>
+        <p>Một khung panorama trên Horizon 202 rộng hơn nhiều so với chiều cao, nhưng không được ghép từ các tệp chụp liên tiếp. Trong một lần nhả, cụm ống kính đổi hướng và cho một dải sáng hẹp đi qua phim. Cảnh được ghi dần từ bên này sang bên kia trên cùng một khung vật liệu nhạy sáng.</p>
+        <p>Bài tham chiếu Horizon 202 và dùng nguyên lý che sáng của bằng sáng chế KMZ số 217205 để giải thích quá trình đóng khi hồi. Đây là mặt cắt giáo dục, không phải nội thất 202 đã biết mọi cam và bộ điều tốc. Cuộn bài không làm ống kính quét hoặc phơi thêm. Phần Tự thử sẽ dùng cùng cảnh, không một bản máy khác tự chạy bên dưới.</p>
+      </section>
+
+      <section id="h202-phim-cong" class="htw-step" data-machine-focus="all" aria-labelledby="h202-phim-cong-h">
+        <p class="htw-step-label">02 · Mặt phim</p>
+        <h2 id="h202-phim-cong-h" tabindex="-1">Phim theo cung cong nhưng đứng yên khi chụp</h2>
+        <p>Đường phim đi từ cassette qua con lăn dẫn và các ray cong tới bánh răng kéo rồi lõi cuốn. Các dẫn hướng giữ phần phim tại cửa phơi theo một cung. Khi quét cảnh, chính cụm ống kính và khe đổi hướng; phim không chạy cùng trống và không được kéo liên tục qua cửa sáng.</p>
+        <p>Mặt cong cho từng dải phim gặp đường chiếu của ống kính khi cụm ấy xoay quanh trục đứng. Cần phân biệt trục xoay này với trục quang của ống kính: ống kính đang quay sang trái rồi sang phải để nhìn các hướng khác nhau, không chỉ tự xoắn quanh đường ngắm cố định. Giữ phim tại chỗ là điều kiện để gắn từng hướng cảnh với đúng vị trí trên cùng khung.</p>
+      </section>
+
+      <section id="h202-nha-va-khe" class="htw-step" data-machine-focus="release" aria-labelledby="h202-nha-va-khe-h">
+        <p class="htw-step-label">03 · Bắt đầu lượt chụp</p>
+        <h2 id="h202-nha-va-khe-h" tabindex="-1">Nhả cơ cấu, mở khe, nhưng chưa phơi cả khung</h2>
+        <p>Ở đầu lượt, cơ cấu đã lên cò giữ năng lượng để quay cụm ống kính. Nhả chụp cho cụm bắt đầu chuyển động và tấm che rời vị trí đóng, tạo khe phơi. Chỉ khi khe đang mở đối diện phần phim thuộc vùng ảnh thì phần ấy mới nhận sáng; mở khe bên ngoài vùng ảnh không có nghĩa mọi điểm phim đã bắt đầu phơi.</p>
+        <p>Bằng sáng chế KMZ mô tả lò xo và một cơ cấu che có chốt, cữ và đòn liên kết. Nó cho căn cứ giải thích capping, tức che kín đường phơi khi cần. Không vì manual Horizon dẫn patent mà suy mọi biên dạng hoặc loại bộ điều tốc trong patent là phần cứng chính xác của Horizon 202.</p>
+      </section>
+
+      <section id="h202-quet-dan" class="htw-step" data-machine-focus="sweep" aria-labelledby="h202-quet-dan-h">
+        <p class="htw-step-label">04 · Phơi theo dải</p>
+        <h2 id="h202-quet-dan-h" tabindex="-1">Các cột của ảnh không cùng một thời điểm</h2>
+        <p>Ống kính quét tới đâu, khe hẹp đưa ánh sáng tới vùng phim tương ứng ở đó. Một vùng bắt đầu phơi khi mép khe tới và kết thúc khi mép sau đi qua. Trước vùng đang phơi là phần chưa tới; phía sau là phần đã nhận liều. Cả khung không đồng loạt mở rồi đồng loạt đóng như một màn trập toàn cục.</p>
+        <p>Cảnh tĩnh có thể được ghi liền thành ảnh rộng, nhưng chủ thể đang chuyển động ở hai vị trí trong khung có thể được ghi ở hai thời điểm khác nhau. Vì vậy phải tách thời gian phơi cục bộ của một dải khỏi thời gian quét cả khung. Con số tốc độ trên máy không được tự dùng như thời lượng toàn hành trình trình diễn.</p>
+      </section>
+
+      <section id="h202-goc-anh" class="htw-step" data-machine-focus="sweep" aria-labelledby="h202-goc-anh-h">
+        <p class="htw-step-label">05 · Hai loại góc</p>
+        <h2 id="h202-goc-anh-h" tabindex="-1">120° × 45° là góc ảnh, không phải cữ cơ khí</h2>
+        <p>Manual công bố góc ảnh của ống kính 120° × 45°. Bản mô tả còn có góc nhìn kính ngắm riêng; không gom các con số ấy thành cùng một đại lượng. Vùng cảnh được ghi lên phim không tự xác định tổng hành trình cụm ống kính, vì cơ cấu có thể cần chuyển động thêm ở ngoài vùng ảnh để mở, ổn định hoặc đóng khe.</p>
+        <p>Mô hình chọn hai cữ −66° và +66° như hành trình minh họa, còn vùng ảnh ngang là −60° tới +60°. Không gọi 132° ấy là số đo nhà máy, cũng không thay bằng một vòng 180° cho dễ dựng. Điều quan trọng là hành trình hữu hạn với vùng phơi xác định, không có ống kính quay liên tục quanh máy.</p>
+      </section>
+
+      <section id="h202-goc-va-lieu" class="htw-step" data-machine-focus="sweep" aria-labelledby="h202-goc-va-lieu-h">
+        <p class="htw-step-label">06 · Từ hướng nhìn đến liều</p>
+        <h2 id="h202-goc-va-lieu-h" tabindex="-1">Một góc tương ứng một đoạn cung trên phim</h2>
+        <p>Với mặt phim là một trụ lý tưởng, quãng cung s = Rθ, trong đó θ phải tính bằng radian. Chọn bán kính R = 28 mm cho bài học, vùng 120° tương ứng cung khoảng 58,64 mm. Việc bán kính minh họa trùng số 28 mm của tiêu cự công bố không chứng minh đó là bán kính cửa phim thật.</p>
+        <p>Nếu khe rộng w và quét đều với tốc độ dài v trên cung, một điểm được phơi xấp xỉ w/v. Quét chậm hơn hoặc khe rộng hơn làm liều tăng trong giả thiết này. Mô hình cộng phần khe đã đi qua từng ô của lưới 48 × 8, dùng độ sáng tự tạo. Mức 1 là phơi chuẩn hóa của preset, không phải lux, mật độ phim sau tráng hay mức sáng màn hình đã hiệu chuẩn.</p>
+      </section>
+
+      <section id="h202-dong-che" class="htw-step" data-machine-focus="cap" aria-labelledby="h202-dong-che-h">
+        <p class="htw-step-label">07 · Cuối lượt quét</p>
+        <h2 id="h202-dong-che-h" tabindex="-1">Che kín trước khi đưa ống kính trở lại</h2>
+        <p>Tới cuối lượt, tấm che gặp cữ trong khi cụm còn chuyển thêm một đoạn, làm khe được phủ kín. Nguyên lý đó trong patent giải thích vì sao lúc hồi không phơi chồng một lượt ngược lên cùng khung. Nếu chỉ quay ống kính về mà để khe mở, dải phim vừa chụp sẽ nhận thêm sáng ngoài ý muốn.</p>
+        <p>Sau khi đóng, liều đã nhận vẫn còn trên phim dù không có ánh sáng mới. Đó là ảnh tiềm ẩn, không phải một panorama màu đã tráng hoặc một tệp ghép số. Các màu trên bản đồ phơi chỉ giúp đọc lượng tương đối. Chuyển sang phần lên cò không được xóa liều cũ hoặc tô nó lên phần phim chưa chụp.</p>
+      </section>
+
+      <section id="h202-hoi-va-len" class="htw-step" data-machine-focus="recock" aria-labelledby="h202-hoi-va-len-h">
+        <p class="htw-step-label">08 · Chuẩn bị khung mới</p>
+        <h2 id="h202-hoi-va-len-h" tabindex="-1">Lên cò và lên phim với khe đã đóng</h2>
+        <p>Cần của Horizon làm nhiệm vụ lên cò và đưa phim tới khung kế. Bài gộp thao tác của người chụp vào pha hồi có che sáng và vận chuyển; không mô tả máy thật tự hồi ngay khi vừa nhả chụp. Phim chỉ được kéo sau khi đường phơi đã đóng, không chuyển động trong lượt quét.</p>
+        <p>Bước kéo 62 mm, bán kính lõi cuốn và mọi quãng dịch phim đều là số giáo dục, không thông số nhà máy. Khi kéo đủ một khung, nhãn khung ở cửa tăng một lần, còn bản đồ phơi vẫn thuộc khung vừa rời cửa. Tới cuối, Từng bước giữ kết quả; lệnh chạy lại mới nhận khung chưa phơi làm chủ lượt kế. Không hoàn tác ảnh tiềm ẩn của khung trước.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="h202-tu-thu" class="htw-try" aria-labelledby="h202-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="h202-tu-thu-h" tabindex="-1">Tách hướng quét, thời điểm phơi và chuyển phim</h2>
+      <p>Mở Tự thử sẽ đưa cùng cảnh từ ô bài đọc xuống ô khám phá, giữ nguyên trạng thái. Đổi chế độ và cuộn trang không tự chạy đồng hồ. Dừng giữ nguyên cả cơ cấu và liều đã nhận. Rời tab sẽ dừng bài học; đưa cả hình và bảng kết quả ra ngoài màn hình cũng không cộng bù thời gian khi trở lại.</p>
+      <ol class="htw-try-list">
+        <li><strong>Theo khe.</strong> Dùng Từng bước qua nhả rồi quét. Một bước quét phải tích đủ vùng đã đi qua, không chỉ đánh dấu hai mép đầu cuối.</li>
+        <li><strong>Dừng giữa khung.</strong> Chạy chu kỳ rồi Dừng trong pha quét. Xác định phần đã phơi, đang ở khe và chưa tới; phim phải giữ nguyên vị trí trong khi cụm ống kính đổi hướng.</li>
+        <li><strong>Theo hồi kín.</strong> Đi tiếp qua đóng khe rồi lên cò/lên phim. Quay ngược về vị trí đầu không được tạo một vệt phơi thứ hai.</li>
+        <li><strong>Giữ đúng khung.</strong> Quay lại bài đọc rồi mở Tự thử không được tự chạy tiếp. Từng bước sau hoàn tất không thay khung; chỉ chạy lại rõ ràng mới bắt đầu lượt trên khung mới.</li>
+      </ol>
+      <p>Bảng điều khiển chỉ có Chạy chu kỳ, Dừng và Từng bước; không thêm nút chỉnh góc, khe hoặc tốc độ. Dừng là tạm dừng giáo dục, không phải khả năng giữ đứng một lượt quét của máy thật. Chế độ giảm chuyển động giữ các tư thế cuối pha đủ lâu để quan sát, nhưng vẫn tính đủ lượng phơi trong khoảng vừa đi qua. Cơ cấu và bản đồ phơi luôn ở cùng mốc.</p>
+      <p class="htw-try-fallback">Tự thử cần JavaScript và gói mô hình của trang. Nếu nút vẫn khóa hoặc mô hình gặp lỗi, hình tĩnh, bài và nguồn vẫn đọc được.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="swing-lens-panorama-scene swing-lens-panorama-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="swing-lens-panorama-scene" disabled>Quay lại bài đọc</button></p>
+        {% include how-things-work/swing-lens-panorama-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="h202-nguon" class="htw-sources" aria-labelledby="h202-nguon-h">
+  <h2 id="h202-nguon-h" tabindex="-1">Nguồn, giả định và giới hạn</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li><a href="https://www.zenitcamera.com/mans/horizon-202/horizon-202-eng.html" target="_blank" rel="noopener noreferrer">Horizon 202, Technical Description</a>: bản tiếng Anh 1991 được chép HTML: Purpose and Features về lens quay; Specifications về góc ảnh 120° × 45°; Camera design, hình nhìn từ sau và Loading về ray dẫn, sprocket, lõi cuốn cùng cần lên cò/lên phim. Không có số trang in trong bản HTML.</li>
+        <li><a href="https://patents.google.com/patent/SU217205A1/ru" target="_blank" rel="noopener noreferrer">KMZ, bằng sáng chế số 217205</a>: Description về tấm che gặp cữ, đóng hoàn toàn và lên cò trong trạng thái che kín. Bản chữ OCR cục bộ chưa đối chiếu hình scan; dùng làm căn cứ nguyên lý, không bản vẽ dịch vụ Horizon 202.</li>
+        <li><a href="https://www.zenitcamera.com/qa/qa-panoramic.html" target="_blank" rel="noopener noreferrer">Giải thích panorama trong kho ZENITcamera</a>: mục cameras và frames giải thích trục xoay vuông góc trục quang, phim trên cung. Đây là nguồn phụ, không service manual.</li>
+      </ul>
+      <p>Đối chiếu bản tài liệu cục bộ đã lưu; không phải kiểm tra web mới. Chỉ liên kết nguồn công khai, không phân phối lại ảnh manual, hình patent hoặc bản vẽ có bản quyền. Dữ liệu cảnh dùng trong mô hình là tự tạo.</p>
+    </div>
+    <div>
+      <h3>Không suy máy hoàn chỉnh từ một lượt quét</h3>
+      <p>Bán kính R = 28 mm, khe 2 mm, cữ ±66°, bước kéo 62 mm, quy luật biến thiên tốc độ, thời gian và quãng dịch phim đều là minh họa. Không có hiệu chuẩn méo ảnh, quang sai hay mật độ phim thật. Cảnh và lưới liều đều tự tạo, không dùng ảnh patent hoặc ảnh của hãng.</p>
+      <p>Manual không xác nhận chi tiết governor, cam capping, coupling chính xác giữa hồi và kéo phim. Bài giữ quan hệ cơ bản đã có căn cứ, không gán nguyên một bộ điều tốc của patent cho 202. Đầu ra chỉ là ảnh tiềm ẩn, chưa xử lý bằng quy trình phù hợp với loại phim đã nạp.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Giới hạn mô hình</h3>
+      <p>Kiểm tra hình học chỉ lấy mẫu 86 tư thế cơ cấu thực sự đã đạt, gồm mở khe, giữa quét, cuối quét, hồi và kéo phim qua các lượt chụp. Không phát hiện hai bộ phận khác nhau xuyên khối ở những cặp đã phân loại. Một số cặp vật liệu chưa được phép tính chính xác phân loại; chúng chỉ được kiểm tra thêm bằng số thập phân máy tính để tìm khe hở hoặc chỗ lấn nhau. Đây là kiểm tra gần đúng, không phải chứng minh hình học chính xác hay bảo đảm mọi tư thế ở giữa đều đạt.</p>
+      <p>Các vành chắn cao được ghép từ đoạn thẳng mỗi 4°, không phải đường tròn hoàn hảo: hụt bán kính không quá 0,017 mm, còn mép cắt chiều cao có thể nới khoảng 0,0073 mm. Các vòng giữ kính dùng đa giác 30 cạnh; độ lệch riêng của chúng có thể tới khoảng 0,056 mm ở biên ngoài và 0,044 mm ở lỗ trong. Những số này mô tả cách dựng hình, không phải dung sai nhà máy.</p>
+      <p>Mép khe phơi cách vách khoảng 0,37 mm và cách lá che ít nhất khoảng 0,4 mm. Các chi tiết giữ và mặt tựa chỉ minh họa: không có ren, lực siết hay lực ép lắp ráp được chứng nhận. Neo lò xo tựa trên mặt phẳng thực của hộp; đường ghép góc của dải lò xo lệch khỏi hình bao cũ không quá 0,018 mm. Không suy lực đàn hồi, truyền mô-men, độ bền hoặc độ mỏi từ hình này.</p>
+      <p>Thứ tự vẽ cũng chỉ được kiểm ở các tư thế lấy mẫu, với cả thứ tự mới và thứ tự tiếp nối. Không có điểm ảnh sai nằm ngoài vùng được phép và không cần buộc chọn một thứ tự để phá vòng che khuất ở các mẫu ấy. Khi nhiều mặt thật sự che nhau thành vòng, việc vẽ lần lượt có giới hạn; kết quả lấy mẫu không bảo đảm mọi chi tiết luôn nhìn thấy, cũng không cấp ngoại lệ cho một vòng chưa được chứng minh.</p>
+      <p>Bố trí bên trong, kích thước, thời gian và truyền động là nghiên cứu giáo dục, không phải bản vẽ nhà máy Horizon 202. Phim đứng yên trong lượt quét, chỉ dịch khi lên cò. Màu trên phim là liều tiềm ẩn của cảnh tự tạo: mô hình không tráng phim, không tạo ảnh dương hay ghép ảnh số.</p>
+    </aside>
+  </div>
+</section>

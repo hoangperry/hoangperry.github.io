@@ -29,3 +29,10 @@
   subjects: "Nhiếp ảnh · Máy móc"
   summary: "Theo ánh sáng qua gương, khẩu và hai rèm tới phim: vì sao kính ngắm tối đi lúc chụp, mỗi điểm phim nhận sáng thế nào và khi nào mới được lên khung kế."
   thumbnail: /assets/how-things-work/slr-film-camera/thumbnail.webp
+- id: swing-lens-panorama
+  number: "05"
+  url: /how-things-work/swing-lens-panorama/
+  title: "Máy ảnh panorama quét cảnh lên cuộn phim đứng yên thế nào?"
+  subjects: "Nhiếp ảnh · Máy móc"
+  summary: "Theo ống kính quay và khe hẹp qua mặt phim cong: vì sao từng dải ảnh được ghi ở thời điểm khác nhau, khe phải đóng trước khi hồi và phim chỉ dịch khi lên cò."
+  thumbnail: /assets/how-things-work/swing-lens-panorama/thumbnail.webp
