@@ -278,14 +278,6 @@
 .htw-machine[data-htw-figure="instant-film-camera"] .ins-rule { stroke: var(--ins-accent); stroke-width: 1.6; fill: none; stroke-linecap: round; }
 .htw-machine[data-htw-figure="instant-film-camera"] .ins-rule[data-tone="lo"] { stroke: var(--ins-edge); }
 .htw-machine[data-htw-figure="instant-film-camera"] .ins-partial { fill: var(--ins-accent); font: 600 15px/1 ui-monospace, monospace; }
-.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-label,
-.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-mark { fill: var(--ins-text); font: 14px/1 ui-monospace, monospace; }
-.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-line { stroke: var(--ins-accent); stroke-width: 1.2; stroke-dasharray: 6 4; }
-.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-roller { fill: var(--ins-roller); opacity: 0.25; }
-.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-sheet { fill: var(--ins-sheet); stroke: var(--ins-edge); stroke-width: 1; }
-.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-pod { fill: var(--ins-accent); opacity: 0.55; }
-.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-pod[data-ruptured="true"] { fill: var(--ins-sheet-dosed); opacity: 0.35; }
-.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-trap { fill: var(--ins-sheet-dosed); opacity: 0.35; }
 .htw-machine[data-htw-figure="instant-film-camera"] .ins-spread { fill: var(--ins-accent); }
 .htw-machine[data-htw-figure="instant-film-camera"] [data-machine-scene] figcaption { background: var(--ins-plan-bg); color: var(--ins-text); padding: 12px; border-radius: 4px; }
 .htw-machine[data-htw-figure="instant-film-camera"] .ins-readout { margin: 0.4em 0 0; color: var(--ins-text); font: 0.8rem/1.5 ui-monospace, monospace; overflow-wrap: anywhere; }
@@ -298,3 +290,6 @@
 
 .htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-caption { background: var(--ins-plan-bg); color: var(--ins-text); padding: 12px; border-radius: 4px; }
 .htw-machine[data-htw-figure="instant-film-camera"] .ins-readout { background: var(--ins-plan-bg); color: var(--ins-text); padding: 8px; }
+
+/* The full Instant readout already reports image maturity; avoid a second percent. */
+.htw-machine[data-htw-figure="instant-film-camera"] [data-machine-readout] { display: none; }

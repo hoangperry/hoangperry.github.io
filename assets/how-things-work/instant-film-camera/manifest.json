@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "topic": "instant-film-camera",
-  "sourceDigest": "4d4682dabcb540a5601664f55edcb87100d5e32c58f3d35c21d880b0a54b46b3",
+  "sourceDigest": "36ce5b182d79d6f08b76feffe9c8170538f90d141daf292d741e599e9c8d2aee",
   "files": {
     "_includes/how-things-work/instant-film-camera-scene.html": "13abe1b2467c22a70b1d709efd598d89f8b0cc4b3dc5aa33a99d805d95d08872",
-    "_includes/how-things-work/instant-film-camera-console.html": "43ff0196ed2cedc063312c9e74d5f7ca82f936eac3992dca77780ffc7856e64a",
-    "assets/how-things-work/instant-film-camera/machine.js": "d2522ecbb81de360b6700c4586149e81878ff6db856f77a739d148c52c403314",
-    "assets/how-things-work/instant-film-camera/machine.css": "4d8796bffb4b437128854e0f726bbd4787600d3b9bda62f85f4bae392012d7db",
+    "_includes/how-things-work/instant-film-camera-console.html": "c6eeb09868c63e14132bd50b9a72caa530fed60f5cdcc6548265ac16db4a8bdd",
+    "assets/how-things-work/instant-film-camera/machine.js": "1d9eb0411f03731f95b0f71dfc3b4cb9449df8b760e331d16112650c2a43a677",
+    "assets/how-things-work/instant-film-camera/machine.css": "010ae03cdf407fd634a4e3fb2eed6a9d17ff20fba8a5f4117442f7a97a474b34",
     "assets/how-things-work/instant-film-camera/thumbnail.webp": "b5a90a17d644b2bd1caaf79157d184d91739fc26d1a77e70a221e4b36393c9cc",
-    "assets/how-things-work/instant-film-camera/NOTICE.txt": "145dd597cdae7553b7d94a7a9859d167519494e935b78ae25a878a4ca3dfd236"
+    "assets/how-things-work/instant-film-camera/NOTICE.txt": "9f408a0715e9f48690d5f880df99ec7463c6f20b0ca348806b1aee97134f720e"
   }
 }
