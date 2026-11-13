@@ -44,6 +44,9 @@ jobs:
       - name: Test How Things Work validator
         run: node --test scripts/check-how-things-work.test.mjs
 
+      - name: Test photography machines validator
+        run: node --test scripts/photography-machines/*.test.mjs
+
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
@@ -51,6 +54,9 @@ jobs:
 
       - name: Validate How Things Work export and routes
         run: node scripts/check-how-things-work.mjs --site _site --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      - name: Validate photography machines export and routes
+        run: node scripts/photography-machines/check-photography-machines.mjs --site _site --baseurl "${{ steps.pages.outputs.base_path }}"
 
       # Index the novels for client-side full-text search. Runs against the
       # built _site so the /pagefind/ bundle ships inside the same artifact.
