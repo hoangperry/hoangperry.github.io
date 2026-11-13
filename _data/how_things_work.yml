@@ -36,3 +36,10 @@
   subjects: "Nhiếp ảnh · Máy móc"
   summary: "Theo ống kính quay và khe hẹp qua mặt phim cong: vì sao từng dải ảnh được ghi ở thời điểm khác nhau, khe phải đóng trước khi hồi và phim chỉ dịch khi lên cò."
   thumbnail: /assets/how-things-work/swing-lens-panorama/thumbnail.webp
+- id: slide-projector
+  number: "06"
+  url: /how-things-work/slide-projector/
+  title: "Máy chiếu slide đổi dương bản trong khay tròn thế nào?"
+  subjects: "Nhiếp ảnh · Máy móc"
+  summary: "Theo khay tròn, bàn nâng, ngón ép và hai lá chắn sáng: vì sao màn phải tối khi đổi dương bản, khay chỉ quay khi slide đã trở về và ảnh chỉ sáng khi slide mới tựa đúng cửa chiếu."
+  thumbnail: /assets/how-things-work/slide-projector/thumbnail.webp
