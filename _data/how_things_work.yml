@@ -36,3 +36,10 @@
   subjects: "Nhiếp ảnh · Máy móc"
   summary: "Theo ống kính quay và khe hẹp qua mặt phim cong: vì sao từng dải ảnh được ghi ở thời điểm khác nhau, khe phải đóng trước khi hồi và phim chỉ dịch khi lên cò."
   thumbnail: /assets/how-things-work/swing-lens-panorama/thumbnail.webp
+- id: instant-film-camera
+  number: "06"
+  url: /how-things-work/instant-film-camera/
+  title: "Máy ảnh lấy liền đưa tấm phim qua con lăn để hiện ảnh thế nào?"
+  subjects: "Nhiếp ảnh · Máy móc"
+  summary: "Theo tấm phim từ lúc nhận sáng, được ngón đẩy đưa vào hai con lăn, trải thuốc hiện rồi ra khe: vì sao ảnh vẫn tiếp tục hiện sau khi ra khỏi máy."
+  thumbnail: /assets/how-things-work/instant-film-camera/thumbnail.webp
