@@ -1,0 +1,33 @@
+Photography machine: slide-projector
+Educational mechanical/optical illustration, not a calibrated device or factory specification.
+Sample imagery must be self-created or licensed; this package makes no claim of continuous audit coverage beyond the recorded audit.
+Audit coverage: {"type":"sampled","states":["mau-00","mau-01","mau-02","mau-03","mau-04","mau-05","mau-06","mau-07","mau-08","mau-09","mau-10","mau-11","mau-12","mau-13","mau-14","mau-15","mau-16","cycle-2-ready","index-251","index-257","cycle-13-start","cycle-13-ready"],"intervals":[],"range":{"time":[0,1.5],"cycle":[1,13]}}
+Limitations:
+- Theo một phương án Eastman Kodak US3276314A, không phải bản sao máy thương mại. Khay 12 ngăn, kích thước, bộ truyền và thời lượng là minh họa, không phải bố trí nhà máy.
+- Kiểm tra lấy mẫu 22 tư thế không phát hiện giao khối giữa các bộ phận khác nhau; không chứng minh mọi thời điểm giữa các mẫu. Ở vài góc nhìn, các chi tiết che lẫn nhau nên vài điểm ảnh có thể vẽ sai thứ tự trước–sau.
+- Các khe lắp ghép là dung sai minh họa, không phải thông số nhà máy. Chốt danh nghĩa 2 mm được dựng 1,98 mm theo lắp lỏng H9/d9; càng gạt rộng 1 mm được dựng 0,98 mm; đường kính bao cam định vị khoảng 82,68 mm được dựng khoảng 82,56 mm. Ngăn khay mở rộng từ 4 lên 6 mm để hình rõ hơn.
+- Cam và liên kết xấp xỉ luật chuyển động: bàn nâng sai lệch khoảng 0,02 mm, lá chắn không quá 0,003 độ, ngón ép không quá 0,002 mm. Bộ truyền và lò xo chỉ minh họa, không chứng nhận lực, độ bền hay độ mỏi.
+- Dương bản đã xử lý, ảnh tự tạo; ống kính xoay ảnh 180 độ đúng một lần, không đảo âm bản. Màn là mặt phẳng ảnh chú thích, kính tụ là khối phẳng minh họa. Độ sáng tính từ phần cửa tròn không bị che, chưa mô phỏng mọi tia sáng, chưa hiệu chuẩn màu, nhiệt đèn hoặc công suất ánh sáng.
+
+Vendored Anatomy kit:
+MIT License
+
+Copyright (c) 2026 Ryan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

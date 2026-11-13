@@ -43,3 +43,10 @@
   subjects: "Nhiếp ảnh · Máy móc"
   summary: "Theo tấm phim từ lúc nhận sáng, được ngón đẩy đưa vào hai con lăn, trải thuốc hiện rồi ra khe: vì sao ảnh vẫn tiếp tục hiện sau khi ra khỏi máy."
   thumbnail: /assets/how-things-work/instant-film-camera/thumbnail.webp
+- id: slide-projector
+  number: "07"
+  url: /how-things-work/slide-projector/
+  title: "Máy chiếu slide đổi dương bản trong khay tròn thế nào?"
+  subjects: "Nhiếp ảnh · Máy móc"
+  summary: "Theo khay tròn, bàn nâng, ngón ép và hai lá chắn sáng: vì sao màn phải tối khi đổi dương bản, khay chỉ quay khi slide đã trở về và ảnh chỉ sáng khi slide mới tựa đúng cửa chiếu."
+  thumbnail: /assets/how-things-work/slide-projector/thumbnail.webp

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "topic": "slide-projector",
+  "sourceDigest": "5f326ffba99fc9b3b91e521ca1472880ea57d9751f05d7b8d20f9ab89a652685",
+  "files": {
+    "_includes/how-things-work/slide-projector-scene.html": "a675622a431f7011846c3faa5bcc4c3ba9bcca2f3500c40181095cc8c985c553",
+    "_includes/how-things-work/slide-projector-console.html": "2872b0ff1f3a7c4c7488983243599e3629853a5f6781fee0305350b9fc354417",
+    "assets/how-things-work/slide-projector/machine.js": "fceb982958ae796aabf6546af4bb0e8916bfe3aaff9656461536d48247376b8d",
+    "assets/how-things-work/slide-projector/machine.css": "ef4b3a67251b0f90fa79082234cdf0db642a67882d196399edf9fdd96dc63cde",
+    "assets/how-things-work/slide-projector/thumbnail.webp": "0f0fd6105547208476607e424de2edddda41545f062ba4ea8875c448cb6b79d3",
+    "assets/how-things-work/slide-projector/NOTICE.txt": "bc643c276ff6aa43ac39c859895b32c64383e61e9b0f2dab7a3968e1798e1d99"
+  }
+}
