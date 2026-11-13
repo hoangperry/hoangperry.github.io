@@ -84,7 +84,7 @@ background-image: pic01.jpg
       {%- if y != yr -%}{%- assign yr = y -%}
     <br /><h5>{{ y }}</h5>{%- endif -%}
     <li style="padding-bottom: 6px;"><code>[{{ post.date | date: '%d %b' }}]</code>&nbsp;
-      <a href="{{ post.url | prepend: site.baseurl }}" style="white-space: nowrap;"><b>{{ post.title }}</b></a>&nbsp;
+      <a href="{{ post.url | prepend: site.baseurl }}"><b>{{ post.title }}</b></a>&nbsp;
       {{ post.excerpt | strip_html | truncatewords: 12 }}</li>{%- endunless -%}{%- endfor -%}
   </ul>
   {%- endcapture -%}
