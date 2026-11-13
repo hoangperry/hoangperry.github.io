@@ -399,4 +399,4 @@
 .htw-machine[data-htw-figure="slide-projector"] .htw-projector-label { fill: currentColor; font: 13px/1.2 ui-monospace, monospace; opacity: .8; }
 .htw-machine[data-htw-figure="slide-projector"] .htw-projector-readout { margin: .35rem 0 0; font: .78rem/1.5 ui-monospace, monospace; opacity: .85; overflow-wrap: anywhere; }
 
-.htw-machine[data-htw-figure="slide-projector"] .htw-machine-caption { background:var(--htw-machine-card); color:var(--htw-machine-ink); padding:.65rem; }
+.htw-machine[data-htw-figure="slide-projector"] .htw-machine-caption { background:var(--htw-machine-card); color:var(--htw-machine-text); padding:.65rem; }
