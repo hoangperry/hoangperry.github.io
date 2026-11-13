@@ -265,6 +265,7 @@
 .htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-shade"] .ins-f { fill: var(--ins-sheet-dosed); stroke-width: 0.12; }
 .htw-machine[data-htw-figure="instant-film-camera"] [data-kind="annular-sector"] .ins-f { fill: var(--ins-liner); stroke: var(--ins-liner); stroke-width: 0.2; }
 .htw-machine[data-htw-figure="instant-film-camera"] [data-role="roller"] .ins-f { fill: var(--ins-roller); }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-solid$=".rotation-index"] .ins-f { fill: #f4c04f; stroke: #332407; stroke-width: 0.2; }
 /* Opaque, contrasting material keys make the retained section distinguishable. */
 .htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-mirror"] .ins-f { fill: #71b3c8; }
 .htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-shutter-blade"] .ins-f { fill: #bf785a; }

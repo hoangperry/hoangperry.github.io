@@ -16845,12 +16845,36 @@ const createInstantNativeFactory=(function createInstantNativeFactory(data, kit)
     });
   }
   
+  // The original roller end at y=-44 is hidden by the bearing plate. A real
+  // end cap butts the nearest exposed shaft end (y=-55), with pi*1.5² mm² shared
+  // face. The raised 2.99 mm² radial index shares its entire rear face with that
+  // cap. Both new solids belong to the roller, clear plates/bearings and film,
+  // and use the unchanged model radius. F is the achieved +y rotation.
+  function rollerIndexSolids(snapshot, solids) {
+    return ['top','bottom'].flatMap(side=>{
+      const owner='roller.'+side,roller=solids.find(s=>s.name===owner);
+      if(!roller||roller.kind!=='body')throw Error('roller index requires full roller '+owner);
+      const shaft=solids.filter(s=>s.owner===owner+'.shaft');
+      const end=Math.min(...shaft.flatMap(s=>s.poly.map(p=>p[0]))),face=end-.8;
+      const radius=snapshot.rollers.radius;
+      const cap={...roller,name:owner+'.index-cap',owner,
+        poly:[[face,0],[face,radius],[end,radius],[end,0]]};
+      const angle=snapshot.rollers[side+'Angle'],c=Math.cos(angle),s=Math.sin(angle);
+      const mark={kind:'prism',name:owner+'.rotation-index',owner,
+        F:{o:roller.F.o.slice(),a:[0,1,0],u:[c,0,-s],v:[-s,0,-c]},
+        poly:[[2.2,-.65],[4.5,-.65],[4.5,.65],[2.2,.65]],
+        s0:face-.8,s1:face};
+      return [cap,mark];
+    });
+  }
+  
   function composeHeroGeometry(snapshot, rig) {
     if (rig.snapshot !== snapshot) throw Error('Hero requires the actual rig achieved snapshot');
     const statics = objectiveHeroStatics(shutterHeroStatics(heroSolids()));
     const shutter = shutterPose(snapshot.shutter.transmission,shutterPhase(snapshot,modelData()));
     const moving = shutterMovingSolids(shutter), drive = drivetrainSolids(snapshot), filmPath = filmPathSolids(snapshot);
-    const source = [...rig.recorder.solids,...statics,...moving,...drive,...filmPath];
+    const indices=rollerIndexSolids(snapshot,rig.recorder.solids);
+    const source = [...rig.recorder.solids,...indices,...statics,...moving,...drive,...filmPath];
     const solids = educationalCutaway(replaceShadeOwners(composePickPawl(snapshot,source),snapshot));
     const names = new Set();
     for (const s of solids) {
@@ -17228,9 +17252,16 @@ const makeTurnGeometry=(function makeTurnGeometry(geometry,P,turning) {
     const owner=sourceByName.get(p.name).owner;
     if(moving.has(owner)&&!groupOf.has(owner)) {
       groupOf.set(owner,rigidGroups.length);
-      rigidGroups.push({name:owner,parent:-1,kind:'free',origin:[0,0,0]});
+      const roller=owner==='roller.top'||owner==='roller.bottom';
+      const origin=roller?geometry.solids.find(s=>s.name===owner).F.o.slice():[0,0,0];
+      rigidGroups.push({name:owner,parent:-1,kind:'free',origin});
     }
-    return {name:p.name,kind:p.kind,group:groupOf.get(owner)??-1,layer:0,spec:p.spec};
+    const group=groupOf.get(owner)??-1,pivot=group<0?[0,0,0]:rigidGroups[group].origin;
+    // Roller cylinder and index share one shaft-centred rigid epoch. Rotation
+    // is authored in the index frame from the achieved angle; no extra values
+    // or clock are needed. Census solids remain in their actual world frame.
+    const spec=pivot.some(Boolean)?{...p.spec,F:{...p.spec.F,o:p.spec.F.o.map((x,i)=>x-pivot[i])}}:p.spec;
+    return {name:p.name,kind:p.kind,group,layer:0,spec};
   });
   // Conservative fixed-camera broad phase only: include every potentially
   // overlapping pair, in the original lexicographic order. There are no depth,
@@ -17247,7 +17278,8 @@ const makeTurnGeometry=(function makeTurnGeometry(geometry,P,turning) {
     return half(points).slice(0,-1).concat(half(points.slice().reverse()).slice(0,-1));
   };
   const boxes=parts.map(part=>{
-    const s=part.spec,F=s.F,box=[Infinity,Infinity,-Infinity,-Infinity],points=[];
+    const s=part.spec,pivot=part.group<0?[0,0,0]:rigidGroups[part.group].origin;
+    const F={...s.F,o:s.F.o.map((x,i)=>x+pivot[i])},box=[Infinity,Infinity,-Infinity,-Infinity],points=[];
     const point=p=>{const q=m.map((row,c)=>P.origin[c]+dot(row,p));points.push(q);q.forEach((v,c)=>{box[c]=Math.min(box[c],v);box[c+2]=Math.max(box[c+2],v);});};
     if(part.kind==='prism')for(let i=0;i<s.ring.length;i+=2)for(const z of [s.s0,s.s1])
       point(F.o.map((o,c)=>o+F.a[c]*z+F.u[c]*s.ring[i]+F.v[c]*s.ring[i+1]));
