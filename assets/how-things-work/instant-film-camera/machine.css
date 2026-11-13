@@ -1,0 +1,299 @@
+/* Shared machine chrome for the photography machines: the scene plate and the console only. Every rule is scoped
+   under .htw-machine[data-htw-figure="instant-film-camera"] and the palette lives on the scene/console subtrees, so the article prose (blog tokens) is
+   never repainted by a machine theme. Topic CSS (artifact.css) is scoped under .htw-machine[data-htw-figure="instant-film-camera"][data-htw-figure="<slug>"].
+   Palette: the approved "neutral instrument finish" of the drum-scanner preview, with Anatomy token names. */
+
+.htw-machine[data-htw-figure="instant-film-camera"] [data-machine-scene],
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-console-panel {
+  --htw-machine-mono: var(--htw-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
+  --htw-machine-dur: 160ms;
+  --htw-machine-ease: cubic-bezier(.32, .72, 0, 1);
+  --htw-machine-card: #161b1e;
+  --htw-machine-text: #9fb0b6;
+  --htw-machine-strong: #e2eaec;
+  --htw-machine-muted: #8698a0;
+  --htw-machine-line: #2e3c43;
+  --htw-machine-accent: #9ae3ae;
+  --htw-machine-on-accent: #0f1a14;
+  --anatomy-card: var(--htw-machine-card);
+  --anatomy-paper: #161b1e; --anatomy-face: #58666c; --anatomy-top: #64757d;
+  --anatomy-shade-0: #242e33; --anatomy-shade-1: #303e45; --anatomy-shade-2: #40525b; --anatomy-shade-3: #53666f;
+  --anatomy-lit-top: #82949b; --anatomy-lit-shade: #607880;
+  --anatomy-hi: #c4d0d3; --anatomy-mid: #94a6ad; --anatomy-lo: #647a85; --anatomy-faint: #465b64; --anatomy-lit: #edf5f4;
+  --anatomy-halo: #080d10; --anatomy-halo-opacity: .9; --anatomy-dot: #c4d0d3;
+  --anatomy-red: #ff6b6b; --anatomy-green: #6be0a0; --anatomy-blue: #6b9bff;
+  --anatomy-weight: .6px;
+  --anatomy-mono: var(--htw-machine-mono);
+  --anatomy-lift: inset 0 1px 0 0 #ffffff0a, 0 0 0 1px #00000026, 0 3px 3px -1.5px #00000014, 0 12px 12px -6px #00000014;
+  color-scheme: dark;
+}
+
+.htw-machine[data-htw-figure="instant-film-camera"][data-theme="light"] [data-machine-scene],
+.htw-machine[data-htw-figure="instant-film-camera"][data-theme="light"] .htw-machine-console-panel {
+  --htw-machine-card: #f7f7f2;
+  --htw-machine-text: #3d4f54;
+  --htw-machine-strong: #132c33;
+  --htw-machine-muted: #53696f;
+  --htw-machine-line: #cdd6d5;
+  --htw-machine-accent: #1d7148;
+  --htw-machine-on-accent: #ffffff;
+  --anatomy-paper: #f7f7f2; --anatomy-face: #e8eeec; --anatomy-top: #f9fcf8;
+  --anatomy-shade-0: #94a2a6; --anatomy-shade-1: #adbabe; --anatomy-shade-2: #c6d1d1; --anatomy-shade-3: #dde5e2;
+  --anatomy-lit-top: #ffffff; --anatomy-lit-shade: #cbdad9;
+  --anatomy-hi: #33474d; --anatomy-mid: #53696f; --anatomy-lo: #71878e; --anatomy-faint: #94a7ac; --anatomy-lit: #132c33;
+  --anatomy-halo: #64756e; --anatomy-halo-opacity: .32; --anatomy-dot: #3a5058;
+  --anatomy-red: #e5484d; --anatomy-green: #30a46c; --anatomy-blue: #3e63dd;
+  --anatomy-lift: inset 0 1px 0 0 #ffffff, 0 0 0 1px #0000000f, 0 3px 3px -1.5px #0000000a, 0 12px 12px -6px #0000000a;
+  color-scheme: light;
+}
+
+/* ---------- Scene plate (the one movable figure) ---------- */
+
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-scene {
+  margin: 0;
+  display: grid;
+  gap: .5rem;
+  min-width: 0;
+  color: var(--htw-machine-text);
+  font-family: var(--htw-machine-mono);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-scene:focus { outline: none; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-scene:focus-visible { outline: 2px solid var(--htw-machine-accent); outline-offset: 4px; }
+
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-plate {
+  min-width: 0;
+  padding: .35rem .75rem .75rem;
+  background: var(--htw-machine-card);
+  border: 1px solid var(--htw-machine-line);
+  border-radius: 6px;
+  box-shadow: var(--anatomy-lift);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-plate-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  min-height: 44px;
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-plate-title {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--htw-machine-mono);
+  font-size: .72rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--htw-machine-strong);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-view { min-width: 0; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-view > svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .2rem 1rem;
+  font-size: .75rem;
+  line-height: 1.5;
+  color: var(--htw-machine-text);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-stage { color: var(--htw-machine-strong); font-weight: 600; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-readout { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--htw-machine-muted); }
+.htw-machine[data-htw-figure="instant-film-camera"][data-machine-runtime="failed"] .htw-machine-status { color: var(--htw-machine-strong); }
+
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Controls (lab styling, still native buttons) ---------- */
+
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-chip,
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  min-height: 44px;
+  min-width: 44px;
+  margin: 0;
+  padding: 0 .9rem;
+  font-family: var(--htw-machine-mono);
+  font-size: .72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--htw-machine-strong);
+  background: transparent;
+  border: 1px solid var(--htw-machine-line);
+  border-radius: 4px;
+  box-shadow: none;
+  cursor: pointer;
+  transition: color var(--htw-machine-dur) var(--htw-machine-ease), background-color var(--htw-machine-dur) var(--htw-machine-ease), border-color var(--htw-machine-dur) var(--htw-machine-ease);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button { font-size: .78rem; padding: 0 1.1rem; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button--primary {
+  color: var(--htw-machine-on-accent);
+  background: var(--htw-machine-accent);
+  border-color: var(--htw-machine-accent);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-chip:not(:disabled):not([aria-disabled="true"]):hover,
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button:not(.htw-machine-button--primary):not(:disabled):not([aria-disabled="true"]):hover {
+  color: var(--htw-machine-accent);
+  border-color: var(--htw-machine-accent);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button--primary:not(:disabled):not([aria-disabled="true"]):hover {
+  background: color-mix(in oklab, var(--htw-machine-accent) 85%, var(--htw-machine-strong));
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-chip[aria-pressed="true"] {
+  color: var(--htw-machine-accent);
+  border-color: var(--htw-machine-accent);
+  background: color-mix(in oklab, var(--htw-machine-accent) 12%, transparent);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-chip:disabled,
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button:disabled,
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button[aria-disabled="true"] {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-chip:focus-visible,
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button:focus-visible {
+  outline: 2px solid var(--htw-machine-accent);
+  outline-offset: 2px;
+}
+
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-theme-icon {
+  width: .8rem;
+  height: .8rem;
+  flex: none;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-run-icon,
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-pause-icon,
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-step-icon { width: .7rem; height: .8rem; flex: none; background: currentColor; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-run-icon { clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-pause-icon { clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%, 0 0, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 0); }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-step-icon { clip-path: polygon(0 0, 70% 50%, 0 100%, 0 0, 78% 0, 100% 0, 100% 100%, 78% 100%, 78% 0); }
+
+/* ---------- Console panel ---------- */
+
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-console-panel {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem;
+  color: var(--htw-machine-text);
+  font-family: var(--htw-machine-mono);
+  background: var(--htw-machine-card);
+  border: 1px solid var(--htw-machine-line);
+  border-radius: 6px;
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-controls,
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-film { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-film-label {
+  margin-right: .25rem;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--htw-machine-muted);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-steps { display: grid; gap: .25rem; margin: 0; padding: 0; list-style: none; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-step {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: .5rem;
+  margin: 0;
+  padding: .55rem .65rem;
+  font-size: .8rem;
+  line-height: 1.55;
+  color: var(--htw-machine-text);
+  border-left: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+  transition: background-color var(--htw-machine-dur) var(--htw-machine-ease), border-color var(--htw-machine-dur) var(--htw-machine-ease);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-step[aria-current="step"] {
+  border-left-color: var(--htw-machine-accent);
+  background: color-mix(in oklab, var(--htw-machine-accent) 9%, transparent);
+}
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-step strong { color: var(--htw-machine-strong); font-weight: 600; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-step-num { color: var(--htw-machine-muted); font-variant-numeric: tabular-nums; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-output { min-width: 0; padding-top: .75rem; border-top: 1px solid var(--htw-machine-line); }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-output:empty { display: none; }
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-note { margin: 0; font-size: .72rem; line-height: 1.6; color: var(--htw-machine-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-chip,
+  .htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-button,
+  .htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-step { transition: none; }
+}
+
+/* Full illustrative 636 Hero. Opaque native material; no animation clock or hidden owner overrides. */
+.htw-machine[data-htw-figure="instant-film-camera"] {
+  --ins-s0: #1f2a2c; --ins-s1: #2c3a3c; --ins-s2: #3b4b4d; --ins-s3: #52666a; --ins-s4: #6d8589;
+  --ins-edge: #0d1213; --ins-sheet: #c9b98f; --ins-sheet-dosed: #8a6a3a; --ins-sheet-compressed: #b49a63;
+  --ins-liner: #c98b3a; --ins-roller: #7d8f94; --ins-text: #dfe6e4; --ins-accent: #e4b762; --ins-plan-bg: #11181a;
+}
+.htw-machine[data-htw-figure="instant-film-camera"][data-theme="light"] {
+  --ins-s0: #8d9a9c; --ins-s1: #a3afb1; --ins-s2: #b9c3c5; --ins-s3: #ced6d7; --ins-s4: #e2e8e9;
+  --ins-edge: #4c5658; --ins-sheet: #e7dcc0; --ins-sheet-dosed: #a8824a; --ins-sheet-compressed: #cdb684;
+  --ins-liner: #b06f1f; --ins-roller: #9aa9ad; --ins-text: #1d2526; --ins-accent: #8a5a00; --ins-plan-bg: #f1f3f2;
+}
+.htw-machine[data-htw-figure="instant-film-camera"] [data-machine-view] { width: 100%; height: auto; display: block; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-f { stroke: var(--ins-edge); stroke-width: 0.35; stroke-linejoin: round; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-f[data-shade="0"] { fill: var(--ins-s0); }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-f[data-shade="1"] { fill: var(--ins-s1); }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-f[data-shade="2"] { fill: var(--ins-s2); }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-f[data-shade="3"] { fill: var(--ins-s3); }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-f[data-shade="4"] { fill: var(--ins-s4); }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-body"] .ins-f,
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-frame"] .ins-f,
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-door"] .ins-f { fill: var(--ins-s3); }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-drive"] .ins-f,
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-control"] .ins-f { fill: var(--ins-liner); }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-spring"] .ins-f { fill: var(--ins-accent); stroke-width: 0.12; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-shade"] .ins-f { fill: var(--ins-sheet-dosed); stroke-width: 0.12; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-kind="annular-sector"] .ins-f { fill: var(--ins-liner); stroke: var(--ins-liner); stroke-width: 0.2; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="roller"] .ins-f { fill: var(--ins-roller); }
+/* Opaque, contrasting material keys make the retained section distinguishable. */
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-mirror"] .ins-f { fill: #71b3c8; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-shutter-blade"] .ins-f { fill: #bf785a; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-shutter-beam"] .ins-f { fill: #e1aa68; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="pick"] .ins-f { fill: #cf8baa; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="hero-glass"] .ins-f { fill: #a6d1cf; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="sheet"] .ins-f { fill: var(--ins-sheet); }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="sheet"][data-tone="compressed"] .ins-f { fill: var(--ins-sheet-compressed); }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-role="sheet"][data-tone="dosed"] .ins-f { fill: var(--ins-sheet-dosed); }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-rule { stroke: var(--ins-accent); stroke-width: 1.6; fill: none; stroke-linecap: round; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-rule[data-tone="lo"] { stroke: var(--ins-edge); }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-partial { fill: var(--ins-accent); font: 600 15px/1 ui-monospace, monospace; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-label,
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-mark { fill: var(--ins-text); font: 14px/1 ui-monospace, monospace; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-line { stroke: var(--ins-accent); stroke-width: 1.2; stroke-dasharray: 6 4; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-roller { fill: var(--ins-roller); opacity: 0.25; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-sheet { fill: var(--ins-sheet); stroke: var(--ins-edge); stroke-width: 1; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-pod { fill: var(--ins-accent); opacity: 0.55; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-pod[data-ruptured="true"] { fill: var(--ins-sheet-dosed); opacity: 0.35; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-plan-trap { fill: var(--ins-sheet-dosed); opacity: 0.35; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-spread { fill: var(--ins-accent); }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-machine-scene] figcaption { background: var(--ins-plan-bg); color: var(--ins-text); padding: 12px; border-radius: 4px; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-readout { margin: 0.4em 0 0; color: var(--ins-text); font: 0.8rem/1.5 ui-monospace, monospace; overflow-wrap: anywhere; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-instant-focus="pick"] [data-role="pick"] .ins-f,
+.htw-machine[data-htw-figure="instant-film-camera"] [data-instant-focus="roll"] [data-role="roller"] .ins-f,
+.htw-machine[data-htw-figure="instant-film-camera"] [data-instant-focus="roll"] [data-role="sheet"] .ins-f,
+.htw-machine[data-htw-figure="instant-film-camera"] [data-instant-focus="eject"] [data-role="sheet"] .ins-f { stroke: var(--ins-accent); stroke-width: 0.8; }
+.htw-machine[data-htw-figure="instant-film-camera"] [data-instant-focus="develop"] .ins-cell,
+.htw-machine[data-htw-figure="instant-film-camera"] [data-instant-focus="ready"] .ins-cell { stroke: var(--ins-accent); stroke-width: 0.4; }
+
+.htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-caption { background: var(--ins-plan-bg); color: var(--ins-text); padding: 12px; border-radius: 4px; }
+.htw-machine[data-htw-figure="instant-film-camera"] .ins-readout { background: var(--ins-plan-bg); color: var(--ins-text); padding: 8px; }

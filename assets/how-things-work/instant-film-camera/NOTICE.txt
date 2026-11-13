@@ -1,0 +1,35 @@
+Photography machine: instant-film-camera
+Educational mechanical/optical illustration, not a calibrated device or factory specification.
+Sample imagery must be self-created or licensed; this package makes no claim of continuous audit coverage beyond the recorded audit.
+Audit coverage: {"type":"sampled","states":["pre-motor","q0","q12","shade-home","shade-payout","shade-stop-opening","shade-released-rewind","qEnd124","intermediate-q6","intermediate-q30","intermediate-q60","intermediate-q96"],"intervals":[],"range":{"time":[0.30000000000000004,3.9],"q":[0,124]}}
+Limitations:
+- Máy ảnh kiểu 636 và mặt cắt được dựng để giải thích nguyên lý; kích thước, bố trí và tỷ số truyền là lựa chọn minh họa, không phải bản vẽ nhà máy hay chứng nhận lực và độ bền.
+- Kiểm tra hình học tại 12 trạng thái lấy mẫu, không chứng minh mọi thời điểm trung gian. Một số cặp bề mặt chưa phân loại được chính xác; không coi chúng là đã có khe hở an toàn.
+- Các vành được vẽ bằng 24 đoạn thẳng mỗi vòng. Đường dây và ống được đơn giản hóa: sai lệch đường tâm khoảng 0,505 mm (giới hạn đo 0,505339 mm), sai lệch bán kính không quá 0,053 mm. Đây là số đo tại các trạng thái đã lấy mẫu.
+- Lò xo hồi tấm chắn sáng được giấu trong vỏ của nó. Thân và một phần thấu kính được cắt mở minh họa; những vách còn lại vẫn che các chi tiết phía sau.
+- Mốc khe ra trong phép tính không phải miệng ngoài của toàn bộ vỏ: tại cuối hành trình, mép cuối tấm phim còn cách miệng vỏ minh họa 7 mm. Không khẳng định tấm đã thoát mọi vách của máy thật.
+- Thời gian, màu và mức hiện ảnh là minh họa, không hiệu chuẩn hóa học phim 600. Con lăn trải thuốc giữa các lớp phim, không phun mực; ảnh tiếp tục hiện sau khi đi ra khe.
+- Một vài điểm ảnh tại các vùng che khuất vòng nhau thật được vẽ theo quy ước, trong phạm vi kiểm tra thứ tự vẽ đã công bố. Trên màn hình nhỏ, đầu ngón đẩy, khe ép và lá màn trập khá nhỏ.
+
+Vendored Anatomy kit:
+MIT License
+
+Copyright (c) 2026 Ryan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
