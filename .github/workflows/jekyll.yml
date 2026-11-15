@@ -47,6 +47,9 @@ jobs:
       - name: Test photography machines validator
         run: node --test scripts/photography-machines/*.test.mjs
 
+      - name: Test playgrounds validator
+        run: node --test scripts/playgrounds/*.test.mjs
+
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
@@ -57,6 +60,9 @@ jobs:
 
       - name: Validate photography machines export and routes
         run: node scripts/photography-machines/check-photography-machines.mjs --site _site --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      - name: Validate playgrounds export and routes
+        run: node scripts/playgrounds/check-playgrounds.mjs --site _site --baseurl "${{ steps.pages.outputs.base_path }}"
 
       # Index the novels for client-side full-text search. Runs against the
       # built _site so the /pagefind/ bundle ships inside the same artifact.
