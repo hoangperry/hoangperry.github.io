@@ -1,0 +1,86 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="stepper-motor-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Động cơ bước quay từng nấc thế nào?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="manual">
+<legend class="htw-playground-group-label">Tự cấp điện</legend>
+<div class="htw-playground-control htw-playground-toggle3" data-playground-control="phaseA" data-playground-type="toggle3" role="group" aria-labelledby="stepper-motor-control-phaseA-label">
+<span class="htw-playground-control-label" id="stepper-motor-control-phaseA-label">Cuộn A</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="phaseA" data-playground-option="-1" aria-pressed="false" disabled>−</button>
+<button type="button" class="htw-machine-chip" data-playground-key="phaseA" data-playground-option="0" aria-pressed="false" disabled>Tắt</button>
+<button type="button" class="htw-machine-chip" data-playground-key="phaseA" data-playground-option="1" aria-pressed="false" disabled>+</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-toggle3" data-playground-control="phaseB" data-playground-type="toggle3" role="group" aria-labelledby="stepper-motor-control-phaseB-label">
+<span class="htw-playground-control-label" id="stepper-motor-control-phaseB-label">Cuộn B</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="phaseB" data-playground-option="-1" aria-pressed="false" disabled>−</button>
+<button type="button" class="htw-machine-chip" data-playground-key="phaseB" data-playground-option="0" aria-pressed="false" disabled>Tắt</button>
+<button type="button" class="htw-machine-chip" data-playground-key="phaseB" data-playground-option="1" aria-pressed="false" disabled>+</button>
+</span>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="auto">
+<legend class="htw-playground-group-label">Chạy tự động</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="drive" data-playground-type="segmented" role="group" aria-labelledby="stepper-motor-control-drive-label">
+<span class="htw-playground-control-label" id="stepper-motor-control-drive-label">Kiểu kích</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="drive" data-playground-option="&quot;manual&quot;" aria-pressed="false" disabled>Tự cấp điện</button>
+<button type="button" class="htw-machine-chip" data-playground-key="drive" data-playground-option="&quot;wave&quot;" aria-pressed="false" disabled>Một cuộn</button>
+<button type="button" class="htw-machine-chip" data-playground-key="drive" data-playground-option="&quot;full&quot;" aria-pressed="false" disabled>Hai cuộn</button>
+<button type="button" class="htw-machine-chip" data-playground-key="drive" data-playground-option="&quot;half&quot;" aria-pressed="false" disabled>Nửa bước</button>
+<button type="button" class="htw-machine-chip" data-playground-key="drive" data-playground-option="&quot;micro&quot;" aria-pressed="false" disabled>Vi bước</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="direction" data-playground-type="segmented" role="group" aria-labelledby="stepper-motor-control-direction-label">
+<span class="htw-playground-control-label" id="stepper-motor-control-direction-label">Chiều quay</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="direction" data-playground-option="1" aria-pressed="false" disabled>Thuận</button>
+<button type="button" class="htw-machine-chip" data-playground-key="direction" data-playground-option="-1" aria-pressed="false" disabled>Ngược</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="rate" data-playground-type="range">
+<label class="htw-playground-control-label" id="stepper-motor-control-rate-label" for="stepper-motor-control-rate">Tốc độ</label>
+<input type="range" class="htw-playground-slider" id="stepper-motor-control-rate" data-playground-key="rate" data-playground-range min="1" max="100" step="1" disabled>
+<output class="htw-playground-value" id="stepper-motor-control-rate-value" for="stepper-motor-control-rate" data-playground-output="rate" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">bước đủ/giây</span></output>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="strength">
+<legend class="htw-playground-group-label">Thử sức động cơ</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="load" data-playground-type="range">
+<label class="htw-playground-control-label" id="stepper-motor-control-load-label" for="stepper-motor-control-load">Tải</label>
+<input type="range" class="htw-playground-slider" id="stepper-motor-control-load" data-playground-key="load" data-playground-range min="0" max="0.3" step="0.01" disabled>
+<output class="htw-playground-value" id="stepper-motor-control-load-value" for="stepper-motor-control-load" data-playground-output="load" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">N·m</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="voltage" data-playground-type="range">
+<label class="htw-playground-control-label" id="stepper-motor-control-voltage-label" for="stepper-motor-control-voltage">Điện áp nguồn</label>
+<input type="range" class="htw-playground-slider" id="stepper-motor-control-voltage" data-playground-key="voltage" data-playground-range min="3" max="24" step="1" disabled>
+<output class="htw-playground-value" id="stepper-motor-control-voltage-value" for="stepper-motor-control-voltage" data-playground-output="voltage" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">V</span></output>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="stepper-motor-presets-label">
+<span class="htw-playground-group-label" id="stepper-motor-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="default" disabled>Mặc định</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="manual" disabled>Tự cấp điện</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="half" disabled>Nửa bước</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="micro" disabled>Vi bước</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="tooFast" disabled>Bước quá nhanh</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="highVoltage" disabled>Điện áp cao</button>
+</div>
+<div class="htw-playground-challenges">
+<p class="htw-playground-group-label" id="stepper-motor-challenges-label">Thử thách</p>
+<ol class="htw-playground-challenge-list" aria-labelledby="stepper-motor-challenges-label">
+<li class="htw-playground-challenge" data-machine-challenge="oneTurn" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Quay đúng một vòng bằng 4 bước đủ, không trượt</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="halfStepStop" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Dừng rotor ở 45° bằng nửa bước hoặc vi bước</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="makeItSlip" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Làm động cơ trượt bước</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="fastNoSlip" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Chạy 40 bước/giây trong 2 giây mà không trượt</span></li>
+</ol>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}

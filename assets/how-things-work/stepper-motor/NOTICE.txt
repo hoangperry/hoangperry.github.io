@@ -1,0 +1,19 @@
+How Things Work playground: Động cơ bước quay từng nấc thế nào?
+Topic: stepper-motor
+Generated file: built by publish-playground.mjs from a checked artifact and its receipt. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: 5d01c6fc3e72148f6d5889e1a574743c5f593c2a02907bded3a6593f86eafd1f
+Checks recorded in the build receipt:
+- stepper-motor model, parameter grid and renderer: 39/39 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/stepper-motor/tests/model.test.mjs playgrounds/stepper-motor/tests/model-grid.test.mjs playgrounds/stepper-motor/tests/renderer.test.mjs)
+- shared playground runtime, markup, bundle, harness, artifact and publisher (non-browser): 91/91 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs tests/publish-playground.test.mjs)
+- Mode invariance: passed, 3 scripts
+- Parameter grid: passed, 135 cases
+Limitations:
+- Động cơ trong hình chỉ có 4 bước mỗi vòng: rotor nam châm hai cực và stator bốn cực. Động cơ thật thường có 200 bước mỗi vòng nhờ răng nhỏ.
+- Mọi thông số đều là minh họa, chọn để các hiện tượng diễn ra ở tốc độ mắt nhìn kịp. Chúng không lấy từ datasheet của động cơ nào.
+- Không mô phỏng mạch driver, bộ băm dòng hay giới hạn dòng. Vi bước dùng điện áp trung bình theo hàm sin và cos.
+- Mô hình không có mô-men hãm từ, nên khi ngắt điện rotor chỉ chịu ma sát. Động cơ thật có một lực hãm nhỏ ngay cả khi không có điện.
+- Khi chạy tự động, cuộn đang nghỉ được nối ở 0 V, giống chế độ xả chậm của driver thật.
+- Tốc độ tính bằng bước đủ mỗi giây ở mọi kiểu kích, nên cùng một vị trí thanh trượt cho cùng một tốc độ quay.
+- Bước trượt quy đổi là bộ đếm sự kiện vượt ranh giới chu kỳ: mỗi sự kiện tương đương 4 bước. Nó không phải sai số vị trí tức thời. Đồ thị quy góc thật trừ góc lệnh về khoảng −180° đến dưới +180°: −225° hiện thành +135°. Đồ thị không đếm số vòng đã hụt.
+- Mô hình được kiểm bằng test trên lưới tham số, chưa hiệu chuẩn với một động cơ thật.

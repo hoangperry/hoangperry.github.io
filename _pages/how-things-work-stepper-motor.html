@@ -1,0 +1,170 @@
+---
+title: "Động cơ bước quay từng nấc thế nào?"
+permalink: /how-things-work/stepper-motor/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Cuộn dây có điện thì nam châm ở giữa bị hút về. Đổi cuộn theo thứ tự là trục nhích từng nấc; đổi quá nhanh thì trục trượt bước mà bộ điều khiển không hay biết."
+social-image: /assets/how-things-work/stepper-motor/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/stepper-motor/machine.css
+script-includes:
+  - /assets/how-things-work/stepper-motor/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="stepper-motor" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/stepper-motor-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: các nút tương tác không hoạt động. Bạn vẫn xem được hình tĩnh và đọc toàn bộ bài cùng nguồn.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="stepper-motor-scene" disabled><span class="htw-collapse-name">Hình mặt cắt động cơ bước</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài động cơ bước">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#stepper-quanh-ta">Động cơ nhích từng nấc rồi đứng lại</a></li>
+            <li><a href="#stepper-ben-trong">Bốn cực quấn dây bao quanh một nam châm</a></li>
+            <li><a href="#stepper-giu">Một cuộn có điện là nam châm bị hút về và giữ chặt</a></li>
+            <li><a href="#stepper-buoc">Đổi cuộn theo thứ tự thì trục bước theo</a></li>
+            <li><a href="#stepper-doi-chieu">Đảo thứ tự cuộn dây thì trục quay ngược</a></li>
+            <li><a href="#stepper-nhanh-yeu">Bước càng nhanh, dòng càng không kịp lên</a></li>
+            <li><a href="#stepper-truot">Trục tụt lại mà bộ điều khiển không hay biết</a></li>
+            <li><a href="#stepper-dong-co-that">Động cơ thật chia một vòng thành 200 nấc</a></li>
+            <li><a href="#stepper-tu-thu">Tự thử</a></li>
+            <li><a href="#stepper-nguon">Nguồn và giới hạn mô hình</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="stepper-quanh-ta" class="htw-step" data-machine-focus="all" aria-labelledby="stepper-quanh-ta-h">
+        <p class="htw-step-label">01 · Quanh ta</p>
+        <h2 id="stepper-quanh-ta-h" tabindex="-1">Động cơ nhích từng nấc rồi đứng lại</h2>
+        <p>Động cơ bước không quay trơn một mạch. Mỗi lần bộ điều khiển đổi dòng điện trong các cuộn dây, trục nhích thêm đúng một nấc rồi đứng lại. Muốn trục quay bao xa thì gửi bấy nhiêu lệnh. Muốn biết trục đang ở đâu thì đếm số lệnh đã gửi, miễn là động cơ không bị bắt làm quá sức. Nhờ vậy nó hợp với những máy phải đưa một bộ phận tới đúng chỗ, như máy in phun hay máy gia công điều khiển số (CNC).</p>
+        <p>Một ví dụ nhỏ hơn nằm ngay trên cổ tay. Nhiều đồng hồ thạch anh (quartz) có kim dùng động cơ Lavet, một kiểu động cơ bước một pha tốn rất ít điện. Bài này dùng một động cơ hai cuộn dây, đơn giản hơn động cơ thật, để trả lời ba câu hỏi: vì sao trục nhích đúng một nấc, vì sao nó đứng yên được, và vì sao chạy quá nhanh thì nó mất bước mà không ai hay. Cuộn trang chỉ đổi phần hình được làm sáng, không làm động cơ quay.</p>
+      </section>
+
+      <section id="stepper-ben-trong" class="htw-step" data-machine-focus="coils" aria-labelledby="stepper-ben-trong-h">
+        <p class="htw-step-label">02 · Bên trong</p>
+        <h2 id="stepper-ben-trong-h" tabindex="-1">Bốn cực quấn dây bao quanh một nam châm</h2>
+        <p>Hình là mặt cắt của động cơ khi nhìn thẳng vào đầu trục. Vòng thép bên ngoài là stator (phần đứng yên). Nó có bốn cực nhô vào trong, mỗi cực mang một cuộn dây. Cuộn A quấn trên hai cực đối diện ở 0° và 180°, cuộn B trên hai cực ở 90° và 270°. Ở giữa là rotor (phần quay): một nam châm vĩnh cửu có một cực N và một cực S, gắn chặt vào trục. Kim liền chỉ góc của trục trên thang 0 đến 360°.</p>
+        <p>Cho dòng chạy qua cuộn A thì hai cực của nó trở thành hai cực từ trái dấu, một bên N, một bên S. Đảo chiều dòng thì hai cực đổi tên cho nhau. Đây là động cơ lưỡng cực: có hai cuộn dây, mỗi cuộn được cấp dòng theo cả hai chiều. Việc đảo chiều dòng do mạch điều khiển công suất (driver) đảm nhận. Trên hình, màu cam là dòng chiều dương, màu xanh là dòng chiều âm, cuộn càng đậm thì dòng càng lớn. Cuộn A có dòng chiều dương được ghi là A+, chiều âm là A−; cuộn B cũng vậy.</p>
+        <p>Rotor chỉ có hai cực còn stator có bốn cực, nên mỗi nấc trọn vẹn của động cơ này, gọi là một bước đủ, dài 90°. Bốn bước đủ là một vòng. Con số nhỏ này giúp mắt theo kịp từng nấc; động cơ thật chia một vòng mịn hơn nhiều, như mục 08 sẽ nói.</p>
+      </section>
+
+      <section id="stepper-giu" class="htw-step" data-machine-focus="rotor" aria-labelledby="stepper-giu-h">
+        <p class="htw-step-label">03 · Giữ vị trí</p>
+        <h2 id="stepper-giu-h" tabindex="-1">Một cuộn có điện là nam châm bị hút về và giữ chặt</h2>
+        <p>Hai cực trái dấu thì hút nhau. Khi chỉ cuộn A có điện, cực N của rotor bị kéo về mặt cực S của cuộn A, còn cực S của rotor bị kéo về mặt cực N. Rotor xoay tới khi thẳng hàng với cuộn đang có điện rồi dừng lại. Mũi tên ở giữa hình là hướng từ trường mà các cuộn dây tạo ra. Khi có điện, rotor luôn bị kéo về nằm dọc theo mũi tên đó.</p>
+        <p>Nếu có lực vặn trục lệch đi, lực hút sẽ kéo nó về. Lực kéo về thay đổi theo góc lệch giống một đường hình sin. Trong động cơ của hình, lực ấy mạnh nhất khi trục lệch 90°, lệch xa hơn thì yếu dần, và quá 180° thì nó đổi chiều. Mô-men cần để vặn được trục trong khi cuộn dây đang có điện gọi là mô-men giữ (holding torque). Nhờ nó, động cơ bước tự giữ trục đứng yên. Với thông số minh họa của hình, một cuộn có điện ở 6 V cho mô-men giữ 0,6 N·m.</p>
+        <p>Ngắt hết điện thì không còn gì kéo rotor về. Trong hình, rotor khi ấy quay trơn rồi dừng dần vì ma sát.</p>
+      </section>
+
+      <section id="stepper-buoc" class="htw-step" data-machine-focus="sequence" aria-labelledby="stepper-buoc-h">
+        <p class="htw-step-label">04 · Từng nấc</p>
+        <h2 id="stepper-buoc-h" tabindex="-1">Đổi cuộn theo thứ tự thì trục bước theo</h2>
+        <p>Cấp điện lần lượt A+, B+, A−, B−: mỗi lần đổi, từ trường nhảy 90° và rotor nhảy theo đúng một bước đủ. Đó là kiểu một cuộn. Cũng có thể luôn cấp điện cho cả hai cuộn, theo thứ tự A+B+, A−B+, A−B−, A+B−. Từ trường khi đó nằm giữa hai cực và vẫn nhảy 90° mỗi lần, nhưng cả hai cuộn cùng kéo nên động cơ khỏe hơn. Trong phần tự thử, hai cách này là “Một cuộn” và “Hai cuộn” ở mục Kiểu kích.</p>
+        <p>Xen kẽ hai chuỗi trên, một cuộn rồi hai cuộn rồi lại một cuộn, thì mỗi nấc chỉ còn 45°. Đó là nửa bước. Cái giá là lực kéo không đều, vì nấc một cuộn yếu hơn nấc hai cuộn.</p>
+        <p>Đi xa hơn nữa, bộ điều khiển không bật tắt hẳn từng cuộn mà chuyển dần dòng từ cuộn này sang cuộn kia. Muốn rotor dừng ở một góc nào đó, nó đặt dòng cuộn A tỉ lệ với cos của góc ấy và dòng cuộn B tỉ lệ với sin của góc ấy. Từ trường tổng chỉ đúng vào góc đó, nên rotor dừng được ở những góc nằm giữa hai cực. Cách này gọi là vi bước (microstepping): mỗi bước nhỏ hơn và động cơ quay êm hơn. Trong hình, mỗi bước đủ được chia thành 8 vi bước, mỗi vi bước 11,25°.</p>
+      </section>
+
+      <section id="stepper-doi-chieu" class="htw-step" data-machine-focus="sequence" aria-labelledby="stepper-doi-chieu-h">
+        <p class="htw-step-label">05 · Đổi chiều</p>
+        <h2 id="stepper-doi-chieu-h" tabindex="-1">Đảo thứ tự cuộn dây thì trục quay ngược</h2>
+        <p>Chiều quay nằm ở thứ tự đổi cuộn. Chuỗi A+, B+, A−, B− đưa từ trường đi vòng theo một chiều. Đọc ngược thành A+, B−, A−, B+ thì từ trường đi vòng theo chiều kia và rotor quay ngược lại. Mục Chiều quay trong phần tự thử chỉ đảo thứ tự ấy; mức dòng trong từng cuộn vẫn như trước.</p>
+        <p>Vì cả số nấc lẫn chiều quay đều nằm trong chuỗi lệnh, bộ điều khiển chỉ cần đếm: cộng một cho mỗi lệnh chiều thuận, trừ một cho mỗi lệnh chiều ngược. Nếu động cơ theo kịp mọi lệnh, con số ấy chính là vị trí của trục mà không cần cảm biến đo lại. Cách định vị chỉ dựa vào lệnh như vậy gọi là điều khiển vòng hở. Chữ “nếu” ở đây là chủ đề của hai mục tiếp theo.</p>
+      </section>
+
+      <section id="stepper-nhanh-yeu" class="htw-step" data-machine-focus="speed" aria-labelledby="stepper-nhanh-yeu-h">
+        <p class="htw-step-label">06 · Nhanh thì yếu</p>
+        <h2 id="stepper-nhanh-yeu-h" tabindex="-1">Bước càng nhanh, dòng càng không kịp lên</h2>
+        <p>Mỗi cuộn dây có điện trở R và độ tự cảm L. Độ tự cảm khiến dòng không nhảy lên ngay khi đặt điện áp V. Dòng tăng dần theo một đường cong và tiến về mức V/R. Sau một khoảng thời gian bằng L/R, dòng mới đạt khoảng 63% mức đó. Trong hình, L/R là 25 mili giây. Khi bước chậm, mỗi nấc kéo dài đủ lâu để dòng lên gần hết. Khi bước nhanh, lệnh kế tiếp đã tới trong lúc dòng còn đang lên. Trên đồ thị dòng, các đỉnh bị cụt bớt. Dòng nhỏ thì cực từ yếu, và lực kéo rotor yếu theo.</p>
+        <p>Nguyên nhân thứ hai đến từ chính rotor. Nam châm đang quay sinh ra trong cuộn dây một điện áp chống lại nguồn, gọi là sức phản điện động. Rotor quay càng nhanh thì điện áp ấy càng lớn, và phần điện áp còn lại để đẩy dòng vào cuộn dây càng nhỏ. Hai nguyên nhân cộng lại làm mô-men của mọi động cơ bước giảm khi tốc độ tăng.</p>
+        <p>Lúc vừa đặt điện áp, dòng tăng với tốc độ V/L. Vì thế cách trực tiếp nhất là tăng điện áp nguồn: dòng lên nhanh hơn và động cơ theo kịp ở tốc độ cao hơn. Trong hình, ở kiểu Hai cuộn với tải mặc định, khởi động thẳng thì động cơ chạy không trượt tới khoảng 27 bước đủ/giây khi nguồn 6 V, tới khoảng 44 khi nguồn 12 V và khoảng 56 khi nguồn 24 V. Đó là số của động cơ minh họa. Tăng điện áp trong hình cũng làm mức cuối V/R tăng theo. Với động cơ thật, dòng không được vượt mức định mức của hãng, nên mạch điều khiển dùng điện áp cao phải giới hạn dòng; hình không mô phỏng phần này.</p>
+      </section>
+
+      <section id="stepper-truot" class="htw-step" data-machine-focus="slip" aria-labelledby="stepper-truot-h">
+        <p class="htw-step-label">07 · Mất bước</p>
+        <h2 id="stepper-truot-h" tabindex="-1">Trục tụt lại mà bộ điều khiển không hay biết</h2>
+        <p>Kim nét đứt là góc bộ điều khiển đã ra lệnh, kim liền là góc thật của trục. Ở tốc độ thấp, mỗi lần kim nét đứt nhảy lên một nấc, kim liền đuổi theo và bắt kịp trước nấc kế tiếp. Khi bước nhanh hơn hoặc tải nặng hơn, kim liền chưa tới nơi thì kim nét đứt đã nhảy tiếp, và khoảng cách giữa hai kim lớn dần.</p>
+        <p>Chuỗi cuộn dây lặp lại sau mỗi 4 bước đủ: A+, B+, A−, B− rồi lại A+. Để đánh dấu việc trục không theo kịp, hình đếm mỗi lần độ lệch vượt ranh giới nửa chu kỳ là một sự kiện trượt, rồi dời mốc đi một chu kỳ để không đếm lặp cùng sự kiện. Mỗi sự kiện được quy đổi thành 4 bước, nên ô “Bước trượt quy đổi” tăng thêm 4. Đây là bộ đếm cộng dồn, không phải số bước đang lệch giữa hai kim: khi nó vừa hiện 4, trục chưa nhất thiết lệch đúng 360°. Đồ thị lấy góc thật trừ góc lệnh rồi quy về khoảng −180° đến dưới +180°: chẳng hạn −225° hiện thành +135°. Vì các góc cách nhau một vòng có cùng hướng, đồ thị này cho thấy lệch hướng trong một vòng, không đếm đủ số vòng trục đã hụt. Mô-men phụ thuộc dòng thực trong cuộn dây, mà dòng lại cần thời gian để đổi; không thể chỉ nhìn góc lệnh để kết luận lực vừa đổi chiều.</p>
+        <p>Bộ điều khiển không có cảm biến nên không biết chuyện đó. Nó vẫn đếm như thể mọi bước đã xong: ô “Bước đã ra lệnh” vẫn tăng đều, trong khi trục đã lệch khỏi chỗ nó tưởng. Tài liệu kỹ thuật gọi đây là trượt bước: động cơ không quay khi lẽ ra phải quay, hoặc quay lố. Từ lúc đó bộ điều khiển mất dấu vị trí và điều khiển vòng hở thất bại. Muốn tránh, phải chọn động cơ đủ khỏe cho việc cần làm, hoặc thêm cảm biến để đo lại vị trí. Trong hình, đồ thị độ lệch, tức góc thật trừ góc ra lệnh, đánh dấu từng lần trượt. Cùng với ô “Bước trượt quy đổi”, nó cho bạn thấy điều mà bộ điều khiển thật không thấy.</p>
+      </section>
+
+      <section id="stepper-dong-co-that" class="htw-step" data-machine-focus="real" aria-labelledby="stepper-dong-co-that-h">
+        <p class="htw-step-label">08 · Động cơ thật</p>
+        <h2 id="stepper-dong-co-that-h" tabindex="-1">Động cơ thật chia một vòng thành 200 nấc</h2>
+        <p>Động cơ trong hình chỉ có 4 bước mỗi vòng để mắt theo kịp từng nấc. Động cơ bước nam châm vĩnh cửu thường có bước 7,5° hoặc 3,6°. Loại lai (hybrid) có các nắp rotor khía nhiều răng nhỏ, nên bước 1,8° rất phổ biến, tức 200 bước mỗi vòng. Nguyên lý vẫn như trong hình: đổi dòng theo thứ tự thì rotor nhảy tới vị trí cân bằng kế tiếp. Răng nhỏ chỉ làm các vị trí ấy nằm dày hơn.</p>
+        <p>Tốc độ cũng khác. Thanh Tốc độ của hình dừng ở 100 bước đủ/giây để mắt theo kịp. Với động cơ thật, phần lớn loại nam châm vĩnh cửu và loại lai chỉ còn mô-men dùng được ở tốc độ dưới khoảng 1.000 bước mỗi giây. Động cơ thật còn một đặc điểm mà hình bỏ qua. Nam châm của rotor vẫn hút nhẹ các cực stator ngay cả khi không có điện, nên xoay tay trục sẽ thấy nó nấc từng chút. Lực nhỏ này gọi là mô-men hãm từ (detent torque). Hình không có lực này, nên khi ngắt điện rotor chỉ chịu ma sát.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="stepper-tu-thu" class="htw-try" aria-labelledby="stepper-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="stepper-tu-thu-h" tabindex="-1">Tự cấp điện, cho chạy rồi làm động cơ trượt bước</h2>
+      <p>Mở chế độ tự thử sẽ đưa chính hình mặt cắt xuống bên dưới, cạnh bảng điều khiển, và giữ nguyên trạng thái. Thời gian chỉ trôi khi bạn bấm Chạy hoặc Từng bước. Dừng giữ nguyên mọi thứ; cuộn trang, đổi tab hay đưa hình ra ngoài màn hình không cộng bù thời gian. Mọi nút dùng được bằng bàn phím: phím Tab để di chuyển, Enter hoặc phím cách để bấm, phím mũi tên để kéo thanh trượt.</p>
+      <p>Thanh Tốc độ tính bằng bước đủ/giây ở mọi kiểu kích. Ở nửa bước, mỗi bước đủ gồm 2 nấc nhỏ; ở vi bước, mỗi bước đủ gồm 8 nấc nhỏ. Nhờ vậy cùng một vị trí thanh trượt cho cùng một tốc độ quay của trục, và bạn so được các kiểu kích với nhau. Bảng số liệu cho biết số bước đã ra lệnh, góc thật của trục, số bước trượt quy đổi, dòng trong hai cuộn, mô-men và thời gian.</p>
+      <ol class="htw-try-list">
+        <li><strong>Tự cấp điện từng cuộn.</strong> Chọn cấu hình mẫu “Tự cấp điện” rồi bấm Chạy. Đặt Cuộn A ở +: rotor bị hút về 0° và đứng yên. Đặt thêm Cuộn B ở +: rotor dừng giữa hai cực, gần 45°. Tắt Cuộn A: rotor đi tới 90°. Đặt Cuộn A ở −: rotor đi tiếp tới gần 135°. Bạn vừa tự tay làm việc của bộ điều khiển. Muốn thấy rotor quay trơn, chọn “Mặc định”, kéo Tải về 0, bấm Chạy, rồi lần lượt đặt Cuộn A và Cuộn B về Tắt. Bấm công tắc cuộn dây khi đang chạy tự động sẽ chuyển sang Tự cấp điện, giữ nguyên các cuộn đang bật. Khi không còn cuộn nào có điện, rotor quay tiếp hoặc lắc thêm một đoạn rồi dừng dần vì ma sát, và dòng hai cuộn về 0. Đường độ lệch trên đồ thị lúc này trôi theo rotor: bộ điều khiển vẫn tin trục nằm ở góc lệnh cuối cùng, trong khi trục đã tự quay đi.</li>
+        <li><strong>Thử thách 1: một vòng bằng 4 bước đủ.</strong> Chọn cấu hình mẫu “Mặc định” (kiểu Hai cuộn), hoặc chuyển Kiểu kích sang Một cuộn, rồi bấm Từng bước bốn lần. Mỗi lần trục nhích 90°. Sau lần thứ tư, trục về đúng góc ban đầu, “Bước đã ra lệnh” là 4 và “Bước trượt quy đổi” vẫn là 0. Chọn Chiều quay Ngược rồi bấm lại để thấy rotor đi chiều kia.</li>
+        <li><strong>Thử thách 2: dừng ở 45°.</strong> Chọn cấu hình mẫu “Nửa bước”, rotor bắt đầu ở 0°, rồi bấm Từng bước một lần. Hoặc chọn “Vi bước” và bấm Từng bước bốn lần để thấy rotor nhích từng 11,25°. Kiểu Hai cuộn cũng đứng ở 45°, nhưng đó là vị trí của bước đủ nên thử thách không tính.</li>
+        <li><strong>Thử thách 3: làm động cơ trượt bước.</strong> Chọn “Mặc định”, bấm Chạy rồi kéo thanh Tốc độ lên dần. Quá khoảng 30 bước đủ/giây ở 6 V, kim liền rớt lại sau kim nét đứt, đồ thị độ lệch có dấu trượt và “Bước trượt quy đổi” nhảy từng 4 một. Một cách khác: hạ Điện áp nguồn xuống 3 V rồi kéo Tải lên khoảng 0,15 N·m trở lên. Cấu hình mẫu “Bước quá nhanh” cho thấy ngay hiện tượng này.</li>
+        <li><strong>Thử thách 4: 40 bước đủ/giây trong 2 giây mà không trượt.</strong> Ở 6 V điều này không làm được, kể cả khi tăng tốc từ từ. Chọn “Bước quá nhanh”, bấm Chạy, rồi tăng Điện áp nguồn lên 12 V hoặc hơn. Dòng lên nhanh hơn, rotor bắt kịp lại, và sau 2 giây không trượt thì thử thách hoàn thành. Cấu hình mẫu “Điện áp cao” chạy cùng tốc độ ấy ở 24 V.</li>
+        <li><strong>So đồ thị dòng và cách khởi động.</strong> So đồ thị dòng ở “Mặc định” (8 bước đủ/giây) với “Bước quá nhanh” (40 bước đủ/giây): ở tốc độ thấp, dòng có thời gian lên gần mức V/R; ở tốc độ cao, đỉnh dòng bị cụt. Thử thêm hai cách tới cùng một tốc độ ở 6 V. Khởi động thẳng thì động cơ trượt từ khoảng 28 bước đủ/giây. Kéo thanh Tốc độ lên dần trong lúc đang chạy thì nó theo được tới khoảng 33. Bảng thông số của hãng cũng tách hai con số này: mô-men khi khởi động từ đứng yên và tải kéo được khi đã chạy.</li>
+      </ol>
+      <p>Bảng điều khiển có Chạy, Dừng, Từng bước, Đặt lại; hai công tắc Cuộn A và Cuộn B, mỗi cái gồm −, Tắt và +; Kiểu kích, Chiều quay và Tốc độ; Tải và Điện áp nguồn; các cấu hình mẫu và danh sách thử thách. Đặt lại đưa mọi thứ về cấu hình mặc định. Chọn một cấu hình mẫu cho động cơ bắt đầu lại từ đầu, kể cả số bước đã đếm, nhưng giữ các thử thách đã xong; chỉ Đặt lại mới xóa chúng. Đây là hình minh họa, không phải hướng dẫn nối dây hay cấp điện cho động cơ thật.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên chế độ tự thử không mở được.</p></noscript>
+      <p class="htw-try-fallback">Tự thử cần JavaScript. Nếu các nút vẫn khóa hoặc có lỗi, hình tĩnh và bài giải thích vẫn đọc được.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="stepper-motor-scene stepper-motor-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="stepper-motor-scene" disabled>Quay lại bài đọc</button></p>
+        {% include how-things-work/stepper-motor-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="stepper-nguon" class="htw-sources" aria-labelledby="stepper-nguon-h">
+  <h2 id="stepper-nguon-h" tabindex="-1">Nguồn và giới hạn mô hình</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li><a href="https://ww1.microchip.com/downloads/en/AppNotes/00907a.pdf" target="_blank" rel="noopener noreferrer">R. Condit, D. W. Jones / Microchip, AN907 “Stepping Motors Fundamentals” (2004)</a>: tr. 1 về ứng dụng, rotor bị hút thẳng hàng với cuộn có điện và định vị không cần cảm biến; tr. 3–4 về động cơ lưỡng cực, bước một cuộn, hai cuộn và nửa bước; tr. 5 về mô-men giảm khi tốc độ tăng, lực hãm khi không có điện và răng nhỏ trên rotor; tr. 6 về cỡ bước, các loại mô-men và trượt bước; tr. 10 về vi bước theo sin và cos; tr. 13–14 về dòng tăng theo hàm mũ tới V/R với tốc độ ban đầu V/L.</li>
+        <li><a href="https://www.analog.com/en/lp/001/optimizing-torque-output-with-dcstep.html" target="_blank" rel="noopener noreferrer">Analog Devices (Trinamic), “Optimizing Torque Output with DcStep”</a>: đoạn về mô-men giảm ở tốc độ cao do sức phản điện động.</li>
+        <li><a href="https://en.wikipedia.org/wiki/Lavet-type_stepping_motor" target="_blank" rel="noopener noreferrer">Wikipedia, “Lavet-type stepping motor”</a>: đoạn mở đầu về động cơ bước một pha trong đồng hồ thạch anh có kim.</li>
+      </ul>
+      <p>Truy cập ngày 15/11/2026. AN907 được đối chiếu với bản lưu cục bộ. Hình mặt cắt và mọi con số của động cơ minh họa là tự tạo, không chép hình hay bảng của tài liệu nào.</p>
+    </div>
+    <div>
+      <h3>Một động cơ minh họa, không phải sản phẩm cụ thể</h3>
+      <p>Hình là động cơ bước nam châm vĩnh cửu lưỡng cực, hai cuộn dây, 4 bước đủ mỗi vòng. Thông số không lấy từ bảng thông số kỹ thuật (datasheet) của hãng nào: điện trở mỗi cuộn 2 Ω, độ tự cảm 0,05 H (L/R là 25 mili giây), mô-men giữ của một cuộn ở 6 V là 0,6 N·m. Thanh Tốc độ đi từ 1 đến 100 bước đủ/giây, Tải từ 0 đến 0,3 N·m, Điện áp nguồn từ 3 đến 24 V.</p>
+      <p>Các ngưỡng trượt nêu trong bài được đo trên chính động cơ minh họa, ở kiểu Hai cuộn với tải mặc định 0,01 N·m: khởi động thẳng thì chạy không trượt tới khoảng 27, 44 và 56 bước đủ/giây ở 6, 12 và 24 V; tăng tốc từ từ ở 6 V thì tới khoảng 33. Bộ đếm quy đổi mỗi sự kiện vượt ranh giới chu kỳ thành 4 bước, nên “Bước trượt quy đổi” luôn là bội số của 4. Không dùng nó thay cho độ lệch vị trí tức thời giữa góc thật và góc lệnh.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Giới hạn mô hình</h3>
+      <ul>
+        <li>Động cơ trong hình chỉ có 4 bước mỗi vòng: rotor nam châm hai cực và stator bốn cực. Động cơ thật thường có 200 bước mỗi vòng nhờ răng nhỏ.</li>
+        <li>Mọi thông số đều là minh họa, chọn để các hiện tượng diễn ra ở tốc độ mắt nhìn kịp. Chúng không lấy từ datasheet của động cơ nào.</li>
+        <li>Không mô phỏng mạch driver, bộ băm dòng hay giới hạn dòng. Vi bước dùng điện áp trung bình theo hàm sin và cos.</li>
+        <li>Mô hình không có mô-men hãm từ, nên khi ngắt điện rotor chỉ chịu ma sát. Động cơ thật có một lực hãm nhỏ ngay cả khi không có điện.</li>
+        <li>Khi chạy tự động, cuộn đang nghỉ được nối ở 0 V, giống chế độ xả chậm của driver thật.</li>
+        <li>Tốc độ tính bằng bước đủ mỗi giây ở mọi kiểu kích, nên cùng một vị trí thanh trượt cho cùng một tốc độ quay.</li>
+        <li>Bước trượt quy đổi là bộ đếm sự kiện vượt ranh giới chu kỳ: mỗi sự kiện tương đương 4 bước. Nó không phải sai số vị trí tức thời. Đồ thị quy góc thật trừ góc lệnh về khoảng −180° đến dưới +180°: −225° hiện thành +135°. Đồ thị không đếm số vòng đã hụt.</li>
+        <li>Mô hình được kiểm bằng các phép thử tự động trên nhiều tổ hợp tham số, chưa hiệu chuẩn với một động cơ thật.</li>
+        <li>Khi bạn tự cấp điện sao cho từ trường chỉ ngược hẳn hướng rotor đang đứng yên, hình đẩy rotor lệch 5° về chiều quay đang chọn để nó rời khỏi thế cân bằng không bền ấy. Đây là cách đơn giản thay cho những rung động nhỏ mà hình không mô phỏng.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
