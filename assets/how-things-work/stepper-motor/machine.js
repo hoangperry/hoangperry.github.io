@@ -1087,8 +1087,8 @@ var createModel = (function createModel(data) {
     if (n % HIST_EVERY === 0) record();
   }
 
-  // One slip = the rotor is more than half an electrical cycle away from the commanded field: it has dropped into
-  // a neighbouring equilibrium, so the belief and the shaft now differ by one electrical cycle (4 full steps).
+  // Count crossings of the electrical-cycle boundary, then shift the reference by a cycle.
+  // Four full steps per counted event is a cumulative convention, NOT the instantaneous angular error.
   function detectSlip() {
     if (!energized) return;
     let err = rotorMicro() - (cmd - CYCLE * lost);
@@ -1106,7 +1106,7 @@ var createModel = (function createModel(data) {
       lastSlipN = n;
       histSlip = 1;
       fastClean = 0;
-      if (slips === 1) pendingEvents.push(`Rotor vừa trượt bước: nó lệch hẳn ${4 * POLES} bước so với lệnh, nhưng bộ điều khiển không hề biết.`);
+      if (slips === 1) pendingEvents.push(`Vừa ghi nhận một sự kiện trượt, quy đổi thành ${4 * POLES} bước. Đây không phải độ lệch góc tức thời; bộ điều khiển vẫn tiếp tục đếm lệnh.`);
     }
     if (slipGuard !== 0 && Math.abs(err) < QUARTER) slipGuard = 0;
   }
@@ -1284,7 +1284,7 @@ var createModel = (function createModel(data) {
     // (one slip per cycle) is never described as keeping up between two slips.
     const slipWindow = Math.max(SLIP_STATUS_SUBSTEPS, Math.round((2 * 4 * HZ) / controls.rate));
     if (slips > 0 && n - lastSlipN < slipWindow) {
-      return `Rotor không theo kịp nên đã trượt ${fmt(4 * POLES * slips, 0)} bước. Bộ điều khiển không biết điều đó và vẫn đếm bước như thường.`;
+      return `Rotor không theo kịp: đã ghi nhận ${fmt(slips, 0)} sự kiện trượt, quy đổi thành ${fmt(4 * POLES * slips, 0)} bước. Xem độ lệch góc thật trên đồ thị.`;
     }
     if (drive === 'manual') {
       if (!energized) {
@@ -1329,7 +1329,7 @@ var createModel = (function createModel(data) {
     const readout = [
       { key: 'commandedSteps', label: 'Bước đã ra lệnh', text: fmt(commandedSteps, 2, true) },
       { key: 'angle', label: 'Góc trục thật', text: `${fmt(mod(Math.round(deg * 10) / 10, 360), 1)}°` },
-      { key: 'slippedSteps', label: 'Bước bị trượt', text: fmt(4 * POLES * slips, 0) },
+      { key: 'slippedSteps', label: 'Bước trượt quy đổi', text: fmt(4 * POLES * slips, 0) },
       { key: 'currentA', label: 'Dòng cuộn A', text: `${fmt(iA, 2)} A` },
       { key: 'currentB', label: 'Dòng cuộn B', text: `${fmt(iB, 2)} A` },
       { key: 'torque', label: 'Mô-men', text: `${fmt(torque, 2)} N·m` },
