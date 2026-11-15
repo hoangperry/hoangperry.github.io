@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "topic": "stepper-motor",
+  "kind": "playground",
+  "sourceDigest": "9107d918e02d15b7524dfcf1813dba09abb1352df483e853dff455c81a55e9ca",
+  "files": {
+    "_includes/how-things-work/stepper-motor-scene.html": "8310df336fceb3f6d24993ad90877990a1f34c6842124e255cc32f47efc4fe47",
+    "_includes/how-things-work/stepper-motor-console.html": "eeae1ac99c2099ad86e14faa2b8c38f1d67ff555448c9fb160e2ffeb635f55cb",
+    "assets/how-things-work/stepper-motor/machine.js": "9dc82c7c94922d3f51a76e033eb153b80cbf2cdedf7bf18ade34d6daf01f43ef",
+    "assets/how-things-work/stepper-motor/machine.css": "5431d3821586b3254ac38d99021e834f9343e19ccb91f4e482881f46f3206092",
+    "assets/how-things-work/stepper-motor/thumbnail.webp": "99d1cf67d74e23746d6b0e2206e9fc76af0d2810037c95b1d055159226409825",
+    "assets/how-things-work/stepper-motor/NOTICE.txt": "660d541ff8907a47fa092f00bd3941391f4686beb070470d5c3fdd12b16ebd2d"
+  }
+}

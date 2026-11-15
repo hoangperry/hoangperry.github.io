@@ -50,3 +50,10 @@
   subjects: "Nhiếp ảnh · Máy móc"
   summary: "Theo khay tròn, bàn nâng, ngón ép và hai lá chắn sáng: vì sao màn phải tối khi đổi dương bản, khay chỉ quay khi slide đã trở về và ảnh chỉ sáng khi slide mới tựa đúng cửa chiếu."
   thumbnail: /assets/how-things-work/slide-projector/thumbnail.webp
+- id: stepper-motor
+  number: "08"
+  url: /how-things-work/stepper-motor/
+  title: "Động cơ bước quay từng nấc thế nào?"
+  subjects: "Điện tử · Máy móc"
+  summary: "Tự cấp điện cho từng cuộn dây và nhìn nam châm bị hút theo: vì sao trục nhích đúng một nấc rồi đứng yên, đảo thứ tự thì đổi chiều, và vì sao bước quá nhanh thì động cơ trượt bước mà bộ điều khiển không hay biết."
+  thumbnail: /assets/how-things-work/stepper-motor/thumbnail.webp
