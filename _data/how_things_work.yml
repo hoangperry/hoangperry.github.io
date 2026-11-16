@@ -57,3 +57,10 @@
   subjects: "Điện tử · Máy móc"
   summary: "Tự cấp điện cho từng cuộn dây và nhìn nam châm bị hút theo: vì sao trục nhích đúng một nấc rồi đứng yên, đảo thứ tự thì đổi chiều, và vì sao bước quá nhanh thì động cơ trượt bước mà bộ điều khiển không hay biết."
   thumbnail: /assets/how-things-work/stepper-motor/thumbnail.webp
+- id: barometric-altimeter
+  number: "09"
+  url: /how-things-work/barometric-altimeter/
+  title: "Đồng hồ đo độ cao quay kim bằng cách nào?"
+  subjects: "Khí áp · Máy móc"
+  summary: "Theo áp suất tĩnh tác động lên hộp màng đàn hồi, qua đòn và bánh răng tới kim: vì sao lên cao, đổi thời tiết hay vặn chuẩn đều có thể làm số chỉ thay đổi."
+  thumbnail: /assets/how-things-work/barometric-altimeter/thumbnail.webp

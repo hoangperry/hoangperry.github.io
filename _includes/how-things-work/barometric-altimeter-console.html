@@ -1,0 +1,54 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="barometric-altimeter-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Đồng hồ đo độ cao quay kim bằng cách nào?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="atmosphere">
+<legend class="htw-playground-group-label">Khí quyển mô hình</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="altitude" data-playground-type="range">
+<label class="htw-playground-control-label" id="barometric-altimeter-control-altitude-label" for="barometric-altimeter-control-altitude">Độ cao mô hình</label>
+<input type="range" class="htw-playground-slider" id="barometric-altimeter-control-altitude" data-playground-key="altitude" data-playground-range min="0" max="3000" step="1" disabled>
+<output class="htw-playground-value" id="barometric-altimeter-control-altitude-value" for="barometric-altimeter-control-altitude" data-playground-output="altitude" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">m</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="basePressure" data-playground-type="range">
+<label class="htw-playground-control-label" id="barometric-altimeter-control-basePressure-label" for="barometric-altimeter-control-basePressure">Áp suất gốc mô hình</label>
+<input type="range" class="htw-playground-slider" id="barometric-altimeter-control-basePressure" data-playground-key="basePressure" data-playground-range min="980" max="1040" step="0.25" disabled>
+<output class="htw-playground-value" id="barometric-altimeter-control-basePressure-value" for="barometric-altimeter-control-basePressure" data-playground-output="basePressure" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">hPa</span></output>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="instrument">
+<legend class="htw-playground-group-label">Đồng hồ và chuyển động</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="settingPressure" data-playground-type="range">
+<label class="htw-playground-control-label" id="barometric-altimeter-control-settingPressure-label" for="barometric-altimeter-control-settingPressure">Áp suất chuẩn đang đặt</label>
+<input type="range" class="htw-playground-slider" id="barometric-altimeter-control-settingPressure" data-playground-key="settingPressure" data-playground-range min="980" max="1040" step="0.25" disabled>
+<output class="htw-playground-value" id="barometric-altimeter-control-settingPressure-value" for="barometric-altimeter-control-settingPressure" data-playground-output="settingPressure" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">hPa</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="targetAltitude" data-playground-type="range">
+<label class="htw-playground-control-label" id="barometric-altimeter-control-targetAltitude-label" for="barometric-altimeter-control-targetAltitude">Đích khi chạy</label>
+<input type="range" class="htw-playground-slider" id="barometric-altimeter-control-targetAltitude" data-playground-key="targetAltitude" data-playground-range min="0" max="3000" step="1" disabled>
+<output class="htw-playground-value" id="barometric-altimeter-control-targetAltitude-value" for="barometric-altimeter-control-targetAltitude" data-playground-output="targetAltitude" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">m</span></output>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="barometric-altimeter-presets-label">
+<span class="htw-playground-group-label" id="barometric-altimeter-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="default" disabled>Mặc định: hai áp suất bằng nhau</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="wrong-setting" disabled>Đặt chuẩn thấp: kim chỉ thấp</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="low-pressure" disabled>Áp suất gốc thấp: kim chỉ cao</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="high-setting" disabled>Đặt chuẩn cao: hộp màng không đổi</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="below-zero" disabled>Số chỉ âm: kim không quay vòng</button>
+</div>
+<div class="htw-playground-challenges">
+<p class="htw-playground-group-label" id="barometric-altimeter-challenges-label">Thử thách</p>
+<ol class="htw-playground-challenge-list" aria-labelledby="barometric-altimeter-challenges-label">
+<li class="htw-playground-challenge" data-machine-challenge="correct-reference" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Từ Đặt chuẩn thấp, chỉnh chuẩn về 1013,25 hPa; hộp màng giữ nguyên, sai lệch ≤ 1 m.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="weather-change" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Từ Mặc định, giữ độ cao và chuẩn; hạ áp suất gốc tới 990 hPa, quan sát hộp màng giãn và số chỉ tăng ≥ 150 m.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="setting-only" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Từ Mặc định, giữ độ cao và áp suất gốc; tăng chuẩn tới 1030 hPa, số chỉ tăng ≥ 130 m nhưng hộp màng giữ nguyên.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="correct-after-weather" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Sau thử thách áp suất gốc thấp, giữ độ cao và áp suất gốc 990 hPa; chỉnh chuẩn về 990 hPa để sai lệch ≤ 1 m.</span></li>
+</ol>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}

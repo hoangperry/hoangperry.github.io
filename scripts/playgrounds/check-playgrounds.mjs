@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { Script } from 'node:vm';
 
-export const TOPICS = Object.freeze(['stepper-motor']);
+export const TOPICS = Object.freeze(['stepper-motor', 'barometric-altimeter']);
 export const FIXTURE_MARKER = '.htw-playground-test-fixture';
 const MANIFEST_KEYS = ['schemaVersion', 'topic', 'kind', 'sourceDigest', 'files'];
 const CONTROL_TAGS = 'button|input|select|textarea';

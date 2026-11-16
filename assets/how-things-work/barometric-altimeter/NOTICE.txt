@@ -1,0 +1,20 @@
+How Things Work playground: Đồng hồ đo độ cao quay kim bằng cách nào?
+Topic: barometric-altimeter
+Generated file: built by publish-barometric-altimeter.mjs from a checked artifact and its receipt. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: 98535d0a122d174b3e18616d72f5e035d92a94270516e10156a7f1809b7de417
+Checks recorded in the build receipt:
+- barometric-altimeter model, renderer, topic and build: 56/56 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/barometric-altimeter/tests/altimeter-build.test.mjs playgrounds/barometric-altimeter/tests/altimeter-digest-integration.test.mjs playgrounds/barometric-altimeter/tests/altimeter-invariance.test.mjs playgrounds/barometric-altimeter/tests/altimeter-model.test.mjs playgrounds/barometric-altimeter/tests/altimeter-native-input.test.mjs playgrounds/barometric-altimeter/tests/altimeter-parameter-grid.test.mjs playgrounds/barometric-altimeter/tests/altimeter-reader-layout.test.mjs playgrounds/barometric-altimeter/tests/altimeter-renderer.test.mjs playgrounds/barometric-altimeter/tests/altimeter-scene.test.mjs playgrounds/barometric-altimeter/tests/altimeter-topic.test.mjs)
+- frozen shared playground non-browser contracts: 72/72 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs)
+- Mode invariance: passed, 4 scripts
+- Parameter grid: passed, 216 cases
+Limitations:
+- Mô hình giáo dục cân bằng gần tĩnh, hiệu chuẩn lý tưởng; không có quán tính, rung, trễ capsule, khuyết tật cảm biến hay hiệu chuẩn thương mại.
+- Khí quyển mô hình giữ T0 = 288,15 K và lapse rate 0,0065 K/m. Thay áp suất gốc không tạo mọi khí quyển thực hoặc mọi trạng thái ISA; không mô phỏng sai số nhiệt độ.
+- Độ cao mô hình 0…3000 m dùng gần đúng địa thế vị, không phải độ cao GPS hay khoảng cách tới mặt đất. Chênh với độ cao hình học tại 3000 m khoảng 1,4 m; chỉ hiển thị tới mét, không nhận độ chính xác dưới mét.
+- Sơ đồ tổng hợp 2D không đúng tỷ lệ; mặt số mét một kim −600…3600 m, sweep 270°. Số chỉ âm không bị cắt về 0 hoặc quay vòng.
+- Capsule và chuyển vị được phóng đại, không phải thể tích hay độ giãn thực. Áp suất tĩnh tác dụng ngoài capsule kín; chân không không đẩy phồng.
+- Khâu cam và đường đặt chuẩn là cách điệu công khai. Cặp sector/pinion có tỷ số cố định; hình học này không chứng minh cơ cấu thật thực hiện chính xác công thức khí quyển.
+- Đổi Ps không đổi áp suất tại đồng hồ hoặc capsule khi giữ độ cao và áp suất gốc. Phép quy đổi H = a·Hp + b thay cả hệ số và độ lệch, không phải núm cơ khí chỉ cộng một góc cố định.
+- Áp suất gốc mô hình không đồng nhất vô điều kiện với QNH hoặc MSLP thực. Đặt lại chuẩn không khắc phục mọi sai số nhiệt độ.
+- Độ cao mô hình và sai lệch H−h thuộc bàn thí nghiệm, không phải thông tin mà cao kế khí áp thật tự biết. Chưa hiệu chuẩn với thiết bị thật; không dùng dẫn đường, điều khiển hoặc vận hành máy bay.

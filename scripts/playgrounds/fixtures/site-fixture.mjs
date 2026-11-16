@@ -37,14 +37,14 @@ export function fixture({ prefix = '', topics = TOPICS } = {}) {
     const contents = [
       `{% raw %}\n${sceneHtml(slug)}\n{% endraw %}\n`,
       `{% raw %}\n${consoleHtml(slug)}\n{% endraw %}\n`,
-      `/* TEST FIXTURE ONLY: not a playground */\n(function () {\n'use strict';\nvar fixture = 1;\n})();\n`,
+      `/* TEST FIXTURE ONLY: not a playground */\n(function () {\n'use strict';\nvar fixture = ${JSON.stringify(slug)};\n})();\n`,
       `.htw-machine[data-htw-figure="${slug}"] .htw-machine-scene { width: 100%; }\n@media (max-width: 600px) { .htw-machine[data-htw-figure="${slug}"] svg { width: 100%; } }\n`,
       webp(),
       `How Things Work playground: TEST FIXTURE\nTopic: ${slug}\nGenerated file: TEST FIXTURE ONLY.\n`,
     ];
     const files = {};
     payloadPaths(slug).forEach((rel, index) => { put(root, rel, contents[index]); files[rel] = sha(contents[index]); if (rel.startsWith('assets/')) put(site, rel, contents[index]); });
-    const manifest = `${JSON.stringify({ schemaVersion: 1, topic: slug, kind: 'playground', sourceDigest: 'a'.repeat(64), files }, null, 2)}\n`;
+    const manifest = `${JSON.stringify({ schemaVersion: 1, topic: slug, kind: 'playground', sourceDigest: sha(`TEST FIXTURE ONLY: ${slug}`), files }, null, 2)}\n`;
     put(root, manifestPath(slug), manifest); put(site, manifestPath(slug), manifest);
     const article = `<!doctype html><html lang="vi"><head><link rel="stylesheet" href="${prefix}/css/how-things-work.css"><link rel="stylesheet" href="${prefix}/${base}machine.css"></head><body>`
       + `<a href="${prefix}/how-things-work/">How Things Work</a>`
@@ -58,7 +58,7 @@ export function fixture({ prefix = '', topics = TOPICS } = {}) {
     hub += `<li><a class="htw-entry-link" href="${prefix}/how-things-work/${slug}/"><span><img src="${prefix}/${base}thumbnail.webp" alt=""></span><span>TEST ${slug}</span></a></li>`;
   }
   put(site, 'how-things-work/index.html', `${hub}</ol></body></html>`);
-  return { root, site, baseurl: prefix };
+  return { root, site, baseurl: prefix, topics: Object.freeze([...topics]) };
 }
 
 // Path → [mtime, bytes] for every entry; used to prove the validator never writes.

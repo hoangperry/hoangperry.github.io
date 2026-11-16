@@ -1,0 +1,175 @@
+---
+title: "Đồng hồ đo độ cao quay kim bằng cách nào?"
+permalink: /how-things-work/barometric-altimeter/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Áp suất không khí ép lên một hộp màng kín đã hút bớt khí. Lên cao, áp suất giảm, thành hộp đàn hồi giãn ra rồi đòn và bánh răng đưa kim đi. Nhưng đổi thời tiết hay vặn núm chuẩn cũng có thể làm kim đổi chỗ dù đồng hồ không lên cao."
+social-image: /assets/how-things-work/barometric-altimeter/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/barometric-altimeter/machine.css
+script-includes:
+  - /assets/how-things-work/barometric-altimeter/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="barometric-altimeter" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/barometric-altimeter-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: các nút tương tác không hoạt động. Bạn vẫn xem được hình tĩnh và đọc toàn bộ bài cùng nguồn.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="barometric-altimeter-scene" disabled><span class="htw-collapse-name">Hình cơ cấu đồng hồ đo độ cao</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài đồng hồ đo độ cao">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#altimeter-quanh-ta">Kim chỉ độ cao, nhưng đầu vào là áp suất</a></li>
+            <li><a href="#altimeter-ap-suat">Không khí bao quanh một hộp màng kín</a></li>
+            <li><a href="#altimeter-hop-mang">Áp suất giảm thì thành hộp đàn hồi hồi lại</a></li>
+            <li><a href="#altimeter-truyen-dong">Đòn và bánh răng biến dịch chuyển nhỏ thành góc quay</a></li>
+            <li><a href="#altimeter-mat-so">Một kim chỉ kết quả quy đổi, không đo trực tiếp độ cao</a></li>
+            <li><a href="#altimeter-dat-chuan">Vặn chuẩn đổi số chỉ mà không đổi áp suất</a></li>
+            <li><a href="#altimeter-thoi-tiet">Áp suất giảm, kim lên dù vị trí không đổi</a></li>
+            <li><a href="#altimeter-gioi-han">Đặt chuẩn đúng vẫn chưa hết sai số</a></li>
+            <li><a href="#altimeter-tu-thu">Tự thử</a></li>
+            <li><a href="#altimeter-nguon">Nguồn và giới hạn mô hình</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="altimeter-quanh-ta" class="htw-step" data-machine-focus="all" aria-labelledby="altimeter-quanh-ta-h">
+        <p class="htw-step-label">01 · Quanh ta</p>
+        <h2 id="altimeter-quanh-ta-h" tabindex="-1">Kim chỉ độ cao, nhưng đầu vào là áp suất</h2>
+        <p>Một cao kế khí áp cơ khí có thể đưa kim lên khi được mang lên cao mà không cần cảm biến đo khoảng cách tới mặt đất. Nó nhận biết áp suất không khí, rồi dùng một cơ cấu đã được hiệu chỉnh để biểu diễn áp suất ấy thành độ cao trên mặt số. Không khí càng lên cao thường càng loãng, áp suất càng thấp; nhờ mối quan hệ đó, một dụng cụ nhạy với áp suất có thể làm đồng hồ đo độ cao. <a href="#altimeter-source-s1">[S1]</a></p>
+        <p>Nhưng áp suất còn đổi theo thời tiết. Vì thế kim lên chưa đủ để kết luận đồng hồ vừa được đưa lên cao. Hình trong bài tách ba việc thường dễ lẫn: thay đổi độ cao, thay đổi khí quyển xung quanh và vặn núm đặt chuẩn. Cuộn trang chỉ làm sáng phần đang được giải thích, không tự chạy mô hình. Khi mở bài, mô hình đứng ở 1000 m, đích khi chạy là 1500 m và hai áp suất gốc, chuẩn đều bằng 1013,25 hPa.</p>
+      </section>
+
+      <section id="altimeter-ap-suat" class="htw-step" data-machine-focus="pressure" aria-labelledby="altimeter-ap-suat-h">
+        <p class="htw-step-label">02 · Áp suất bên ngoài</p>
+        <h2 id="altimeter-ap-suat-h" tabindex="-1">Không khí bao quanh một hộp màng kín</h2>
+        <p>Đường áp suất tĩnh dẫn áp suất không khí bên ngoài vào vỏ đồng hồ. “Tĩnh” ở đây là áp suất của không khí tại nơi lấy áp, không phải sức ép do hứng luồng gió lao thẳng vào. Trong vỏ có một hộp mỏng với thành đàn hồi, gọi là hộp màng hay capsule. Hộp được hút bớt khí rồi đóng kín; đường lấy áp không thông vào lòng hộp. Không khí trong vỏ tác động lên <strong>mặt ngoài</strong> của hộp kín ấy. <a href="#altimeter-source-s1">[S1]</a> <a href="#altimeter-source-s2">[S2]</a></p>
+        <p>Điều làm hộp biến dạng là chênh lệch áp suất giữa hai bên thành hộp. Áp suất ngoài tăng thì hộp bị ép thêm; áp suất ngoài giảm thì lực ép bớt đi. Không có bơm đưa không khí vào hộp để làm nó nở, và cũng không cần một dòng khí liên tục chạy qua cơ cấu để kim đứng ở một vị trí. Các giá trị áp suất trong bài dùng đơn vị hPa, viết tắt của hectopascal.</p>
+      </section>
+
+      <section id="altimeter-hop-mang" class="htw-step" data-machine-focus="capsule" aria-labelledby="altimeter-hop-mang-h">
+        <p class="htw-step-label">03 · Hộp màng đàn hồi</p>
+        <h2 id="altimeter-hop-mang-h" tabindex="-1">Áp suất giảm thì thành hộp đàn hồi hồi lại</h2>
+        <p>Thành hộp không mềm nhũn như một túi rỗng. Nó có tính đàn hồi: khi bị ép, nó chống lại biến dạng và có xu hướng trở về hình dạng ít bị ép hơn. Một đầu hộp được giữ vào khung, đầu kia có thể dịch chuyển. Khi áp suất bên ngoài giảm, thành hộp hồi lại nên hai mặt tách xa hơn. Khi áp suất tăng, hộp bị nén lại. Chính tính đàn hồi tạo lực hồi, không phải “chân không đẩy từ trong ra”. Bằng sáng chế của Herbert J. Frank mô tả rõ vai trò này của thành hộp. <a href="#altimeter-source-s2">[S2]</a></p>
+        <p>Hình phóng đại chuyển động đó để bạn nhìn thấy. Khoảng giãn trên hình chỉ là vị trí minh họa tương đối, không phải hành trình đo bằng milimét hay phần trăm thể tích của một hộp thật. Mô hình dùng cân bằng gần tĩnh: ở mỗi áp suất, hộp được đặt ngay vào trạng thái cân bằng tương ứng. Nó không mô phỏng rung, quán tính hay độ trễ của cơ cấu.</p>
+      </section>
+
+      <section id="altimeter-truyen-dong" class="htw-step" data-machine-focus="linkage" aria-labelledby="altimeter-truyen-dong-h">
+        <p class="htw-step-label">04 · Truyền động</p>
+        <h2 id="altimeter-truyen-dong-h" tabindex="-1">Đòn và bánh răng biến dịch chuyển nhỏ thành góc quay</h2>
+        <p>Đầu di động của hộp màng kéo một hệ đòn truyền. Đòn đổi hướng và khuếch đại dịch chuyển nhỏ ấy. Một khâu tiếp xúc với mặt cam, tức mặt cong được tạo hình để thay đổi cách truyền chuyển động, giúp hiệu chỉnh quan hệ giữa hộp màng và số chỉ. Chuyển động cuối cùng tới cung răng (sector), rồi cung răng kéo bánh răng nhỏ (pinion) gắn với trục kim. Đây là những bộ phận có trong cơ cấu được mô tả ở bằng sáng chế S2, không phải cấu tạo bắt buộc của mọi cao kế. <a href="#altimeter-source-s2">[S2]</a></p>
+        <p>Cung răng và bánh răng nhỏ ăn khớp ngoài nên quay ngược chiều nhau. Trong sơ đồ, khi số chỉ tăng, kim và bánh răng gắn cùng trục quay theo chiều kim đồng hồ, còn cung răng quay theo chiều ngược lại. Cặp răng tròn có tỷ số truyền cố định; sự biến đổi không đều cần để hiệu chỉnh nằm ở hộp màng và các khâu đòn, cam, chứ không phải vì cặp răng tự đổi tỷ số khi quay.</p>
+        <p>Mặt cam và khâu đặt chuẩn ở đây được cách điệu để thấy đường truyền tác động. Đây không phải bản vẽ chế tạo. Mô hình tính số chỉ bằng một quan hệ khí quyển lý tưởng; hình cơ khí không phải bằng chứng rằng một thiết bị thật đang thực hiện chính xác phép tính ngược ấy.</p>
+      </section>
+
+      <section id="altimeter-mat-so" class="htw-step" data-machine-focus="dial" aria-labelledby="altimeter-mat-so-h">
+        <p class="htw-step-label">05 · Đọc mặt số</p>
+        <h2 id="altimeter-mat-so-h" tabindex="-1">Một kim chỉ kết quả quy đổi, không đo trực tiếp độ cao</h2>
+        <p>Để dễ theo dõi, mặt số trong bài chỉ có một kim, dùng mét và trải từ −600 đến 3600 m trên một cung 270°. Kim không quay vòng về đầu thang. Cao kế thật thường dùng feet và có thể có nhiều kim để đọc các hàng độ cao khác nhau; mặt số này là lựa chọn để học, không phải bản sao của một dụng cụ buồng lái. <a href="#altimeter-source-s1">[S1]</a></p>
+        <p>Ở trạng thái mặc định, độ cao mô hình là 1000 m, áp suất tại đồng hồ khoảng 898,7 hPa và số chỉ là 1000 m. Ô “Độ cao mô hình” nằm ở phần đối chiếu của bàn thí nghiệm: đó là đầu vào đã biết do bạn đặt, không phải một đại lượng mà cao kế tự cảm nhận được. Mặt số không có kim thứ hai đo độ cao thật. Sai lệch hiển thị là số chỉ trừ độ cao mô hình; dấu dương nghĩa là đồng hồ chỉ cao hơn giá trị đối chiếu.</p>
+        <p>Số chỉ âm vẫn hợp lệ. Chẳng hạn khi độ cao mô hình bằng 0, áp suất gốc 1040 hPa và chuẩn đang đặt 980 hPa, kim chỉ khoảng −504 m. Điều đó nói rằng áp suất hiện tại được quy đổi thành số âm theo chuẩn đã đặt, không tự động chứng minh dụng cụ đang nằm dưới mực nước biển.</p>
+      </section>
+
+      <section id="altimeter-dat-chuan" class="htw-step" data-machine-focus="setting" aria-labelledby="altimeter-dat-chuan-h">
+        <p class="htw-step-label">06 · Núm đặt chuẩn</p>
+        <h2 id="altimeter-dat-chuan-h" tabindex="-1">Vặn chuẩn đổi số chỉ mà không đổi áp suất</h2>
+        <p>Một áp suất không ứng với duy nhất một độ cao nếu chưa chọn khí quyển tham chiếu. Núm đặt chuẩn thay đổi tham chiếu dùng để đọc mặt số. Trong mô hình, hãy giữ độ cao ở 1000 m và áp suất gốc ở 1013,25 hPa, rồi tăng “Áp suất chuẩn đang đặt” từ 1013,25 lên 1030 hPa. Áp suất tại đồng hồ vẫn khoảng 898,7 hPa, hộp màng không đổi, nhưng kim lên khoảng 1135 m. Bạn vừa thay đổi cách quy đổi, không làm không khí loãng đi.</p>
+        <p>Đường nối từ núm tới khâu chuẩn trên hình nhấn mạnh rằng tác động này đi qua phần hiệu chỉnh cơ khí, không đi vào đường áp suất. Trong phép quy đổi lý tưởng của bài, đổi chuẩn làm thay đổi cả hệ số chuyển đổi lẫn độ dời của số chỉ; không thể coi nó chỉ là cộng cùng một góc cố định cho kim ở mọi áp suất. Cơ cấu đặt chuẩn thật có nhiều cách bố trí, và hình cách điệu này không khẳng định chúng thực hiện chính xác công thức của mô hình. <a href="#altimeter-source-s1">[S1]</a> <a href="#altimeter-source-s2">[S2]</a></p>
+      </section>
+
+      <section id="altimeter-thoi-tiet" class="htw-step" data-machine-focus="weather" aria-labelledby="altimeter-thoi-tiet-h">
+        <p class="htw-step-label">07 · Thay đổi khí quyển</p>
+        <h2 id="altimeter-thoi-tiet-h" tabindex="-1">Áp suất giảm, kim lên dù vị trí không đổi</h2>
+        <p>Giữ độ cao mô hình ở 1000 m và chuẩn ở 1013,25 hPa, nhưng hạ “Áp suất gốc mô hình” xuống 990 hPa. Áp suất tại đồng hồ giảm từ khoảng 898,7 xuống 878,1 hPa. Hộp màng giãn ra và số chỉ tăng tới khoảng 1191 m, cao hơn giá trị đối chiếu khoảng 191 m. Đồng hồ không vừa bay lên: đầu vào độ cao vẫn là 1000 m. Nó chỉ không phân biệt được áp suất giảm do đổi vị trí với áp suất giảm do khí quyển thay đổi nếu chỉ nhìn áp suất nhận được. <a href="#altimeter-source-s1">[S1]</a></p>
+        <p>Bây giờ giữ nguyên độ cao và áp suất gốc 990 hPa, rồi hạ chuẩn đang đặt về 990 hPa. Số chỉ trở lại 1000 m, trong khi áp suất tại đồng hồ vẫn khoảng 878,1 hPa và hộp màng không đổi. Hai thao tác vừa rồi có thể cùng làm kim đi, nhưng chỉ thao tác thứ nhất làm thay đổi áp suất tác động lên hộp.</p>
+        <p>“Áp suất gốc mô hình” là áp suất tại mốc độ cao 0 của khí quyển giả định trong bài. Thay nó tức là đổi sang một khí quyển khác nhưng vẫn giữ các giả định nhiệt độ chuẩn. Không được đồng nhất vô điều kiện tham số này với QNH, tức trị số đặt cao kế theo quy ước hàng không, hay với áp suất quy về mực biển trong khí tượng (MSLP). Việc hai áp suất bằng nhau cho số chỉ đúng là tính chất của mô hình đã công bố, không phải một quy tắc thay thế quy trình đặt chuẩn ngoài đời. <a href="#altimeter-source-s3">[S3]</a> <a href="#altimeter-source-s4">[S4]</a></p>
+      </section>
+
+      <section id="altimeter-gioi-han" class="htw-step" data-machine-focus="limits" aria-labelledby="altimeter-gioi-han-h">
+        <p class="htw-step-label">08 · Giới hạn</p>
+        <h2 id="altimeter-gioi-han-h" tabindex="-1">Đặt chuẩn đúng vẫn chưa hết sai số</h2>
+        <p>Không khí ngoài đời không luôn có phân bố nhiệt độ như khí quyển chuẩn. Chỉnh áp suất chuẩn không sửa hết sai số do nhiệt độ khác chuẩn; trong khí quyển lạnh khác chuẩn, cao kế vẫn có thể chỉ sai dù đã đặt chuẩn đúng. Bài này không có điều khiển nhiệt độ, nên không dùng việc hai số trùng nhau trên màn hình để kết luận mọi sai số của cao kế thật đã được loại bỏ. <a href="#altimeter-source-s1">[S1]</a> <a href="#altimeter-source-s4">[S4]</a></p>
+        <p>Độ cao đầu vào đi từ 0 đến 3000 m và dùng gần đúng độ cao địa thế vị, tức độ cao gắn với thế trọng trường trong mô hình khí quyển, không phải phép đo chính xác khoảng cách hình học hay khoảng cách tới mặt đất. Các ô số làm tròn tới mét để đọc; chúng không hứa độ chính xác dưới mét. Điều cần theo dõi là quan hệ nhân quả: thay áp suất ngoài thì hộp màng đổi, còn thay chuẩn thì có thể đổi kim mà không đổi hộp.</p>
+        <p>Đây là mô hình giáo dục chưa hiệu chuẩn với thiết bị thật. Nó không dùng để dẫn đường, điều khiển máy bay hay đánh giá một cao kế có đủ điều kiện sử dụng hay không. Phần nguồn cuối bài ghi rõ những gì được lý tưởng hóa và phạm vi của tài liệu tham khảo.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="altimeter-tu-thu" class="htw-try" aria-labelledby="altimeter-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="altimeter-tu-thu-h" tabindex="-1">Tách việc lên cao, đổi khí quyển và vặn chuẩn</h2>
+      <p>Mở chế độ tự thử sẽ đưa chính hình đang đọc xuống cạnh bảng điều khiển và giữ nguyên trạng thái, không tạo thêm một đồng hồ khác. Mô hình không tự chạy khi mở bài, cuộn trang hay đổi chế độ. Bốn thanh trượt cho bạn đặt những đại lượng sau:</p>
+      <ul>
+        <li><strong>Độ cao mô hình:</strong> vị trí hiện tại đã biết trên bàn thí nghiệm, từ 0 đến 3000 m, mỗi nấc 1 m. Đổi nó làm áp suất tại đồng hồ và hộp màng thay đổi ngay theo cân bằng mới.</li>
+        <li><strong>Đích khi chạy:</strong> độ cao mô hình sẽ đi tới khi bấm Chạy, cũng từ 0 đến 3000 m, mỗi nấc 1 m. Đặt đích không làm vị trí hiện tại nhảy tới đó; có thể chọn đích thấp hơn để đi xuống.</li>
+        <li><strong>Áp suất gốc mô hình:</strong> áp suất tại mốc 0 của khí quyển giả định, từ 980 đến 1040 hPa, mỗi nấc 0,25 hPa. Đổi nó làm áp suất tại đồng hồ đổi, ngay cả khi giữ độ cao.</li>
+        <li><strong>Áp suất chuẩn đang đặt:</strong> tham chiếu của đồng hồ, cũng từ 980 đến 1040 hPa, mỗi nấc 0,25 hPa. Đổi nó không đổi áp suất không khí hay hộp màng.</li>
+      </ul>
+      <p>Bấm Chạy thì độ cao mô hình dịch về đích với tốc độ 5 m/s và tự dừng đúng đích, không quay lại đầu. Ở cấu hình mặc định, nó đi từ 1000 tới 1500 m trong 100 giây mô phỏng. Khi đang dừng, mỗi lần bấm Từng bước tiến tối đa 20 giây của hành trình, tương đương tối đa 100 m về phía đích. Nếu còn ít hơn 100 m, nó chỉ đi phần còn lại và cộng đúng thời gian cần thiết. Mỗi vị trí vẫn được tính theo cân bằng gần tĩnh, không phải chuyển động nảy của kim.</p>
+      <p>Dừng giữ nguyên trạng thái. Chỉnh Độ cao mô hình hoặc Đích khi chạy cũng làm mô hình dừng; chỉnh một áp suất không tự chỉnh áp suất kia và không tự dừng hành trình đang chạy. Rời tab hay đưa hình ra ngoài màn hình không cộng bù thời gian. Có thể dùng phím Tab để tới nút hoặc thanh trượt, Enter hay phím cách để bấm nút, phím mũi tên để chỉnh thanh trượt. Bảng số liệu ngoài mặt số cho biết áp suất tại đồng hồ, độ cao mô hình, số chỉ và sai lệch có dấu.</p>
+      <ol class="htw-try-list">
+        <li><strong>Theo dõi một lần đi lên rồi đi xuống.</strong> Chọn “Mặc định: hai áp suất bằng nhau”. Mọi thứ đang dừng ở 1000 m. Bấm Từng bước một lần: độ cao tới 1100 m, áp suất giảm, hộp màng giãn và kim lên. Bấm Chạy để tới 1500 m rồi tự dừng. Kéo Đích khi chạy xuống 500 m, bấm Chạy lại và quan sát chuỗi chuyển động ngược. Bấm Dừng nếu muốn so số liệu giữa đường.</li>
+        <li id="altimeter-correct-reference"><strong>Thử thách 1: sửa chuẩn mà không làm hộp màng đổi.</strong> Chọn “Đặt chuẩn thấp: kim chỉ thấp”. Độ cao đang là 1000 m, áp suất gốc 1013,25 hPa nhưng chuẩn chỉ là 1000 hPa. Chỉ tăng Áp suất chuẩn đang đặt về 1013,25 hPa. Kim trở về 1000 m, sai lệch không quá 1 m, còn áp suất tại đồng hồ và hộp màng giữ nguyên. Không cần bấm Chạy.</li>
+        <li id="altimeter-weather-change"><strong>Thử thách 2: làm số chỉ tăng mà không đi lên.</strong> Chọn “Mặc định: hai áp suất bằng nhau”, giữ độ cao 1000 m và chuẩn 1013,25 hPa. Kéo riêng Áp suất gốc mô hình xuống 990 hPa. Áp suất tại đồng hồ còn khoảng 878,1 hPa, hộp màng giãn ra và kim chỉ khoảng 1191 m, tăng hơn 150 m dù độ cao mô hình không đổi. Hãy tự kéo thanh trượt để quan sát sự thay đổi; chọn sẵn cấu hình áp suất thấp không tự hoàn thành thử thách.</li>
+        <li id="altimeter-setting-only"><strong>Thử thách 3: làm kim lên mà hộp màng đứng yên.</strong> Chọn lại “Mặc định: hai áp suất bằng nhau”, giữ độ cao 1000 m và áp suất gốc 1013,25 hPa. Chỉ tăng Áp suất chuẩn đang đặt tới 1030 hPa. Kim chỉ khoảng 1135 m, tăng hơn 130 m, nhưng áp suất tại đồng hồ vẫn khoảng 898,7 hPa và hộp màng không đổi. So với thử thách 2 để thấy hai đường tác động khác nhau.</li>
+        <li id="altimeter-correct-after-weather"><strong>Thử thách 4: đặt lại chuẩn sau khi khí quyển đã đổi.</strong> Sau khi hoàn thành thử thách 2, chọn “Áp suất gốc thấp: kim chỉ cao”. Độ cao vẫn là 1000 m, áp suất gốc 990 hPa và chuẩn 1013,25 hPa. Giữ nguyên độ cao cùng áp suất gốc, chỉ hạ Áp suất chuẩn đang đặt về 990 hPa. Số chỉ trở lại 1000 m, sai lệch không quá 1 m; áp suất vẫn khoảng 878,1 hPa và hộp màng giữ nguyên. Thành tích thử thách 2 được giữ khi chọn cấu hình mẫu, nên bạn có thể làm thử thách 3 ở giữa hai lần quan sát.</li>
+        <li><strong>Kiểm tra số chỉ âm.</strong> Chọn “Số chỉ âm: kim không quay vòng”. Độ cao mô hình là 0 m, đích 500 m, áp suất gốc 1040 hPa và chuẩn 980 hPa; số chỉ khoảng −504 m. Kim ở phần âm của thang, không nhảy sang đầu dương. Đây là sự khác nhau giữa số chỉ theo chuẩn đang đặt và vị trí mô hình đã biết, không phải một cảm biến phát hiện bạn ở dưới mực biển.</li>
+      </ol>
+      <p>Năm cấu hình mẫu đều đặt lại đủ bốn thanh trượt, đưa thời gian mô phỏng về 0 và để mô hình dừng: “Mặc định: hai áp suất bằng nhau”, “Đặt chuẩn thấp: kim chỉ thấp”, “Áp suất gốc thấp: kim chỉ cao”, “Đặt chuẩn cao: hộp màng không đổi” và “Số chỉ âm: kim không quay vòng”. Cấu hình đặt chuẩn cao cho sẵn trường hợp chuẩn 1030 hPa để so nhanh. Chọn cấu hình mẫu giữ các thử thách đã hoàn thành nhưng không tự tặng thành tích. Chỉ nút Đặt lại mới trở về cấu hình mặc định toàn cục và xóa mọi thành tích.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên chế độ tự thử không mở được.</p></noscript>
+      <p class="htw-try-fallback">Tự thử cần JavaScript. Nếu các nút vẫn khóa hoặc có lỗi, hình tĩnh và bài giải thích vẫn đọc được.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="barometric-altimeter-scene barometric-altimeter-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="barometric-altimeter-scene" disabled>Quay lại bài đọc</button></p>
+        {% include how-things-work/barometric-altimeter-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="altimeter-nguon" class="htw-sources" aria-labelledby="altimeter-nguon-h">
+  <h2 id="altimeter-nguon-h" tabindex="-1">Nguồn và giới hạn mô hình</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="altimeter-source-s1"><a href="https://www.faa.gov/sites/faa.gov/files/10_phak_ch8.pdf" target="_blank" rel="noopener noreferrer">[S1] FAA, Pilot’s Handbook of Aeronautical Knowledge, Chapter 8: Flight Instruments</a>, phần Altimeter, từ trang in 8-3: đường áp suất tĩnh, hộp màng kín, liên kết cơ khí đưa chuyển động tới kim, cách đọc mặt số và sai số do áp suất, nhiệt độ khác chuẩn.</li>
+        <li id="altimeter-source-s2"><a href="https://patents.google.com/patent/US2691305A/en" target="_blank" rel="noopener noreferrer">[S2] Herbert J. Frank, US2691305A, “Barometric altimeter”</a>: phần mô tả về hộp được hút khí rồi đóng kín và lực hồi do thành đàn hồi; các yêu cầu bảo hộ 1, 4, 5 về đòn, cung răng, bánh răng nhỏ và mặt cam hiệu chỉnh truyền động. Đây là một cơ cấu cụ thể, không phải chuẩn cấu tạo chung cho mọi cao kế.</li>
+        <li id="altimeter-source-s3"><a href="https://ntrs.nasa.gov/citations/19770009539" target="_blank" rel="noopener noreferrer">[S3] U.S. Standard Atmosphere, 1976, hồ sơ NASA NTRS 19770009539</a>: cơ sở khí quyển chuẩn dùng cho quan hệ áp suất–độ cao lý tưởng trong miền độ cao thấp của bài. Tài liệu không phải dữ liệu hiệu chuẩn cho cơ cấu được vẽ.</li>
+        <li id="altimeter-source-s4"><a href="https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap7_section_2.html" target="_blank" rel="noopener noreferrer">[S4] FAA Aeronautical Information Manual, Chapter 7, Section 2: Altimeter Setting Procedures</a>: bối cảnh đặt chuẩn và sai số khí áp, nhiệt độ. Bài này không chuyển các quy trình bay trong tài liệu thành hướng dẫn vận hành mô phỏng hay thiết bị thật.</li>
+      </ul>
+      <p>Hồ sơ nguồn của dự án được đối chiếu ngày 15–16/11/2026. Hình là sơ đồ tổng hợp tự tạo, không đúng tỷ lệ và không sao chép bản vẽ của một mẫu thương mại. Các số minh họa trong bài được làm tròn từ mô hình lý tưởng, không phải kết quả đo trên cao kế thật.</p>
+    </div>
+    <div>
+      <h3>Khí quyển và phép quy đổi lý tưởng</h3>
+      <p>Mô hình tính áp suất tại đồng hồ từ độ cao đầu vào và áp suất gốc, rồi đổi áp suất đó thành số chỉ theo chuẩn đang đặt. Nó giữ nhiệt độ tại mốc 0 ở 288,15 K, tức 15 °C, và mức giảm nhiệt theo độ cao ở 0,0065 K/m theo khí quyển chuẩn. Chỉ trường hợp có áp suất gốc 1013,25 hPa mới dùng đúng mốc áp suất chuẩn; các giá trị gốc khác là một họ khí quyển mô hình giữ cùng giả định nhiệt độ, không được gọi tất cả là khí quyển tiêu chuẩn.</p>
+      <p>Quan hệ quy đổi có thể tách thành một hệ số nhân và một độ dời so với số chỉ ở chuẩn 1013,25 hPa; cả hai thay đổi khi chỉnh chuẩn. Đó là mô tả toán học của mô hình, không phải khẳng định núm thật chỉ quay thêm một góc, hay mặt cam minh họa đã được thiết kế để tính chính xác quan hệ khí quyển. Áp suất chuẩn đang đặt không tác động tới áp suất không khí thực trong vỏ.</p>
+      <p>Miền thử là độ cao và đích từ 0 đến 3000 m, hai áp suất từ 980 đến 1040 hPa. Trong miền này, số chỉ có thể xấp xỉ −504 đến 3465 m, nên mặt số giáo dục chừa khoảng từ −600 đến 3600 m và không cắt số âm về 0. Độ cao là gần đúng địa thế vị; việc hiển thị tới mét không phải cam kết sai số đo chỉ một mét.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Những gì hình không chứng minh</h3>
+      <ul>
+        <li>Hộp màng, đòn và mặt cam là hình minh họa. Không có số đo hành trình thật, độ cứng vật liệu hay số răng dùng làm thông số chế tạo.</li>
+        <li>Chỉ mô phỏng cân bằng gần tĩnh, không mô phỏng rung, quán tính, ma sát, độ trễ, lỗi đường lấy áp hay sai lệch hiệu chuẩn của thiết bị.</li>
+        <li>Không mô phỏng nhiệt độ khác chuẩn. Ngoài đời, đặt áp suất đúng vẫn không loại bỏ hết sai số do khí quyển lạnh hoặc nóng khác chuẩn.</li>
+        <li>Độ cao mô hình là đầu vào đối chiếu ngoài dụng cụ. Cao kế không tự biết độ cao thật hay sai lệch của chính nó; mặt số chỉ có một kim số chỉ.</li>
+        <li>Áp suất gốc mô hình không được đồng nhất vô điều kiện với QNH hay áp suất quy về mực biển trong khí tượng.</li>
+        <li>Đây là mô hình giáo dục chưa hiệu chuẩn, không dùng để dẫn đường hoặc điều khiển máy bay. Bài không cung cấp chứng nhận phần cứng, chứng nhận trình duyệt hay xác nhận đủ điều kiện khai thác cho bất kỳ dụng cụ nào.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
