@@ -5,11 +5,11 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { validatePlaygrounds, TOPICS, assetBase, manifestPath, payloadPaths, FIXTURE_MARKER } from './check-playgrounds.mjs';
-import { fixture, put, change, snapshot, webp } from './fixtures/site-fixture.mjs';
+import { validatePlaygrounds, checkDifferentialBundle, TOPICS, DIFFERENTIAL, assetBase, manifestPath, payloadPaths, FIXTURE_MARKER } from './check-playgrounds.mjs';
+import { fixture, put, change, snapshot, webp, differentialBundle, DIFFERENTIAL_CONTROLS } from './fixtures/site-fixture.mjs';
 
 const VALIDATOR = fileURLToPath(new URL('./check-playgrounds.mjs', import.meta.url));
-const EXPECTED_TOPICS = ['stepper-motor', 'barometric-altimeter', 'hard-disk-drive'];
+const EXPECTED_TOPICS = ['stepper-motor', 'barometric-altimeter', 'hard-disk-drive', 'open-differential'];
 const setup = (t, options) => { const value = fixture(options); t.after(() => fs.rmSync(value.root, { recursive: true, force: true })); return value; };
 const articlePath = (value, slug) => path.join(value.site, 'how-things-work', slug, 'index.html');
 const hub = (value) => path.join(value.site, 'how-things-work/index.html');
@@ -35,13 +35,13 @@ const rejects = (value, pattern, options = {}) => {
   return report;
 };
 
-test('blog registry explicitly covers stepper motor, barometric altimeter and HDD', () => {
+test('blog registry explicitly covers stepper motor, barometric altimeter, HDD and open differential', () => {
   assert.deepEqual(TOPICS, EXPECTED_TOPICS);
   assert.ok(Object.isFrozen(TOPICS));
 });
 
 for (const prefix of ['', '/preview']) {
-  test('all three topics pass at ' + (prefix || 'root') + ': 18 payloads and 3 routes, without writing', (t) => {
+  test('all four topics pass at ' + (prefix || 'root') + ': 24 payloads and 4 routes, without writing', (t) => {
     const value = setup(t, { prefix }); const before = snapshot(value.root);
     assert.deepEqual(value.topics, EXPECTED_TOPICS);
     for (const slug of EXPECTED_TOPICS) {
@@ -50,10 +50,69 @@ for (const prefix of ['', '/preview']) {
     }
     const report = validatePlaygrounds({ root: value.root, site: value.site, baseurl: prefix });
     assert.deepEqual(report.errors, []); assert.equal(report.ok, true);
-    assert.equal(report.filesChecked, 18); assert.equal(report.routesChecked, 3);
+    assert.equal(report.filesChecked, 24); assert.equal(report.routesChecked, 4);
     assert.deepEqual(snapshot(value.root), before);
   });
 }
+
+// Synthetic open-differential controls and bundle are only a validator boundary. The probe below runs a TEST FIXTURE
+// factory, so these tests prove the gate's reactions, not the real model, physics, generated ABI or native UI.
+for (const prefix of ['', '/preview']) test('open differential isolated fixture keeps every control disabled at ' + (prefix || 'root'), (t) => {
+  const value = setup(t, { prefix, topics: [DIFFERENTIAL] });
+  const html = fs.readFileSync(articlePath(value, DIFFERENTIAL), 'utf8');
+  assert.match(html, /TEST FIXTURE static prose, not a real article/);
+  for (const control of DIFFERENTIAL_CONTROLS) assert.ok(html.includes(`${control}>`), control);
+  assert.deepEqual(validatePlaygrounds(value), { ok: true, errors: [], filesChecked: 6, routesChecked: 1 });
+  for (const control of DIFFERENTIAL_CONTROLS) {
+    const articleFixture = setup(t, { prefix, topics: [DIFFERENTIAL] });
+    change(articlePath(articleFixture, DIFFERENTIAL), control, control.replace(' disabled', ''));
+    rejects(articleFixture, /Control enabled in static HTML: open-differential/);
+    const sourceFixture = setup(t, { prefix, topics: [DIFFERENTIAL] });
+    editPayload(sourceFixture, DIFFERENTIAL, '_includes/how-things-work/open-differential-console.html', control, control.replace(' disabled', ''));
+    rejects(sourceFixture, /Control enabled in static include: .*open-differential-console/);
+  }
+});
+
+test('open differential probe on the synthetic bundle is a short sanity run, not the parameter grid', () => {
+  assert.deepEqual(checkDifferentialBundle(differentialBundle()), { presets: 5, snapshots: 38 });
+});
+
+const FACTORY_RATIO = 'const ratio = P.sideTeeth / P.spiderTeeth;';
+const AXLE = 'axleTorqueLimit: 2 * common,';
+const differentialMutations = {
+  'missing factory definition': [FACTORY_RATIO, 'const ratio = sideTeethHelper(P);', /factory probe failed.*ReferenceError/],
+  'Date in factory': ['const busy = () => started && elapsed < duration;', 'const busy = () => started && elapsed < duration; const clock = Date.now();', /must not use Date/],
+  'globalThis in factory': [FACTORY_RATIO, `${FACTORY_RATIO} const global = globalThis;`, /must not use globalThis/],
+  'endless factory': ['  reset();\n  return Object.freeze(', '  for (;;) {}\n  reset();\n  return Object.freeze(', /factory probe failed.*timed out/],
+  'raw < in serialized data': ['TEST FIXTURE straight boundary', 'TEST FIXTURE </script> boundary', /data escape/],
+  'data not JSON': ['"schemaVersion":1,', '"schemaVersion":1,"note":undefined,', /data is not JSON/],
+  'bundle layout': ['  createModel: createModel,', '  model: createModel,', /layout differs/],
+  'extra factory API': ['return Object.freeze({ snapshot, advance, command, reset });', 'return Object.freeze({ snapshot, advance, command, reset, extra: 1 });', /frozen \{snapshot/],
+  'factory writes data': [FACTORY_RATIO, `${FACTORY_RATIO} data.touched = true;`, /leave data unchanged/],
+  'spider ratio inverted': [FACTORY_RATIO, 'const ratio = P.spiderTeeth / P.sideTeeth;', /identity failed.*rpm\.spiderOwn/],
+  'mean speed broken': ['rpmC * (1 + k)', 'rpmC * (1 + 2 * k)', /identity failed.*rpm\.right/],
+  'held side swapped': ["(c['low-grip-side'] === 'left' ? 'right' : 'left')", "(c['low-grip-side'] === 'left' ? 'left' : 'right')", /identity failed \(low-grip-left/],
+  'ground travel in stuck': ['groundTravelLeftM: stuck ? 0 : r * angles.left', 'groundTravelLeftM: r * angles.left', /identity failed.*groundTravelLeftM/],
+  'actualTorque field': [AXLE, `${AXLE} actualTorque: common,`, /snapshot keys differ/],
+  'axle limit not twice common': [AXLE, 'axleTorqueLimit: common,', /identity failed.*axleTorqueLimit/],
+  'zero-grip note missing': ["stuck && c['low-grip-mu'] === 0 ? T.zeroGripNote : ''", "''", /identity failed \(zero-grip\): boundary/],
+  'snapshot not frozen': ['Object.freeze(value); } return value;', '} return value;', /deep-frozen/],
+  'non-finite progress': ['progress: elapsed / duration', 'progress: elapsed / 0', /deep-frozen, finite/],
+  'negative zero angle': ['w[name] * elapsed + 0;', 'w[name] * elapsed;', /without -0/],
+  'advance while paused': ['function advance(dt) { if (running && busy()', 'function advance(dt) { if (busy()', /paused-noop broke/],
+  'physical key while busy': ['else if (!busy() && key in controls)', 'else if (key in controls)', /paused-noop broke/],
+  'frame changes time': ["else if (key === 'reference-frame') controls = { ...controls, [key]: value };", "else if (key === 'reference-frame') { controls = { ...controls, [key]: value }; elapsed = 0; }", /carrier-frame broke/],
+  'preset earns a badge': ["controls = { ...presets[value], 'reference-frame': controls['reference-frame'] };", "controls = { ...presets[value], 'reference-frame': controls['reference-frame'] }; done[presets[value].scenario] = true;", /challenges do not match/],
+  'reset keeps badges': ['completed = 0; sides = []; done = {}; }', 'completed = 0; sides = []; done = done || {}; }', /identity failed \(reset\): challenges/],
+  'done short of duration': ['elapsed = duration; running = false;', 'elapsed = duration - 1e-6; running = false;', /done broke/],
+};
+for (const [name, [from, to, pattern]] of Object.entries(differentialMutations)) test('open differential probe rejects ' + name, (t) => {
+  const value = setup(t, { topics: [DIFFERENTIAL] });
+  editPayload(value, DIFFERENTIAL, `${assetBase(DIFFERENTIAL)}machine.js`, from, to);
+  const report = rejects(value, pattern);
+  assert.equal(report.errors.length, 1, report.errors.join('\n'));
+  assert.match(report.errors[0], /^Differential .*: open-differential$/);
+});
 
 // Synthetic HDD controls are only a validator boundary; no runtime, science or native UI acceptance is claimed.
 for (const prefix of ['', '/preview']) {
@@ -221,17 +280,17 @@ for (const slug of EXPECTED_TOPICS) {
   });
 }
 
-for (const prefix of ['', '/preview']) test('CLI three topics at ' + (prefix || 'root') + ': exit 0/1/2 and 18 payloads/3 routes', (t) => {
+for (const prefix of ['', '/preview']) test('CLI four topics at ' + (prefix || 'root') + ': exit 0/1/2 and 24 payloads/4 routes', (t) => {
   const value = setup(t, { prefix });
   const run = (...args) => spawnSync(process.execPath, [VALIDATOR, ...args], { cwd: value.root, encoding: 'utf8', timeout: 5000 });
   const ok = run('--site', value.site, '--baseurl', prefix);
-  assert.equal(ok.status, 0, ok.stderr); assert.match(ok.stdout, /Playgrounds: valid \(18 payloads, 3 routes\)/);
+  assert.equal(ok.status, 0, ok.stderr); assert.match(ok.stdout, /Playgrounds: valid \(24 payloads, 4 routes\)/);
   if (prefix) assert.equal(run('--site', value.site).status, 1);
   assert.equal(run('--site', value.site, '--force').status, 2);
   assert.equal(run('--baseurl', prefix).status, 2);
   const relative = run('--site', '_site', '--baseurl', prefix);
   assert.equal(relative.status, 0, relative.stderr);
-  assert.match(relative.stdout, /Playgrounds: valid \(18 payloads, 3 routes\)/);
+  assert.match(relative.stdout, /Playgrounds: valid \(24 payloads, 4 routes\)/);
   fs.unlinkSync(articlePath(value, 'barometric-altimeter'));
   const broken = run('--site', value.site, '--baseurl', prefix);
   assert.equal(broken.status, 1, broken.stderr); assert.match(broken.stderr, /barometric-altimeter\/index\.html/);

@@ -29,7 +29,88 @@ const hddControls = () => [
   ...[5400, 7200, 10000].map((rpm) => `<button type="button" data-playground-key="rpm" data-playground-option="${rpm}" aria-pressed="false" disabled>TEST ${rpm} RPM</button>`),
   ...['same-track', 'far-seek', 'just-missed', 'fast-spindle'].map((key) => `<button type="button" data-playground-preset="${key}" disabled>TEST preset ${key}</button>`),
 ].join('\n');
-const consoleHtml = (slug) => `<div class="htw-machine-console-panel" id="${slug}-console" data-machine-console-panel>\n<button type="button" data-machine-run disabled>Chạy</button>\n<button type="button" data-machine-pause disabled>Dừng</button>\n<button type="button" data-machine-step disabled>Từng bước</button>\n<button type="button" data-machine-reset disabled>Đặt lại</button>\n${slug === 'hard-disk-drive' ? hddControls() : `<button type="button" data-playground-key="phaseA" data-playground-option="1" aria-pressed="false" disabled>+</button>\n<input type="range" id="${slug}-control-rate" data-playground-key="rate" data-playground-range min="1" max="100" step="1" disabled>`}\n</div>`;
+// Open-differential-shaped controls exercise the same static disabled-control guards; not the generated console ABI.
+export const DIFFERENTIAL_CONTROLS = Object.freeze([
+  ...['straight', 'corner', 'stuck'].map((value) => `data-playground-key="scenario" data-playground-option="&quot;${value}&quot;" aria-pressed="false" disabled`),
+  ...[['carrier-rpm', 6, 30, 6], ['turn-radius', 2, 10, 1], ['low-grip-mu', 0, 0.2, 0.02]].map(([key, min, max, step]) => `data-playground-key="${key}" data-playground-range min="${min}" max="${max}" step="${step}" disabled`),
+  ...[['turn-side', 'left'], ['turn-side', 'right'], ['low-grip-side', 'left'], ['low-grip-side', 'right'], ['reference-frame', 'world'], ['reference-frame', 'carrier']].map(([key, value]) => `data-playground-key="${key}" data-playground-option="&quot;${value}&quot;" aria-pressed="false" disabled`),
+  ...['straight', 'left-corner', 'right-corner', 'low-grip-left', 'low-grip-right'].map((key) => `data-playground-preset="${key}" disabled`),
+]);
+const differentialControls = () => DIFFERENTIAL_CONTROLS.map((attrs) => (/data-playground-range/.test(attrs) ? `<input type="range" ${attrs}>` : `<button type="button" ${attrs}>TEST</button>`)).join('\n');
+
+// TEST FIXTURE ONLY: a synthetic closed-form factory in the generated bundle layout, so the validator's
+// open-differential probe has something to run. It is not the real model, data, physics or runtime acceptance.
+function createModel(data) {
+  'use strict';
+  const P = data.parameters; const T = data.text; const duration = P.durationSeconds;
+  const presets = {}; for (const preset of data.controls.presets) presets[preset.key] = preset.values;
+  const ratio = P.sideTeeth / P.spiderTeeth;
+  const KEYS = ['straight', 'corner', 'stuck', 'both-grip-sides'];
+  let controls, elapsed, started, running, completed, sides, done;
+  const busy = () => started && elapsed < duration;
+  function reset() { controls = { ...data.defaults }; elapsed = 0; started = false; running = false; completed = 0; sides = []; done = {}; }
+  function finish() {
+    elapsed = duration; running = false; completed += 1; done[controls.scenario] = true;
+    if (controls.scenario === 'stuck' && !sides.includes(controls['low-grip-side'])) sides = [...sides, controls['low-grip-side']];
+    if (sides.length === 2) done['both-grip-sides'] = true;
+  }
+  function move(seconds) { if (elapsed + seconds >= duration - 1e-12) finish(); else elapsed += seconds; }
+  function advance(dt) { if (running && busy() && typeof dt === 'number' && dt > 0 && Number.isFinite(dt)) move(dt); }
+  function command({ key, value }) {
+    if (key === 'reset') reset();
+    else if (key === 'preset' && presets[value]) { controls = { ...presets[value], 'reference-frame': controls['reference-frame'] }; elapsed = 0; started = false; running = false; }
+    else if (key === 'run') { if (!busy()) { started = true; elapsed = 0; } running = true; }
+    else if (key === 'pause') running = false;
+    else if (key === 'step') { if (!running && busy()) move(P.stepSeconds); }
+    else if (key === 'reference-frame') controls = { ...controls, [key]: value };
+    else if (!busy() && key in controls) { controls = { ...controls, [key]: value }; elapsed = 0; started = false; running = false; }
+  }
+  function freeze(value) { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; }
+  function snapshot() {
+    const c = controls; const stuck = c.scenario === 'stuck'; const corner = c.scenario === 'corner';
+    const s = c['turn-side'] === 'left' ? 1 : -1; const R = c['turn-radius']; const b = P.trackWidthM; const r = P.wheelRadiusM;
+    const k = corner ? s * b / (2 * R) : 0;
+    const heldSide = stuck ? (c['low-grip-side'] === 'left' ? 'right' : 'left') : null;
+    const rpmC = c['carrier-rpm'];
+    const rpmL = stuck ? (heldSide === 'left' ? 0 : 2 * rpmC) : rpmC * (1 - k);
+    const rpmR = stuck ? (heldSide === 'right' ? 0 : 2 * rpmC) : rpmC * (1 + k);
+    const rpm = { carrier: rpmC, left: rpmL, right: rpmR, spiderOwn: ratio * (rpmR - rpmC) };
+    const w = { carrier: rpmC * Math.PI / 30, left: rpmL * Math.PI / 30, right: rpmR * Math.PI / 30, spiderOwn: rpm.spiderOwn * Math.PI / 30 };
+    w.leftRelative = w.left - w.carrier; w.rightRelative = w.right - w.carrier;
+    const angles = {}; for (const name of Object.keys(w)) angles[name] = w[name] * elapsed + 0;
+    const v = stuck ? 0 : r * w.carrier;
+    const grip = { left: stuck && c['low-grip-side'] === 'left' ? c['low-grip-mu'] : P.highGripMu, right: stuck && c['low-grip-side'] === 'right' ? c['low-grip-mu'] : P.highGripMu };
+    const capacity = { left: grip.left * P.normalLoadN * r, right: grip.right * P.normalLoadN * r };
+    const common = Math.min(capacity.left, capacity.right);
+    const phase = !started ? 'idle' : busy() ? (running ? 'running' : 'paused') : 'done';
+    return freeze({
+      time: elapsed, running, controls: { ...c }, status: `TEST FIXTURE ${phase}`, readout: [], announcement: null,
+      challenges: KEYS.map((key) => ({ key, done: Boolean(done[key]) })), scenario: c.scenario, phase, busy: Boolean(busy()),
+      elapsed, duration, progress: elapsed / duration, angles, angularSpeeds: w, rpm,
+      path: { centerRadiusM: corner ? R : null, leftRadiusM: corner ? R - s * b / 2 : null, rightRadiusM: corner ? R + s * b / 2 : null, centerSpeedMps: v, yawRate: corner ? s * v / R : 0,
+        groundTravelLeftM: stuck ? 0 : r * angles.left, groundTravelRightM: stuck ? 0 : r * angles.right, centerDistanceM: v * elapsed, treadTravelLeftM: r * angles.left, treadTravelRightM: r * angles.right },
+      tractionCapacity: capacity, commonTorqueLimit: common, axleTorqueLimit: 2 * common, effectiveGrip: grip,
+      boundary: { heldSide, imposedCarrier: true, label: T.boundary[c.scenario], zeroGripNote: stuck && c['low-grip-mu'] === 0 ? T.zeroGripNote : '' },
+      completedExperiments: completed, observedGripSides: [...sides],
+    });
+  }
+  reset();
+  return Object.freeze({ snapshot, advance, command, reset });
+}
+const physical = (scenario, side, low) => ({ scenario, 'carrier-rpm': 12, 'turn-side': side, 'turn-radius': 3, 'low-grip-side': low, 'low-grip-mu': 0.06 });
+export const DIFFERENTIAL_DATA = Object.freeze({
+  schemaVersion: 1,
+  parameters: { wheelRadiusM: 0.3, trackWidthM: 1.5, normalLoadN: 3000, highGripMu: 0.8, sideTeeth: 24, spiderTeeth: 12, durationSeconds: 8, stepSeconds: 0.1 },
+  defaults: { ...physical('corner', 'left', 'left'), 'reference-frame': 'world' },
+  controls: { groups: [], challenges: ['straight', 'corner', 'stuck', 'both-grip-sides'].map((key) => ({ key, label: `TEST ${key}` })),
+    presets: [['straight', 'straight', 'left', 'left'], ['left-corner', 'corner', 'left', 'left'], ['right-corner', 'corner', 'right', 'left'], ['low-grip-left', 'stuck', 'left', 'left'], ['low-grip-right', 'stuck', 'left', 'right']].map(([key, ...values]) => ({ key, label: `TEST ${key}`, values: physical(...values) })) },
+  text: { boundary: { straight: 'TEST FIXTURE straight boundary', corner: 'TEST FIXTURE corner boundary', stuck: 'TEST FIXTURE held axle boundary' }, zeroGripNote: 'TEST FIXTURE zero grip note' },
+});
+export const differentialBundle = () => `/* TEST FIXTURE ONLY: synthetic open-differential bundle layout, not a playground */\n(function () {\n'use strict';\nvar runtime = { boot: function () {} };\n`
+  + `var createModel = (${createModel});\nvar mountRenderer = (function mountRenderer(root, data) { return { render: function () {}, dispose: function () {} }; });\n`
+  + `runtime.boot({\n  slug: "open-differential",\n  descriptor: {"title":"TEST FIXTURE"},\n  data: ${JSON.stringify(DIFFERENTIAL_DATA)},\n  createModel: createModel,\n  mountRenderer: mountRenderer\n}, document);\n})();\n`;
+
+const consoleHtml = (slug) => `<div class="htw-machine-console-panel" id="${slug}-console" data-machine-console-panel>\n<button type="button" data-machine-run disabled>Chạy</button>\n<button type="button" data-machine-pause disabled>Dừng</button>\n<button type="button" data-machine-step disabled>Từng bước</button>\n<button type="button" data-machine-reset disabled>Đặt lại</button>\n${slug === 'hard-disk-drive' ? hddControls() : slug === 'open-differential' ? differentialControls() : `<button type="button" data-playground-key="phaseA" data-playground-option="1" aria-pressed="false" disabled>+</button>\n<input type="range" id="${slug}-control-rate" data-playground-key="rate" data-playground-range min="1" max="100" step="1" disabled>`}\n</div>`;
 
 export function fixture({ prefix = '', topics = TOPICS } = {}) {
   const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'playground-validator-test-'));
@@ -43,7 +124,7 @@ export function fixture({ prefix = '', topics = TOPICS } = {}) {
     const contents = [
       `{% raw %}\n${sceneHtml(slug)}\n{% endraw %}\n`,
       `{% raw %}\n${consoleHtml(slug)}\n{% endraw %}\n`,
-      `/* TEST FIXTURE ONLY: not a playground */\n(function () {\n'use strict';\nvar fixture = ${JSON.stringify(slug)};\n})();\n`,
+      slug === 'open-differential' ? differentialBundle() : `/* TEST FIXTURE ONLY: not a playground */\n(function () {\n'use strict';\nvar fixture = ${JSON.stringify(slug)};\n})();\n`,
       `.htw-machine[data-htw-figure="${slug}"] .htw-machine-scene { width: 100%; }\n@media (max-width: 600px) { .htw-machine[data-htw-figure="${slug}"] svg { width: 100%; } }\n`,
       webp(),
       `How Things Work playground: TEST FIXTURE\nTopic: ${slug}\nGenerated file: TEST FIXTURE ONLY.\n`,

@@ -1,0 +1,84 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="open-differential-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Bộ vi sai giúp hai bánh xe quay khác tốc độ thế nào?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="experiment">
+<legend class="htw-playground-group-label">Thí nghiệm (vỏ vi sai được áp tốc độ)</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="scenario" data-playground-type="segmented" role="group" aria-labelledby="open-differential-control-scenario-label">
+<span class="htw-playground-control-label" id="open-differential-control-scenario-label">Tình huống</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="scenario" data-playground-option="&quot;straight&quot;" aria-pressed="false" disabled>Đi thẳng</button>
+<button type="button" class="htw-machine-chip" data-playground-key="scenario" data-playground-option="&quot;corner&quot;" aria-pressed="false" disabled>Vào cua</button>
+<button type="button" class="htw-machine-chip" data-playground-key="scenario" data-playground-option="&quot;stuck&quot;" aria-pressed="false" disabled>Bàn thử: một trục bị giữ</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="carrier-rpm" data-playground-type="range">
+<label class="htw-playground-control-label" id="open-differential-control-carrier-rpm-label" for="open-differential-control-carrier-rpm">Tốc độ vỏ vi sai áp đặt (cả ba tình huống)</label>
+<input type="range" class="htw-playground-slider" id="open-differential-control-carrier-rpm" data-playground-key="carrier-rpm" data-playground-range min="6" max="30" step="6" disabled>
+<output class="htw-playground-value" id="open-differential-control-carrier-rpm-value" for="open-differential-control-carrier-rpm" data-playground-output="carrier-rpm" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">RPM</span></output>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="corner">
+<legend class="htw-playground-group-label">Vào cua (chỉ tác động khi chọn Vào cua)</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="turn-side" data-playground-type="segmented" role="group" aria-labelledby="open-differential-control-turn-side-label">
+<span class="htw-playground-control-label" id="open-differential-control-turn-side-label">Hướng cua (chỉ tác động khi chọn Vào cua)</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="turn-side" data-playground-option="&quot;left&quot;" aria-pressed="false" disabled>Cua trái</button>
+<button type="button" class="htw-machine-chip" data-playground-key="turn-side" data-playground-option="&quot;right&quot;" aria-pressed="false" disabled>Cua phải</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="turn-radius" data-playground-type="range">
+<label class="htw-playground-control-label" id="open-differential-control-turn-radius-label" for="open-differential-control-turn-radius">Bán kính tới trung điểm cầu sau (chỉ tác động khi chọn Vào cua)</label>
+<input type="range" class="htw-playground-slider" id="open-differential-control-turn-radius" data-playground-key="turn-radius" data-playground-range min="2" max="10" step="1" disabled>
+<output class="htw-playground-value" id="open-differential-control-turn-radius-value" for="open-differential-control-turn-radius" data-playground-output="turn-radius" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">m</span></output>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="grip">
+<legend class="htw-playground-group-label">Độ bám (chỉ tác động ở bàn thử một trục bị giữ)</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="low-grip-side" data-playground-type="segmented" role="group" aria-labelledby="open-differential-control-low-grip-side-label">
+<span class="htw-playground-control-label" id="open-differential-control-low-grip-side-label">Bánh ít bám (chỉ tác động ở bàn thử; bánh còn lại bị giữ đứng yên)</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="low-grip-side" data-playground-option="&quot;left&quot;" aria-pressed="false" disabled>Bánh trái</button>
+<button type="button" class="htw-machine-chip" data-playground-key="low-grip-side" data-playground-option="&quot;right&quot;" aria-pressed="false" disabled>Bánh phải</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="low-grip-mu" data-playground-type="range">
+<label class="htw-playground-control-label" id="open-differential-control-low-grip-mu-label" for="open-differential-control-low-grip-mu">Hệ số bám của bánh ít bám (chỉ tác động ở bàn thử; chỉ đổi trần mô-men, không đổi tốc độ)</label>
+<input type="range" class="htw-playground-slider" id="open-differential-control-low-grip-mu" data-playground-key="low-grip-mu" data-playground-range min="0" max="0.2" step="0.02" disabled>
+<output class="htw-playground-value" id="open-differential-control-low-grip-mu-value" for="open-differential-control-low-grip-mu" data-playground-output="low-grip-mu" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">µ</span></output>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="view">
+<legend class="htw-playground-group-label">Cách trình bày (không đổi vật lý)</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="reference-frame" data-playground-type="segmented" role="group" aria-labelledby="open-differential-control-reference-frame-label">
+<span class="htw-playground-control-label" id="open-differential-control-reference-frame-label">Hệ quy chiếu hiển thị (chỉ là cách nhìn, đổi được cả khi đang chạy)</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="reference-frame" data-playground-option="&quot;world&quot;" aria-pressed="false" disabled>Nhìn từ thân xe</button>
+<button type="button" class="htw-machine-chip" data-playground-key="reference-frame" data-playground-option="&quot;carrier&quot;" aria-pressed="false" disabled>Đứng trên vỏ vi sai</button>
+</span>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="open-differential-presets-label">
+<span class="htw-playground-group-label" id="open-differential-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="straight" disabled>Đi thẳng 12 RPM</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="left-corner" disabled>Cua trái, bán kính 3 m</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="right-corner" disabled>Cua phải, bán kính 3 m</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="low-grip-left" disabled>Bàn thử: bánh trái ít bám, trục phải bị giữ</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="low-grip-right" disabled>Bàn thử: bánh phải ít bám, trục trái bị giữ</button>
+</div>
+<div class="htw-playground-challenges">
+<p class="htw-playground-group-label" id="open-differential-challenges-label">Thử thách</p>
+<ol class="htw-playground-challenge-list" aria-labelledby="open-differential-challenges-label">
+<li class="htw-playground-challenge" data-machine-challenge="straight" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất trọn 8 s đi thẳng: hai trục bằng tốc độ vỏ, bánh răng hành tinh không tự quay.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="corner" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất trọn 8 s vào cua: bánh vòng ngoài nhanh hơn, tổng hai tốc độ vẫn bằng hai lần tốc độ vỏ.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="stuck" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất trọn 8 s ở bàn thử có một trục bị giữ đứng yên.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="both-grip-sides" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất bàn thử với bánh ít bám ở bên trái và ở bên phải (hai lượt riêng).</span></li>
+</ol>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}

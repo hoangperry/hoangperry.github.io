@@ -1,0 +1,146 @@
+{% raw %}
+<figure class="htw-machine-scene htw-playground-scene" id="open-differential-scene" data-machine-scene tabindex="-1" aria-labelledby="open-differential-scene-title">
+<div class="htw-machine-plate">
+<div class="htw-machine-plate-bar">
+<p class="htw-machine-plate-title" id="open-differential-scene-title">Bộ vi sai giúp hai bánh xe quay khác tốc độ thế nào?</p>
+<button type="button" class="htw-machine-chip htw-machine-theme" data-machine-theme aria-pressed="false" disabled>
+<span class="htw-machine-theme-icon" aria-hidden="true"></span><span>Nền sáng</span></button>
+</div>
+<div class="htw-machine-view"><svg xmlns="http://www.w3.org/2000/svg" class="od-svg" data-machine-id="od-svg" viewBox="0 0 440 660" role="img" aria-label="Sơ đồ bộ vi sai mở: hai bánh, vỏ vi sai và một bánh răng hành tinh đại diện" aria-labelledby="od-title od-desc" data-od-scenario="corner" data-od-phase="idle" data-od-busy="false" data-od-frame="world" data-od-held="none" data-od-focus="all" data-od-reduced-motion="false" data-machine-view="" focusable="false">
+  <title id="od-title">Bộ vi sai mở: hai bánh, vỏ vi sai và một bánh răng hành tinh đại diện</title>
+  <desc id="od-desc" data-machine-id="od-desc">Sơ đồ nguyên lý tách lớp của bộ vi sai mở đối xứng, không theo tỷ lệ và không phải bản vẽ răng thật. Phía trên: cầu sau nhìn từ sau xe với bánh trái, bán trục và bánh răng bán trục 24 răng, vỏ vi sai và một bánh răng hành tinh (spider) 12 răng đại diện ở phía trên; spider đối diện được lược bỏ. Trục riêng dương của spider hướng từ spider vào tâm vỏ. Giữa: ba mặt số cùng nhìn từ bên phải xe, chiều kim đồng hồ là chiều lăn tiến, cho bánh trái, vỏ vi sai mang spider đi quỹ đạo quanh trục cầu, và bánh phải; một mặt số riêng cho spider tự quay quanh chốt, nhìn dọc trục riêng từ ngoài vào tâm. Dưới: thước tốc độ so với thân xe, vỏ luôn nằm giữa hai bánh; thanh trần bám là giới hạn, không phải mô-men thực, và không dự đoán xe tự do sẽ chạy hay đứng. Cua trái · bán kính tâm cầu 3 m vệt bánh trái 2,25 m · vệt bánh phải 3,75 m</desc>
+  <g class="od-back">
+    <text x="10" y="16" class="od-label od-note">Nhìn từ sau xe · sơ đồ tách lớp</text>
+    <text x="10" y="36" class="od-label od-text-left">trái</text>
+    <text x="430" y="36" class="od-label od-text-right" text-anchor="end">phải</text>
+    <text x="220" y="36" class="od-label od-text-spider" text-anchor="middle">spider 12 răng · trục + hướng vào tâm</text>
+    <rect class="od-housing od-part od-in-carrier" x="136" y="44" width="168" height="96" rx="10"/>
+    <rect class="od-shaft od-part od-in-side-gears" x="42" y="89" width="108" height="6"/>
+    <rect class="od-shaft od-part od-in-side-gears" x="290" y="89" width="108" height="6"/>
+    <rect class="od-wheel od-part od-in-straight od-in-corner od-in-grip od-in-limits" data-machine-id="od-wheel-left" x="10" y="48" width="32" height="88" rx="6" data-held="false"/>
+    <rect class="od-wheel od-part od-in-straight od-in-corner od-in-grip od-in-limits" data-machine-id="od-wheel-right" x="398" y="48" width="32" height="88" rx="6" data-held="false"/>
+    <path class="od-side-gear od-side-left od-part od-in-side-gears" d="M150 58L172 72L172 112L150 126Z"/>
+    <path class="od-side-gear od-side-right od-part od-in-side-gears" d="M290 58L268 72L268 112L290 126Z"/>
+    <g class="od-part od-in-spider">
+      <path class="od-spider" d="M196 50L244 50L236 72L204 72Z"/>
+      <path class="od-axis" d="M220 60V84"/>
+      <path class="od-axis-head" d="M214 82L226 82L220 92Z"/>
+    </g>
+    <text x="220" y="132" class="od-label od-text-carrier" text-anchor="middle">vỏ vi sai</text>
+    <rect class="od-road od-part od-in-grip od-in-limits" data-machine-id="od-road-left" x="2" y="138" width="48" height="8" data-grip="high"/>
+    <rect class="od-road od-part od-in-grip od-in-limits" data-machine-id="od-road-right" x="390" y="138" width="48" height="8" data-grip="high"/>
+    <text x="10" y="164" class="od-label od-num od-text-left" data-machine-id="od-mu-left">µ 0,8 · bám</text>
+    <text x="430" y="164" class="od-label od-num od-text-right" data-machine-id="od-mu-right" text-anchor="end">µ 0,8 · bám</text>
+    <text x="220" y="164" class="od-label od-note" text-anchor="middle">bán trục 24 răng</text>
+    <g class="od-held" data-machine-id="od-held-left" data-hidden="true">
+      <rect class="od-clamp od-part od-in-grip od-in-torque od-in-limits" x="46" y="80" width="10" height="24" rx="2"/>
+      <text x="60" y="82" class="od-label od-held-text">bị giữ</text>
+      <text x="60" y="114" class="od-label od-held-text">từ ngoài</text>
+    </g>
+    <g class="od-held" data-machine-id="od-held-right" data-hidden="true">
+      <rect class="od-clamp od-part od-in-grip od-in-torque od-in-limits" x="384" y="80" width="10" height="24" rx="2"/>
+      <text x="380" y="82" class="od-label od-held-text" text-anchor="end">bị giữ</text>
+      <text x="380" y="114" class="od-label od-held-text" text-anchor="end">từ ngoài</text>
+    </g>
+  </g>
+  <g class="od-band">
+    <path class="od-band-rule od-part od-in-limits od-in-grip" d="M10 176H430"/>
+    <rect class="od-band-held od-part od-in-limits od-in-grip" data-machine-id="od-band-held-left" x="10" y="174" width="80" height="4" data-hidden="true"/>
+    <rect class="od-band-held od-part od-in-limits od-in-grip" data-machine-id="od-band-held-right" x="350" y="174" width="80" height="4" data-hidden="true"/>
+    <text x="10" y="196" class="od-label od-heading od-band-line" data-machine-id="od-band-0">Cua trái · bán kính tâm cầu 3 m</text>
+    <text x="10" y="216" class="od-label od-band-line" data-machine-id="od-band-1">vệt bánh trái 2,25 m · vệt bánh phải 3,75 m</text>
+  </g>
+  <g class="od-dials">
+    <text x="10" y="240" class="od-label od-heading" data-machine-id="od-dial-heading">Số đo so với thân xe · vỏ áp đặt 12 RPM</text>
+    <text x="10" y="260" class="od-label od-note">Cùng nhìn từ bên phải xe; chiều kim = lăn tiến</text>
+    <g class="od-part od-in-side-gears od-in-straight od-in-corner">
+      <path class="od-forward" d="M27.15 295.34A44 44 0 0 1 56.85 272.96"/><path class="od-forward-head" d="M61.74 271.92L54.75 277.50L53.09 269.67Z"/><path class="od-index" d="M61 266L71 266L66 273Z"/>
+      <circle class="od-tyre od-tyre-left" cx="66" cy="316" r="36"/>
+      <g data-machine-id="od-dial-left" transform="rotate(0 66 316)">
+        <path class="od-spoke" d="M66 316L93.71000000000001 332M66 316L38.29 332"/>
+        <path class="od-pointer od-pointer-left" d="M66 316V286"/>
+        <circle class="od-pointer-dot od-pointer-left" cx="66" cy="286" r="4"/>
+      </g>
+      <circle class="od-hub" cx="66" cy="316" r="6"/>
+    </g>
+    <g class="od-part od-in-carrier od-in-straight od-in-corner">
+      <path class="od-forward" d="M181.15 295.34A44 44 0 0 1 210.85 272.96"/><path class="od-forward-head" d="M215.74 271.92L208.75 277.50L207.09 269.67Z"/><path class="od-index" d="M215 266L225 266L220 273Z"/>
+      <circle class="od-carrier-ring" cx="220" cy="316" r="36"/>
+    </g>
+    <g data-machine-id="od-dial-carrier" transform="rotate(0 220 316)">
+      <g class="od-part od-in-spider od-in-carrier">
+        <path class="od-spider" d="M210 279L230 279L226 291L214 291Z"/>
+        <path class="od-axis" d="M220 291V302"/>
+        <path class="od-axis-head" d="M216 300L224 300L220 307Z"/>
+      </g>
+    </g>
+    <circle class="od-hub od-part od-in-carrier" cx="220" cy="316" r="6"/>
+    <g class="od-part od-in-side-gears od-in-straight od-in-corner">
+      <path class="od-forward" d="M335.15 295.34A44 44 0 0 1 364.85 272.96"/><path class="od-forward-head" d="M369.74 271.92L362.75 277.50L361.09 269.67Z"/><path class="od-index" d="M369 266L379 266L374 273Z"/>
+      <circle class="od-tyre od-tyre-right" cx="374" cy="316" r="36"/>
+      <g data-machine-id="od-dial-right" transform="rotate(0 374 316)">
+        <path class="od-spoke" d="M374 316L401.71 332M374 316L346.29 332"/>
+        <path class="od-pointer od-pointer-right" d="M374 316V286"/>
+        <circle class="od-pointer-dot od-pointer-right" cx="374" cy="286" r="4"/>
+      </g>
+      <circle class="od-hub" cx="374" cy="316" r="6"/>
+    </g>
+    <text x="10" y="374" class="od-label od-num od-text-left" data-machine-id="od-dial-left-text">trái 9 RPM</text>
+    <text x="220" y="374" class="od-label od-num od-text-carrier" data-machine-id="od-dial-carrier-text" text-anchor="middle">vỏ 12 RPM</text>
+    <text x="430" y="374" class="od-label od-num od-text-right" data-machine-id="od-dial-right-text" text-anchor="end">phải 15 RPM</text>
+    <text x="220" y="394" class="od-label od-num od-text-carrier" data-machine-id="od-spider-orbit-text" text-anchor="middle">spider đi quỹ đạo 12 RPM so với thân xe</text>
+    <g class="od-part od-in-spider">
+      <path class="od-index" d="M215 406L225 406L220 413Z"/>
+      <circle class="od-own-ring" cx="220" cy="440" r="20"/>
+      <g data-machine-id="od-spider-own" transform="rotate(0 220 440)">
+        <path class="od-pointer od-pointer-spider" d="M220 440V425"/>
+        <circle class="od-pointer-dot od-pointer-spider" cx="220" cy="425" r="3.5"/>
+      </g>
+      <circle class="od-axis-into" cx="220" cy="440" r="5"/>
+      <path class="od-axis-cross" d="M216.5 436.5L223.5 443.5M223.5 436.5L216.5 443.5"/>
+    </g>
+    <text x="184" y="434" class="od-label od-text-spider" text-anchor="end">tự quay quanh chốt</text>
+    <text x="184" y="454" class="od-label od-num od-text-spider" data-machine-id="od-spider-own-text" text-anchor="end">+6 RPM so với vỏ</text>
+    <text x="256" y="434" class="od-label od-note">nhìn dọc trục +</text>
+    <text x="256" y="454" class="od-label od-note">chiều kim: +φ</text>
+  </g>
+  <g class="od-ruler">
+    <text x="10" y="484" class="od-label od-heading">Trung bình hai bánh = vỏ (so với thân xe)</text>
+    <text x="220" y="504" class="od-label od-num od-equation" data-machine-id="od-equation" text-anchor="middle">9 + 15 = 2 × 12 RPM</text>
+    <g class="od-part od-in-straight od-in-corner od-in-carrier">
+      <path class="od-scale" d="M56 540H384M56 540V544M110.667 540V544M165.333 540V544M220 540V544M274.667 540V544M329.333 540V544M384 540V544"/>
+      <line class="od-beam" data-machine-id="od-beam" x1="105.2" y1="540" x2="138" y2="540"/>
+      <g data-machine-id="od-mark-left" transform="translate(105.2 0)"><path class="od-mark od-mark-left" d="M-5 532L5 532L0 540Z"/></g>
+      <g data-machine-id="od-mark-right" transform="translate(138 0)"><path class="od-mark od-mark-right" d="M-5 532L5 532L0 540Z"/></g>
+      <g data-machine-id="od-mark-carrier" transform="translate(121.6 0)"><circle class="od-mark od-mark-carrier" cx="0" cy="540" r="4"/><path class="od-mark od-mark-carrier" d="M-5 549L5 549L0 543Z"/></g>
+    </g>
+    <text y="528" class="od-label od-text-left" data-machine-id="od-mark-left-text" x="99.2" text-anchor="end">trái</text>
+    <text y="528" class="od-label od-text-right" data-machine-id="od-mark-right-text" x="144" text-anchor="start">phải</text>
+    <text y="566" class="od-label od-text-carrier" data-machine-id="od-mark-carrier-text" x="121.6" text-anchor="middle">vỏ</text>
+    <text x="56" y="566" class="od-label od-num od-note" text-anchor="middle">0</text>
+    <text x="384" y="566" class="od-label od-num od-note" text-anchor="middle">60 RPM</text>
+  </g>
+  <g class="od-capacity">
+    <text x="10" y="588" class="od-label od-heading">Trần bám: giới hạn, không phải mô-men thực</text>
+    <text x="50" y="609" class="od-label od-text-left" text-anchor="end">trái</text>
+    <text x="50" y="629" class="od-label od-text-right" text-anchor="end">phải</text>
+    <g class="od-part od-in-torque od-in-grip od-in-limits">
+      <rect class="od-cap-track" x="56" y="598" width="274" height="12"/>
+      <rect class="od-cap od-cap-left" data-machine-id="od-cap-left" x="56" y="598" width="274" height="12"/>
+      <rect class="od-cap-track" x="56" y="618" width="274" height="12"/>
+      <rect class="od-cap od-cap-right" data-machine-id="od-cap-right" x="56" y="618" width="274" height="12"/>
+      <line class="od-common" data-machine-id="od-common" x1="330" y1="592" x2="330" y2="634"/>
+    </g>
+    <text x="338" y="609" class="od-label od-num" data-machine-id="od-cap-left-text">720 Nm</text>
+    <text x="338" y="629" class="od-label od-num" data-machine-id="od-cap-right-text">720 Nm</text>
+    <text x="10" y="652" class="od-label od-num" data-machine-id="od-limit-text">trần chung mỗi bên 720 Nm · cả cầu 1440 Nm</text>
+  </g>
+</svg></div>
+</div>
+<figcaption class="htw-machine-caption">
+<span class="htw-machine-status" data-machine-status>Phần tương tác chưa chạy; hình đang ở dạng tĩnh.</span>
+<dl class="htw-playground-readout" data-machine-readout aria-label="Số liệu của mô hình"></dl>
+</figcaption>
+<p class="htw-machine-sr" data-machine-announcement aria-live="polite" aria-atomic="true"></p>
+</figure>
+{% endraw %}

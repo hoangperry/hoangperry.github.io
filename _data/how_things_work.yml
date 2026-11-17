@@ -71,3 +71,10 @@
   subjects: "Lưu trữ · Máy móc"
   summary: "Theo đầu đọc tìm track trong lúc platter vẫn quay, chờ sector tới rồi đọc khi cả ô đi qua: vì sao cùng một yêu cầu có thể chờ gần như không mất thời gian hoặc gần trọn một vòng."
   thumbnail: /assets/how-things-work/hard-disk-drive/thumbnail.webp
+- id: open-differential
+  number: "11"
+  url: /how-things-work/open-differential/
+  title: "Bộ vi sai giúp hai bánh xe quay khác tốc độ thế nào?"
+  subjects: "Ô tô · Máy móc"
+  summary: "Theo vỏ vi sai, hai bánh răng bán trục và bánh răng hành tinh: vì sao vào cua hai bánh quay khác tốc độ mà trung bình vẫn bằng tốc độ vỏ, và vì sao theo giả thiết lý tưởng bánh ít bám đặt trần mô-men cho cả cầu."
+  thumbnail: /assets/how-things-work/open-differential/thumbnail.webp

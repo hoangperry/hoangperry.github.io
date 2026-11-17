@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "topic": "open-differential",
+  "kind": "playground",
+  "sourceDigest": "030a482506641cd5f9a834b9b90077646aa863b06ca4eb63180ae05c3d14d64c",
+  "files": {
+    "_includes/how-things-work/open-differential-scene.html": "42e5a4cc25c1f148c3145c21157a99a034e762d000ca4f35eefbcd77912ed2e2",
+    "_includes/how-things-work/open-differential-console.html": "b27cfee800c52d83128f011f722078044b59b82385db8e4297adcc4146584402",
+    "assets/how-things-work/open-differential/machine.js": "b4e522ee77f7f89af08c265c5919823ddd26a685606ab0b557c4fd5971dede8c",
+    "assets/how-things-work/open-differential/machine.css": "91e5516bbbd986449f0eb36124b51b5072959230e07e0583e200d6a1715686f5",
+    "assets/how-things-work/open-differential/thumbnail.webp": "2f2ed51ad589dfb75a8073600e9b820d28e511908dbbbae607a5a89c9ed77d5e",
+    "assets/how-things-work/open-differential/NOTICE.txt": "9c6a7b2760b34461802f9ec8f399da5b71049154822de280c46029c43149b902"
+  }
+}
