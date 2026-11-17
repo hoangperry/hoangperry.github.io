@@ -64,3 +64,10 @@
   subjects: "Khí áp · Máy móc"
   summary: "Theo áp suất tĩnh tác động lên hộp màng đàn hồi, qua đòn và bánh răng tới kim: vì sao lên cao, đổi thời tiết hay vặn chuẩn đều có thể làm số chỉ thay đổi."
   thumbnail: /assets/how-things-work/barometric-altimeter/thumbnail.webp
+- id: hard-disk-drive
+  number: "10"
+  url: /how-things-work/hard-disk-drive/
+  title: "Ổ cứng HDD tìm và đọc một sector bằng cách nào?"
+  subjects: "Lưu trữ · Máy móc"
+  summary: "Theo đầu đọc tìm track trong lúc platter vẫn quay, chờ sector tới rồi đọc khi cả ô đi qua: vì sao cùng một yêu cầu có thể chờ gần như không mất thời gian hoặc gần trọn một vòng."
+  thumbnail: /assets/how-things-work/hard-disk-drive/thumbnail.webp

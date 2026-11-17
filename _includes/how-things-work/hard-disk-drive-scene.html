@@ -1,0 +1,89 @@
+{% raw %}
+<figure class="htw-machine-scene htw-playground-scene" id="hard-disk-drive-scene" data-machine-scene tabindex="-1" aria-labelledby="hard-disk-drive-scene-title">
+<div class="htw-machine-plate">
+<div class="htw-machine-plate-bar">
+<p class="htw-machine-plate-title" id="hard-disk-drive-scene-title">Ổ cứng HDD tìm và đọc một sector bằng cách nào?</p>
+<button type="button" class="htw-machine-chip htw-machine-theme" data-machine-theme aria-pressed="false" disabled>
+<span class="htw-machine-theme-icon" aria-hidden="true"></span><span>Nền sáng</span></button>
+</div>
+<div class="htw-machine-view"><svg xmlns="http://www.w3.org/2000/svg" class="hdd-svg" data-machine-id="hdd-svg" viewBox="0 0 420 356" role="img" aria-label="Sơ đồ ổ cứng nhìn từ trên: platter quay, tay đòn đưa đầu đọc tới một ô sector" aria-labelledby="hdd-title hdd-description" data-hdd-phase="idle" data-hdd-focus="all" data-hdd-reduced-motion="false" data-hdd-busy="false" data-machine-view="" focusable="false">
+    <title id="hdd-title">Ổ cứng nhìn từ trên: tìm track, chờ ô, đọc ô</title>
+    <desc id="hdd-description">Sơ đồ 2D minh họa, không theo tỷ lệ và không phải bản vẽ của ổ thật. Một platter có 8 track, track 0 ở ngoài và track 7 ở trong; mỗi track chia 12 ô sector phóng đại, đánh số tăng dần theo thứ tự đi qua đầu đọc. Platter quay theo chiều kim đồng hồ. Tay đòn cứng xoay quanh một trục cố định và mang đầu đọc ở mũi đòn; cuộn dây gắn ở đuôi tay đòn nằm trong từ trường của nam châm cố định (VCM). Các vạch servo chỉ là sơ đồ của dấu vị trí trên đĩa. Ô cần đọc được tô trên đúng một track; phần tô đậm cho biết phần ô đã đi qua đầu đọc. Hình chạy chậm 100 lần: 1 giây màn hình bằng 10 ms mô phỏng. Mỗi lần Chạy là một yêu cầu đọc độc lập.</desc>
+    <text x="8" y="20" class="hdd-label hdd-note">Nhìn từ trên · chậm 100×: 1 s = 10 ms</text>
+    <g class="hdd-part hdd-in-platter hdd-in-wait hdd-in-read">
+    <circle class="hdd-platter" cx="158" cy="168" r="116"/>
+    <circle class="hdd-track" cx="158" cy="168" r="110"/><circle class="hdd-track" cx="158" cy="168" r="101.143"/><circle class="hdd-track" cx="158" cy="168" r="92.286"/><circle class="hdd-track" cx="158" cy="168" r="83.429"/><circle class="hdd-track" cx="158" cy="168" r="74.571"/><circle class="hdd-track" cx="158" cy="168" r="65.714"/><circle class="hdd-track" cx="158" cy="168" r="56.857"/><circle class="hdd-track" cx="158" cy="168" r="48"/>
+  </g>
+  <g data-machine-id="hdd-platter" transform="rotate(0 158 168)">
+    <path class="hdd-servo hdd-part hdd-in-servo hdd-in-platter" d="M201.571 168L274 168M195.734 146.214L258.459 110M179.786 130.266L216 67.541M158 124.429L158 52M136.214 130.266L100 67.541M120.266 146.214L57.541 110M114.429 168L42 168M120.266 189.786L57.541 226M136.214 205.734L100 268.459M158 211.571L158 284M179.786 205.734L216 268.459M195.734 189.786L258.459 226"/>
+    <path class="hdd-cell" data-machine-id="hdd-target-cell" d="M122.929 107.255A70.143 70.143 0 0 1 158 97.857L158 106.714A61.286 61.286 0 0 0 127.357 114.925Z"/>
+    <path class="hdd-read" data-machine-id="hdd-read-cell" d=""/>
+    <path class="hdd-edge" data-machine-id="hdd-entry-edge" d="M158 109.714L158 94.857"/>
+  </g>
+  <g class="hdd-part hdd-in-platter">
+    <circle class="hdd-hub" cx="158" cy="168" r="26"/>
+    <circle class="hdd-spindle" cx="158" cy="168" r="4"/>
+    <path class="hdd-arrow" d="M125.111 156.029A35 35 0 0 1 164.078 133.532"/>
+    <path class="hdd-arrow-head" d="M164.078 133.532L157.879 128.377L156.489 136.255Z"/>
+  </g>
+    <g class="hdd-track-labels">
+    <text x="158" y="283.5" class="hdd-label hdd-track-label" text-anchor="middle">T0</text>
+    <text x="158" y="221.5" class="hdd-label hdd-track-label" text-anchor="middle">T7</text>
+  </g>
+    <g class="hdd-part hdd-in-servo">
+    <path class="hdd-magnet" d="M326.776 223.643A56 56 0 0 1 262.276 267.149L269.569 225.787A14 14 0 0 0 285.694 214.911Z"/>
+  </g>
+  <circle class="hdd-target-marker hdd-part hdd-in-head hdd-in-seek hdd-in-wait" data-machine-id="hdd-target-marker" cx="182.448" cy="107.003" r="7"/>
+  <g class="hdd-part hdd-in-head hdd-in-seek hdd-in-servo" data-machine-id="hdd-arm" transform="translate(272 212) rotate(-109.334)">
+    <path class="hdd-coil" d="M-11 -13L-46 -21Q-51 0 -46 21L-11 13Z"/>
+    <path class="hdd-coil-wire" d="M-17 -9L-40 -14Q-44 0 -40 14L-17 9"/>
+    <path class="hdd-arm" d="M0 -9L124 -3.2L124 3.2L0 9Z"/>
+    <rect class="hdd-slider" x="129" y="-4.5" width="12" height="9" rx="1.5"/>
+    <circle class="hdd-head" cx="138" cy="0" r="2.6"/>
+    <circle class="hdd-settle-ring" cx="138" cy="0" r="9"/>
+  </g>
+  <g class="hdd-part hdd-in-head hdd-in-seek hdd-in-servo">
+    <circle class="hdd-pivot" cx="272" cy="212" r="9"/>
+    <circle class="hdd-spindle" cx="272" cy="212" r="3"/>
+  </g>
+    <g class="hdd-sector-labels"><text x="281.639" y="140.371" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-0" data-target="false">0</text><text x="248.51" y="82.99" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-1" data-target="false">1</text><text x="191.129" y="49.861" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-2" data-target="false">2</text><text x="124.871" y="49.861" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-3" data-target="true">3</text><text x="67.49" y="82.99" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-4" data-target="false">4</text><text x="34.361" y="140.371" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-5" data-target="false">5</text><text x="34.361" y="206.629" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-6" data-target="false">6</text><text x="67.49" y="264.01" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-7" data-target="false">7</text><text x="124.871" y="297.139" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-8" data-target="false">8</text><text x="191.129" y="297.139" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-9" data-target="false">9</text><text x="248.51" y="264.01" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-10" data-target="false">10</text><text x="290.048" y="208.882" class="hdd-label hdd-sector-label" text-anchor="middle" data-machine-id="hdd-sector-11" data-target="false">11</text></g>
+    <g class="hdd-phases"><g data-machine-id="hdd-phase-seek" class="hdd-phase" data-active="false">
+      <rect class="hdd-swatch hdd-swatch-seek" x="306" y="37" width="11" height="11" rx="1"/>
+      <text x="322" y="48" class="hdd-label hdd-phase-text">tìm track</text>
+    </g><g data-machine-id="hdd-phase-settle" class="hdd-phase" data-active="false">
+      <rect class="hdd-swatch hdd-swatch-settle" x="306" y="59" width="11" height="11" rx="1"/>
+      <text x="322" y="70" class="hdd-label hdd-phase-text">ổn định</text>
+    </g><g data-machine-id="hdd-phase-wait" class="hdd-phase" data-active="false">
+      <rect class="hdd-swatch hdd-swatch-wait" x="306" y="81" width="11" height="11" rx="1"/>
+      <text x="322" y="92" class="hdd-label hdd-phase-text">chờ ô</text>
+    </g><g data-machine-id="hdd-phase-transfer" class="hdd-phase" data-active="false">
+      <rect class="hdd-swatch hdd-swatch-transfer" x="306" y="103" width="11" height="11" rx="1"/>
+      <text x="322" y="114" class="hdd-label hdd-phase-text">đọc ô</text>
+    </g><g data-machine-id="hdd-phase-done" class="hdd-phase" data-active="false">
+      <rect class="hdd-swatch hdd-swatch-done" x="306" y="125" width="11" height="11" rx="1"/>
+      <text x="322" y="136" class="hdd-label hdd-phase-text">xong</text>
+    </g></g>
+  <g class="hdd-part hdd-in-seek hdd-in-wait hdd-in-read">
+    <rect class="hdd-time-track" x="306" y="150" width="104" height="8"/>
+    <rect class="hdd-swatch hdd-swatch-seek" data-machine-id="hdd-time-seek" x="306" y="150" width="0" height="8"/><rect class="hdd-swatch hdd-swatch-settle" data-machine-id="hdd-time-settle" x="306" y="150" width="0" height="8"/><rect class="hdd-swatch hdd-swatch-wait" data-machine-id="hdd-time-wait" x="306" y="150" width="0" height="8"/><rect class="hdd-swatch hdd-swatch-transfer" data-machine-id="hdd-time-transfer" x="306" y="150" width="0" height="8"/>
+    <rect class="hdd-time-cursor" data-machine-id="hdd-time-cursor" x="305" y="147" width="2" height="14" data-hidden="true"/>
+  </g>
+  <path class="hdd-servo hdd-legend hdd-part hdd-in-servo" d="M306 179H318"/>
+  <text x="322" y="184" class="hdd-label hdd-heading hdd-servo-text">SERVO</text>
+  <text x="306" y="204" class="hdd-label hdd-servo-text">vạch vị trí</text>
+  <text x="330" y="244" class="hdd-label hdd-heading">VCM</text>
+  <text x="330" y="264" class="hdd-label">cuộn dây</text>
+  <text x="330" y="284" class="hdd-label">nam châm</text>
+    <g class="hdd-notes">
+      <text x="8" y="326" class="hdd-label hdd-note">8 track × 12 ô phóng đại · không phải LBA</text>
+      <text x="8" y="348" class="hdd-label hdd-note">Mỗi lần Chạy: một yêu cầu đọc độc lập</text>
+    </g>
+  </svg></div>
+</div>
+<figcaption class="htw-machine-caption">
+<span class="htw-machine-status" data-machine-status>Phần tương tác chưa chạy; hình đang ở dạng tĩnh.</span>
+<dl class="htw-playground-readout" data-machine-readout aria-label="Số liệu của mô hình"></dl>
+</figcaption>
+<p class="htw-machine-sr" data-machine-announcement aria-live="polite" aria-atomic="true"></p>
+</figure>
+{% endraw %}

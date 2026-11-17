@@ -23,7 +23,13 @@ export function webp(width = 640, height = 400) {
 }
 
 const sceneHtml = (slug) => `<figure class="htw-machine-scene" id="${slug}-scene" data-machine-scene tabindex="-1">\n<button type="button" data-machine-theme disabled>TEST theme</button>\n<svg viewBox="0 0 10 10" role="img" aria-label="TEST FIXTURE" data-machine-view=""><defs><clipPath id="fx-clip"><rect width="1" height="1"/></clipPath></defs><rect width="1" height="1" clip-path="url(#fx-clip)"/></svg>\n<figcaption data-machine-status>TEST FIXTURE static</figcaption>\n</figure>`;
-const consoleHtml = (slug) => `<div class="htw-machine-console-panel" id="${slug}-console" data-machine-console-panel>\n<button type="button" data-machine-run disabled>Chạy</button>\n<button type="button" data-machine-pause disabled>Dừng</button>\n<button type="button" data-machine-step disabled>Từng bước</button>\n<button type="button" data-machine-reset disabled>Đặt lại</button>\n<button type="button" data-playground-key="phaseA" data-playground-option="1" aria-pressed="false" disabled>+</button>\n<input type="range" id="${slug}-control-rate" data-playground-key="rate" data-playground-range min="1" max="100" step="1" disabled>\n</div>`;
+// HDD-shaped controls exercise static disabled-control guards, not model behavior or generated ABI acceptance.
+const hddControls = () => [
+  ...[['head-track', 7], ['target-track', 7], ['target-sector', 11], ['start-angle', 359]].map(([key, max]) => `<input type="range" id="hard-disk-drive-control-${key}" data-playground-key="${key}" data-playground-range min="0" max="${max}" step="1" disabled>`),
+  ...[5400, 7200, 10000].map((rpm) => `<button type="button" data-playground-key="rpm" data-playground-option="${rpm}" aria-pressed="false" disabled>TEST ${rpm} RPM</button>`),
+  ...['same-track', 'far-seek', 'just-missed', 'fast-spindle'].map((key) => `<button type="button" data-playground-preset="${key}" disabled>TEST preset ${key}</button>`),
+].join('\n');
+const consoleHtml = (slug) => `<div class="htw-machine-console-panel" id="${slug}-console" data-machine-console-panel>\n<button type="button" data-machine-run disabled>Chạy</button>\n<button type="button" data-machine-pause disabled>Dừng</button>\n<button type="button" data-machine-step disabled>Từng bước</button>\n<button type="button" data-machine-reset disabled>Đặt lại</button>\n${slug === 'hard-disk-drive' ? hddControls() : `<button type="button" data-playground-key="phaseA" data-playground-option="1" aria-pressed="false" disabled>+</button>\n<input type="range" id="${slug}-control-rate" data-playground-key="rate" data-playground-range min="1" max="100" step="1" disabled>`}\n</div>`;
 
 export function fixture({ prefix = '', topics = TOPICS } = {}) {
   const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'playground-validator-test-'));

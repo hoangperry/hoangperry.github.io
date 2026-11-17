@@ -1,0 +1,18 @@
+How Things Work playground: Ổ cứng HDD tìm và đọc một sector bằng cách nào?
+Topic: hard-disk-drive
+Generated file: built by publish-hard-disk-drive.mjs from a checked artifact and its receipt. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: 997ee2c09e94c45dbb5942de3f85f33f40492d465cdfc2f426006be745f3f191
+Checks recorded in the build receipt:
+- HDD model, scene, renderer, adapters and build helpers: 82/82 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/hard-disk-drive/tests/hdd-build.test.mjs playgrounds/hard-disk-drive/tests/hdd-geometry.test.mjs playgrounds/hard-disk-drive/tests/hdd-invariance.test.mjs playgrounds/hard-disk-drive/tests/hdd-model.test.mjs playgrounds/hard-disk-drive/tests/hdd-parameter-grid.test.mjs playgrounds/hard-disk-drive/tests/hdd-reader-layout.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-artifact.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-digest.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-payloads.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-rollback.test.mjs playgrounds/hard-disk-drive/tests/hdd-renderer.test.mjs playgrounds/hard-disk-drive/tests/hdd-scene.test.mjs)
+- HDD root publisher regressions: 8/8 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap tests/publish-hard-disk-drive.test.mjs)
+- frozen shared playground non-browser contracts: 72/72 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs)
+- Mode invariance: passed, 4 scripts
+- Parameter grid: passed, 13791 cases
+Limitations:
+- Sơ đồ 2D nhìn từ trên, không theo tỷ lệ: 8 track và 12 ô mỗi track là hình học minh họa. Không có vùng mật độ (zone), track skew hay số sector thật; tọa độ là đơn vị vẽ, không phải milimét.
+- Thời gian đọc một ô bằng một phần mười hai vòng là của ô phóng đại, không phải thời gian truyền một sector thật và không dùng để suy ra MB/s.
+- Thời gian seek (di chuyển 0,8 + 0,65 ms mỗi track, ổn định 0,5 ms) là hệ số giảng giải, không đo hay hiệu chuẩn. Mô hình không mô phỏng dòng điện cuộn dây, vòng phản hồi servo hay dao động thật của tay đòn; VCM và vạch servo chỉ là sơ đồ có nhãn.
+- Ô được chọn trực tiếp trên hình, không phải kết quả đổi LBA sang cylinder/head/sector. Không có sector bị thay thế, bộ nhớ đệm, hàng đợi, sửa lỗi, nhiều platter, nhiều đầu đọc hay quá trình khởi động motor.
+- Mỗi lần Chạy là một yêu cầu đọc độc lập bắt đầu ở góc đã chọn; góc đĩa có thể đặt lại giữa hai thí nghiệm, nên đây không phải một chuỗi yêu cầu trên đĩa quay liên tục.
+- Hình chạy chậm 100×: 1 giây màn hình bằng 10 ms mô phỏng. Khi yêu cầu xong, hình dừng để đọc kết quả; motor thật không vì thế ngừng quay. Đây là mô hình giáo dục, không phải benchmark hay thông số của một ổ cụ thể.

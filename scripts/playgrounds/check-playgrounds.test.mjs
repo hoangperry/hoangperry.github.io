@@ -9,7 +9,7 @@ import { validatePlaygrounds, TOPICS, assetBase, manifestPath, payloadPaths, FIX
 import { fixture, put, change, snapshot, webp } from './fixtures/site-fixture.mjs';
 
 const VALIDATOR = fileURLToPath(new URL('./check-playgrounds.mjs', import.meta.url));
-const EXPECTED_TOPICS = ['stepper-motor', 'barometric-altimeter'];
+const EXPECTED_TOPICS = ['stepper-motor', 'barometric-altimeter', 'hard-disk-drive'];
 const setup = (t, options) => { const value = fixture(options); t.after(() => fs.rmSync(value.root, { recursive: true, force: true })); return value; };
 const articlePath = (value, slug) => path.join(value.site, 'how-things-work', slug, 'index.html');
 const hub = (value) => path.join(value.site, 'how-things-work/index.html');
@@ -35,13 +35,13 @@ const rejects = (value, pattern, options = {}) => {
   return report;
 };
 
-test('blog registry explicitly covers stepper motor and barometric altimeter', () => {
+test('blog registry explicitly covers stepper motor, barometric altimeter and HDD', () => {
   assert.deepEqual(TOPICS, EXPECTED_TOPICS);
   assert.ok(Object.isFrozen(TOPICS));
 });
 
 for (const prefix of ['', '/preview']) {
-  test('both topics pass at ' + (prefix || 'root') + ': 12 payloads and 2 routes, without writing', (t) => {
+  test('all three topics pass at ' + (prefix || 'root') + ': 18 payloads and 3 routes, without writing', (t) => {
     const value = setup(t, { prefix }); const before = snapshot(value.root);
     assert.deepEqual(value.topics, EXPECTED_TOPICS);
     for (const slug of EXPECTED_TOPICS) {
@@ -50,8 +50,37 @@ for (const prefix of ['', '/preview']) {
     }
     const report = validatePlaygrounds({ root: value.root, site: value.site, baseurl: prefix });
     assert.deepEqual(report.errors, []); assert.equal(report.ok, true);
-    assert.equal(report.filesChecked, 12); assert.equal(report.routesChecked, 2);
+    assert.equal(report.filesChecked, 18); assert.equal(report.routesChecked, 3);
     assert.deepEqual(snapshot(value.root), before);
+  });
+}
+
+// Synthetic HDD controls are only a validator boundary; no runtime, science or native UI acceptance is claimed.
+for (const prefix of ['', '/preview']) {
+  test('HDD isolated fixture has disabled request/RPM/preset controls at ' + (prefix || 'root'), (t) => {
+    const value = setup(t, { prefix, topics: ['hard-disk-drive'] });
+    const html = fs.readFileSync(articlePath(value, 'hard-disk-drive'), 'utf8');
+    assert.match(html, /TEST FIXTURE static prose, not a real article/);
+    for (const [key, max] of [['head-track', 7], ['target-track', 7], ['target-sector', 11], ['start-angle', 359]]) {
+      assert.ok(html.includes(`data-playground-key="${key}" data-playground-range min="0" max="${max}" step="1" disabled>`));
+    }
+    for (const rpm of [5400, 7200, 10000]) assert.ok(html.includes(`data-playground-key="rpm" data-playground-option="${rpm}" aria-pressed="false" disabled>`));
+    for (const key of ['same-track', 'far-seek', 'just-missed', 'fast-spindle']) assert.ok(html.includes(`data-playground-preset="${key}" disabled>`));
+    assert.deepEqual(validatePlaygrounds(value), { ok: true, errors: [], filesChecked: 6, routesChecked: 1 });
+  });
+
+  const controls = [
+    ...[['head-track', 7], ['target-track', 7], ['target-sector', 11], ['start-angle', 359]].map(([key, max]) => `data-playground-key="${key}" data-playground-range min="0" max="${max}" step="1" disabled`),
+    ...[5400, 7200, 10000].map((rpm) => `data-playground-key="rpm" data-playground-option="${rpm}" aria-pressed="false" disabled`),
+    ...['same-track', 'far-seek', 'just-missed', 'fast-spindle'].map((key) => `data-playground-preset="${key}" disabled`),
+  ];
+  for (const control of controls) test('HDD rejects enabled ' + control + ' at ' + (prefix || 'root'), (t) => {
+    const articleFixture = setup(t, { prefix, topics: ['hard-disk-drive'] });
+    change(articlePath(articleFixture, 'hard-disk-drive'), control, control.replace(' disabled', ''));
+    rejects(articleFixture, /Control enabled in static HTML: hard-disk-drive/);
+    const sourceFixture = setup(t, { prefix, topics: ['hard-disk-drive'] });
+    editPayload(sourceFixture, 'hard-disk-drive', '_includes/how-things-work/hard-disk-drive-console.html', control, control.replace(' disabled', ''));
+    rejects(sourceFixture, /Control enabled in static include: .*hard-disk-drive-console/);
   });
 }
 
@@ -186,23 +215,23 @@ for (const slug of EXPECTED_TOPICS) {
     const report = validatePlaygrounds(value);
     assert.equal(report.ok, true, report.errors.join('\n'));
     assert.equal(report.filesChecked, 6); assert.equal(report.routesChecked, 1);
-    // The production/default registry must not silently accept an omitted second topic.
+    // The production/default registry must not silently accept an omitted registered topic.
     const defaultReport = rejects(value, /Cannot read/, { topics: TOPICS });
     assert.ok(defaultReport.errors.some((error) => error.includes(EXPECTED_TOPICS.find((topic) => topic !== slug))));
   });
 }
 
-for (const prefix of ['', '/preview']) test('CLI two topics at ' + (prefix || 'root') + ': exit 0/1/2 and 12 payloads/2 routes', (t) => {
+for (const prefix of ['', '/preview']) test('CLI three topics at ' + (prefix || 'root') + ': exit 0/1/2 and 18 payloads/3 routes', (t) => {
   const value = setup(t, { prefix });
   const run = (...args) => spawnSync(process.execPath, [VALIDATOR, ...args], { cwd: value.root, encoding: 'utf8', timeout: 5000 });
   const ok = run('--site', value.site, '--baseurl', prefix);
-  assert.equal(ok.status, 0, ok.stderr); assert.match(ok.stdout, /Playgrounds: valid \(12 payloads, 2 routes\)/);
+  assert.equal(ok.status, 0, ok.stderr); assert.match(ok.stdout, /Playgrounds: valid \(18 payloads, 3 routes\)/);
   if (prefix) assert.equal(run('--site', value.site).status, 1);
   assert.equal(run('--site', value.site, '--force').status, 2);
   assert.equal(run('--baseurl', prefix).status, 2);
   const relative = run('--site', '_site', '--baseurl', prefix);
   assert.equal(relative.status, 0, relative.stderr);
-  assert.match(relative.stdout, /Playgrounds: valid \(12 payloads, 2 routes\)/);
+  assert.match(relative.stdout, /Playgrounds: valid \(18 payloads, 3 routes\)/);
   fs.unlinkSync(articlePath(value, 'barometric-altimeter'));
   const broken = run('--site', value.site, '--baseurl', prefix);
   assert.equal(broken.status, 1, broken.stderr); assert.match(broken.stderr, /barometric-altimeter\/index\.html/);
