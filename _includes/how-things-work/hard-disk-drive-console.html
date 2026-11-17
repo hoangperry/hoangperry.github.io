@@ -1,0 +1,61 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="hard-disk-drive-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Ổ cứng HDD tìm và đọc một sector bằng cách nào?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="request">
+<legend class="htw-playground-group-label">Yêu cầu đọc độc lập</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="head-track" data-playground-type="range">
+<label class="htw-playground-control-label" id="hard-disk-drive-control-head-track-label" for="hard-disk-drive-control-head-track">Track đầu đọc trước yêu cầu (0 ở ngoài)</label>
+<input type="range" class="htw-playground-slider" id="hard-disk-drive-control-head-track" data-playground-key="head-track" data-playground-range min="0" max="7" step="1" disabled>
+<output class="htw-playground-value" id="hard-disk-drive-control-head-track-value" for="hard-disk-drive-control-head-track" data-playground-output="head-track" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">track</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="target-track" data-playground-type="range">
+<label class="htw-playground-control-label" id="hard-disk-drive-control-target-track-label" for="hard-disk-drive-control-target-track">Track cần đọc</label>
+<input type="range" class="htw-playground-slider" id="hard-disk-drive-control-target-track" data-playground-key="target-track" data-playground-range min="0" max="7" step="1" disabled>
+<output class="htw-playground-value" id="hard-disk-drive-control-target-track-value" for="hard-disk-drive-control-target-track" data-playground-output="target-track" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">track</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="target-sector" data-playground-type="range">
+<label class="htw-playground-control-label" id="hard-disk-drive-control-target-sector-label" for="hard-disk-drive-control-target-sector">Ô sector cần đọc</label>
+<input type="range" class="htw-playground-slider" id="hard-disk-drive-control-target-sector" data-playground-key="target-sector" data-playground-range min="0" max="11" step="1" disabled>
+<output class="htw-playground-value" id="hard-disk-drive-control-target-sector-value" for="hard-disk-drive-control-target-sector" data-playground-output="target-sector" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">ô</span></output>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="spindle">
+<legend class="htw-playground-group-label">Platter và pha đầu</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="rpm" data-playground-type="segmented" role="group" aria-labelledby="hard-disk-drive-control-rpm-label">
+<span class="htw-playground-control-label" id="hard-disk-drive-control-rpm-label">Tốc độ quay</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="rpm" data-playground-option="5400" aria-pressed="false" disabled>5400 RPM</button>
+<button type="button" class="htw-machine-chip" data-playground-key="rpm" data-playground-option="7200" aria-pressed="false" disabled>7200 RPM</button>
+<button type="button" class="htw-machine-chip" data-playground-key="rpm" data-playground-option="10000" aria-pressed="false" disabled>10000 RPM</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="start-angle" data-playground-type="range">
+<label class="htw-playground-control-label" id="hard-disk-drive-control-start-angle-label" for="hard-disk-drive-control-start-angle">Góc đầu mỗi thí nghiệm</label>
+<input type="range" class="htw-playground-slider" id="hard-disk-drive-control-start-angle" data-playground-key="start-angle" data-playground-range min="0" max="359" step="1" disabled>
+<output class="htw-playground-value" id="hard-disk-drive-control-start-angle-value" for="hard-disk-drive-control-start-angle" data-playground-output="start-angle" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">°</span></output>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="hard-disk-drive-presets-label">
+<span class="htw-playground-group-label" id="hard-disk-drive-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="same-track" disabled>Cùng track: chỉ chờ và đọc</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="far-seek" disabled>Tìm từ track ngoài vào trong</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="just-missed" disabled>Vừa lỡ biên vào: chờ gần một vòng</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="fast-spindle" disabled>Đổi chu kỳ quay: 10000 RPM</button>
+</div>
+<div class="htw-playground-challenges">
+<p class="htw-playground-group-label" id="hard-disk-drive-challenges-label">Thử thách</p>
+<ol class="htw-playground-challenge-list" aria-labelledby="hard-disk-drive-challenges-label">
+<li class="htw-playground-challenge" data-machine-challenge="same-track" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất một lần đọc cùng track.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="cross-track" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất một lần đọc cách ít nhất 3 track.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="almost-full-turn" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất lần đọc có thời gian chờ ít nhất 0,8 vòng.</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="two-rpms" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất yêu cầu ở hai RPM khác nhau; so chu kỳ quay, không suy tổng I/O luôn nhanh hơn.</span></li>
+</ol>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}

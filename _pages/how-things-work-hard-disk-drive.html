@@ -1,0 +1,174 @@
+---
+title: "Ổ cứng HDD tìm và đọc một sector bằng cách nào?"
+permalink: /how-things-work/hard-disk-drive/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Muốn đọc một ô dữ liệu, ổ cứng phải đưa đầu đọc tới đúng track, chờ ô ấy quay tới rồi đọc khi cả ô đi qua. Platter không dừng lại để đợi đầu đọc, nên cùng một yêu cầu có thể chờ gần như không mất thời gian hoặc gần trọn một vòng."
+social-image: /assets/how-things-work/hard-disk-drive/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/hard-disk-drive/machine.css
+script-includes:
+  - /assets/how-things-work/hard-disk-drive/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="hard-disk-drive" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/hard-disk-drive-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: các nút tương tác không hoạt động. Bạn vẫn xem được hình tĩnh và đọc toàn bộ bài cùng nguồn.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="hard-disk-drive-scene" disabled><span class="htw-collapse-name">Hình ổ cứng nhìn từ trên</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài ổ cứng HDD">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#hdd-quanh-ta">Đọc một ô dữ liệu tốn ba khoảng thời gian</a></li>
+            <li><a href="#hdd-platter">Platter quay đều, dữ liệu nằm trên các vòng tròn</a></li>
+            <li><a href="#hdd-dau-doc">Đầu đọc nằm ở mũi một tay đòn quay quanh trục</a></li>
+            <li><a href="#hdd-seek">Seek: tay đòn di chuyển trong khi platter vẫn quay</a></li>
+            <li><a href="#hdd-cho">Thời gian chờ phụ thuộc lúc đầu đọc tới</a></li>
+            <li><a href="#hdd-doc">Chỉ tính là đọc xong khi cả ô đã đi qua</a></li>
+            <li><a href="#hdd-servo">Cuộn dây và tín hiệu servo, không phải đếm bước</a></li>
+            <li><a href="#hdd-gioi-han">Hình chậm, ô to và số ô không phải địa chỉ LBA</a></li>
+            <li><a href="#hdd-tu-thu">Tự thử</a></li>
+            <li><a href="#hdd-nguon">Nguồn và giới hạn mô hình</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="hdd-quanh-ta" class="htw-step" data-machine-focus="all" aria-labelledby="hdd-quanh-ta-h">
+        <p class="htw-step-label">01 · Quanh ta</p>
+        <h2 id="hdd-quanh-ta-h" tabindex="-1">Đọc một ô dữ liệu tốn ba khoảng thời gian</h2>
+        <p>Ổ cứng HDD lưu dữ liệu bằng các vùng từ hóa trên mặt đĩa quay. Muốn đọc một ô dữ liệu, ổ phải làm ba việc nối tiếp: đưa đầu đọc tới đúng vòng chứa ô đó (seek), chờ đĩa quay để ô ấy tới dưới đầu đọc (chờ quay) rồi đọc trong lúc ô đi qua (truyền dữ liệu). Thời gian của một yêu cầu vì thế được viết gọn thành <em>T</em><sub>I/O</sub> = <em>T</em><sub>seek</sub> + <em>T</em><sub>chờ quay</sub> + <em>T</em><sub>truyền</sub>. <a href="#hdd-source-s1">[S1]</a></p>
+        <p>Hình trong bài nhìn ổ từ trên xuống, chỉ có một mặt đĩa, 8 vòng và 12 ô trên mỗi vòng. Đây là hình học minh họa để nhìn được bằng mắt, không phải bản vẽ của một ổ thật. Cuộn trang chỉ làm sáng phần đang được giải thích, không tự chạy mô hình. Khi mở bài, đầu đọc nằm ở track 0, yêu cầu mặc định là đọc sector 3 trên track 5, đĩa quay 7200 vòng/phút và góc ban đầu của đĩa là 0°.</p>
+      </section>
+
+      <section id="hdd-platter" class="htw-step" data-machine-focus="platter" aria-labelledby="hdd-platter-h">
+        <p class="htw-step-label">02 · Platter</p>
+        <h2 id="hdd-platter-h" tabindex="-1">Platter quay đều, dữ liệu nằm trên các vòng tròn</h2>
+        <p>Đĩa cứng bên trong ổ gọi là platter. Một ổ có thể có một hoặc nhiều platter gắn chung một trục quay (spindle), mỗi platter có hai mặt ghi. Trên mỗi mặt, dữ liệu nằm trên các vòng tròn đồng tâm gọi là track; mỗi track được chia thành các khối nhỏ gọi là sector. <a href="#hdd-source-s1">[S1]</a></p>
+        <p>Trong hình, track 0 là vòng ngoài cùng và track 7 là vòng trong cùng. Mỗi vòng chia đều thành 12 ô đánh số 0 đến 11, giống ví dụ một track có 12 sector trong S1. Các nhãn được xếp ngược chiều quay để chúng lần lượt đi qua đầu đọc theo thứ tự tăng 0, 1, 2… Vì 12 ô chia đều theo góc, ô ở vòng ngoài dài hơn ô ở vòng trong nhưng đi qua đầu đọc trong cùng một khoảng thời gian. Đĩa trong hình quay theo chiều kim đồng hồ.</p>
+        <p>Tốc độ quay được tính bằng vòng/phút (RPM). Thời gian một vòng là <em>T</em><sub>vòng</sub> = 60 000 / RPM mili giây. Ba lựa chọn của mô hình cho chu kỳ khoảng 11,11 ms ở 5400 RPM, 8,333 ms ở 7200 RPM và 6 ms ở 10 000 RPM. Đĩa quay liên tục với tốc độ không đổi trong suốt một yêu cầu; ổ không hãm đĩa lại để đợi đầu đọc.</p>
+      </section>
+
+      <section id="hdd-dau-doc" class="htw-step" data-machine-focus="head" aria-labelledby="hdd-dau-doc-h">
+        <p class="htw-step-label">03 · Đầu đọc và tay đòn</p>
+        <h2 id="hdd-dau-doc-h" tabindex="-1">Đầu đọc nằm ở mũi một tay đòn quay quanh trục</h2>
+        <p>Mỗi mặt đĩa có một đầu đọc/ghi. Đầu được gắn ở mũi tay đòn (disk arm), và tay đòn di chuyển ngang qua mặt đĩa để đặt đầu lên track cần dùng. <a href="#hdd-source-s1">[S1]</a> Trong cơ cấu kiểu quay được mô tả ở S2, tay đòn xoay quanh một trục cố định đặt bên cạnh platter, chứ không trượt thẳng theo bán kính. <a href="#hdd-source-s2">[S2]</a></p>
+        <p>Hệ quả dễ bỏ qua: mũi tay đòn đi theo một cung tròn. Khi đầu đọc chuyển từ track ngoài vào track trong, góc của nó nhìn từ tâm đĩa cũng lệch đi một chút. Mô hình giữ cố định tâm đĩa, trục tay đòn và chiều dài tay đòn, rồi tính vị trí mũi đòn sao cho nó nằm đúng trên bán kính của từng track. Góc thật ấy được dùng để biết ô nào đang ở dưới đầu đọc. Tọa độ trong hình là đơn vị vẽ, không phải milimét của một ổ cụ thể.</p>
+      </section>
+
+      <section id="hdd-seek" class="htw-step" data-machine-focus="seek" aria-labelledby="hdd-seek-h">
+        <p class="htw-step-label">04 · Seek</p>
+        <h2 id="hdd-seek-h" tabindex="-1">Seek: tay đòn di chuyển trong khi platter vẫn quay</h2>
+        <p>Seek là việc đưa đầu đọc tới đúng track. S1 chia nó thành nhiều pha: tay đòn tăng tốc, chạy, giảm tốc, rồi ổn định (settling) để chắc chắn đầu đọc đã nằm đúng track chứ không chỉ ở gần đó. Thời gian ổn định có thể chiếm một phần đáng kể của seek. <a href="#hdd-source-s1">[S1]</a></p>
+        <p>Trong mô hình, đầu đọc đi từ track hiện tại tới track đích theo một đường cong trơn, khởi đầu và kết thúc êm, rồi đứng yên ở track đích thêm một khoảng ổn định. Seek càng xa thì thời gian di chuyển càng dài. Nếu track đích trùng track hiện tại thì không có cả di chuyển lẫn ổn định. Ô số “Tìm track + ổn định” (Seek) cộng cả hai phần. Các hệ số thời gian này được chọn để giảng giải, không đo hay hiệu chuẩn theo ổ thương mại nào.</p>
+        <p>Điều quan trọng là platter không đợi. Suốt lúc tay đòn di chuyển và ổn định, đĩa vẫn quay. Trong ví dụ của S1, đĩa đã quay thêm khoảng ba sector trong lúc seek. Vì vậy, vị trí của ô đích lúc đầu đọc tới nơi khác với lúc bấm Chạy. Đầu đọc không đọc khi đang di chuyển hoặc đang ổn định, kể cả khi ô đích tình cờ lướt qua bên dưới.</p>
+      </section>
+
+      <section id="hdd-cho" class="htw-step" data-machine-focus="wait" aria-labelledby="hdd-cho-h">
+        <p class="htw-step-label">05 · Chờ quay</p>
+        <h2 id="hdd-cho-h" tabindex="-1">Thời gian chờ phụ thuộc lúc đầu đọc tới</h2>
+        <p>Khi đầu đọc đã ổn định trên track đích, nó chờ biên phía trước của ô đích, tức biên tới đầu đọc trước theo chiều quay. Thời gian chờ bằng góc còn thiếu chia cho tốc độ góc của đĩa. Nó nằm từ 0 đến gần một vòng: nếu biên vào tới đúng lúc đầu đọc vừa ổn định, gần như không phải chờ; nếu biên ấy vừa đi qua, ổ phải đợi gần trọn một vòng để nó quay trở lại. Đĩa không quay ngược để “lấy lại” ô vừa lỡ. <a href="#hdd-source-s1">[S1]</a></p>
+        <p>Con số “trung bình nửa vòng” chỉ đúng khi vị trí của ô lúc đầu đọc tới là ngẫu nhiên và phân bố đều. Ở 7200 RPM, một vòng mất khoảng 8,333 ms nên kỳ vọng chờ là khoảng 4,167 ms. Sổ tay BarraCuda của Seagate ghi độ trễ trung bình 4,167 ms cho ổ 7200 RPM, khớp với phép tính nửa vòng này. <a href="#hdd-source-s3">[S3]</a> Nhưng một lần đọc riêng lẻ không chờ nửa vòng; nó chờ đúng phần góc còn lại trong lần ấy.</p>
+        <p>Vì thời gian chờ phụ thuộc pha đến, tăng RPM làm một vòng ngắn đi nhưng không bảo đảm mọi yêu cầu đều xong sớm hơn. Hai yêu cầu ở hai tốc độ khác nhau có thể có pha đến khác nhau, và yêu cầu ở tốc độ cao vẫn có thể phải chờ lâu hơn.</p>
+      </section>
+
+      <section id="hdd-doc" class="htw-step" data-machine-focus="read" aria-labelledby="hdd-doc-h">
+        <p class="htw-step-label">06 · Đọc</p>
+        <h2 id="hdd-doc-h" tabindex="-1">Chỉ tính là đọc xong khi cả ô đã đi qua</h2>
+        <p>Pha truyền dữ liệu bắt đầu khi biên vào của ô đích tới đầu đọc và kết thúc khi biên sau đi qua. Mô hình không tính là đã đọc khi đầu đọc mới tới tâm ô, cũng không đọc ở track sai. Vì mỗi ô chiếm 1/12 vòng, thời gian truyền trong mô hình bằng <em>T</em><sub>vòng</sub> / 12. <a href="#hdd-source-s1">[S1]</a></p>
+        <p>Ô trong hình được phóng đại rất nhiều. Một track thật có nhiều sector hơn 12 rất nhiều; S1 dùng sector 512 byte làm ví dụ. Vì thế thời gian truyền một sector thật nhỏ hơn nhiều so với một phần mười hai vòng. Không nên lấy kích thước ô hay ô số “Đọc” trong hình để suy ra tốc độ MB/s của một ổ thật.</p>
+        <p>Khi yêu cầu xong, hình dừng để bạn đọc kết quả. Đó là tạm dừng phần minh họa, không có nghĩa motor quay đĩa đã tắt.</p>
+      </section>
+
+      <section id="hdd-servo" class="htw-step" data-machine-focus="servo" aria-labelledby="hdd-servo-h">
+        <p class="htw-step-label">07 · Cuộn dây và servo</p>
+        <h2 id="hdd-servo-h" tabindex="-1">Cuộn dây và tín hiệu servo, không phải đếm bước</h2>
+        <p>Sổ tay Maxtor Fireball 3 mô tả bộ dẫn động kiểu cuộn dây quay (rotary voice coil actuator, VCM): một cuộn dây di động gắn với tay đòn, đặt trong từ trường của nam châm cố định. Dòng điện qua cuộn dây tạo lực, giống nguyên lý của loa, và lực ấy xoay tay đòn quanh trục. <a href="#hdd-source-s2">[S2]</a></p>
+        <p>Cũng sổ tay này ghi rằng nhiều nhà sản xuất trước đây dùng động cơ bước (stepper) để định vị đầu đọc. Động cơ bước nhích một lượng rời rạc cho mỗi xung điện và có thể được ghép bánh răng để mỗi bước đi đúng một track. Bộ dẫn động cuộn dây quay thay thế cách đó và cho phép định vị theo vòng phản hồi kín. Tín hiệu servo nhúng (embedded servo) là các dấu từ ghi sẵn trên chính các track dữ liệu, dẫn đầu đọc/ghi về đúng vị trí và cho phép bộ dẫn động tinh chỉnh. <a href="#hdd-source-s2">[S2]</a> Nói cách khác, ổ không đếm bước để suy ra đầu đọc ở đâu mà dựa vào dấu vị trí đọc được từ đĩa.</p>
+        <p>Trong hình, cuộn dây, nam châm và tín hiệu servo được vẽ thành sơ đồ có nhãn. Tay đòn chuyển động liên tục, không nhảy từng nấc như bánh răng. Tuy vậy, đường cong seek được chọn trước, còn khoảng ổn định chỉ là thời gian đứng yên. Mô hình không mô phỏng dòng điện, vòng điều khiển hay dao động thật của tay đòn. S2 là tài liệu của một dòng ổ cụ thể, dùng để minh họa nguyên lý chứ không khẳng định mọi HDD có cùng chi tiết hoặc hiệu năng.</p>
+      </section>
+
+      <section id="hdd-gioi-han" class="htw-step" data-machine-focus="limits" aria-labelledby="hdd-gioi-han-h">
+        <p class="htw-step-label">08 · Giới hạn</p>
+        <h2 id="hdd-gioi-han-h" tabindex="-1">Hình chậm, ô to và số ô không phải địa chỉ LBA</h2>
+        <p>Các khoảng thời gian trong ổ được tính bằng mili giây, quá nhanh để mắt theo dõi. Hình vì thế chạy chậm 100×: 1 giây trên màn hình bằng 10 ms mô phỏng. Các ô số luôn ghi thời gian mô phỏng, không phải thời gian bạn đã nhìn màn hình. Đổi giao diện sáng/tối, chế độ đọc hay chế độ giảm chuyển động không làm đổi đồng hồ hay kết quả.</p>
+        <p>Phần mềm thường gọi dữ liệu bằng số khối logic (LBA). Ổ tự dịch địa chỉ ấy sang vị trí vật lý bên trong. S2 nói rõ hình học cylinder/head/sector mà ổ trình ra cho máy chủ khác với hình học vật lý thật, vì các vòng ngoài và trong được chia thành vùng (zone) có số sector khác nhau. <a href="#hdd-source-s2">[S2]</a> Trong bài, bạn chọn thẳng một ô của hình vẽ; không có công thức đổi từ LBA sang track và sector nào được mô phỏng.</p>
+        <p>Mô hình cũng bỏ qua vùng mật độ, độ lệch giữa các track (track skew), bộ nhớ đệm, sửa lỗi, sector được thay thế, hàng đợi yêu cầu, nhiều platter hay nhiều đầu đọc và quá trình khởi động motor. S1 phân tích vùng mật độ, track skew và bộ nhớ đệm như những chi tiết cần cân nhắc thêm ngoài hình đơn giản này. <a href="#hdd-source-s1">[S1]</a> Kết quả trong hình giúp nhìn quan hệ nhân quả giữa seek, chờ quay và truyền dữ liệu; nó không phải phép đo hiệu năng hay benchmark.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="hdd-tu-thu" class="htw-try" aria-labelledby="hdd-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="hdd-tu-thu-h" tabindex="-1">Gửi yêu cầu đọc và xem thời gian đi đâu</h2>
+      <p>Mở chế độ tự thử sẽ đưa chính hình đang đọc xuống cạnh bảng điều khiển và giữ nguyên trạng thái, không tạo thêm một ổ khác. Mô hình không tự chạy khi mở bài, cuộn trang hay đổi chế độ. Bạn đặt được những đại lượng sau:</p>
+      <ul>
+        <li><strong>Track đầu đọc trước yêu cầu (0 ở ngoài):</strong> nơi đầu đọc đang đứng trước yêu cầu, từ 0 đến 7.</li>
+        <li><strong>Track cần đọc</strong> và <strong>Ô sector cần đọc:</strong> ô đích, track từ 0 đến 7 và sector từ 0 đến 11.</li>
+        <li><strong>Tốc độ quay:</strong> 5400, 7200 hoặc 10 000 RPM.</li>
+        <li><strong>Góc đầu mỗi thí nghiệm:</strong> từ 0 đến 359°, mỗi nấc 1°. Đổi góc này đổi pha của ô đích lúc đầu đọc tới.</li>
+      </ul>
+      <p>Bấm Chạy để khóa yêu cầu, đưa thời gian về 0 và bắt đầu chạy. Mỗi lần Chạy từ trạng thái sẵn sàng hoặc đã xong là một thí nghiệm độc lập với góc ban đầu đã chọn, nên góc đĩa có thể được đặt lại giữa hai thí nghiệm; đây không phải một chuỗi yêu cầu trên đĩa quay liên tục. Vị trí đầu đọc cho lần tiếp theo mặc định là track vừa tới, hoặc bạn có thể chọn lại. Trong lúc yêu cầu chưa xong, các điều khiển trên bị khóa và không thể gửi chồng yêu cầu khác. Nút Dừng giữ nguyên trạng thái; Chạy khi đang dừng tiếp tục chính yêu cầu ấy. Khi đang dừng, mỗi lần bấm Từng bước tiến đúng 0,25 ms mô phỏng. Rời tab hay đưa hình ra ngoài màn hình không cộng bù thời gian. Bảng số liệu cho biết pha hiện tại cùng thời gian Seek, Chờ quay, Đọc và Tổng của yêu cầu. Có thể dùng phím Tab để tới nút hoặc ô chọn, Enter hay phím cách để bấm nút, phím mũi tên để đổi giá trị.</p>
+      <ol class="htw-try-list">
+        <li><strong>Theo dõi một yêu cầu trọn vẹn.</strong> Bấm Đặt lại rồi bấm Chạy. Quan sát tay đòn đi từ track 0 vào track 5 trong lúc đĩa vẫn quay, đứng yên ổn định, chờ biên vào của sector 3, rồi đọc cho tới khi cả ô đi qua. Bấm Dừng và Từng bước gần lúc chuyển pha để thấy pha chỉ đổi khi đầu đọc đã đứng đúng track.</li>
+        <li id="hdd-same-track"><strong>Thử thách 1: đọc mà không cần seek.</strong> Đặt Track cần đọc bằng track đầu đọc trước yêu cầu rồi bấm Chạy và để yêu cầu chạy tới khi xong. Ô “Tìm track + ổn định” bằng 0; toàn bộ thời gian còn lại là chờ quay và đọc.</li>
+        <li id="hdd-cross-track"><strong>Thử thách 2: seek xa.</strong> Chọn Track cần đọc cách track đầu đọc trước yêu cầu ít nhất 3 track rồi đọc tới khi xong. So ô “Tìm track + ổn định” với thử thách 1, và để ý rằng ô đích đã đổi chỗ trong lúc tay đòn di chuyển.</li>
+        <li id="hdd-almost-full-turn"><strong>Thử thách 3: lỡ ô và chờ gần một vòng.</strong> Đọc xong một yêu cầu có thời gian chờ ít nhất 80% của một vòng. Cấu hình mẫu “Vừa lỡ biên vào: chờ gần một vòng” đặt sẵn tình huống biên vào của ô đích vừa đi qua đầu đọc; bấm Chạy để chạy thật. Bạn cũng có thể giữ track và sector, đổi Góc đầu mỗi thí nghiệm từng ít độ rồi đọc lại, để thấy thời gian chờ có thể nhảy từ rất ngắn lên gần trọn vòng.</li>
+        <li id="hdd-two-rpms"><strong>Thử thách 4: đọc ở hai tốc độ quay.</strong> Đọc xong ít nhất một yêu cầu ở hai mức RPM khác nhau. Chu kỳ một vòng và thời gian đọc một ô đổi theo RPM, còn Seek thì không. Tổng thời gian có thể ngắn hơn hoặc dài hơn tùy pha đến, nên thử thách này chỉ cho thấy chu kỳ quay khác nhau, không chứng minh tốc độ cao luôn xong sớm hơn.</li>
+      </ol>
+      <p>Bốn cấu hình mẫu “Cùng track: chỉ chờ và đọc”, “Tìm từ track ngoài vào trong”, “Vừa lỡ biên vào: chờ gần một vòng” và “Đổi chu kỳ quay: 10000 RPM” chỉ đặt sẵn thông số, đưa thời gian về 0 và để mô hình dừng. Chúng không tự đọc và không tự tặng thành tích; mỗi thử thách chỉ được ghi nhận khi một yêu cầu thật chạy tới lúc xong. Chọn cấu hình mẫu giữ các thử thách đã hoàn thành. Chỉ nút Đặt lại mới trở về cấu hình mặc định và xóa mọi thành tích.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên chế độ tự thử không mở được.</p></noscript>
+      <p class="htw-try-fallback">Tự thử cần JavaScript. Nếu các nút vẫn khóa hoặc có lỗi, hình tĩnh và bài giải thích vẫn đọc được.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="hard-disk-drive-scene hard-disk-drive-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="hard-disk-drive-scene" disabled>Quay lại bài đọc</button></p>
+        {% include how-things-work/hard-disk-drive-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="hdd-nguon" class="htw-sources" aria-labelledby="hdd-nguon-h">
+  <h2 id="hdd-nguon-h" tabindex="-1">Nguồn và giới hạn mô hình</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="hdd-source-s1"><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/file-disks.pdf" target="_blank" rel="noopener noreferrer">[S1] Remzi H. Arpaci-Dusseau và Andrea C. Arpaci-Dusseau, Operating Systems: Three Easy Pieces, chương 37: Hard Disk Drives</a>, bản 1.10, trang PDF 1–8: platter, spindle, mặt ghi, track, sector, đầu đọc và tay đòn; ví dụ track 12 sector; các pha của seek gồm ổn định; đĩa vẫn quay trong lúc seek; chờ quay, truyền dữ liệu và công thức tổng thời gian I/O; vùng mật độ, track skew, bộ nhớ đệm như các chi tiết ngoài mô hình đơn giản.</li>
+        <li id="hdd-source-s2"><a href="https://www.seagate.com/staticfiles/maxtor/en_us/documentation/manuals/fireball_3_manual.pdf" target="_blank" rel="noopener noreferrer">[S2] Maxtor Fireball 3 Product Manual, bản lưu trữ của Seagate</a>, trang PDF 12–13, 17, 47 và phần thuật ngữ 51–53: bộ dẫn động cuộn dây quay với cuộn dây di động, tay đòn và nam châm cố định; servo nhúng giúp tinh chỉnh vị trí đầu đọc; so sánh với động cơ bước dùng trước đây; vùng mật độ và việc hình học trình ra cho máy chủ khác hình học vật lý. Đây là tài liệu của một dòng ổ cụ thể, không phải chuẩn thiết kế hay hiệu năng chung cho mọi HDD hiện đại.</li>
+        <li id="hdd-source-s3"><a href="https://www.seagate.com/files/www-content/product-content/barracuda-fam/barracuda-new/en-us/docs/100817550m.pdf" target="_blank" rel="noopener noreferrer">[S3] Seagate BarraCuda Product Manual 100817550, Rev. M</a>, trang PDF 8 và 10: bảng thông số ghi 7200 RPM và độ trễ trung bình 4,167 ms, khớp phép tính nửa vòng. Tài liệu không dùng để hiệu chuẩn seek, thời gian đọc ô hay thông lượng của mô phỏng.</li>
+      </ul>
+      <p>Hồ sơ nguồn của dự án được đối chiếu ngày 17/11/2026. Hình là sơ đồ tổng hợp tự tạo, không đúng tỷ lệ và không sao chép bản vẽ của một mẫu thương mại.</p>
+    </div>
+    <div>
+      <h3>Thời gian trong mô hình</h3>
+      <p>Chu kỳ một vòng là <em>T</em><sub>vòng</sub> = 60 000 / RPM ms và đĩa quay đều suốt seek, ổn định, chờ quay và đọc. Seek gồm thời gian di chuyển tăng theo số track phải đi cộng một khoảng ổn định cố định; cả hai bằng 0 khi không đổi track. Đây là hệ số minh họa, không phải số đo.</p>
+      <p>Khi đầu đọc ổn định, mô hình lấy góc thật của mũi tay đòn trên track đích và tính góc còn thiếu tới biên vào của ô đích, quy về khoảng từ 0 tới dưới một vòng. Thời gian chờ là góc ấy chia cho tốc độ góc. Thời gian đọc là <em>T</em><sub>vòng</sub> / 12, đúng bằng thời gian một ô phóng đại đi qua đầu đọc. Tổng bằng Seek cộng Chờ quay cộng Đọc, và mô hình dừng đúng lúc biên sau của ô đi qua.</p>
+      <p>Kỳ vọng chờ nửa vòng chỉ là trung bình khi pha đến ngẫu nhiên đều. Ở 7200 RPM, đó là khoảng 4,167 ms trên chu kỳ 8,333 ms; một yêu cầu cụ thể có thể chờ từ 0 tới gần 8,333 ms.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Những gì hình không chứng minh</h3>
+      <ul>
+        <li>8 track và 12 ô mỗi track là hình học minh họa. Không có vùng mật độ, track skew hay số sector thật.</li>
+        <li>Thời gian đọc một ô bằng một phần mười hai vòng là của ô phóng đại, không phải thời gian truyền một sector thật và không dùng để suy ra MB/s.</li>
+        <li>Thời gian seek và ổn định là hệ số giảng giải. Mô hình không mô phỏng dòng điện, vòng phản hồi servo hay dao động thật của tay đòn.</li>
+        <li>Ô được chọn trực tiếp trên hình, không phải kết quả đổi LBA sang cylinder/head/sector. Ổ thật tự dịch địa chỉ sang vị trí vật lý; mô hình không có sector bị thay thế.</li>
+        <li>Không có bộ nhớ đệm, hàng đợi, sửa lỗi, nhiều platter hay nhiều đầu đọc, và không có quá trình khởi động motor.</li>
+        <li>Hình chạy chậm 100×: 1 giây màn hình bằng 10 ms mô phỏng. Đây là mô hình giáo dục, không phải benchmark hay thông số của một ổ cụ thể.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
