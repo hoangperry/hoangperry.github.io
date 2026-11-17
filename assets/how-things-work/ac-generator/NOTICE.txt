@@ -1,0 +1,18 @@
+How Things Work playground: Máy phát điện xoay chiều tạo ra điện áp thế nào?
+Topic: ac-generator
+Generated file: built by publish-ac-generator.mjs from a checked artifact and its receipt. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: 4a659f5bede8ed709a07c334132d359be59e61c3c1c94ab87eeafb9a7365993c
+Checks recorded in the build receipt:
+- AC generator model, scene, renderer, adapters and build helpers: 94/94 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/ac-generator/tests/generator-build.test.mjs playgrounds/ac-generator/tests/generator-capture-text.test.mjs playgrounds/ac-generator/tests/generator-headless-chrome.test.mjs playgrounds/ac-generator/tests/generator-invariance.test.mjs playgrounds/ac-generator/tests/generator-model.test.mjs playgrounds/ac-generator/tests/generator-parameter-grid.test.mjs playgrounds/ac-generator/tests/generator-receipt-ownership.test.mjs playgrounds/ac-generator/tests/generator-release-artifact.test.mjs playgrounds/ac-generator/tests/generator-release-digest.test.mjs playgrounds/ac-generator/tests/generator-release-payloads.test.mjs playgrounds/ac-generator/tests/generator-release-rollback.test.mjs playgrounds/ac-generator/tests/generator-renderer.test.mjs playgrounds/ac-generator/tests/generator-scene.test.mjs playgrounds/ac-generator/tests/generator-smoke.test.mjs playgrounds/ac-generator/tests/generator-supervision.test.mjs)
+- AC generator root publisher regressions: 8/8 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap tests/publish-ac-generator.test.mjs)
+- frozen shared playground non-browser contracts: 72/72 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs)
+- Mode invariance: passed, 5 scripts
+- Parameter grid: passed, 40 cases
+Limitations:
+- Máy phát một cuộn, một đôi cực trong từ trường đều B = 0,2 T; N = 100 vòng, diện tích mỗi vòng A = 0,01 m². Đây là tham số giảng dạy, không hiệu chuẩn máy thương mại.
+- Tốc độ và chiều quay được áp đặt. Đổi RPM hoặc đảo chiều là bước nhảy lý tưởng, giữ góc và từ thông liên tục nhưng điện áp có thể nhảy; không giải gia tốc hay quá trình cơ học.
+- Mạch hở với vôn kế lý tưởng: e = V(+) − V(−). Không mô phỏng dòng điện, tải, điện trở, tự cảm, mô-men cản, công suất, hiệu suất hay năng lượng. Dây đo ở ngoài vùng cảm ứng, bỏ qua cảm ứng ký sinh.
+- Φ = BA cosθ là từ thông mỗi vòng; λ = NΦ là từ thông móc vòng; e = NBAΩ sinθ. Biên độ không âm và không phải RMS. Hai vành trượt, không phải cổ góp chia đôi; không chỉnh lưu, DC, ba pha hay lưới 50 Hz.
+- Góc θ có hướng từ B tới pháp tuyến n theo quy tắc bàn tay phải của chiều quấn dương. B hướng +x; trục +z ra người xem; chiều dương ngược kim đồng hồ nhìn từ +z. Hình là sơ đồ, không theo tỷ lệ.
+- Mỗi lượt dài 8 giây mô phỏng, lấy mẫu theo lưới 1/60 giây và các biên đổi điều khiển, không theo số khung hình. Pause chỉ đông thời gian; 0 RPM là dừng cơ học, vẫn cho thời gian chạy, Φ giữ nguyên và e = 0.
