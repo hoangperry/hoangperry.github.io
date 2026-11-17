@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 // Independent integrity/routing gate for How Things Work playground articles. Node builtins only; it never imports
-// model code, never executes payloads and never writes. Run from the repository root:
+// model code and never writes. Payloads are parsed, not executed, except the open-differential model factory below.
+// Run from the repository root:
 //   node scripts/playgrounds/check-playgrounds.mjs --site _site [--baseurl /prefix]
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { Script } from 'node:vm';
+import vm, { Script } from 'node:vm';
 
-export const TOPICS = Object.freeze(['stepper-motor', 'barometric-altimeter', 'hard-disk-drive']);
+export const TOPICS = Object.freeze(['stepper-motor', 'barometric-altimeter', 'hard-disk-drive', 'open-differential']);
 export const FIXTURE_MARKER = '.htw-playground-test-fixture';
 const MANIFEST_KEYS = ['schemaVersion', 'topic', 'kind', 'sourceDigest', 'files'];
 const CONTROL_TAGS = 'button|input|select|textarea';
@@ -114,6 +115,131 @@ function checkLeaks(root, site) {
   walk(site);
 }
 
+// open-differential only. Reads the serialized model factory and data from the generated bundle layout, scans them,
+// then runs ONLY that factory in an empty vm context with a timeout for a short snapshot sanity probe: presets,
+// pause/step/frame/reset and finite closed-form identities. Not the 5940-case grid, not the runtime/renderer and not
+// a sandbox for untrusted code; it runs only bytes that already matched the manifest hash.
+export const DIFFERENTIAL = 'open-differential';
+const MODEL_FORBIDDEN = [[/\beval\s*\(/, 'eval('], [/\bnew\s+Function\b|(?<![\w$.])Function\s*\(/, 'Function'], [/\bimport\s*(?:\(|\.meta\b)|^\s*import\s/m, 'import'], [/\brequire\s*\(/, 'require('],
+  [/\b(?:requestAnimationFrame|cancelAnimationFrame|setTimeout|setInterval|setImmediate|requestIdleCallback)\b/, 'timers'], [/\bMath\.random\b/, 'Math.random'],
+  [/\bDate\b/, 'Date'], [/\bperformance\b/, 'performance'], [/\bdocument\b/, 'document'], [/\bwindow\b/, 'window'], [/\bglobalThis\b/, 'globalThis']];
+const SNAPSHOT_KEYS = ['time', 'running', 'controls', 'status', 'readout', 'announcement', 'challenges', 'scenario', 'phase', 'busy', 'elapsed', 'duration', 'progress', 'angles', 'angularSpeeds', 'rpm', 'path', 'tractionCapacity', 'commonTorqueLimit', 'axleTorqueLimit', 'effectiveGrip', 'boundary', 'completedExperiments', 'observedGripSides'];
+const ANGLE_KEYS = ['carrier', 'left', 'right', 'spiderOwn', 'leftRelative', 'rightRelative'];
+const PATH_KEYS = ['centerRadiusM', 'leftRadiusM', 'rightRadiusM', 'centerSpeedMps', 'yawRate', 'groundTravelLeftM', 'groundTravelRightM', 'centerDistanceM', 'treadTravelLeftM', 'treadTravelRightM'];
+const CONTROL_KEYS = ['scenario', 'carrier-rpm', 'turn-side', 'turn-radius', 'low-grip-side', 'low-grip-mu', 'reference-frame'];
+const CHALLENGE_KEYS = ['straight', 'corner', 'stuck', 'both-grip-sides'];
+
+// Stringified into the vm: must stay self-contained. Returns plain JSON text only.
+function differentialProbe(createModel, dataText) {
+  'use strict';
+  const data = JSON.parse(dataText);
+  const model = createModel(data);
+  const shots = [];
+  const take = (label) => {
+    const snap = model.snapshot(); let frozen = true; let finite = true; let signed = true;
+    const walk = (item) => {
+      if (typeof item === 'number') { finite = finite && Number.isFinite(item); signed = signed && !Object.is(item, -0); }
+      else if (item && typeof item === 'object') { frozen = frozen && Object.isFrozen(item); Object.values(item).forEach(walk); }
+    };
+    walk(snap); shots.push({ label, frozen, finite, signed, snap: JSON.stringify(snap) });
+  };
+  const duration = data.parameters.durationSeconds;
+  take('initial');
+  for (const preset of data.controls.presets) {
+    model.command({ key: 'preset', value: preset.key }); take(`${preset.key}:loaded`);
+    model.command({ key: 'run' }); model.advance(duration / 2); take(`${preset.key}:running`);
+    model.command({ key: 'pause' }); take(`${preset.key}:paused`);
+    model.advance(-1); model.advance(NaN); model.advance(1); model.command({ key: 'scenario', value: preset.values.scenario === 'stuck' ? 'straight' : 'stuck' });
+    take(`${preset.key}:paused-noop`);
+    model.command({ key: 'reference-frame', value: 'carrier' }); take(`${preset.key}:carrier-frame`);
+    model.command({ key: 'reference-frame', value: 'world' }); model.command({ key: 'step' }); take(`${preset.key}:stepped`);
+    model.command({ key: 'run' }); model.advance(duration); take(`${preset.key}:done`);
+  }
+  const stuck = data.controls.presets.find((preset) => preset.values.scenario === 'stuck');
+  model.command({ key: 'preset', value: stuck && stuck.key }); model.command({ key: 'low-grip-mu', value: 0 }); take('zero-grip');
+  model.reset(); take('reset');
+  return JSON.stringify({ api: Object.keys(model).sort().join(), frozenModel: Object.isFrozen(model), inputUnchanged: JSON.stringify(data) === dataText, shots });
+}
+
+function expectDifferential(snap, data, label, earned) {
+  const P = data.parameters; const c = snap.controls;
+  const fail = (what) => { throw new Error(`Differential snapshot identity failed (${label}): ${what}: ${DIFFERENTIAL}`); };
+  const near = (value, expected, what) => { if (typeof value !== 'number' || Math.abs(value - expected) > 1e-9 * Math.max(1, Math.abs(expected))) fail(`${what}=${value}, expected ${expected}`); };
+  if (!sameKeys(snap, SNAPSHOT_KEYS) || !sameKeys(c, CONTROL_KEYS) || !sameKeys(snap.angles, ANGLE_KEYS) || !sameKeys(snap.angularSpeeds, ANGLE_KEYS) || !sameKeys(snap.rpm, ANGLE_KEYS.slice(0, 4)) || !sameKeys(snap.path, PATH_KEYS)
+    || !sameKeys(snap.tractionCapacity, ['left', 'right']) || !sameKeys(snap.effectiveGrip, ['left', 'right']) || !sameKeys(snap.boundary, ['heldSide', 'imposedCarrier', 'label', 'zeroGripNote'])) fail('snapshot keys differ from the interface');
+  if (JSON.stringify(snap.challenges) !== JSON.stringify(CHALLENGE_KEYS.map((key) => ({ key, done: earned.has(key) })))) fail('challenges do not match completed experiments');
+  if (typeof snap.status !== 'string' || !snap.status || !Array.isArray(snap.readout) || !Array.isArray(snap.observedGripSides) || !Number.isInteger(snap.completedExperiments)) fail('shared fields malformed');
+  if (snap.duration !== P.durationSeconds || snap.time !== snap.elapsed || !(snap.elapsed >= 0 && snap.elapsed <= snap.duration) || snap.scenario !== c.scenario) fail('time/scenario malformed');
+  near(snap.progress, snap.elapsed / snap.duration, 'progress');
+  if (!['idle', 'running', 'paused', 'done'].includes(snap.phase) || snap.busy !== ['running', 'paused'].includes(snap.phase) || snap.running !== (snap.phase === 'running')) fail('phase/busy/running inconsistent');
+  const C = c['carrier-rpm']; const R = c['turn-radius']; const b = P.trackWidthM; const r = P.wheelRadiusM;
+  const s = c['turn-side'] === 'left' ? 1 : -1; const corner = c.scenario === 'corner'; const stuck = c.scenario === 'stuck';
+  const held = stuck ? (c['low-grip-side'] === 'left' ? 'right' : 'left') : null;
+  const rpm = { carrier: C, left: corner ? C * (1 - s * b / (2 * R)) : held === 'left' ? 0 : stuck ? 2 * C : C, right: corner ? C * (1 + s * b / (2 * R)) : held === 'right' ? 0 : stuck ? 2 * C : C };
+  rpm.spiderOwn = P.sideTeeth / P.spiderTeeth * (rpm.right - C);
+  for (const key of ANGLE_KEYS.slice(0, 4)) { near(snap.rpm[key], rpm[key], `rpm.${key}`); near(snap.angularSpeeds[key], rpm[key] * Math.PI / 30, `angularSpeeds.${key}`); }
+  near(snap.angularSpeeds.left + snap.angularSpeeds.right, 2 * snap.angularSpeeds.carrier, 'omegaL+omegaR vs 2*omegaC');
+  near(snap.angularSpeeds.leftRelative, snap.angularSpeeds.left - snap.angularSpeeds.carrier, 'angularSpeeds.leftRelative');
+  near(snap.angularSpeeds.rightRelative, snap.angularSpeeds.right - snap.angularSpeeds.carrier, 'angularSpeeds.rightRelative');
+  for (const key of ANGLE_KEYS) near(snap.angles[key], snap.angularSpeeds[key] * snap.elapsed, `angles.${key}`);
+  const v = stuck ? 0 : r * snap.angularSpeeds.carrier; const p = snap.path;
+  for (const [key, expected] of [['centerRadiusM', R], ['leftRadiusM', R - s * b / 2], ['rightRadiusM', R + s * b / 2]]) if (corner) near(p[key], expected, `path.${key}`); else if (p[key] !== null) fail(`path.${key} must be null outside corner`);
+  near(p.centerSpeedMps, v, 'path.centerSpeedMps'); near(p.yawRate, corner ? s * v / R : 0, 'path.yawRate'); near(p.centerDistanceM, v * snap.elapsed, 'path.centerDistanceM');
+  for (const side of ['Left', 'Right']) {
+    const angle = snap.angles[side.toLowerCase()];
+    near(p[`treadTravel${side}M`], r * angle, `path.treadTravel${side}M`); near(p[`groundTravel${side}M`], stuck ? 0 : r * angle, `path.groundTravel${side}M`);
+  }
+  for (const side of ['left', 'right']) {
+    near(snap.effectiveGrip[side], stuck && c['low-grip-side'] === side ? c['low-grip-mu'] : P.highGripMu, `effectiveGrip.${side}`);
+    near(snap.tractionCapacity[side], snap.effectiveGrip[side] * P.normalLoadN * r, `tractionCapacity.${side}`);
+  }
+  near(snap.commonTorqueLimit, Math.min(snap.tractionCapacity.left, snap.tractionCapacity.right), 'commonTorqueLimit');
+  near(snap.axleTorqueLimit, 2 * snap.commonTorqueLimit, 'axleTorqueLimit');
+  const B = snap.boundary;
+  if (B.heldSide !== held || B.imposedCarrier !== true || B.label !== data.text.boundary[c.scenario] || B.zeroGripNote !== (stuck && c['low-grip-mu'] === 0 ? data.text.zeroGripNote : '')) fail('boundary label/held side/zero-grip note differ from data');
+}
+
+export function checkDifferentialBundle(js) {
+  const fail = (what) => { throw new Error(`Differential bundle ${what}: ${DIFFERENTIAL}`); };
+  const model = /\nvar createModel = \((function createModel\(data\) \{[\s\S]*?\n\})\);\nvar mountRenderer = \(function mountRenderer\(/.exec(js);
+  const dataLine = /\n {2}data: (\{[^\n]*\}),\n {2}createModel: createModel,\n {2}mountRenderer: mountRenderer\n\}, document\);\n\}\)\(\);\n?$/.exec(js);
+  if (!model || !dataLine || js.split('var createModel = (').length !== 2 || js.split('\n  data: ').length !== 2) fail('layout differs from the generated playground bundle');
+  for (const [pattern, name] of MODEL_FORBIDDEN) if (pattern.test(model[1])) fail(`model factory must not use ${name}`);
+  if (/[<\u2028\u2029]/.test(dataLine[1])) fail('data escape: raw <, U+2028 or U+2029 in serialized data');
+  let data;
+  try { data = JSON.parse(dataLine[1]); } catch { fail('data is not JSON'); }
+  if (!record(data) || data.schemaVersion !== 1 || !record(data.parameters) || !record(data.controls) || !Array.isArray(data.controls.presets) || !data.controls.presets.length || !record(data.text) || !record(data.text.boundary)) fail('data shape differs from the model interface');
+  let probe;
+  try { probe = JSON.parse(vm.runInNewContext(`(${differentialProbe})(${model[1]}, ${JSON.stringify(dataLine[1])})`, Object.create(null), { timeout: 1000, filename: `${DIFFERENTIAL}/createModel` })); }
+  catch (error) { fail(`factory probe failed (missing definition, throw or timeout): ${error?.name}: ${error?.message}`); }
+  if (probe.api !== 'advance,command,reset,snapshot' || !probe.frozenModel || !probe.inputUnchanged) fail('factory must return frozen {snapshot, advance, command, reset} and leave data unchanged');
+  const P = data.parameters; const earned = new Set(); const sides = new Set(); const shots = new Map();
+  for (const shot of probe.shots) {
+    if (!shot.frozen || !shot.finite || !shot.signed) fail(`snapshot ${shot.label} must be deep-frozen, finite and without -0`);
+    const snap = JSON.parse(shot.snap); const [key, step] = shot.label.split(':'); const preset = data.controls.presets.find((item) => item.key === key);
+    if (step === 'done') {
+      earned.add(snap.scenario);
+      if (snap.scenario === 'stuck') sides.add(snap.controls['low-grip-side']);
+      if (sides.size === 2) earned.add('both-grip-sides');
+    }
+    if (key === 'reset') earned.clear();
+    expectDifferential(snap, data, shot.label, earned);
+    const half = Math.abs(snap.elapsed - P.durationSeconds / 2) <= 1e-9;
+    const ok = { loaded: snap.phase === 'idle' && snap.elapsed === 0 && CONTROL_KEYS.slice(0, 6).every((name) => snap.controls[name] === preset?.values?.[name]) && snap.controls['reference-frame'] === 'world',
+      running: snap.phase === 'running' && half, paused: snap.phase === 'paused' && half,
+      'paused-noop': shot.snap === shots.get(`${key}:paused`), stepped: snap.phase === 'paused' && Math.abs(snap.elapsed - P.durationSeconds / 2 - P.stepSeconds) <= 1e-9,
+      'carrier-frame': snap.controls['reference-frame'] === 'carrier' && JSON.stringify({ ...snap, controls: { ...snap.controls, 'reference-frame': 'world' } }) === shots.get(`${key}:paused`),
+      done: snap.phase === 'done' && snap.elapsed === P.durationSeconds && !snap.running,
+      initial: snap.phase === 'idle' && snap.elapsed === 0 && JSON.stringify(snap.controls) === JSON.stringify(data.defaults),
+      'zero-grip': snap.scenario === 'stuck' && snap.controls['low-grip-mu'] === 0 && snap.boundary.zeroGripNote !== '' && snap.commonTorqueLimit === 0,
+      reset: shot.snap === shots.get('initial') }[step ?? key];
+    if (!ok) fail(`probe step ${shot.label} broke pause/step/frame/preset/reset behaviour`);
+    shots.set(shot.label, shot.snap);
+  }
+  if (!CHALLENGE_KEYS.every((name) => JSON.parse(shots.get('zero-grip')).challenges.some((item) => item.key === name && item.done))) fail('presets did not complete every challenge');
+  return { presets: data.controls.presets.length, snapshots: probe.shots.length };
+}
+
 function checkSource(root, slug, attempt) {
   const base = assetBase(slug); const paths = payloadPaths(slug); const source = new Map();
   let files = 0;
@@ -150,6 +276,10 @@ function checkSource(root, slug, attempt) {
     const executable = js.replace(/^(?:\s|\/\*[\s\S]*?\*\/|\/\/[^\n]*(?:\n|$))*/, '');
     if (!/^;?\s*\(\s*(?:function\b|\([^)]*\)\s*=>)/.test(executable) || !/\}\s*\)\s*\(\s*\)\s*;?\s*$/.test(executable) || /\bimport\s*(?:\(|\.meta)|^\s*(?:import|export)\b/m.test(js) || /^\s*---(?:\r?\n|$)/.test(js)) throw new Error(`Not a classic IIFE bundle: ${slug}`);
     new Script(js, { filename: `${slug}/machine.js` }); // Parse only; never execute payload code.
+  });
+  if (slug === DIFFERENTIAL) attempt(() => {
+    const js = source.get(`${base}machine.js`)?.toString('utf8');
+    if (js !== undefined) checkDifferentialBundle(js);
   });
   attempt(() => {
     const css = source.get(`${base}machine.css`)?.toString('utf8');

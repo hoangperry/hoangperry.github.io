@@ -1,0 +1,191 @@
+---
+title: "Bộ vi sai giúp hai bánh xe quay khác tốc độ thế nào?"
+permalink: /how-things-work/open-differential/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Khi xe vào cua, bánh phía ngoài phải lăn một quãng dài hơn bánh phía trong. Bộ vi sai mở cho hai bán trục quay khác tốc độ, nhưng trung bình tốc độ của chúng luôn bằng tốc độ vỏ vi sai. Theo giả thiết lý tưởng, mô-men hai bên bằng nhau, nên bánh bám kém hơn đặt trần cho cả cầu."
+social-image: /assets/how-things-work/open-differential/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/open-differential/machine.css
+script-includes:
+  - /assets/how-things-work/open-differential/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="open-differential" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/open-differential-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: các nút tương tác không hoạt động. Bạn vẫn xem được hình tĩnh và đọc toàn bộ bài cùng nguồn.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="open-differential-scene" disabled><span class="htw-collapse-name">Sơ đồ bộ vi sai mở</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài bộ vi sai mở">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#vi-sai-quanh-ta">Vào cua, hai bánh cùng cầu phải lăn hai quãng khác nhau</a></li>
+            <li><a href="#vi-sai-vo">Vỏ vi sai nhận chuyển động sau bộ truyền cuối</a></li>
+            <li><a href="#vi-sai-banh-ban-truc">Hai bánh răng bán trục, mỗi cái nối một bánh xe</a></li>
+            <li><a href="#vi-sai-di-thang">Đi thẳng: cả cụm quay như một khối</a></li>
+            <li><a href="#vi-sai-vao-cua">Vào cua: một bánh nhanh lên, bánh kia chậm lại đúng bằng nhau</a></li>
+            <li><a href="#vi-sai-spider">Spider vừa đi quanh trục cầu, vừa tự quay quanh chốt</a></li>
+            <li><a href="#vi-sai-do-bam">Bàn thử giữ một trục: điều kiện biên, không phải vi sai tự khóa</a></li>
+            <li><a href="#vi-sai-mo-men">Mô-men bằng nhau, công suất thì không</a></li>
+            <li><a href="#vi-sai-gioi-han">Những gì mô hình không mô phỏng</a></li>
+            <li><a href="#vi-sai-tu-thu">Tự thử</a></li>
+            <li><a href="#vi-sai-nguon">Nguồn và giới hạn mô hình</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="vi-sai-quanh-ta" class="htw-step" data-machine-focus="all" aria-labelledby="vi-sai-quanh-ta-h">
+        <p class="htw-step-label">01 · Quanh ta</p>
+        <h2 id="vi-sai-quanh-ta-h" tabindex="-1">Vào cua, hai bánh cùng cầu phải lăn hai quãng khác nhau</h2>
+        <p>Khi xe ôm cua, bánh phía ngoài đi trên một cung tròn lớn hơn bánh phía trong. Nếu hai bánh được nối cứng vào một trục liền, chúng buộc phải quay cùng tốc độ, nên ít nhất một bánh phải trượt hoặc nảy trên mặt đường. Eaton mô tả đúng hệ quả ấy: không có vi sai, lốp phía ngoài sẽ nảy và trượt trong cua, làm mòn lốp và làm xe kém ổn định. <a href="#vi-sai-source-s3">[S3]</a> Bộ vi sai là cơ cấu cho phép hai bánh trên cùng một cầu chủ động quay khác tốc độ mà vẫn cùng được dẫn động. <a href="#vi-sai-source-s1">[S1]</a></p>
+        <p>Bài này chỉ nói về loại đơn giản nhất: vi sai mở đối xứng, bánh răng lý tưởng, không ma sát và không quán tính. Hình là một sơ đồ tách lớp, không theo tỷ lệ. Phía trên là cầu sau nhìn từ sau xe, với vỏ vi sai, hai bánh răng bán trục và một bánh răng hành tinh đại diện. Bên dưới là các mặt số cho bánh trái, vỏ vi sai và bánh phải, một mặt số riêng cho chuyển động tự quay của bánh răng hành tinh, rồi tới thước tốc độ và thanh trần bám.</p>
+        <p>Cuộn trang chỉ làm nổi bật phần đang được giải thích, không tự chạy mô hình. Khi mở bài, mô hình đang ở tình huống Vào cua, cua trái, vỏ vi sai quay 12 vòng/phút (RPM), bán kính tới trung điểm cầu sau 3 m, hình nhìn từ thân xe và mọi góc bằng 0.</p>
+      </section>
+
+      <section id="vi-sai-vo" class="htw-step" data-machine-focus="carrier" aria-labelledby="vi-sai-vo-h">
+        <p class="htw-step-label">02 · Vỏ vi sai</p>
+        <h2 id="vi-sai-vo-h" tabindex="-1">Vỏ vi sai nhận chuyển động sau bộ truyền cuối</h2>
+        <p>Trong xe thật, chuyển động từ hộp số tới bánh răng chủ động của bộ truyền cuối (final drive). Bánh răng này quay bánh răng vành, và bánh răng vành được bắt chặt vào vỏ vi sai, nên cả vỏ quay theo. <a href="#vi-sai-source-s2">[S2]</a> <a href="#vi-sai-source-s1">[S1]</a> Bên trong vỏ có một chốt ngang. Các bánh răng hành tinh, thường gọi là spider, lắp trên chốt ấy và bị vỏ mang đi vòng quanh trục cầu.</p>
+        <p>Mô hình bắt đầu thẳng từ vỏ vi sai. Tốc độ vỏ là đại lượng được áp đặt, đã là tốc độ sau bộ truyền cuối, chọn từ 6 đến 30 RPM. Không có động cơ, hộp số hay tỉ số bánh răng vành trong mô hình. Ở 12 RPM, vỏ quay với tốc độ góc <em>ω</em><sub>vỏ</sub> = 2π × 12 / 60 ≈ 1,26 rad/s. Với bánh xe bán kính 0,3 m, tâm cầu tiến khoảng 0,38 m/s. Tốc độ này được chọn chậm để mắt theo kịp từng vòng quay, không phải tốc độ đi đường.</p>
+      </section>
+
+      <section id="vi-sai-banh-ban-truc" class="htw-step" data-machine-focus="side-gears" aria-labelledby="vi-sai-banh-ban-truc-h">
+        <p class="htw-step-label">03 · Bánh răng bán trục</p>
+        <h2 id="vi-sai-banh-ban-truc-h" tabindex="-1">Hai bánh răng bán trục, mỗi cái nối một bánh xe</h2>
+        <p>Ở hai bên vỏ là hai bánh răng côn gọi là bánh răng bán trục (side gear). Mỗi bánh răng được nối bằng then hoa với bán trục dẫn ra một bánh xe. Cả hai cùng ăn khớp với các spider. <a href="#vi-sai-source-s1">[S1]</a> <a href="#vi-sai-source-s2">[S2]</a> Trong mô hình, hai bánh răng bán trục có cùng 24 răng và spider có 12 răng. Răng trong hình chỉ là ký hiệu, không phải biên dạng răng thật.</p>
+        <p>Để so sánh được tốc độ, mọi trục bánh dùng chung một quy ước: các mặt số đều nhìn từ bên phải xe, và chiều kim đồng hồ là chiều lăn tiến. Vì vậy, khi xe tiến, cả hai bánh đều có tốc độ dương. Hai đầu trục nhìn từ hai phía đối diện trông như quay ngược nhau, nhưng đó chỉ là góc nhìn, không phải hai chiều quay khác nhau.</p>
+        <p>Mỗi bánh răng bán trục có hai cách đo. So với thân xe, nó quay cùng bánh xe của nó. So với vỏ vi sai, nó chỉ quay phần chênh lệch giữa tốc độ bánh và tốc độ vỏ. Ô số “Bánh răng bán trục so với vỏ (trái / phải)” trong hình ghi đúng phần chênh lệch này.</p>
+      </section>
+
+      <section id="vi-sai-di-thang" class="htw-step" data-machine-focus="straight" aria-labelledby="vi-sai-di-thang-h">
+        <p class="htw-step-label">04 · Đi thẳng</p>
+        <h2 id="vi-sai-di-thang-h" tabindex="-1">Đi thẳng: cả cụm quay như một khối</h2>
+        <p>Khi xe đi thẳng và hai bánh lăn không trượt trên hai vệt song song, chúng quay cùng tốc độ với vỏ: <em>ω</em><sub>trái</sub> = <em>ω</em><sub>phải</sub> = <em>ω</em><sub>vỏ</sub>. Spider không tự quay quanh chốt của nó, nhưng vẫn được vỏ mang đi vòng quanh trục cầu. Hai bánh răng bán trục vì thế bị kéo theo cùng tốc độ. <a href="#vi-sai-source-s1">[S1]</a></p>
+        <p>Tài liệu đào tạo của Toyota viết rằng khi đi thẳng, các bánh răng hành tinh “không quay”. <a href="#vi-sai-source-s2">[S2]</a> Câu đó nên hiểu là chúng không tự quay quanh chốt khi nhìn từ vỏ vi sai. Nhìn từ thân xe, chúng vẫn đi theo vỏ một vòng trọn mỗi khi vỏ quay một vòng.</p>
+        <p>Ở 12 RPM, sau 8 s mô phỏng, vỏ và hai bánh cùng quay 1,6 vòng (3,2π rad). Mỗi bánh lăn khoảng 3,02 m trên mặt đường, và ô “Bánh răng hành tinh tự quay quanh chốt” ghi 0 RPM.</p>
+      </section>
+
+      <section id="vi-sai-vao-cua" class="htw-step" data-machine-focus="corner" aria-labelledby="vi-sai-vao-cua-h">
+        <p class="htw-step-label">05 · Vào cua</p>
+        <h2 id="vi-sai-vao-cua-h" tabindex="-1">Vào cua: một bánh nhanh lên, bánh kia chậm lại đúng bằng nhau</h2>
+        <p>Trong cua, hai bánh cầu sau lăn không trượt trên hai đường tròn đồng tâm. Gọi <em>R</em> là bán kính tới trung điểm cầu sau và <em>b</em> = 1,5 m là khoảng cách giữa hai vệt bánh. Bánh phía trong đi trên vòng bán kính <em>R</em> − <em>b</em>/2, bánh phía ngoài đi trên vòng <em>R</em> + <em>b</em>/2. Cả hai quay quanh cùng một tâm trong cùng thời gian, nên tốc độ mỗi bánh tỉ lệ với bán kính vệt của nó. Đây là phép suy luận hình học của bài, không phải mô hình lái của cả xe.</p>
+        <p>Ví dụ mặc định là cua trái, <em>R</em> = 3 m, vỏ quay 12 RPM. Bánh trái ở phía trong đi trên vòng 2,25 m và quay 9 RPM. Bánh phải ở phía ngoài đi trên vòng 3,75 m và quay 15 RPM. So với vỏ, bánh trái chậm hơn 3 RPM và bánh phải nhanh hơn 3 RPM. Phần một bên mất đi đúng bằng phần bên kia có thêm, nên 9 + 15 = 2 × 12. Cua phải chỉ đổi vai trò hai bánh: trái 15 RPM, phải 9 RPM.</p>
+        <p>Quan hệ ấy là phương trình Willis của vi sai mở, được S1 viết lại thành <em>ω</em><sub>vỏ</sub> = (<em>ω</em><sub>trái</sub> + <em>ω</em><sub>phải</sub>) / 2. <a href="#vi-sai-source-s1">[S1]</a> Mô hình dùng dạng <em>ω</em><sub>trái</sub> + <em>ω</em><sub>phải</sub> = 2<em>ω</em><sub>vỏ</sub>, vì dạng phân số ban đầu của Willis thành 0/0 khi đi thẳng. Sau 8 s, vỏ quay 3,2π rad, bánh trái 2,4π rad và bánh phải 4π rad. Trên mặt đường, bánh trái lăn khoảng 2,26 m và bánh phải khoảng 3,77 m, cùng tỉ lệ 9 : 15.</p>
+        <p>Bán kính trong mô hình đi từ 2 đến 10 m, luôn lớn hơn <em>b</em>/2, nên bánh phía trong không bao giờ phải quay lùi. Mô hình không có bánh trước, hệ lái Ackermann hay lực bên của lốp, và chưa trừ phần bám ngang mà lốp cần để giữ xe trong cua.</p>
+      </section>
+
+      <section id="vi-sai-spider" class="htw-step" data-machine-focus="spider" aria-labelledby="vi-sai-spider-h">
+        <p class="htw-step-label">06 · Spider</p>
+        <h2 id="vi-sai-spider-h" tabindex="-1">Spider vừa đi quanh trục cầu, vừa tự quay quanh chốt</h2>
+        <p>Spider có hai chuyển động khác nhau và dễ bị nhầm thành một. Thứ nhất, nó đi vòng quanh trục cầu cùng vỏ, luôn ở tốc độ của vỏ so với thân xe. Thứ hai, nó tự quay quanh chốt của chính nó, nhưng chỉ khi hai bánh răng bán trục quay khác nhau. <a href="#vi-sai-source-s1">[S1]</a> <a href="#vi-sai-source-s2">[S2]</a> Hình ghi hai chuyển động này ở hai ô riêng: “Bánh răng hành tinh đi theo vỏ quanh trục cầu” và “Bánh răng hành tinh tự quay quanh chốt”.</p>
+        <p>Nhìn từ vỏ, hai bánh răng bán trục quay ngược chiều nhau với cùng độ lớn. Spider 12 răng ăn khớp với bánh 24 răng, nên tốc độ tự quay của nó gấp 24/12 = 2 lần tốc độ tương đối ấy. Trong cua trái mặc định, độ chênh là 3 RPM nên spider tự quay 6 RPM. Theo quy ước dấu của hình, giá trị này là +6 RPM khi cua trái và −6 RPM khi cua phải. Sau 8 s cua trái, spider đã tự quay 1,6π rad.</p>
+        <p>Hình chỉ vẽ một spider đại diện ở phía trên vỏ. Chiều dương của trục tự quay đi từ tâm spider vào tâm vỏ, và mặt số riêng nhìn dọc chiều ấy từ ngoài vào. Spider đối diện được lược bỏ; trong cơ cấu thật nó tự quay ngược chiều trong cùng chốt. Đây là sơ đồ nguyên lý, không phải bản vẽ ăn khớp chính xác của răng côn.</p>
+        <p>Nút “Đứng trên vỏ vi sai” của Hệ quy chiếu hiển thị trừ góc của vỏ khi vẽ, để bạn nhìn chuyển động như người đứng trên vỏ. Trong cua, hai bánh răng bán trục khi ấy quay ngược nhau và spider chỉ còn chuyển động tự quay. Đổi cách nhìn không đổi thời gian, góc, quỹ đạo hay thành tích; tốc độ tự quay của spider vẫn là cùng một con số.</p>
+      </section>
+
+      <section id="vi-sai-do-bam" class="htw-step" data-machine-focus="grip" aria-labelledby="vi-sai-do-bam-h">
+        <p class="htw-step-label">07 · Độ bám và bàn thử</p>
+        <h2 id="vi-sai-do-bam-h" tabindex="-1">Bàn thử giữ một trục: điều kiện biên, không phải vi sai tự khóa</h2>
+        <p>Đi thẳng và vào cua là hai trường hợp mà mặt đường quyết định tỉ lệ tốc độ: hai bánh lăn không trượt trên vệt đã biết. Khi một bánh mất bám, riêng phương trình động học không đủ để biết mỗi bánh quay bao nhanh. Muốn biết điều đó cần khối lượng, quán tính, lốp và động cơ, những thứ mô hình này không có. Vì vậy tình huống thứ ba được dựng thành một bàn thử với điều kiện biên rõ ràng, không phải một chiếc xe đang chạy.</p>
+        <p>Trên bàn thử, xe đứng yên. Vỏ vẫn bị áp tốc độ như trước. Một kẹp bên ngoài giữ trục của bánh bám đứng yên, <em>ω</em> = 0. Từ <em>ω</em><sub>trái</sub> + <em>ω</em><sub>phải</sub> = 2<em>ω</em><sub>vỏ</sub>, trục còn lại phải quay gấp đôi vỏ: ở 12 RPM, bánh ít bám quay 24 RPM. Tốc độ gấp đôi ấy đến từ vỏ được áp tốc độ cộng với kẹp giữ bên ngoài. Vi sai không khóa bánh bám, và hệ số bám không quyết định tốc độ của bánh nào.</p>
+        <p>Thanh trượt hệ số bám µ của bánh ít bám chỉ đổi trần mô-men, không đổi tốc độ. Bánh bám luôn có µ = 0,8. Trong lúc thí nghiệm chạy, ô “Quãng đường trên mặt đất (trái / phải)” luôn ghi 0 m ở cả hai bánh, vì xe không đi đâu cả. Ô “Mặt lốp đi qua do tự quay rθ (trái / phải)” thì vẫn tăng ở bánh ít bám: sau 8 s, bánh quay 6,4π rad và mặt lốp đi qua khoảng 6,03 m dưới điểm tiếp xúc. Đó là quãng mặt lốp trượt qua, không phải quãng xe chạy.</p>
+        <p>Spider trên bàn thử tự quay rất nhanh, vì một bánh răng bán trục đứng yên còn vỏ thì quay. Khi bánh trái ít bám, sau 8 s góc tự quay của spider là −6,4π rad; khi bánh phải ít bám, góc này là +6,4π rad. Khi chọn bàn thử, chính hình hiển thị một câu ngay cạnh trục bị giữ, nói rằng trục ấy bị điều kiện thí nghiệm bên ngoài giữ đứng yên và vi sai không khóa bánh này. Đoạn văn này chỉ giải thích câu ấy, không thay thế nó.</p>
+      </section>
+
+      <section id="vi-sai-mo-men" class="htw-step" data-machine-focus="torque" aria-labelledby="vi-sai-mo-men-h">
+        <p class="htw-step-label">08 · Mô-men</p>
+        <h2 id="vi-sai-mo-men-h" tabindex="-1">Mô-men bằng nhau, công suất thì không</h2>
+        <p>Từ cân bằng lực và mô-men trên spider và bánh răng bán trục, S1 rút ra rằng mỗi bán trục nhận một nửa mô-men đặt vào bánh răng vành. <a href="#vi-sai-source-s1">[S1]</a> Kết luận này chỉ đúng với bánh răng đối xứng, không mất mát, không khối lượng và ở trạng thái cân bằng. Vi sai thật có ma sát và quán tính, nên trong lúc tăng tốc hay va đập, mô-men hai bên có thể lệch khỏi tỉ lệ một nửa.</p>
+        <p>Vì mô-men hai bên bằng nhau, bánh bám kém hơn đặt trần cho cả hai. S1 mô tả đúng tình huống này: khi một bánh trên mặt trơn đạt giới hạn bám, bánh trên mặt khô cũng chỉ nhận được mô-men thấp như vậy. <a href="#vi-sai-source-s1">[S1]</a> Mô hình tính trần bám dọc của mỗi bánh là <em>C</em> = <em>µ</em> · <em>N</em> · <em>r</em>, với lực ép <em>N</em> = 3000 N lên mỗi bánh và bán kính <em>r</em> = 0,3 m. Trần chung mỗi phía là min(<em>C</em><sub>trái</sub>, <em>C</em><sub>phải</sub>), còn trần cả cầu gấp đôi số đó.</p>
+        <p>Với µ = 0,8, trần của một bánh là 720 Nm. Ở bàn thử mặc định, bánh ít bám có µ = 0,06, nên trần của nó là 54 Nm. Trần chung mỗi phía là 54 Nm và trần cả cầu là 108 Nm, dù bánh kia có thể chịu tới 720 Nm. Các con số này là giới hạn trên. Chúng không phải mô-men thực tức thời, không phải lực đẩy của động cơ, và không cho biết một chiếc xe tự do sẽ chạy được hay không. Điều đó còn phụ thuộc khối lượng xe, dốc, lực cản và các bánh dẫn động khác.</p>
+        <p>Công suất trên một trục là <em>P</em> = <em>T</em> · <em>ω</em>. Mô-men bằng nhau không có nghĩa công suất bằng nhau. Nếu mỗi bán trục chịu cùng mô-men <em>T</em> trên bàn thử, trục bị giữ có <em>ω</em> = 0 nên không nhận công suất; trục ít bám quay 2<em>ω</em><sub>vỏ</sub> nên nhận <em>T</em> · 2<em>ω</em><sub>vỏ</sub>, đúng bằng công suất 2<em>T</em> · <em>ω</em><sub>vỏ</sub> vào vỏ khi không có mất mát. Tài liệu Toyota nói vi sai mở đưa công suất sang bánh đang trượt. <a href="#vi-sai-source-s2">[S2]</a> Câu ấy nói về công suất. Nó không có nghĩa toàn bộ mô-men chuyển sang bánh quay nhanh: trong tình huống bánh ít bám này, hai phía của vi sai mở lý tưởng vẫn có mô-men bằng nhau và cùng bị trần thấp giới hạn.</p>
+        <p>Khi µ của bánh ít bám bằng 0, trần bằng 0 Nm nhưng bàn thử vẫn áp tốc độ vào vỏ, nên ở 12 RPM bánh ấy vẫn quay 24 RPM trong hình. Mô hình không có khối lượng và bỏ qua giai đoạn khởi động, nên không thể suy ra công suất hay năng lượng nào từ tình huống này. Hình hiển thị riêng một ghi chú về điều đó khi µ = 0.</p>
+      </section>
+
+      <section id="vi-sai-gioi-han" class="htw-step" data-machine-focus="limits" aria-labelledby="vi-sai-gioi-han-h">
+        <p class="htw-step-label">09 · Giới hạn</p>
+        <h2 id="vi-sai-gioi-han-h" tabindex="-1">Những gì mô hình không mô phỏng</h2>
+        <p>Đây là mô hình động học: tốc độ vỏ được áp đặt và các tốc độ khác suy ra từ hình học. Nó không giải động lực học của xe, lốp hay động cơ, nên không dự đoán gia tốc, độ trượt của lốp hay việc xe có thoát khỏi chỗ trơn. Muốn có các dự đoán ấy cần một mô hình động lực học với tham số được công bố rõ.</p>
+        <p>Mô hình không có vi sai chống trượt (LSD), khóa vi sai, vi sai điều khiển điện tử hay hệ điều khiển bằng phanh. S1 nghiên cứu LSD và S2 có mô tả LSD khớp nhớt; bài chỉ dùng phần nói về vi sai mở. <a href="#vi-sai-source-s1">[S1]</a> <a href="#vi-sai-source-s2">[S2]</a> Thông số bánh xe 0,3 m, vết bánh 1,5 m, lực ép 3000 N, µ = 0,8 cho bánh bám và µ = 0–0,2 cho bánh ít bám là số giảng dạy, không lấy từ một xe hay một loại lốp đã đo.</p>
+        <p>Mỗi thí nghiệm dài 8 s mô phỏng và chạy theo tỉ lệ 1×. Các ô số ghi theo thời gian mô phỏng. Đổi giao diện sáng/tối, chế độ đọc, chế độ giảm chuyển động hay hệ quy chiếu hiển thị không làm đổi kết quả.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="vi-sai-tu-thu" class="htw-try" aria-labelledby="vi-sai-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="vi-sai-tu-thu-h" tabindex="-1">Cho vỏ vi sai quay và xem hai bánh chia tốc độ</h2>
+      <p>Mở chế độ tự thử sẽ đưa chính hình đang đọc xuống cạnh bảng điều khiển và giữ nguyên trạng thái, không tạo thêm một bộ vi sai khác. Mô hình không tự chạy khi mở bài, cuộn trang hay đổi chế độ. Bạn đặt được những đại lượng sau:</p>
+      <ul>
+        <li><strong>Tình huống:</strong> Đi thẳng, Vào cua hoặc Bàn thử: một trục bị giữ.</li>
+        <li><strong>Tốc độ vỏ vi sai áp đặt (cả ba tình huống):</strong> từ 6 đến 30 RPM, mỗi nấc 6 RPM.</li>
+        <li><strong>Hướng cua (chỉ tác động khi chọn Vào cua)</strong> và <strong>Bán kính tới trung điểm cầu sau (chỉ tác động khi chọn Vào cua):</strong> Cua trái hoặc Cua phải, bán kính từ 2 đến 10 m, mỗi nấc 1 m.</li>
+        <li><strong>Bánh ít bám (chỉ tác động ở bàn thử; bánh còn lại bị giữ đứng yên)</strong> và <strong>Hệ số bám của bánh ít bám (chỉ tác động ở bàn thử; chỉ đổi trần mô-men, không đổi tốc độ):</strong> Bánh trái hoặc Bánh phải, µ từ 0 đến 0,2, mỗi nấc 0,02.</li>
+        <li><strong>Hệ quy chiếu hiển thị (chỉ là cách nhìn, đổi được cả khi đang chạy):</strong> Nhìn từ thân xe hoặc Đứng trên vỏ vi sai.</li>
+      </ul>
+      <p>Khi mô hình đang sẵn sàng hoặc vừa xong, bấm Chạy sẽ mở một thí nghiệm mới và độc lập: thời gian về 0, mọi góc về 0, rồi chạy trọn 8 s mô phỏng với cấu hình đang chọn. Trong lúc thí nghiệm chưa xong, kể cả khi đang dừng giữa chừng, sáu điều khiển vật lý bị khóa; chỉ Hệ quy chiếu hiển thị còn đổi được. Nút Dừng giữ nguyên trạng thái, và bấm Chạy khi đang dừng sẽ tiếp tục chính thí nghiệm ấy. Khi đang dừng giữa chừng, mỗi lần bấm Từng bước tiến đúng 0,1 s mô phỏng; lúc sẵn sàng, lúc đang chạy hay lúc đã xong, Từng bước không làm gì. Rời tab hay quay lại bài đọc sẽ dừng mô hình và giữ nguyên trạng thái, không cộng bù thời gian. Có thể dùng phím Tab để tới nút hoặc thanh trượt, Enter hay phím cách để bấm nút, phím mũi tên để đổi giá trị.</p>
+      <p>Khi chọn Bàn thử: một trục bị giữ, hình hiển thị ngay cạnh trục bị giữ một câu nói rằng trục ấy bị điều kiện thí nghiệm bên ngoài giữ đứng yên, vi sai không khóa bánh này, và trần mô-men bị bánh ít bám giới hạn. Khi đặt µ của bánh ít bám bằng 0, hình thêm một ghi chú rằng tốc độ là động học được áp đặt, không có khối lượng, bỏ qua khởi động, trần mô-men là 0 Nm và không suy ra được công suất hay năng lượng. Hai câu này do chính hình hiển thị theo trạng thái mô hình; hãy đọc chúng trong hình khi thử.</p>
+      <ol class="htw-try-list">
+        <li><strong>Theo dõi một lần vào cua.</strong> Bấm Đặt lại rồi bấm Chạy. Bánh trái quay 9 RPM, bánh phải 15 RPM, còn điểm “vỏ” trên thước tốc độ luôn nằm giữa hai bánh. Bấm Dừng, chuyển Hệ quy chiếu hiển thị sang Đứng trên vỏ vi sai rồi bấm Từng bước vài lần: hai bánh răng bán trục quay ngược nhau, spider tự quay, còn các ô số không đổi theo cách nhìn.</li>
+        <li id="vi-sai-thu-di-thang"><strong>Thử thách 1: đi thẳng.</strong> Chọn cấu hình mẫu “Đi thẳng 12 RPM” rồi bấm Chạy và để thí nghiệm chạy hết 8 s. Hai trục cùng 12 RPM như vỏ, và ô spider tự quay ghi 0 RPM dù spider vẫn đi vòng theo vỏ.</li>
+        <li id="vi-sai-thu-vao-cua"><strong>Thử thách 2: vào cua.</strong> Chạy trọn 8 s một thí nghiệm Vào cua. So “Cua trái, bán kính 3 m” với “Cua phải, bán kính 3 m”: hai bánh đổi vai trò và spider đổi dấu từ +6 sang −6 RPM. Thử bán kính 2 m ở 12 RPM: hai bánh quay 7,5 và 16,5 RPM, tổng vẫn bằng 24.</li>
+        <li id="vi-sai-thu-ban-thu"><strong>Thử thách 3: bàn thử một trục bị giữ.</strong> Chọn “Bàn thử: bánh trái ít bám, trục phải bị giữ” và chạy trọn 8 s. Trục phải đứng yên, trục trái quay 24 RPM, quãng đường trên mặt đất bằng 0. Khi đã xong, kéo hệ số bám của bánh ít bám về 0 rồi chạy lại: trần mô-men về 0 Nm nhưng tốc độ không đổi.</li>
+        <li id="vi-sai-thu-hai-phia"><strong>Thử thách 4: cả hai phía.</strong> Hoàn tất thêm một lượt với “Bàn thử: bánh phải ít bám, trục trái bị giữ”. Thử thách chỉ được ghi nhận khi đã có một lượt trọn 8 s với bánh trái ít bám và một lượt trọn 8 s với bánh phải ít bám.</li>
+      </ol>
+      <p>Năm cấu hình mẫu “Đi thẳng 12 RPM”, “Cua trái, bán kính 3 m”, “Cua phải, bán kính 3 m”, “Bàn thử: bánh trái ít bám, trục phải bị giữ” và “Bàn thử: bánh phải ít bám, trục trái bị giữ” chỉ đặt sẵn thông số. Chọn một cấu hình mẫu sẽ bỏ thí nghiệm đang dở, đưa thời gian về 0 và để mô hình chờ; nó không tự chạy và không tự tặng thành tích. Mỗi thử thách chỉ được ghi nhận khi một thí nghiệm thật chạy tới hết 8 s. Chọn cấu hình mẫu giữ các thử thách đã xong và giữ hệ quy chiếu đang chọn. Chỉ nút Đặt lại mới trở về cấu hình mặc định, nhìn từ thân xe, và xóa mọi thành tích.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên chế độ tự thử không mở được.</p></noscript>
+      <p class="htw-try-fallback">Tự thử cần JavaScript. Nếu các nút vẫn khóa hoặc có lỗi, hình tĩnh và bài giải thích vẫn đọc được.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="open-differential-scene open-differential-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="open-differential-scene" disabled>Quay lại bài đọc</button></p>
+        {% include how-things-work/open-differential-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="vi-sai-nguon" class="htw-sources" aria-labelledby="vi-sai-nguon-h">
+  <h2 id="vi-sai-nguon-h" tabindex="-1">Nguồn và giới hạn mô hình</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="vi-sai-source-s1"><a href="https://lup.lub.lu.se/student-papers/record/9237583/file/9242934.pdf" target="_blank" rel="noopener noreferrer">[S1] Mohamad Bara và Yaman Zatar, Development of an Engagement Mechanism for a Dual Functional Clutch Pack for Limited Slip Differential</a>, luận văn thạc sĩ, Khoa Kỹ thuật LTH, Đại học Lund, 2026, thực hiện cùng BorgWarner Sweden AB. Chương 3, mục 3.1, trang in 16–19 (trang PDF 17–20): các bộ phận của vi sai mở; spider đi theo vỏ và chỉ tự quay khi hai bánh khác tốc độ; phương trình Willis 3.1, dạng trung bình 3.2 và mô-men bằng nhau 3.3 ở trang in 17–18; bánh trên mặt trơn giới hạn mô-men của bánh bám ở trang in 18–19. Bài không dùng phần LSD, ly hợp hay số liệu của BorgWarner.</li>
+        <li id="vi-sai-source-s2"><a href="https://www.hungrypoint.com/misc/Scion%20Manuals/Technical%20Training/t302ch4m.pdf" target="_blank" rel="noopener noreferrer">[S2] Toyota Technical Training, Course 302 Manual Transmissions &amp; Transaxles, Section 4: Manual Transaxles</a>, bản lưu của tài liệu đào tạo gốc trên trang hungrypoint.com, không phải tải trực tiếp từ Toyota. Trang PDF 3: bánh răng chủ động quay bánh răng vành gắn trên vỏ vi sai; bánh răng vành, bánh răng bán trục, chốt và bánh răng hành tinh; bánh răng hành tinh không quay khi đi thẳng và bắt đầu quay khi vào cua. Trang PDF 4: câu về công suất đi tới bánh trượt và LSD khớp nhớt, chỉ dùng để phân định phạm vi.</li>
+        <li id="vi-sai-source-s3"><a href="https://www.eaton.com/us/en-us/products/differentials-traction-control.html" target="_blank" rel="noopener noreferrer">[S3] Eaton, Eaton differentials and traction control solutions</a>, trang giới thiệu sản phẩm: vì sao xe cần vi sai khi vào cua và cách phân loại vi sai mở, chống trượt và khóa. Chỉ dùng làm bối cảnh, không dùng làm công thức, thông số hay con số về phân chia công suất.</li>
+      </ul>
+      <p>Hồ sơ nguồn của dự án được truy xuất và đối chiếu ngày 17/11/2026. Hình là sơ đồ tổng hợp tự tạo, không đúng tỷ lệ và không sao chép bản vẽ của một mẫu thương mại.</p>
+    </div>
+    <div>
+      <h3>Phép tính trong mô hình</h3>
+      <p>Tốc độ vỏ <em>ω</em><sub>vỏ</sub> = 2π · RPM / 60 được áp đặt. Đi thẳng: hai bánh bằng vỏ. Vào cua với <em>s</em> = +1 cho cua trái và −1 cho cua phải: <em>ω</em><sub>trái</sub> = <em>ω</em><sub>vỏ</sub>(1 − <em>s</em><em>b</em>/(2<em>R</em>)) và <em>ω</em><sub>phải</sub> = <em>ω</em><sub>vỏ</sub>(1 + <em>s</em><em>b</em>/(2<em>R</em>)). Bàn thử: trục bánh bám bị giữ bằng 0, trục bánh ít bám bằng 2<em>ω</em><sub>vỏ</sub>. Trong cả ba trường hợp, <em>ω</em><sub>trái</sub> + <em>ω</em><sub>phải</sub> = 2<em>ω</em><sub>vỏ</sub>.</p>
+      <p>Góc của mỗi trục bằng tốc độ nhân thời gian mô phỏng, tính từ 0 ở đầu mỗi thí nghiệm. Góc tự quay của spider bằng (24/12) · (<em>θ</em><sub>phải</sub> − <em>θ</em><sub>vỏ</sub>). Trần bám mỗi bánh là <em>µ</em> · <em>N</em> · <em>r</em>; trần chung mỗi phía là số nhỏ hơn trong hai trần; trần cả cầu gấp đôi trần chung. Mô hình không có đại lượng mô-men thực hay công suất thực.</p>
+      <p>Ví dụ mặc định ở 12 RPM: cua trái bán kính 3 m cho 9 và 15 RPM, spider +6 RPM; bàn thử với µ = 0,06 cho trần 54 Nm mỗi phía và 108 Nm cả cầu, so với 720 Nm của bánh bám.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Những gì hình không chứng minh</h3>
+      <ul>
+        <li>Đây là vi sai mở đối xứng lý tưởng, không ma sát và không quán tính. Không có LSD, khóa vi sai, vi sai điều khiển điện tử hay điều khiển bằng phanh.</li>
+        <li>Vào cua chỉ xét hai bánh cầu sau lăn không trượt trên hai cung đồng tâm. Không có hệ lái, bánh trước, lực bên hay giới hạn bám ngang của lốp.</li>
+        <li>Trên bàn thử, trục bánh bám bị kẹp từ bên ngoài. Vi sai không khóa bánh ấy, và hệ số bám không quyết định tốc độ. Quãng đường trên mặt đất của cả hai bánh bằng 0; rθ chỉ là quãng mặt lốp đi qua.</li>
+        <li>Thanh Nm là trần bám dọc, không phải mô-men thực tức thời, lực đẩy của động cơ hay công suất. Mô hình không dự đoán xe tự do sẽ chạy hay đứng yên.</li>
+        <li>Khi µ = 0, tốc độ vẫn được áp đặt; mô hình bỏ qua khởi động và quán tính nên không suy ra công suất hay năng lượng.</li>
+        <li>Bán kính bánh, vết bánh, lực ép và hệ số bám là số giảng dạy, không hiệu chuẩn theo một xe hay một loại lốp. Hình chỉ vẽ một spider đại diện, răng không phải biên dạng thật.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
