@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Independent integrity/routing gate for How Things Work playground articles. Node builtins only; it never imports
-// model code and never writes. Payloads are parsed, not executed, except the open-differential model factory below.
+// model code. Payloads are parsed, not executed, except the differential and AC-generator repository factories below.
 // Run from the repository root:
 //   node scripts/playgrounds/check-playgrounds.mjs --site _site [--baseurl /prefix]
 import fs from 'node:fs';
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import vm, { Script } from 'node:vm';
 
-export const TOPICS = Object.freeze(['stepper-motor', 'barometric-altimeter', 'hard-disk-drive', 'open-differential']);
+export const TOPICS = Object.freeze(['stepper-motor', 'barometric-altimeter', 'hard-disk-drive', 'open-differential', 'ac-generator']);
 export const FIXTURE_MARKER = '.htw-playground-test-fixture';
 const MANIFEST_KEYS = ['schemaVersion', 'topic', 'kind', 'sourceDigest', 'files'];
 const CONTROL_TAGS = 'button|input|select|textarea';
@@ -240,6 +240,135 @@ export function checkDifferentialBundle(js) {
   return { presets: data.controls.presets.length, snapshots: probe.shots.length };
 }
 
+export const GENERATOR = 'ac-generator';
+// Same trust boundary as the differential probe: parse the complete runtime, then execute only the extracted
+// repository factory after payload integrity validation. A VM timeout is not an untrusted-code sandbox.
+// Self-contained because this function is serialized into the empty VM; no runtime or renderer is executed.
+function generatorProbe(createModel, dataText) {
+  'use strict';
+  const data = JSON.parse(dataText); const P = data.parameters; const model = createModel(data);
+  const keys = ['speed', 'reverse', 'stopped']; const earned = new Set(); let count = 0; let snapshots = 0;
+  const fail = (what) => { throw new Error(what); };
+  const near = (actual, expected, label) => { if (typeof actual !== 'number' || !Number.isFinite(actual) || Math.abs(actual - expected) > 1e-9 * (1 + Math.abs(expected))) fail(`identity ${label}`); };
+  const shape = (value, names) => value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).sort().join() === [...names].sort().join();
+  const freezeCheck = (value) => {
+    if (typeof value === 'number' && (!Number.isFinite(value) || Object.is(value, -0))) fail('snapshot must be finite and without -0');
+    if (value && typeof value === 'object') { if (!Object.isFrozen(value)) fail('snapshot must be deep-frozen'); Object.values(value).forEach(freezeCheck); }
+  };
+  if (Object.keys(model).sort().join() !== 'advance,command,reset,snapshot' || !['advance', 'command', 'reset', 'snapshot'].every((key) => typeof model[key] === 'function')) fail('factory API must be {snapshot, advance, command, reset}');
+  const original = JSON.stringify(data); const held = [];
+  const omega = (c) => c.direction * c['shaft-rpm'] * Math.PI / 30;
+  const point = (time, segment) => {
+    const angleRad = segment.angleRad + segment.angularSpeedRadPerSec * (time - segment.at);
+    return { time, angleRad, fluxWb: P.fieldTesla * P.areaM2 * Math.cos(angleRad), emfV: P.turns * P.fieldTesla * P.areaM2 * segment.angularSpeedRadPerSec * Math.sin(angleRad) };
+  };
+  function take(label, expected = {}) {
+    snapshots++; const s = model.snapshot(); freezeCheck(s);
+    if (!shape(s, ['time', 'controls', 'running', 'status', 'announcement', 'readout', 'challenges', 'phase', 'busy', 'elapsed', 'duration', 'progress', 'completedExperiments', 'angleRad', 'angularSpeedRadPerSec', 'shaftStopped', 'fluxWb', 'fluxLinkageWbTurn', 'emfV', 'peakEmfV', 'frequencyHz', 'periodSeconds', 'segments', 'samples', 'conditionSeconds', 'boundary'])) fail('snapshot keys differ from interface');
+    if (!shape(s.controls, ['shaft-rpm', 'direction', 'initial-angle']) || !shape(s.boundary, ['label']) || s.boundary.label !== data.text.boundary || !shape(s.conditionSeconds, keys)) fail('controls/boundary/condition keys');
+    const c = s.controls;
+    if (![0, 30, 60, 90, 120].includes(c['shaft-rpm']) || ![1, -1].includes(c.direction) || ![0, 90, 180, 270].includes(c['initial-angle'])) fail('control domain');
+    if (!['idle', 'running', 'paused', 'done'].includes(s.phase) || s.running !== (s.phase === 'running') || s.busy !== ['running', 'paused'].includes(s.phase) || s.shaftStopped !== (c['shaft-rpm'] === 0)) fail('phase/busy/shaftStopped invariants');
+    if (typeof s.status !== 'string' || !s.status || !Array.isArray(s.readout) || !s.readout.every((r) => shape(r, ['key', 'label', 'text']) && typeof r.key === 'string' && typeof r.label === 'string' && typeof r.text === 'string') || !(s.announcement === null || typeof s.announcement === 'string')) fail('shared fields');
+    if (new Set(s.readout.map((row) => row.key)).size !== s.readout.length) fail('readout keys must be unique');
+    near(s.duration, 8, 'duration'); near(s.time, s.elapsed, 'time'); near(s.progress, s.elapsed / 8, 'progress');
+    if (s.elapsed < 0 || s.elapsed > 8 || s.completedExperiments !== count) fail('elapsed/completion count');
+    if (JSON.stringify(s.challenges) !== JSON.stringify(keys.map((key) => ({ key, done: earned.has(key) })))) fail('challenge earned before completion or lost');
+    near(s.angularSpeedRadPerSec, omega(c), 'signed omega');
+    near(s.fluxWb, P.fieldTesla * P.areaM2 * Math.cos(s.angleRad), 'flux per turn');
+    near(s.fluxLinkageWbTurn, P.turns * s.fluxWb, 'flux linkage');
+    near(s.emfV, P.turns * P.fieldTesla * P.areaM2 * omega(c) * Math.sin(s.angleRad), 'emf');
+    near(s.peakEmfV, P.turns * P.fieldTesla * P.areaM2 * Math.abs(omega(c)), 'peak'); near(s.frequencyHz, c['shaft-rpm'] / 60, 'frequency');
+    if (c['shaft-rpm'] === 0) { if (s.periodSeconds !== null) fail('stopped period'); } else near(s.periodSeconds, 60 / c['shaft-rpm'], 'period');
+    if (!Array.isArray(s.segments) || !Array.isArray(s.samples)) fail('history arrays');
+    const segments = s.segments; const expectedSamples = [];
+    if (s.phase === 'idle') {
+      if (s.elapsed !== 0 || segments.length || s.samples.length) fail('idle history must be empty');
+      near(s.angleRad, c['initial-angle'] * Math.PI / 180, 'idle angle');
+    } else {
+      if (!segments.length || segments[0].at !== 0) fail('history starts at zero');
+      near(segments[0].angleRad, c['initial-angle'] * Math.PI / 180, 'initial segment angle');
+      for (let i = 0; i < segments.length; i++) {
+        const segment = segments[i];
+        if (!shape(segment, ['at', 'angleRad', 'angularSpeedRadPerSec']) || segment.at < 0 || segment.at > s.elapsed || (i && segment.at <= segments[i - 1].at)) fail('segment ordering');
+        if (i) near(segment.angleRad, point(segment.at, segments[i - 1]).angleRad, 'boundary angle continuity');
+      }
+      const last = segments[segments.length - 1]; near(s.angleRad, point(s.elapsed, last).angleRad, 'current angle'); near(last.angularSpeedRadPerSec, omega(c), 'last segment omega');
+      const times = [];
+      for (let tick = 0; tick / 60 <= s.elapsed + 1e-9; tick++) times.push(tick / 60);
+      for (const segment of segments.slice(1)) if (!times.some((t) => Math.abs(t - segment.at) <= 1e-9)) times.push(segment.at);
+      if (!times.some((t) => Math.abs(t - s.elapsed) <= 1e-9)) times.push(s.elapsed);
+      times.sort((a, b) => a - b);
+      for (const time of times) {
+        const boundary = segments.findIndex((segment, i) => i > 0 && Math.abs(segment.at - time) <= 1e-9);
+        if (boundary > 0) { expectedSamples.push(point(segments[boundary].at, segments[boundary - 1]), point(segments[boundary].at, segments[boundary])); }
+        else { let index = 0; while (index + 1 < segments.length && segments[index + 1].at < time) index++; expectedSamples.push(point(time, segments[index])); }
+      }
+      if (s.samples.length !== expectedSamples.length) fail('canonical history length/tail/boundary pair');
+      s.samples.forEach((sample, i) => {
+        if (!shape(sample, ['time', 'angleRad', 'fluxWb', 'emfV'])) fail('sample keys');
+        for (const key of Object.keys(expectedSamples[i])) near(sample[key], expectedSamples[i][key], `history left/right ordering ${i}.${key}`);
+      });
+    }
+    for (const key of keys) {
+      let seconds = 0;
+      segments.forEach((segment, i) => {
+        const end = segments[i + 1]?.at ?? s.elapsed; const w = segment.angularSpeedRadPerSec;
+        if ((key === 'speed' && Math.abs(Math.abs(w) - 4 * Math.PI) < 1e-9) || (key === 'reverse' && w < 0) || (key === 'stopped' && w === 0)) seconds += end - segment.at;
+      });
+      near(s.conditionSeconds[key], seconds, `conditionSeconds.${key}`);
+    }
+    for (const [key, value] of Object.entries(expected)) { if (typeof value === 'number') near(s[key], value, `${label}.${key}`); else if (JSON.stringify(s[key]) !== JSON.stringify(value)) fail(`${label}.${key}`); }
+    held.push([s, JSON.stringify(s)]); return s;
+  }
+  const command = (key, value) => model.command({ key, value });
+  const move = (seconds) => { for (let i = 0; i < Math.floor(seconds / 0.1 + 1e-9); i++) model.advance(0.1); const tail = seconds - Math.floor(seconds / 0.1 + 1e-9) * 0.1; if (tail > 1e-9) model.advance(tail); };
+  const initial = take('initial', { phase: 'idle', elapsed: 0, controls: data.defaults });
+  command('step'); if (JSON.stringify(take('idle-step')) !== JSON.stringify(initial)) fail('idle Step must be inert');
+  for (const descriptor of data.controls.presets) {
+    const preset = { ...descriptor, values: data.presets[descriptor.key] };
+    command('preset', preset.key); take(`${preset.key}:loaded`, { phase: 'idle', controls: preset.values, elapsed: 0 });
+    command('run'); take('run', { phase: 'running', elapsed: 0 });
+    model.advance(100); take('clamp', { elapsed: 0.1 }); move(0.025); take('tail', { elapsed: 0.125 }); move(0.025); take('replaced-tail', { elapsed: 0.15 });
+    command('pause'); const paused = take('paused', { phase: 'paused' });
+    model.advance(1); model.advance(NaN); model.advance(-1); command('initial-angle', (preset.values['initial-angle'] + 90) % 360);
+    if (JSON.stringify(take('paused-noop')) !== JSON.stringify(paused)) fail('Pause must freeze clock and initial angle must be locked');
+    command('step'); take('stepped', { phase: 'paused', elapsed: 0.25 }); command('run'); move(7.65); command('pause'); take('before-end', { phase: 'paused', elapsed: 7.9 });
+    if (preset.key === 'fast') earned.add('speed'); if (preset.key === 'reverse') earned.add('reverse'); if (preset.key === 'stopped') earned.add('stopped'); count++;
+    command('step'); take('atomic-step-completion', { phase: 'done', elapsed: 8 }); model.advance(1); command('step'); take('done-inert', { phase: 'done', elapsed: 8 });
+  }
+  command('preset', 'baseline'); command('run'); move(0.125); const before = take('before-reverse', { elapsed: 0.125, angleRad: Math.PI / 2 + Math.PI / 4 });
+  command('pause'); command('direction', -1); take('reverse-boundary', { phase: 'paused', angleRad: before.angleRad, fluxWb: before.fluxWb, emfV: -before.emfV });
+  command('shaft-rpm', 120); command('shaft-rpm', 60); const collapsed = take('same-time-collapse'); if (collapsed.segments.length !== 2) fail('same-time boundary must collapse');
+  command('run'); move(0.25); command('shaft-rpm', 0); const stopped = take('off-grid-stop', { elapsed: 0.375, angleRad: Math.PI / 4, emfV: 0 });
+  move(0.125); take('stopped-clock-advances', { elapsed: 0.5, angleRad: stopped.angleRad, fluxWb: stopped.fluxWb, emfV: 0 });
+  command('shaft-rpm', 120); const grid = take('grid-boundary'); if (grid.samples.filter((s) => Math.abs(s.time - 0.5) < 1e-9).length !== 2) fail('grid boundary must replace tick with left/right');
+  command('initial-angle', 0); take('running-angle-locked', { controls: grid.controls });
+  command('pause'); const valid = JSON.stringify(take('valid'));
+  for (const [key, value] of [['shaft-rpm', -30], ['shaft-rpm', 15], ['shaft-rpm', Infinity], ['shaft-rpm', '60'], ['direction', 0], ['direction', '-1'], ['initial-angle', NaN], ['preset', 'missing']]) { command(key, value); if (JSON.stringify(model.snapshot()) !== valid) fail('invalid control mutated state'); }
+  model.reset(); earned.clear(); count = 0; const reset = take('reset'); if (JSON.stringify({ ...reset, announcement: null }) !== JSON.stringify({ ...initial, announcement: null })) fail('reset must restore defaults and erase badges');
+  if (JSON.stringify(data) !== original || original !== dataText) fail('factory must leave data unchanged');
+  if (held.some(([snapshot, text]) => JSON.stringify(snapshot) !== text)) fail('old snapshot mutated');
+  return JSON.stringify({ presets: data.controls.presets.length, snapshots });
+}
+
+export function checkGeneratorBundle(js) {
+  const fail = (what) => { throw new Error(`Generator bundle ${what}: ${GENERATOR}`); };
+  const model = /\nvar createModel = \((function createModel\(data\) \{[\s\S]*?\n\})\);\nvar mountRenderer = \(function mountRenderer\(/.exec(js);
+  const dataLine = /\n {2}data: (\{[^\n]*\}),\n {2}createModel: createModel,\n {2}mountRenderer: mountRenderer\n\}, document\);\n\}\)\(\);\n?$/.exec(js);
+  if (!model || !dataLine || js.split('var createModel = (').length !== 2 || js.split('\n  data: ').length !== 2) fail('layout differs from generated bundle');
+  for (const [pattern, name] of MODEL_FORBIDDEN) if (pattern.test(model[1])) fail(`model factory must not use ${name}`);
+  if (/[<\u2028\u2029]/.test(dataLine[1])) fail('data escape: raw <, U+2028 or U+2029');
+  let data; try { data = JSON.parse(dataLine[1]); } catch { fail('data is not JSON'); }
+  const params = { turns: 100, fieldTesla: 0.2, areaM2: 0.01, durationSeconds: 8, stepSeconds: 0.1, sampleSeconds: 1 / 60 };
+  const controls = (rpm, direction, angle) => ({ 'shaft-rpm': rpm, direction, 'initial-angle': angle });
+  const presets = { baseline: controls(60, 1, 90), fast: controls(120, 1, 90), reverse: controls(60, -1, 90), stopped: controls(0, 1, 0), 'flux-maximum': controls(60, 1, 0) };
+  const equal = (a, b) => sameKeys(a, Object.keys(b)) && Object.keys(b).every((key) => a[key] === b[key]);
+  if (!record(data) || data.schemaVersion !== 1 || !equal(data.parameters, params) || !equal(data.defaults, presets.baseline) || !sameKeys(data.presets, Object.keys(presets)) || !Object.keys(presets).every((key) => equal(data.presets[key], presets[key])) || !record(data.controls) || !Array.isArray(data.controls.presets) || data.controls.presets.length !== 5 || new Set(data.controls.presets.map((p) => p?.key)).size !== 5 || !data.controls.presets.every((p) => record(p) && Object.hasOwn(presets, p.key)) || !record(data.text) || typeof data.text.boundary !== 'string' || !data.text.boundary) fail('data shape differs from canonical contract');
+  try { return JSON.parse(vm.runInNewContext(`(${generatorProbe})(${model[1]}, ${JSON.stringify(dataLine[1])})`, Object.create(null), { timeout: 3000, filename: `${GENERATOR}/createModel` })); }
+  catch (error) { fail(`factory probe failed: ${error?.name}: ${error?.message}`); }
+}
+
 function checkSource(root, slug, attempt) {
   const base = assetBase(slug); const paths = payloadPaths(slug); const source = new Map();
   let files = 0;
@@ -280,6 +409,10 @@ function checkSource(root, slug, attempt) {
   if (slug === DIFFERENTIAL) attempt(() => {
     const js = source.get(`${base}machine.js`)?.toString('utf8');
     if (js !== undefined) checkDifferentialBundle(js);
+  });
+  if (slug === GENERATOR) attempt(() => {
+    const js = source.get(`${base}machine.js`)?.toString('utf8');
+    if (js !== undefined) checkGeneratorBundle(js);
   });
   attempt(() => {
     const css = source.get(`${base}machine.css`)?.toString('utf8');

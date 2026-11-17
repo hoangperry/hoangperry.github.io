@@ -1,0 +1,54 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="ac-generator-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Máy phát điện xoay chiều tạo ra điện áp thế nào?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="rotation">
+<legend class="htw-playground-group-label">Chuyển động quay</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="shaft-rpm" data-playground-type="range">
+<label class="htw-playground-control-label" id="ac-generator-control-shaft-rpm-label" for="ac-generator-control-shaft-rpm">Tốc độ trục</label>
+<input type="range" class="htw-playground-slider" id="ac-generator-control-shaft-rpm" data-playground-key="shaft-rpm" data-playground-range min="0" max="120" step="30" disabled>
+<output class="htw-playground-value" id="ac-generator-control-shaft-rpm-value" for="ac-generator-control-shaft-rpm" data-playground-output="shaft-rpm" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">RPM</span></output>
+</div>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="direction" data-playground-type="segmented" role="group" aria-labelledby="ac-generator-control-direction-label">
+<span class="htw-playground-control-label" id="ac-generator-control-direction-label">Chiều quay nhìn từ phía +z</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="direction" data-playground-option="1" aria-pressed="false" disabled>Dương: ngược chiều kim đồng hồ</button>
+<button type="button" class="htw-machine-chip" data-playground-key="direction" data-playground-option="-1" aria-pressed="false" disabled>Âm: cùng chiều kim đồng hồ</button>
+</span>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="setup">
+<legend class="htw-playground-group-label">Thiết lập trước khi chạy</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="initial-angle" data-playground-type="segmented" role="group" aria-labelledby="ac-generator-control-initial-angle-label">
+<span class="htw-playground-control-label" id="ac-generator-control-initial-angle-label">Góc ban đầu giữa B và pháp tuyến n (độ)</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="initial-angle" data-playground-option="0" aria-pressed="false" disabled>0°</button>
+<button type="button" class="htw-machine-chip" data-playground-key="initial-angle" data-playground-option="90" aria-pressed="false" disabled>90°</button>
+<button type="button" class="htw-machine-chip" data-playground-key="initial-angle" data-playground-option="180" aria-pressed="false" disabled>180°</button>
+<button type="button" class="htw-machine-chip" data-playground-key="initial-angle" data-playground-option="270" aria-pressed="false" disabled>270°</button>
+</span>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="ac-generator-presets-label">
+<span class="htw-playground-group-label" id="ac-generator-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="baseline" disabled>Cơ bản: 60 RPM</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="fast" disabled>Tăng tốc: 120 RPM</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="reverse" disabled>Đảo chiều: 60 RPM, chiều âm</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="stopped" disabled>Dừng cơ học: 0 RPM</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="flux-maximum" disabled>Từ thông ban đầu cực đại</button>
+</div>
+<div class="htw-playground-challenges">
+<p class="htw-playground-group-label" id="ac-generator-challenges-label">Thử thách</p>
+<ol class="htw-playground-challenge-list" aria-labelledby="ac-generator-challenges-label">
+<li class="htw-playground-challenge" data-machine-challenge="speed" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất một lượt có ít nhất 1 s ở 120 RPM</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="reverse" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất một lượt có ít nhất 1 s quay chiều âm</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="stopped" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất một lượt có ít nhất 1 s dừng cơ học</span></li>
+</ol>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}

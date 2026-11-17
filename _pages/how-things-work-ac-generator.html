@@ -1,0 +1,167 @@
+---
+title: "Máy phát điện xoay chiều tạo ra điện áp thế nào?"
+permalink: /how-things-work/ac-generator/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Cuộn dây quay trong từ trường đều: từ thông lớn nhất chưa chắc điện áp lớn nhất. Theo cùng một góc quay trên hai đồ thị, rồi thử tăng tốc, đảo chiều và dừng trục để phân biệt điện áp cảm ứng với từ thông."
+social-image: /assets/how-things-work/ac-generator/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/ac-generator/machine.css
+script-includes:
+  - /assets/how-things-work/ac-generator/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="ac-generator" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/ac-generator-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: hình tĩnh, bài đọc và nguồn vẫn có ở đây; các nút tương tác không hoạt động.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="ac-generator-scene" disabled><span class="htw-collapse-name">Cuộn dây và hai đồ thị</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài máy phát điện xoay chiều">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#may-phat-tu-truong">Từ trường không cần đổi</a></li>
+            <li><a href="#may-phat-cuon-day">Góc đo tới pháp tuyến</a></li>
+            <li><a href="#may-phat-tu-thong">Từ thông mỗi vòng</a></li>
+            <li><a href="#may-phat-dien-ap">Điện áp đo tốc độ đổi từ thông</a></li>
+            <li><a href="#may-phat-toc-do">Quay nhanh gấp đôi</a></li>
+            <li><a href="#may-phat-dao-chieu">Đảo chiều tại cùng góc</a></li>
+            <li><a href="#may-phat-dung-truc">Dừng trục khác tạm dừng</a></li>
+            <li><a href="#may-phat-gioi-han">Giới hạn của hình</a></li>
+            <li><a href="#may-phat-tu-thu">Tự thử</a></li>
+            <li><a href="#may-phat-nguon">Nguồn và phép tính</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="may-phat-tu-truong" class="htw-step" data-machine-focus="field" aria-labelledby="may-phat-tu-truong-h">
+        <p class="htw-step-label">01 · Từ trường</p>
+        <h2 id="may-phat-tu-truong-h" tabindex="-1">Từ trường không cần đổi, cuộn dây quay là đủ</h2>
+        <p>Ở cấu hình mặc định, cuộn dây quay 60 vòng/phút và điện áp đổi dấu sau mỗi nửa vòng. Các mũi tên <em>B</em> vẫn đứng yên. Điều thay đổi là hướng của cuộn dây so với từ trường, làm từ thông qua cuộn thay đổi và tạo ra suất điện động cảm ứng. Đó là nguyên lý máy phát xoay chiều trong ví dụ cuộn dây quay của OpenStax. <a href="#may-phat-source-s1">[S1]</a> <a href="#may-phat-source-s2">[S2]</a></p>
+        <p>Trong hình, <em>B</em> hướng sang phải, theo trục +x, đều và cố định ở 0,2 T. Một cơ cấu bên ngoài áp đặt tốc độ quay quanh trục +z hướng ra người xem. Ta chưa mô phỏng cơ cấu ấy. Cuộn dây và hai đồ thị dùng chung một đồng hồ: con trỏ trên cả hai đồ thị luôn chỉ đúng thời điểm của tư thế đang thấy.</p>
+        <p>Mở bài chưa chạy thí nghiệm. Các ô số lúc này chỉ mô tả cấu hình ban đầu; chưa có lịch sử đo. Cuộn trang chỉ đổi phần được nhấn mạnh, không làm trục quay và không vẽ sẵn một đường hình sin cho tương lai.</p>
+      </section>
+
+      <section id="may-phat-cuon-day" class="htw-step" data-machine-focus="coil" aria-labelledby="may-phat-cuon-day-h">
+        <p class="htw-step-label">02 · Cuộn dây</p>
+        <h2 id="may-phat-cuon-day-h" tabindex="-1">Góc θ đo tới pháp tuyến, không phải mặt phẳng cuộn</h2>
+        <p>Mũi tên <em>n</em> vuông góc với mặt cuộn dây. Góc có hướng θ được đo từ <em>B</em> tới <em>n</em>; nhìn từ phía +z, chiều θ tăng là ngược chiều kim đồng hồ. Vì thế θ = 0° nghĩa là pháp tuyến cùng chiều <em>B</em>, còn mặt cuộn vuông góc với <em>B</em>. Ở θ = 90°, mặt cuộn chứa hướng <em>B</em>. Đây là góc dùng trong công thức từ thông, không phải góc giữa mặt cuộn và từ trường. <a href="#may-phat-source-s1">[S1]</a></p>
+        <p>Một nét cuộn trong sơ đồ đại diện cho 100 vòng, mỗi vòng có diện tích 0,01 m². Hai đầu đi qua hai vành trượt riêng để nối với vôn kế lý tưởng; đây không phải cổ góp chia đôi để chỉnh lưu. <a href="#may-phat-source-s2">[S2]</a> Dấu điện áp được đọc theo hai đầu đã đánh dấu: <em>e</em> = V(+) − V(−). Nhãn + và − là tên đầu đo cố định, không có nghĩa đầu + luôn ở điện thế cao hơn.</p>
+        <p>Quy ước chiều quấn gắn với <em>n</em>: nhìn từ đầu +n về cuộn, đường quấn từ đầu − tới đầu + đi ngược chiều kim đồng hồ. Dây đo khép từ + về − nằm ngoài vùng cảm ứng; mô hình bỏ qua cảm ứng ký sinh ở dây đo. Quy ước này giữ dấu của hình và công thức nhất quán.</p>
+      </section>
+
+      <section id="may-phat-tu-thong" class="htw-step" data-machine-focus="flux" aria-labelledby="may-phat-tu-thong-h">
+        <p class="htw-step-label">03 · Từ thông</p>
+        <h2 id="may-phat-tu-thong-h" tabindex="-1">Từ thông mỗi vòng là BA cos θ</h2>
+        <p>Hãy dự đoán trước khi chạy: khi <em>n</em> cùng chiều <em>B</em>, từ thông hay điện áp sẽ đạt cực đại? Với một vòng, Φ = <em>BA</em> cos θ. Ở θ = 0°, Φ = +0,002 Wb, tức +2 mWb/vòng; ở 90° là 0; ở 180° là −2 mWb/vòng. Dấu âm nói về hướng xuyên qua mặt có pháp tuyến đã chọn, không phải từ trường biến mất hay đổi chiều. <a href="#may-phat-source-s1">[S1]</a></p>
+        <p>Đồ thị Φ ghi từ thông <strong>mỗi vòng</strong>. Từ thông móc vòng của cả cuộn là λ = <em>N</em>Φ, có đơn vị Wb·vòng. Với 100 vòng, λ ở θ = 0° là 0,2 Wb·vòng. Không được lấy đồ thị Φ nhân 100 rồi lại nhân 100 thêm lần nữa trong định luật Faraday.</p>
+        <p>Chọn góc ban đầu 0° khi chưa có lượt đang dở, rồi chạy và quan sát đoạn đầu: đường Φ bắt đầu ở đỉnh nhưng điện áp bắt đầu từ 0. Muốn hiểu vì sao, cần nhìn độ dốc của đường Φ chứ không chỉ độ cao của nó.</p>
+      </section>
+
+      <section id="may-phat-dien-ap" class="htw-step" data-machine-focus="emf" aria-labelledby="may-phat-dien-ap-h">
+        <p class="htw-step-label">04 · Suất điện động</p>
+        <h2 id="may-phat-dien-ap-h" tabindex="-1">Từ thông lớn nhất thì điện áp bằng 0</h2>
+        <p>Định luật Faraday cho <em>e</em> = −dλ/dt = −<em>N</em>dΦ/dt. Với tốc độ góc có dấu Ω = dθ/dt, ta được <em>e</em> = <em>NBA</em>Ω sin θ. <a href="#may-phat-source-s1">[S1]</a> <a href="#may-phat-source-s3">[S3]</a> Khi Φ ở đỉnh hoặc đáy, độ dốc tức thời bằng 0 nên <em>e</em> = 0. Khi Φ đi qua 0, độ lớn độ dốc lớn nhất nên |<em>e</em>| đạt cực đại, miễn là Ω không bằng 0.</p>
+        <p>Mặc định θ ban đầu là 90°, quay chiều dương ở 60 RPM: Φ = 0 và <em>e</em> ≈ +1,2566 V. Sau 0,25 s, θ = 180°, Φ = −2 mWb/vòng và <em>e</em> = 0 theo giá trị lý tưởng. Sau 0,5 s, θ = 270°, Φ = 0 và <em>e</em> ≈ −1,2566 V. Dấu trừ trong Faraday khớp với điều này: Φ đang giảm thì điện áp theo quy ước đầu đo là dương.</p>
+        <p>Hai trục tung riêng cho Φ (mWb/vòng) và <em>e</em> (V) giữ nguyên thang khi đổi tốc độ. Chúng không phải hai đại lượng cùng đơn vị, cũng không được tự kéo giãn để trông cao bằng nhau. Các đường chỉ ghi phần thí nghiệm đã chạy; bên phải con trỏ còn trống.</p>
+      </section>
+
+      <section id="may-phat-toc-do" class="htw-step" data-machine-focus="speed" aria-labelledby="may-phat-toc-do-h">
+        <p class="htw-step-label">05 · Tốc độ</p>
+        <h2 id="may-phat-toc-do-h" tabindex="-1">Quay nhanh gấp đôi: tần số và đỉnh điện áp cùng gấp đôi</h2>
+        <p>Trước khi chọn 120 RPM, thử dự đoán: đường Φ sẽ cao hơn hay chỉ dày chu kỳ hơn? Với <em>B</em>, <em>A</em> và <em>N</em> không đổi, biên độ Φ vẫn là 2 mWb/vòng. Tần số <em>f</em> = |Ω|/(2π) và đỉnh điện áp <em>E</em><sub>đỉnh</sub> = <em>NBA</em>|Ω| đều tăng theo tốc độ. <a href="#may-phat-source-s2">[S2]</a></p>
+        <p>Ở 60 RPM, một vòng mỗi giây cho <em>f</em> = 1 Hz và đỉnh khoảng 1,2566 V. Ở 120 RPM, <em>f</em> = 2 Hz và đỉnh khoảng 2,5133 V. Một vòng cơ học tương ứng một chu kỳ điện trong cuộn một đôi cực này. Đây là điện áp đỉnh, không phải điện áp hiệu dụng RMS và không phải thông số điện lưới.</p>
+        <p>Đổi RPM được cả khi đang chạy lẫn đang tạm dừng giữa lượt. Góc và Φ tại lúc đổi vẫn liên tục; điện áp có thể nhảy vì Ω được thay ngay. Đường đã ghi không bị tính lại bằng tốc độ mới. Bước đổi này là giả thiết điều khiển lý tưởng, không phải quá trình tăng tốc của một trục thật.</p>
+      </section>
+
+      <section id="may-phat-dao-chieu" class="htw-step" data-machine-focus="reverse" aria-labelledby="may-phat-dao-chieu-h">
+        <p class="htw-step-label">06 · Đảo chiều</p>
+        <h2 id="may-phat-dao-chieu-h" tabindex="-1">Giữ cùng góc, đảo chiều thì điện áp đổi dấu</h2>
+        <p>Chọn một lúc điện áp khác 0 rồi tạm dừng. Dự đoán trước khi đổi chiều: từ thông có đổi dấu ngay không? Trong Φ = <em>BA</em> cos θ không có Ω, nên cùng θ thì Φ không đổi. Trong <em>e</em> = <em>NBA</em>Ω sin θ có Ω: đổi từ +60 sang −60 RPM tại cùng góc làm <em>e</em> đổi dấu, còn đỉnh và tần số giữ nguyên.</p>
+        <p>Ví dụ tại θ = 90°, chiều dương cho +1,2566 V, chiều âm cho −1,2566 V và cả hai đều có Φ = 0. Nếu thử đúng θ = 0° hoặc 180°, cả trước lẫn sau đều có điện áp 0 nên không thấy được phép đổi dấu. Hãy chọn góc có điện áp khác 0 để phép so sánh có ý nghĩa.</p>
+        <p>Nút chiều quay đổi được khi lượt đang dở, kể cả đang tạm dừng. Nó không nhảy góc về góc ban đầu. Nếu đổi ngay giữa lượt, đồ thị giữ giá trị điện áp trước và sau bước đổi tại cùng thời điểm, theo thứ tự trước rồi sau; đoạn thẳng đứng không biểu diễn một khoảng thời gian tăng tốc hay xung động lực học đã được mô phỏng.</p>
+      </section>
+
+      <section id="may-phat-dung-truc" class="htw-step" data-machine-focus="stop" aria-labelledby="may-phat-dung-truc-h">
+        <p class="htw-step-label">07 · Dừng trục</p>
+        <h2 id="may-phat-dung-truc-h" tabindex="-1">0 RPM vẫn chạy đồng hồ; Pause thì đông thời gian</h2>
+        <p>Đặt tốc độ về 0 RPM nhưng để thí nghiệm tiếp tục Chạy. Góc đứng yên, Φ giữ nguyên giá trị tại góc dừng và <em>e</em> = 0 vì từ thông không đổi theo thời gian. Đồng hồ và con trỏ vẫn tiến, nên đồ thị ghi thêm hai đoạn nằm ngang. Dừng ở θ = 0° cho Φ = +2 mWb/vòng dù điện áp bằng 0; có từ thông không đồng nghĩa có điện áp cảm ứng. <a href="#may-phat-source-s3">[S3]</a></p>
+        <p>Nút tạm dừng mô phỏng (Pause) làm việc khác: nó giữ nguyên thời gian và mẫu đang xem, không đặt tốc độ trục về 0. Vì vậy khi tạm dừng ở 60 RPM, ô điện áp vẫn có thể khác 0. Bấm Chạy sẽ tiếp tục từ chính mẫu ấy. Bấm Từng bước khi đang tạm dừng giữa lượt sẽ tiến 0,1 s mô phỏng, hoặc phần thời gian còn lại nếu ngắn hơn; nó không hoạt động khi chưa chạy, đang chạy hay đã xong.</p>
+        <p>Ở 0 RPM, tần số là 0 và không có chu kỳ hữu hạn. Hãy phân biệt một thí nghiệm đang chạy với trục đứng yên, và một thí nghiệm bị đông đồng hồ nhưng vẫn giữ cấu hình trục quay.</p>
+      </section>
+
+      <section id="may-phat-gioi-han" class="htw-step" data-machine-focus="limits" aria-labelledby="may-phat-gioi-han-h">
+        <p class="htw-step-label">08 · Giới hạn</p>
+        <h2 id="may-phat-gioi-han-h" tabindex="-1">Đây là điện áp hở mạch, không phải dòng hay công suất</h2>
+        <p>Vôn kế lý tưởng đo điện áp giữa hai đầu một cuộn hở mạch. Hình không vẽ dòng điện chạy, tải hay bóng đèn sáng. Chỉ từ đường điện áp này không thể suy ra dòng điện, công suất, hiệu suất hay năng lượng phát ra. Muốn làm điều đó phải thêm tải và mô hình điện–cơ thích hợp.</p>
+        <p>Các số 100 vòng, 0,2 T, 0,01 m² và khoảng 0–120 RPM do bài chọn để minh họa điện áp thấp, không hiệu chuẩn theo máy thương mại. <em>B</em>, <em>A</em>, <em>N</em> cố định. Mô hình bỏ qua điện trở, tự cảm, ma sát, mô-men cản, quán tính và gia tốc thật. Tốc độ và chiều quay bị áp đặt từng đoạn, với bước đổi tức thời. Không có chỉnh lưu, dòng một chiều, ba pha hay lưới 50 Hz.</p>
+        <p>Cuộn, hai đồ thị và các ô số dùng cùng thời gian mô phỏng của một lượt 8 s. Đồ thị lấy các mốc 1/60 s và điểm đổi điều khiển, không lấy tốc độ khung hình làm dữ liệu vật lý. Đổi sáng/tối, cuộn bài, giảm chuyển động hay chuyển chế độ đọc/tự thử không thay công thức hoặc tạo một thí nghiệm thứ hai.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="may-phat-tu-thu" class="htw-try" aria-labelledby="may-phat-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="may-phat-tu-thu-h" tabindex="-1">Dự đoán trước, rồi cho chính cuộn dây này quay</h2>
+      <p>Mở tự thử chuyển chính hình đang đọc xuống cạnh bảng điều khiển, không tạo thêm hình hay đồng hồ. Mô hình không tự chạy khi mở chế độ. Bạn đổi được tốc độ 0–120 RPM, mỗi nấc 30 RPM, và chiều quay dương/âm ngay trong lượt đang chạy hoặc tạm dừng. Góc ban đầu 0°, 90°, 180° hoặc 270° chỉ đổi được khi chưa có lượt đang dở, hoặc sau khi lượt đã xong.</p>
+      <p>Bấm Chạy lúc sẵn sàng hoặc đã xong bắt đầu một lượt độc lập: thời gian về 0, góc về góc ban đầu đang chọn, xóa đường của lượt trước nhưng giữ huy hiệu. Bấm Chạy lúc tạm dừng thì tiếp tục lượt đó. Đổi tốc độ hoặc chiều khi không có lượt đang dở đưa hình về trạng thái chờ với lịch sử rỗng. Rời tab hoặc quay lại bài đọc sẽ tạm dừng, không cộng bù thời gian ngoài màn hình. Dùng Tab để tới điều khiển, Enter/phím cách để bấm và phím mũi tên để đổi thanh trượt.</p>
+      <ol class="htw-try-list">
+        <li><strong>So đỉnh với điểm qua 0.</strong> Chọn mẫu từ thông cực đại (góc 0°, 60 RPM). Dự đoán điện áp lúc đầu, rồi Chạy, tạm dừng và Từng bước: Φ bắt đầu ở đỉnh, <em>e</em> bắt đầu từ 0; khi Φ qua 0 thì |<em>e</em>| lớn nhất.</li>
+        <li><strong>Thử thách tốc độ.</strong> So hai lượt mẫu 60 và 120 RPM. Dự đoán số chu kỳ và đỉnh điện áp trước khi chạy. 120 RPM cho 2 Hz và khoảng 2,5133 V, nhưng đỉnh Φ không đổi. Muốn nhận huy hiệu tốc độ, hoàn tất một lượt 8 s có tổng ít nhất 1 s thật sự chạy ở 120 RPM.</li>
+        <li><strong>Thử thách đảo chiều.</strong> Chạy mẫu mặc định, tạm dừng lúc điện áp khác 0, ghi dấu rồi đảo chiều. Góc và Φ giữ nguyên, <em>e</em> đổi dấu ngay. Tiếp tục đến hết lượt; huy hiệu đảo chiều cần tổng ít nhất 1 s chạy chiều âm với RPM lớn hơn 0 trong lượt hoàn tất.</li>
+        <li><strong>Thử thách dừng trục.</strong> Chạy với góc ban đầu 0°, đặt 0 RPM rồi để đồng hồ tiến. Φ có thể khác 0 nhưng <em>e</em> = 0. So với Pause ở tốc độ khác 0 để thấy sự khác nhau. Huy hiệu dừng trục cần tổng ít nhất 1 s ở 0 RPM trong một lượt hoàn tất 8 s.</li>
+      </ol>
+      <p>Năm cấu hình mẫu là mặc định 60 RPM, nhanh 120 RPM, quay ngược 60 RPM, dừng trục ở góc 0° và từ thông cực đại ở góc 0°. Chọn mẫu bỏ lượt đang dở, về thời gian 0 và chờ, giữ huy hiệu; không tự chạy và không tự cấp huy hiệu. Các khoảng đủ điều kiện được cộng trong thời gian mô phỏng đã tiến, không tính thời gian Pause. Huy hiệu chỉ được ghi khi lượt chạy hết 8 s. Nút Đặt lại trả về 60 RPM, chiều dương, góc 90°, đồng thời xóa huy hiệu và số lượt hoàn tất.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên không mở được tự thử.</p></noscript>
+      <p class="htw-try-fallback">Tự thử cần JavaScript. Nếu nút vẫn khóa hoặc có lỗi, hình tĩnh, bài giải thích và nguồn vẫn đọc được.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="ac-generator-scene ac-generator-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="ac-generator-scene" disabled>Quay lại bài đọc</button></p>
+        {% include how-things-work/ac-generator-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="may-phat-nguon" class="htw-sources" aria-labelledby="may-phat-nguon-h">
+  <h2 id="may-phat-nguon-h" tabindex="-1">Nguồn và phép tính</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="may-phat-source-s1"><a href="https://openstax.org/books/university-physics-volume-2/pages/13-3-motional-emf" target="_blank" rel="noopener noreferrer">[S1] OpenStax, University Physics Volume 2, §13.3 Motional Emf</a>, Samuel J. Ling, William Moebs và Jeff Sanny. Example 13.6, “A Rectangular Coil Rotating in a Magnetic Field”: góc với pháp tuyến, Φ = BA cos θ và định luật Faraday cho cuộn quay.</li>
+        <li id="may-phat-source-s2"><a href="https://openstax.org/books/college-physics-2e/pages/23-5-electric-generators" target="_blank" rel="noopener noreferrer">[S2] OpenStax, College Physics 2e, §23.5 Electric Generators</a>. Công thức 23.18–23.20 về điện áp hình sin, đỉnh và tần số; hình 23.19/23.21 về vành trượt, phân biệt cổ góp chia đôi ở hình 23.22. Không dùng tải và bóng đèn của ví dụ nguồn trong mô hình hở mạch này.</li>
+        <li id="may-phat-source-s3"><a href="http://hyperphysics.phy-astr.gsu.edu/hbase/electric/farlaw.html" target="_blank" rel="noopener noreferrer">[S3] R. Nave, HyperPhysics, Georgia State University, Faraday's Law</a>: đối chiếu độc lập quan hệ điện áp với tốc độ biến thiên từ thông, không suy có dòng trong mạch hở.</li>
+        <li id="may-phat-source-s4"><a href="http://hyperphysics.phy-astr.gsu.edu/hbase/magnetic/motorac.html" target="_blank" rel="noopener noreferrer">[S4] R. Nave, HyperPhysics, AC Motors and Generators, mục AC Generator</a>: cuộn quay tạo điện áp xoay chiều. Bài không dùng phần động cơ, tải hay sức phản điện động.</li>
+      </ul>
+      <p>Đây là các URL nguồn trực tiếp, không phải bản sao lưu. Nguồn được đối chiếu ngày 18/11/2026. Hai sách OpenStax cùng nhà xuất bản; HyperPhysics là nguồn đại học độc lập. Bài và sơ đồ được viết, vẽ mới, không chép đoạn văn hay hình từ các nguồn. <a href="#may-phat-source-s4">[S4]</a></p>
+    </div>
+    <div>
+      <h3>Công thức và số minh họa</h3>
+      <p>Ω = chiều × RPM × 2π/60; θ trong mỗi đoạn bằng góc đầu đoạn cộng Ω nhân thời gian đã qua. Φ = BA cos θ cho mỗi vòng; λ = NΦ; e = NBAΩ sin θ. Đỉnh điện áp là NBA|Ω|, tần số là |Ω|/(2π), chu kỳ là 1/f khi f &gt; 0 và không xác định hữu hạn khi trục dừng.</p>
+      <p>N = 100, B = 0,2 T và A = 0,01 m² cho NBA = 0,2 Wb·vòng. 60 RPM: Ω = 2π rad/s, f = 1 Hz, đỉnh 0,4π ≈ 1,2566 V. 120 RPM: f = 2 Hz, đỉnh 0,8π ≈ 2,5133 V. Biên độ Φ luôn là 0,002 Wb/vòng.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Không suy rộng từ hình</h3>
+      <ul>
+        <li>Điện áp hở mạch với vôn kế lý tưởng; không tính dòng, công suất, tải, hiệu suất hay RMS.</li>
+        <li>Từ trường đều và cố định; diện tích, số vòng cố định. Một cuộn và một đôi cực, không phải máy ba pha hay điện lưới.</li>
+        <li>Tốc độ áp đặt, đổi tức thời; không có gia tốc thực, quán tính, điện trở, tự cảm hay mô-men cản.</li>
+        <li>0 RPM là dừng trục khi đồng hồ vẫn có thể chạy. Pause chỉ đông thời gian mô phỏng.</li>
+        <li>Số và hình để giảng giải nguyên lý, không đo hay chứng nhận máy thương mại.</li>
+      </ul>
+    </aside>
+  </div>
+</section>

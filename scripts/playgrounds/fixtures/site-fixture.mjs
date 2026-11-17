@@ -110,7 +110,96 @@ export const differentialBundle = () => `/* TEST FIXTURE ONLY: synthetic open-di
   + `var createModel = (${createModel});\nvar mountRenderer = (function mountRenderer(root, data) { return { render: function () {}, dispose: function () {} }; });\n`
   + `runtime.boot({\n  slug: "open-differential",\n  descriptor: {"title":"TEST FIXTURE"},\n  data: ${JSON.stringify(DIFFERENTIAL_DATA)},\n  createModel: createModel,\n  mountRenderer: mountRenderer\n}, document);\n})();\n`;
 
-const consoleHtml = (slug) => `<div class="htw-machine-console-panel" id="${slug}-console" data-machine-console-panel>\n<button type="button" data-machine-run disabled>Chạy</button>\n<button type="button" data-machine-pause disabled>Dừng</button>\n<button type="button" data-machine-step disabled>Từng bước</button>\n<button type="button" data-machine-reset disabled>Đặt lại</button>\n${slug === 'hard-disk-drive' ? hddControls() : slug === 'open-differential' ? differentialControls() : `<button type="button" data-playground-key="phaseA" data-playground-option="1" aria-pressed="false" disabled>+</button>\n<input type="range" id="${slug}-control-rate" data-playground-key="rate" data-playground-range min="1" max="100" step="1" disabled>`}\n</div>`;
+// TEST FIXTURE ONLY: this independent, small analytic state machine exercises validator rejection paths.
+// It is not copied from production, not an exported artifact, and not evidence of model/browser acceptance.
+export const GENERATOR_CONTROLS = Object.freeze([
+  'data-playground-key="shaft-rpm" data-playground-range min="0" max="120" step="30" disabled',
+  ...[1, -1].map((value) => `data-playground-key="direction" data-playground-option="${value}" aria-pressed="false" disabled`),
+  ...[0, 90, 180, 270].map((value) => `data-playground-key="initial-angle" data-playground-option="${value}" aria-pressed="false" disabled`),
+  ...['baseline', 'fast', 'reverse', 'stopped', 'flux-maximum'].map((key) => `data-playground-preset="${key}" disabled`),
+]);
+const generatorControls = () => GENERATOR_CONTROLS.map((attrs) => /data-playground-range/.test(attrs) ? `<input type="range" ${attrs}>` : `<button type="button" ${attrs}>TEST</button>`).join('\n');
+const generatorValues = (rpm, direction, angle) => ({ 'shaft-rpm': rpm, direction, 'initial-angle': angle });
+export const GENERATOR_DATA = Object.freeze({
+  schemaVersion: 1,
+  parameters: { turns: 100, fieldTesla: 0.2, areaM2: 0.01, durationSeconds: 8, stepSeconds: 0.1, sampleSeconds: 1 / 60 },
+  defaults: generatorValues(60, 1, 90),
+  presets: { baseline: generatorValues(60, 1, 90), fast: generatorValues(120, 1, 90), reverse: generatorValues(60, -1, 90), stopped: generatorValues(0, 1, 0), 'flux-maximum': generatorValues(60, 1, 0) },
+  controls: { groups: [], challenges: ['speed', 'reverse', 'stopped'].map((key) => ({ key, label: `TEST ${key}` })),
+    presets: ['baseline', 'fast', 'reverse', 'stopped', 'flux-maximum'].map((key) => ({ key, label: `TEST ${key}` })) },
+  text: { boundary: 'TEST FIXTURE imposed rotation, open circuit; no current or power', stoppedNote: 'TEST FIXTURE physical stop is not Pause' },
+});
+function generatorFixtureModel(data) {
+  'use strict';
+  const P = data.parameters; const keys = ['speed', 'reverse', 'stopped'];
+  let controls, phase, elapsed, completed, badges, segments, conditions;
+  const clean = (x) => Object.is(x, -0) ? 0 : x;
+  const w = () => clean(controls.direction * controls['shaft-rpm'] * Math.PI / 30);
+  const busy = () => phase === 'running' || phase === 'paused';
+  const pose = (time, segment) => {
+    const angle = segment.angleRad + segment.angularSpeedRadPerSec * (time - segment.at);
+    return { time: clean(time), angleRad: clean(angle), fluxWb: clean(P.fieldTesla * P.areaM2 * Math.cos(angle)), emfV: clean(P.turns * P.fieldTesla * P.areaM2 * segment.angularSpeedRadPerSec * Math.sin(angle)) };
+  };
+  const configuration = () => { elapsed = 0; phase = 'idle'; segments = []; conditions = { speed: 0, reverse: 0, stopped: 0 }; };
+  function reset() { controls = { ...data.defaults }; completed = 0; badges = {}; configuration(); }
+  function move(dt) {
+    const seconds = Math.min(dt, P.durationSeconds - elapsed);
+    if (controls['shaft-rpm'] === 120) conditions.speed += seconds;
+    if (controls.direction === -1 && controls['shaft-rpm'] > 0) conditions.reverse += seconds;
+    if (controls['shaft-rpm'] === 0) conditions.stopped += seconds;
+    elapsed += seconds;
+    if (elapsed >= P.durationSeconds - 1e-9) { elapsed = P.durationSeconds; phase = 'done'; completed++; keys.forEach((key) => { if (conditions[key] >= 1 - 1e-9) badges[key] = true; }); }
+  }
+  function advance(dt) { if (phase === 'running' && typeof dt === 'number' && Number.isFinite(dt) && dt > 0) move(Math.min(dt, 0.1)); }
+  function command({ key, value }) {
+    if (key === 'reset') { reset(); return; }
+    if (key === 'preset') { const preset = Object.hasOwn(data.presets, value) ? data.presets[value] : null; if (preset) { controls = { ...preset }; configuration(); } return; }
+    if (key === 'run') { if (!busy()) { configuration(); segments = [{ at: 0, angleRad: controls['initial-angle'] * Math.PI / 180, angularSpeedRadPerSec: w() }]; } phase = 'running'; return; }
+    if (key === 'pause') { if (phase === 'running') phase = 'paused'; return; }
+    if (key === 'step') { if (phase === 'paused') move(P.stepSeconds); return; }
+    const domains = { 'shaft-rpm': [0, 30, 60, 90, 120], direction: [1, -1], 'initial-angle': [0, 90, 180, 270] };
+    if (!Object.hasOwn(domains, key) || !domains[key].includes(value) || (key === 'initial-angle' && busy()) || controls[key] === value) return;
+    const angle = busy() ? pose(elapsed, segments[segments.length - 1]).angleRad : 0;
+    controls = { ...controls, [key]: value };
+    if (!busy()) configuration();
+    else {
+      const next = { at: elapsed, angleRad: angle, angularSpeedRadPerSec: w() };
+      if (segments[segments.length - 1].at === elapsed) segments[segments.length - 1] = next;
+      else segments.push(next);
+    }
+  }
+  function freeze(value) { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; }
+  function snapshot() {
+    const fallback = { at: 0, angleRad: controls['initial-angle'] * Math.PI / 180, angularSpeedRadPerSec: w() };
+    const current = pose(elapsed, segments[segments.length - 1] ?? fallback); const samples = [];
+    if (phase !== 'idle') {
+      const times = [];
+      for (let i = 0; i / 60 <= elapsed + 1e-9; i++) times.push(i / 60);
+      for (const segment of segments.slice(1)) if (!times.some((t) => Math.abs(t - segment.at) <= 1e-9)) times.push(segment.at);
+      if (!times.some((t) => Math.abs(t - elapsed) <= 1e-9)) times.push(elapsed);
+      times.sort((a, b) => a - b);
+      for (const time of times) {
+        const boundary = segments.findIndex((segment, i) => i > 0 && Math.abs(segment.at - time) <= 1e-9);
+        if (boundary > 0) samples.push(pose(segments[boundary].at, segments[boundary - 1]), pose(segments[boundary].at, segments[boundary]));
+        else { let i = 0; while (i + 1 < segments.length && segments[i + 1].at < time) i++; samples.push(pose(time, segments[i])); }
+      }
+    }
+    return freeze({
+      time: elapsed, controls: { ...controls }, running: phase === 'running', status: `TEST FIXTURE ${phase}`, announcement: null, readout: [{ key: 'emf', label: 'TEST FIXTURE emf', text: String(current.emfV) }],
+      challenges: keys.map((key) => ({ key, done: Boolean(badges[key]) })), phase, busy: busy(), elapsed, duration: P.durationSeconds, progress: elapsed / P.durationSeconds,
+      completedExperiments: completed, angleRad: current.angleRad, angularSpeedRadPerSec: w(), shaftStopped: controls['shaft-rpm'] === 0,
+      fluxWb: current.fluxWb, fluxLinkageWbTurn: clean(P.turns * current.fluxWb), emfV: current.emfV,
+      peakEmfV: P.turns * P.fieldTesla * P.areaM2 * Math.abs(w()), frequencyHz: controls['shaft-rpm'] / 60, periodSeconds: controls['shaft-rpm'] === 0 ? null : 60 / controls['shaft-rpm'],
+      segments: segments.map((segment) => ({ ...segment })), samples, conditionSeconds: { ...conditions }, boundary: { label: data.text.boundary },
+    });
+  }
+  reset(); return Object.freeze({ command, advance, snapshot, reset });
+}
+export const generatorBundle = () => `/* TEST FIXTURE ONLY: synthetic AC-generator layout, not a playground */\n(function () {\n'use strict';\nvar runtime = { boot: function () {} };\n`
+  + `var createModel = (${generatorFixtureModel.toString().replace('function generatorFixtureModel(data)', 'function createModel(data)')});\nvar mountRenderer = (function mountRenderer(root, data) { return { render: function () {}, dispose: function () {} }; });\n`
+  + `runtime.boot({\n  slug: "ac-generator",\n  descriptor: {"title":"TEST FIXTURE"},\n  data: ${JSON.stringify(GENERATOR_DATA)},\n  createModel: createModel,\n  mountRenderer: mountRenderer\n}, document);\n})();\n`;
+
+const consoleHtml = (slug) => `<div class="htw-machine-console-panel" id="${slug}-console" data-machine-console-panel>\n<button type="button" data-machine-run disabled>Chạy</button>\n<button type="button" data-machine-pause disabled>Dừng</button>\n<button type="button" data-machine-step disabled>Từng bước</button>\n<button type="button" data-machine-reset disabled>Đặt lại</button>\n${slug === 'hard-disk-drive' ? hddControls() : slug === 'open-differential' ? differentialControls() : slug === 'ac-generator' ? generatorControls() : `<button type="button" data-playground-key="phaseA" data-playground-option="1" aria-pressed="false" disabled>+</button>\n<input type="range" id="${slug}-control-rate" data-playground-key="rate" data-playground-range min="1" max="100" step="1" disabled>`}\n</div>`;
 
 export function fixture({ prefix = '', topics = TOPICS } = {}) {
   const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'playground-validator-test-'));
@@ -124,7 +213,7 @@ export function fixture({ prefix = '', topics = TOPICS } = {}) {
     const contents = [
       `{% raw %}\n${sceneHtml(slug)}\n{% endraw %}\n`,
       `{% raw %}\n${consoleHtml(slug)}\n{% endraw %}\n`,
-      slug === 'open-differential' ? differentialBundle() : `/* TEST FIXTURE ONLY: not a playground */\n(function () {\n'use strict';\nvar fixture = ${JSON.stringify(slug)};\n})();\n`,
+      slug === 'open-differential' ? differentialBundle() : slug === 'ac-generator' ? generatorBundle() : `/* TEST FIXTURE ONLY: not a playground */\n(function () {\n'use strict';\nvar fixture = ${JSON.stringify(slug)};\n})();\n`,
       `.htw-machine[data-htw-figure="${slug}"] .htw-machine-scene { width: 100%; }\n@media (max-width: 600px) { .htw-machine[data-htw-figure="${slug}"] svg { width: 100%; } }\n`,
       webp(),
       `How Things Work playground: TEST FIXTURE\nTopic: ${slug}\nGenerated file: TEST FIXTURE ONLY.\n`,

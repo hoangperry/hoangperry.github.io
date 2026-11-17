@@ -78,3 +78,10 @@
   subjects: "Ô tô · Máy móc"
   summary: "Theo vỏ vi sai, hai bánh răng bán trục và bánh răng hành tinh: vì sao vào cua hai bánh quay khác tốc độ mà trung bình vẫn bằng tốc độ vỏ, và vì sao theo giả thiết lý tưởng bánh ít bám đặt trần mô-men cho cả cầu."
   thumbnail: /assets/how-things-work/open-differential/thumbnail.webp
+- id: ac-generator
+  number: "12"
+  url: /how-things-work/ac-generator/
+  title: "Máy phát điện xoay chiều tạo ra điện áp thế nào?"
+  subjects: "Điện từ · Máy móc"
+  summary: "Theo cuộn dây quay và hai đồ thị từ thông, điện áp: vì sao từ thông cực đại thì điện áp bằng 0, quay nhanh làm đỉnh cao hơn, và dừng trục khác với tạm dừng mô phỏng."
+  thumbnail: /assets/how-things-work/ac-generator/thumbnail.webp
