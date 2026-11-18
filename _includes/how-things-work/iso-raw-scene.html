@@ -1,0 +1,77 @@
+{% raw %}
+<figure class="htw-machine-scene htw-playground-scene" id="iso-raw-scene" data-machine-scene tabindex="-1" aria-labelledby="iso-raw-scene-title">
+<div class="htw-machine-plate">
+<div class="htw-machine-plate-bar">
+<p class="htw-machine-plate-title" id="iso-raw-scene-title">Tăng ISO có làm cảm biến thu thêm ánh sáng không?</p>
+<button type="button" class="htw-machine-chip htw-machine-theme" data-machine-theme aria-pressed="false" disabled>
+<span class="htw-machine-theme-icon" aria-hidden="true"></span><span>Nền sáng</span></button>
+</div>
+<div class="htw-machine-view"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 416" class="iso-svg" role="img" aria-label="Chuỗi đọc một mẫu: giếng điện tích, gain analog và ADC" aria-labelledby="iso-title" aria-describedby="iso-desc" data-machine-id="iso-raw-svg" data-camera-stage="charge" data-iso-highlight="charge" data-iso-well-full="false" data-iso-overrange="false" data-machine-view="" focusable="false">
+  <title id="iso-title">Một mẫu qua giếng điện tích, gain analog và ADC</title>
+  <desc id="iso-desc" data-iso-value="description">5.000 e⁻ · 25% dải · RAW 1024 · ADC trong dải · Giếng chưa đầy.</desc>
+  <text x="17" y="27" class="iso-heading">Đọc một mẫu</text>
+  <text x="431" y="27" text-anchor="end" class="iso-index">TỪ e⁻ ĐẾN RAW</text>
+  <path class="iso-trace" d="M34 63V310m-4-152 4 5 4-5m-8 123 4 5 4-5"/>
+  <g class="iso-stage-charge">
+    <rect class="iso-section" x="16" y="42" width="416" height="114" rx="4"/>
+    <rect class="iso-pin" x="21" y="49" width="26" height="26" rx="4"/>
+    <text x="34" y="68" text-anchor="middle" class="iso-index">01</text>
+    <text x="58" y="68" class="iso-heading">Giếng điện tích</text>
+    <rect x="70" y="82" width="86" height="48" class="iso-track" data-iso-mark="well-track"/>
+    <rect x="70" y="118" width="86" height="12" class="iso-charge-fill" data-iso-mark="charge-fill"/>
+    <path d="M61 82H70 M156 82H165 M66 82v53h94V82 M160 94h9m-9 12h9m-9 12h9m-9 12h9" class="iso-ticks"/>
+    <text x="113" y="149" text-anchor="middle" class="iso-note">20.000 e⁻ tối đa</text>
+    <text x="197" y="96" class="iso-value" data-iso-value="charge">5.000 e⁻</text>
+    <text x="197" y="119" class="iso-note" data-iso-value="generated">Sinh ra 5.000 e⁻</text>
+    <text x="197" y="142" class="iso-well-state" data-iso-value="wellState">Giếng chưa đầy</text>
+  </g>
+  <g class="iso-stage-analog">
+    <rect class="iso-section" x="16" y="169" width="416" height="107" rx="4"/>
+    <rect class="iso-pin" x="21" y="176" width="26" height="26" rx="4"/>
+    <text x="34" y="195" text-anchor="middle" class="iso-index">02</text>
+    <text x="58" y="195" class="iso-heading">Khuếch đại analog</text>
+    <text x="415" y="195" text-anchor="end" class="iso-value" data-iso-value="gain">1×</text>
+    <path class="iso-ticks" d="M58 234.5H73m63 0h31"/>
+    <path class="iso-amplifier" d="M73 210v49l63-24.5Z"/>
+    <text x="89" y="240" class="iso-index">g</text>
+    <text x="167" y="220" class="iso-note" data-iso-value="analog">25% → 25% dải ADC</text>
+    <rect class="iso-track" x="167" y="229" width="60" height="11" data-iso-mark="adc-track"/>
+    <rect class="iso-over-track" x="227" y="229" width="180" height="11"/>
+    <rect class="iso-range-fill" x="167" y="229" width="15" height="11" data-iso-mark="range-fill"/>
+    <rect class="iso-over-fill" x="227" y="229" width="0" height="11" data-iso-mark="over-fill"/>
+    <path class="iso-range-limit" d="M227 226v22"/>
+    <path class="iso-ticks" d="M167 240v7 M407 240v7"/>
+    <text x="167" y="264" class="iso-note">0</text>
+    <text x="227" y="264" text-anchor="middle" class="iso-note">100%</text>
+    <text x="407" y="264" text-anchor="end" class="iso-note">400%</text>
+  </g>
+  <g class="iso-stage-adc">
+    <rect class="iso-section" x="16" y="289" width="416" height="111" rx="4"/>
+    <rect class="iso-pin" x="21" y="296" width="26" height="26" rx="4"/>
+    <text x="34" y="315" text-anchor="middle" class="iso-index">03</text>
+    <text x="58" y="315" class="iso-heading">Số hóa · ADC 12 bit</text>
+    <text x="415" y="315" text-anchor="end" class="iso-adc-state" data-iso-value="adcState">ADC trong dải</text>
+    <text x="58" y="348" class="iso-value" data-iso-value="raw">RAW 1024</text>
+    <text x="415" y="348" text-anchor="end" class="iso-note">Mã 0–4095</text>
+    <rect class="iso-register-cell" x="58" y="359" width="26" height="32" rx="2"/><text x="71" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="0" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="88" y="359" width="26" height="32" rx="2"/><text x="101" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="1" data-iso-bit-value="1">1</text>
+    <rect class="iso-register-cell" x="118" y="359" width="26" height="32" rx="2"/><text x="131" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="2" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="148" y="359" width="26" height="32" rx="2"/><text x="161" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="3" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="178" y="359" width="26" height="32" rx="2"/><text x="191" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="4" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="208" y="359" width="26" height="32" rx="2"/><text x="221" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="5" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="238" y="359" width="26" height="32" rx="2"/><text x="251" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="6" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="268" y="359" width="26" height="32" rx="2"/><text x="281" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="7" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="298" y="359" width="26" height="32" rx="2"/><text x="311" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="8" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="328" y="359" width="26" height="32" rx="2"/><text x="341" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="9" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="358" y="359" width="26" height="32" rx="2"/><text x="371" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="10" data-iso-bit-value="0">0</text>
+    <rect class="iso-register-cell" x="388" y="359" width="26" height="32" rx="2"/><text x="401" y="381" text-anchor="middle" class="iso-bit" data-iso-bit="11" data-iso-bit-value="0">0</text>
+  </g>
+</svg></div>
+</div>
+<figcaption class="htw-machine-caption">
+<span class="htw-machine-status" data-machine-status>Phần tương tác chưa chạy; hình đang ở dạng tĩnh.</span>
+<dl class="htw-playground-readout" data-machine-readout aria-label="Số liệu của mô hình"></dl>
+</figcaption>
+<p class="htw-machine-sr" data-machine-announcement aria-live="polite" aria-atomic="true"></p>
+</figure>
+{% endraw %}

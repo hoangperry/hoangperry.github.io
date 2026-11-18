@@ -1,0 +1,14 @@
+How Things Work playground: Tăng ISO có làm cảm biến thu thêm ánh sáng không?
+Topic: iso-raw
+Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: f7941c54ea081fd02d1e6de16e9ecb09810ea1c67f9f77cf743ed5c69d4cb4ee
+Checks recorded in the build receipt:
+- iso-raw/model.test.mjs: 10/10 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/iso-raw/tests/model.test.mjs)
+- Mode invariance: passed, 8 scripts
+- Parameter grid: passed, 153 cases
+Limitations:
+- Thông số minh họa: giếng 20.000 e⁻, điện áp chuẩn hóa sau trừ mẫu reset, gain analog 1×/2×/4× và ADC lý tưởng 12 bit. Không phải thông số của một máy ảnh cụ thể.
+- Không ánh xạ gain sang số ISO cụ thể. Mô hình chỉ minh họa gain analog trước ADC, không mô phỏng gain số hoặc thay đổi cách cảm biến chuyển điện tích thành điện áp.
+- Bỏ qua nhiễu, sai lệch mạch đọc và xử lý ảnh. Mã RAW là một mẫu số minh họa, không phải một pixel JPEG hay độ sáng hiển thị.
+- Thứ tự được tô sáng là trình diễn; Chạy và Từng bước không mô phỏng thời gian xử lý thật.

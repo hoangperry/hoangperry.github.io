@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "topic": "iso-raw",
+  "kind": "playground",
+  "sourceDigest": "f7941c54ea081fd02d1e6de16e9ecb09810ea1c67f9f77cf743ed5c69d4cb4ee",
+  "files": {
+    "_includes/how-things-work/iso-raw-scene.html": "6653ed52632ccad78601091f9303c8220cf1209bf677b9357d367b35e190dc7b",
+    "_includes/how-things-work/iso-raw-console.html": "202a55c58bae85722f5c246d6286af31a1ed586ef3214f27d9867849b2387393",
+    "assets/how-things-work/iso-raw/machine.js": "f571e8dd09da13764ab9be7039ea5de8d26aa016bc3790654c1f769255b2fc33",
+    "assets/how-things-work/iso-raw/machine.css": "d4412b94ebff4194b6fef6831e6f8d1230e1072f550ca0ce36e64e910637ce89",
+    "assets/how-things-work/iso-raw/thumbnail.webp": "0f7382d63e2ed47bd8ddb97bab3872a30adedf08a6d35230244ea1e1b9242ae3",
+    "assets/how-things-work/iso-raw/NOTICE.txt": "96fdee3115459127249669bae1819e31b9276494b5b3f6c1267173b2d4ab65b7"
+  }
+}
