@@ -1,0 +1,128 @@
+---
+title: "Bộ lọc Bayer thiếu hai màu ở mỗi điểm, ảnh RGB đến từ đâu?"
+permalink: /how-things-work/bayer-demosaicing/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Một ô cảm biến dưới lưới Bayer chỉ cho một số. Hai kênh còn lại được ước lượng từ ô bên cạnh. Thử với một cạnh đen–trắng để xem vì sao phép nội suy có thể tạo ra màu mà cảnh gốc không có."
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/bayer-demosaicing/machine.css
+script-includes:
+  - /assets/how-things-work/bayer-demosaicing/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="bayer-demosaicing" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/bayer-demosaicing-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh vẫn cho xem phép tính ở ô B (3, 3); xem thêm <a href="#bayer-ket-qua">bảng đối chiếu</a> để đọc các vị trí khác.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="bayer-demosaicing-scene" disabled><span class="htw-collapse-name">Lưới Bayer và ảnh RGB</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài bộ lọc Bayer">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#bayer-canh">Cạnh không có màu</a></li>
+            <li><a href="#bayer-mau">Một ô chỉ đo một kênh</a></li>
+            <li><a href="#bayer-noi-suy">Hai kênh lấy từ đâu?</a></li>
+            <li><a href="#bayer-tu-thu">Tự thử</a></li>
+            <li><a href="#bayer-ket-qua">Bảng đối chiếu không cần JavaScript</a></li>
+            <li><a href="#bayer-tai-lieu">Nguồn và giới hạn</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="bayer-canh" class="htw-step" data-machine-focus="scene" aria-labelledby="bayer-canh-h">
+        <p class="htw-step-label">01 · Cảnh gốc</p>
+        <h2 id="bayer-canh-h" tabindex="-1">Cạnh đen–trắng, nhưng xuất hiện màu</h2>
+        <p>Trong ví dụ mặc định, ô B (3, 3) nằm ngay bên trắng của cạnh. Cảnh gốc đặt cả ba kênh của ô này bằng 1. Ở ảnh tái tạo, B vẫn bằng 1 nhưng R chỉ còn 0,50 và G còn 0,75. Không có màu nào ở cảnh gốc để máy ảnh “nhặt” vào ô này. Màu xuất hiện vì hai kênh còn lại mượn số từ những ô ở hai bên cạnh. Nếu bạn đã đổi cấu hình, hình vẫn giữ lựa chọn của bạn. Bấm <strong>Đặt lại</strong> trong chế độ tự thử để khôi phục hình mặc định, hoặc xem <a href="#bayer-ket-qua">bảng đối chiếu</a>.</p>
+        <p>Ta có sẵn cảnh gốc vì chính mô hình dựng nó: một lưới 8 × 8, gốc (0, 0) ở trên trái; <em>x</em> là cột tăng sang phải, <em>y</em> là hàng tăng xuống dưới. Trong cảnh đen–trắng, cột 0–2 là (0; 0; 0), cột 3–7 là (1; 1; 1). Bộ ba luôn viết theo thứ tự R, G, B và dùng giá trị tuyến tính chuẩn hóa từ 0 đến 1. Máy ảnh thật không có bản RGB gốc để nhìn trước như ta.</p>
+      </section>
+
+      <section id="bayer-mau" class="htw-step" data-machine-focus="sampled" aria-labelledby="bayer-mau-h">
+        <p class="htw-step-label">02 · Mẫu Bayer</p>
+        <h2 id="bayer-mau-h" tabindex="-1">Một ô chỉ cho một số</h2>
+        <p>Photodiode tích điện khi nhận ánh sáng. Đặt trước mỗi photodiode một bộ lọc nhỏ, ta có thể ưu tiên một dải bước sóng khác nhau theo vị trí. Hàng chẵn của lưới RGGB xen kẽ R–G; hàng lẻ xen kẽ G–B. Mỗi khối 2 × 2 có một R, hai G và một B. Trên lưới 8 × 8, tổng cộng có 16 mẫu R, 32 mẫu G và 16 mẫu B. Mẫu G dày hơn giúp lấy thêm chi tiết ở kênh vốn đóng góp nhiều vào độ sáng; G không phải là phép đo độ chói hoàn chỉnh. <a href="#bayer-source-s1">[S1]</a></p>
+        <p>Mô hình coi mỗi lọc như một phép chọn kênh hoàn hảo; lọc thật có đáp ứng phổ rộng và chồng lấn. Trong ví dụ trên, ô B (3, 3) cho đúng một số <strong>B = 1</strong>. R và G ở ô đó là <em>chưa biết</em>, không phải bằng 0. Đối chiếu ba khung: cảnh gốc có ba số một ô, lưới Bayer chỉ có một, còn khung cuối lại có ba số nhờ nội suy.</p>
+      </section>
+
+      <section id="bayer-noi-suy" class="htw-step" data-machine-focus="reconstructed" aria-labelledby="bayer-noi-suy-h">
+        <p class="htw-step-label">03 · Nội suy</p>
+        <h2 id="bayer-noi-suy-h" tabindex="-1">Giữ số đo, rồi đọc số từ ô lân cận</h2>
+        <p>Khung 3 × 3 phóng to ô đang xét. Ô ở giữa có viền dày: đó là mẫu duy nhất đo tại chỗ. Viền liền mảnh là mẫu lấy trên trục; viền đứt là mẫu lấy theo đường chéo. Ô không có viền không góp vào phép tính. Chữ R/G/B và số trong mỗi ô cho biết đang lấy mẫu nào mà không cần phân biệt màu. Phép nội suy trong bài là trung bình các mẫu gần nhất của từng kênh, theo cách bilinear. <a href="#bayer-source-s2">[S2]</a></p>
+        <p><strong>Ở ô R hoặc B:</strong> bốn láng giềng trên, dưới, trái, phải đều là G; bốn ô chéo thuộc kênh còn lại. Với ô B (3, 3), ba trong bốn mẫu G trên trục ở phía trắng nên G = (1 + 0 + 1 + 1) ÷ 4 = 0,75. Chỉ hai trong bốn mẫu R đường chéo ở phía trắng nên R = (0 + 1 + 0 + 1) ÷ 4 = 0,50. Dải viền gạch ở khung nội suy là các ô biên <em>chưa tính</em>, không phải điểm đen; ta chỉ tính 6 × 6 ô có đủ láng giềng.</p>
+        <p><strong>Ở ô G:</strong> hàng có R dùng hai R ngang và hai B dọc. Hàng có B thì ngược lại: hai R dọc, hai B ngang. Chẳng hạn, G (3, 2) mượn R từ (2, 2) và (4, 2), còn G (2, 3) mượn R từ (2, 2) và (2, 4). Kênh G đo tại chỗ không đổi ở cả hai trường hợp. <a href="#bayer-phep-tinh">Đối chiếu tọa độ và số</a>.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="bayer-tu-thu" class="htw-try" aria-labelledby="bayer-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="bayer-tu-thu-h" tabindex="-1">Đổi cảnh, rồi đổi đúng một tọa độ</h2>
+      <p>Mở tự thử để đưa hình xuống cạnh điều khiển. Hai thanh trượt <em>x</em> và <em>y</em> chọn cột và hàng từ 1 đến 6. Các số và phép tính ở cạnh điều khiển cập nhật cùng hình; trên điện thoại, không cần cuộn lại lên hình để biết kênh nào đo tại chỗ.</p>
+      <ol class="htw-try-list">
+        <li><strong>Giữ nguyên ô, đổi cảnh.</strong> Chọn <strong>Mảng đều · R (2, 2)</strong>: mọi mẫu cùng kênh đều bằng nhau, nên ảnh nội suy khớp (0,20; 0,50; 0,80). Chọn <strong>Cạnh trung tính · R (2, 2)</strong>: R đo 0, G ước lượng 0,25 và B ước lượng 0,50. Một mẫu G trên trục và hai mẫu B đường chéo nằm bên trắng; đó là nơi hai số khác 0 đi vào.</li>
+        <li><strong>Thử cả hai ô G.</strong> Từ ô R (2, 2), chỉ tăng <em>x</em> một nấc để đến G (3, 2): R lấy ngang. Đưa <em>x</em> về 2 và tăng <em>y</em> một nấc để đến G (2, 3): R lấy dọc. Đọc cả tên kênh và phép tính, đừng chỉ so màu.</li>
+        <li><strong>Đi theo đường của dữ liệu.</strong> <strong>Chạy</strong> lần lượt nhấn mạnh cảnh gốc, mẫu Bayer và RGB nội suy. Vạch dày dưới tiêu đề chỉ pha đang xem; cả ba bản đối chiếu luôn hiện. <strong>Dừng</strong> giữ pha và ô đã chọn. <strong>Từng bước</strong> tới pha kế, từ pha cuối quay về cảnh gốc. Chọn cảnh hoặc tọa độ không làm nhảy pha; <strong>Đặt lại</strong> đưa về cạnh đen–trắng với ô B (3, 3).</li>
+      </ol>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên không mở được điều khiển. Dùng hình tĩnh và bảng ở dưới để làm lại phép tính.</p></noscript>
+      <p class="htw-try-fallback">Nếu nút vẫn khóa, hãy dùng <a href="#bayer-ket-qua">bảng đối chiếu</a> và <a href="#bayer-phep-tinh">phép tính tay</a>.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="bayer-demosaicing-scene bayer-demosaicing-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="bayer-demosaicing-scene" disabled>Quay lại bài đọc</button></p>
+        <p><a href="#bayer-demosaicing-scene">Xem lại hình sau khi chỉnh</a></p>
+        <p data-machine-output class="bayer-mobile-reading"><span class="bayer-reading-label">Pha đang xem: <span data-bayer-phase-label>Cảnh gốc</span></span><span data-camera-reading>Ô (3, 3) · R ước lượng 0,50 · G ước lượng 0,75 · B đo 1. Gốc (1; 1; 1) → RGB (0,50; 0,75; 1). R Chéo (0+1+0+1) ÷ 4 · G Trục (1+0+1+1) ÷ 4.</span></p>
+        {% include how-things-work/bayer-demosaicing-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="bayer-ket-qua" class="htw-sources" aria-labelledby="bayer-ket-qua-h">
+  <h2 id="bayer-ket-qua-h" tabindex="-1">Năm điểm đối chiếu không cần JavaScript</h2>
+  <p>Hai bộ ba trong mỗi hàng đều theo thứ tự R, G, B. Cột “Đo tại ô” chỉ mang một số từ lưới Bayer; hai số kia đến từ những ô bên cạnh.</p>
+  <div class="table-wrapper">
+    <table>
+      <caption>Ô mảng màu đều và bốn loại vị trí RGGB cạnh ranh giới</caption>
+      <thead><tr><th scope="col">Cảnh và ô</th><th scope="col">RGB gốc</th><th scope="col">Đo tại ô</th><th scope="col">RGB nội suy</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Mảng đều (2, 2)</th><td>(0,20; 0,50; 0,80)</td><td>R = 0,20</td><td>(0,20; 0,50; 0,80)</td></tr>
+        <tr><th scope="row">Cạnh (2, 2)</th><td>(0; 0; 0)</td><td>R = 0</td><td>(0; 0,25; 0,50)</td></tr>
+        <tr><th scope="row">Cạnh (3, 2)</th><td>(1; 1; 1)</td><td>G = 1</td><td>(0,50; 1; 1)</td></tr>
+        <tr><th scope="row">Cạnh (2, 3)</th><td>(0; 0; 0)</td><td>G = 0</td><td>(0; 0; 0,50)</td></tr>
+        <tr><th scope="row">Cạnh (3, 3)</th><td>(1; 1; 1)</td><td>B = 1</td><td>(0,50; 0,75; 1)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Khi cả ba kênh ban đầu bằng nhau mà ba số sau nội suy lệch nhau, đó là <strong>màu giả</strong>. Những ô ở sát ranh giới có thể bị ảnh hưởng dù số duy nhất đo tại chỗ vẫn hoàn toàn đúng trong mô hình.</p>
+</section>
+
+<section id="bayer-tai-lieu" class="htw-sources" aria-labelledby="bayer-tai-lieu-h">
+  <h2 id="bayer-tai-lieu-h" tabindex="-1">Nguồn, phép tính và giới hạn</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="bayer-source-s1"><a href="https://patents.google.com/patent/US3971065A/en" target="_blank" rel="noopener noreferrer">[S1] Bryce E. Bayer, <em>Color Imaging Array</em>, US3971065A</a>. Hình 1A–1B và 3A–3B: bố trí lọc lặp lại, G ở một nửa vị trí.</li>
+        <li id="bayer-source-s2"><a href="https://www.ipol.im/pub/art/2011/g_mhcd/article.pdf" target="_blank" rel="noopener noreferrer">[S2] Pascal Getreuer, <em>Malvar-He-Cutler Linear Image Demosaicking</em>, IPOL (PDF)</a>. Mục 1–2: lưới Bayer, trung bình bilinear và màu giả ở cạnh. Bài chỉ dùng phần nội suy bilinear, không dùng các số hạng hiệu chỉnh chéo kênh của Malvar–He–Cutler.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 id="bayer-phep-tinh">Tự tính lại ô R (2, 2)</h3>
+      <p>R ở (2, 2) nằm bên đen nên đo 0. Đọc G theo thứ tự trên, trái, phải, dưới: (2, 1), (1, 2), (3, 2), (2, 3). Chỉ (3, 2) bên trắng, nên G = (0 + 0 + 1 + 0) ÷ 4 = 0,25. Các mẫu B ở (1, 1), (3, 1), (1, 3), (3, 3) có hai số 1 ở cột 3, nên B = (0 + 1 + 0 + 1) ÷ 4 = 0,50.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình và cách đọc kết quả">
+      <h3>Mô hình dừng ở đâu?</h3>
+      <p>Không có tín hiệu RAW thật, nhiễu, cân bằng trắng, ma trận màu, gamma máy ảnh hay thuật toán xử lý của một hãng. Các ô màu chỉ để nhìn khác biệt; đối chiếu bằng số tuyến tính. Nhiều thuật toán thật xem xét hướng cạnh hoặc tương quan giữa các kênh để tránh trộn hai phía; bài không dự đoán máy nào sẽ để lại màu giả. Một giây mỗi pha chỉ để đọc hình, không phải thời gian đọc hay xử lý của cảm biến.</p>
+    </aside>
+  </div>
+</section>
