@@ -1,0 +1,30 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="cmos-pixel-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Một pixel CMOS biến ánh sáng thành điện áp thế nào?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="exposure">
+<legend class="htw-playground-group-label">Lượt phơi</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="rate" data-playground-type="range">
+<label class="htw-playground-control-label" id="cmos-pixel-control-rate-label" for="cmos-pixel-control-rate">Tốc độ thu electron</label>
+<input type="range" class="htw-playground-slider" id="cmos-pixel-control-rate" data-playground-key="rate" data-playground-range min="0" max="4000" step="500" disabled>
+<output class="htw-playground-value" id="cmos-pixel-control-rate-value" for="cmos-pixel-control-rate" data-playground-output="rate" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">e⁻/ms</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="exposureMs" data-playground-type="range">
+<label class="htw-playground-control-label" id="cmos-pixel-control-exposureMs-label" for="cmos-pixel-control-exposureMs">Thời gian phơi</label>
+<input type="range" class="htw-playground-slider" id="cmos-pixel-control-exposureMs" data-playground-key="exposureMs" data-playground-range min="1" max="10" step="1" disabled>
+<output class="htw-playground-value" id="cmos-pixel-control-exposureMs-value" for="cmos-pixel-control-exposureMs" data-playground-output="exposureMs" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">ms</span></output>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="cmos-pixel-presets-label">
+<span class="htw-playground-group-label" id="cmos-pixel-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="dark" disabled>Tối</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="bright" disabled>Đủ sáng</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="full-well" disabled>Đầy giếng</button>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}

@@ -1,0 +1,136 @@
+---
+title: "Một pixel CMOS biến ánh sáng thành điện áp thế nào?"
+permalink: /how-things-work/cmos-pixel/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Một pixel tích electron trong photodiode, rồi chuyển cả gói sang nút đọc. Theo dõi hai lần lấy mẫu để thấy vì sao nhiều ánh sáng hơn lại làm điện áp ở nút đọc thấp hơn."
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/cmos-pixel/machine.css
+script-includes:
+  - /assets/how-things-work/cmos-pixel/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="cmos-pixel" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/cmos-pixel-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh cho thấy cấu hình Đủ sáng trước khi phơi; dùng <a href="#cmos-pixel-ket-qua">bảng đối chiếu</a> để so các kết quả.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="cmos-pixel-scene" disabled><span class="htw-collapse-name">Bản cắt pixel CMOS</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+      <nav class="htw-toc" aria-label="Các phần của bài pixel CMOS">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#cmos-pixel-ban-cat">Một pixel, hai nơi giữ điện tích</a></li>
+            <li><a href="#cmos-pixel-phoi">Phơi sáng trong photodiode</a></li>
+            <li><a href="#cmos-pixel-chuyen">Lấy mẫu reset rồi mở cổng</a></li>
+            <li><a href="#cmos-pixel-doc">Lấy hiệu hai điện áp</a></li>
+            <li><a href="#cmos-pixel-tu-thu">Tự thử</a></li>
+            <li><a href="#cmos-pixel-ket-qua">Bảng đối chiếu không cần JavaScript</a></li>
+            <li><a href="#cmos-pixel-tai-lieu">Nguồn và phép tính</a></li>
+          </ol>
+        </details>
+      </nav>
+    </div>
+    <div class="htw-story" data-machine-story>
+      <section id="cmos-pixel-ban-cat" class="htw-step" data-machine-focus="device" aria-labelledby="cmos-pixel-ban-cat-h">
+        <p class="htw-step-label">01 · Bản cắt</p>
+        <h2 id="cmos-pixel-ban-cat-h" tabindex="-1">Nơi nhận ánh sáng không phải nơi đo điện áp</h2>
+        <p>Cho cùng một pixel thu 10.000 electron. Trong lúc phơi, nút đọc vẫn ở <strong>1,200 V</strong> theo mô hình. Chỉ sau khi mở cổng chuyển, điện áp nút đọc mới tụt xuống khoảng <strong>1,040 V</strong>. Hai việc xảy ra ở hai nơi khác nhau trên cùng miếng silicon.</p>
+        <p>Bản cắt đi từ trái sang phải: <strong>PPD</strong> (<i>pinned photodiode</i>, photodiode ghim) chứa giếng electron; <strong>TG</strong> (<i>transfer gate</i>) điều khiển đường chuyển; <strong>FD</strong> (<i>floating diffusion</i>, nút khuếch tán nổi) đổi điện tích thành điện áp. Đây là sơ đồ phần thu và chuyển của pixel 4T. Bốn transistor là transistor chuyển, reset, đệm đọc kiểu <i>source follower</i> và chọn hàng. Hình chỉ vẽ chi tiết vùng dưới cổng chuyển, không vẽ ba transistor còn lại. <a href="#cmos-pixel-source-s1">[S1]</a></p>
+      </section>
+
+      <section id="cmos-pixel-phoi" class="htw-step" data-machine-focus="exposure" aria-labelledby="cmos-pixel-phoi-h">
+        <p class="htw-step-label">02 · Phơi sáng</p>
+        <h2 id="cmos-pixel-phoi-h" tabindex="-1">Electron tích trong giếng, chưa tới nút đọc</h2>
+        <p>Photon được hấp thụ trong silicon có thể sinh một cặp electron–lỗ trống. Điện trường trong vùng thu tách chúng; electron được thu vào vùng <i>n</i> chôn bên dưới lớp <i>p+</i> ghim điện thế bề mặt. Lớp này cũng giúp giảm dòng tối phát sinh ở bề mặt. Khi TG đóng, hàng rào điện thế giữ gói electron trong PPD. Điện tích quang chưa đến FD. <a href="#cmos-pixel-source-s1">[S1]</a></p>
+        <p>Thanh độ sáng đặt <em>tốc độ thu</em> electron, không đặt số photon tới. Không phải photon nào tới pixel cũng đóng góp một electron vào giếng. Với tốc độ thu không đổi, 2.000 e⁻/ms trong 5 ms cho 10.000 electron kỳ vọng. Gấp đôi thời gian thì thu gấp đôi, trừ khi đã chạm sức chứa. Giếng minh họa giữ tối đa <strong>20.000 electron</strong>; phơi thêm không làm tăng số đọc trong bài.</p>
+      </section>
+
+      <section id="cmos-pixel-chuyen" class="htw-step" data-machine-focus="transfer" aria-labelledby="cmos-pixel-chuyen-h">
+        <p class="htw-step-label">03 · Mẫu reset và xung chuyển</p>
+        <h2 id="cmos-pixel-chuyen-h" tabindex="-1">Đo FD trước khi đưa electron sang</h2>
+        <p>Trước khi mở TG, transistor reset đưa FD về một điện áp tham chiếu. Sau khi ngắt transistor reset, FD không còn bị nguồn reset giữ chặt; mạch đọc lấy <strong>mẫu reset</strong>. Lúc này PPD vẫn giữ nguyên gói electron và vạch reset trên hình đổi từ nét đứt sang nét liền. Mô hình lấy 1,2 V làm mức reset cố định và dùng cùng mức danh định trong lúc phơi; không dùng giá trị đó như mẫu trước khi thật sự lấy mẫu.</p>
+        <p>Xung điện áp ở TG hạ hàng rào dưới cổng. Electron đi <em>dọc trong silicon</em> từ PPD sang FD, không đi xuyên lớp oxide vào cổng. Tại mốc <strong>Đã chuyển</strong>, bài chuyển trọn gói trong một bước; hình còn vẽ TG mở để chỉ đường vừa đi qua. FD đã hạ điện áp nhưng mạch chưa chốt mẫu tín hiệu. <a href="#cmos-pixel-source-s1">[S1]</a></p>
+      </section>
+
+      <section id="cmos-pixel-doc" class="htw-step" data-machine-focus="readout" aria-labelledby="cmos-pixel-doc-h">
+        <p class="htw-step-label">04 · Mẫu tín hiệu</p>
+        <h2 id="cmos-pixel-doc-h" tabindex="-1">Thêm điện tích âm làm FD hạ điện áp</h2>
+        <p>FD có điện dung. Đưa thêm electron vào làm điện tích trên nút thay đổi theo chiều âm, nên điện áp FD giảm. TG đóng lại, mẫu tín hiệu được lấy và vạch thứ hai chuyển sang nét liền. Ta lấy <strong>điện áp reset trừ điện áp tín hiệu</strong>, vì vậy độ chênh đọc ra là số dương khi có ánh sáng. Trong đối chứng tối lý tưởng, TG vẫn mở rồi đóng, nhưng không có electron để chuyển; hai vạch ứng với cùng một điện áp và hiệu bằng 0.</p>
+        <p>Đọc hai lần trên cùng một lần reset là cơ sở của <i>correlated double sampling</i> (lấy mẫu kép tương quan): phần nhiễu reset chung trong cả hai mẫu có thể được khử khi lấy hiệu. Bài không mô phỏng nhiễu hay mạch lấy mẫu thật. Hình chỉ cho thấy thứ tự và dấu của phép trừ. <a href="#cmos-pixel-source-s1">[S1]</a></p>
+      </section>
+    </div>
+  </div>
+
+  <section id="cmos-pixel-tu-thu" class="htw-try" aria-labelledby="cmos-pixel-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="cmos-pixel-tu-thu-h" tabindex="-1">Giữ mắt ở FD, đổi lượng điện tích</h2>
+      <p>Mở chế độ tự thử để giữ bản cắt cạnh bảng điều khiển. Hai vạch đứt ban đầu là <em>dự kiến</em> cho lượt phơi đang chọn, không phải hai phép đo đã thực hiện.</p>
+      <ol class="htw-try-list">
+        <li><strong>Đủ sáng.</strong> Chọn 2.000 e⁻/ms trong 5 ms. Bấm <strong>Từng bước</strong> ba lần: lấy mẫu reset khi gói còn ở PPD, chuyển gói sang FD, rồi lấy mẫu tín hiệu. Dừng ở mỗi mốc để xem chấm và vạch nào đổi.</li>
+        <li><strong>Tối.</strong> Chạy lại với tốc độ thu 0 e⁻/ms. TG vẫn mở ở mốc chuyển, nhưng không có gói electron. Hai vạch ở 1,200 V và hiệu là 0,000 V.</li>
+        <li><strong>Đầy giếng.</strong> Chọn 4.000 e⁻/ms trong 8 ms rồi bấm <strong>Chạy</strong>. Giếng đầy từ 5 ms. Dùng <strong>Dừng</strong> để xem điện áp FD vẫn là 1,200 V khi PPD đã đầy nhưng TG chưa mở. Đổi thời gian phơi từ 8 lên 10 ms và lấy lại hai mẫu: hiệu vẫn là 0,320 V.</li>
+      </ol>
+      <p>Chỉnh một thanh trượt hoặc chọn cấu hình mẫu sẽ tạo lượt phơi mới. <strong>Chạy</strong> tiếp tục sau khi dừng; bấm sau mẫu tín hiệu sẽ phơi lại với điều kiện hiện tại. <strong>Từng bước</strong> sau mẫu tín hiệu đưa về mốc sẵn sàng của lượt mới. <strong>Đặt lại</strong> khôi phục cấu hình Đủ sáng. Khi chạy, mỗi 1 ms phơi được kéo thành 0,4 giây để quan sát; các mốc reset và chuyển được giữ thêm 0,8 giây mỗi mốc. Đó là nhịp trình diễn, không phải tốc độ đọc của cảm biến.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên không mở được điều khiển. Hình và bảng dưới đây vẫn đọc được.</p></noscript>
+      <p class="htw-try-fallback">Nếu nút vẫn khóa, đọc <a href="#cmos-pixel-ket-qua">bảng đối chiếu</a> và <a href="#cmos-pixel-phep-tinh">phép tính</a>.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="cmos-pixel-scene cmos-pixel-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="cmos-pixel-scene" disabled>Quay lại bài đọc</button></p>
+        <p><a href="#cmos-pixel-scene">Xem lại hình sau khi chỉnh</a></p>
+        <p class="cmos-mobile-reading" data-machine-output aria-label="Kết quả của lượt phơi"><span data-camera-reading>Dự kiến 10.000 e⁻ · ΔV 0,160 V</span></p>
+        {% include how-things-work/cmos-pixel-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="cmos-pixel-ket-qua" class="htw-sources" aria-labelledby="cmos-pixel-ket-qua-h">
+  <h2 id="cmos-pixel-ket-qua-h" tabindex="-1">Bảng đối chiếu không cần JavaScript</h2>
+  <p>Trong hình tĩnh, lần theo PPD → TG → FD từ trái sang phải. Hai vạch đứt dự báo hai mức điện áp của hàng Đủ sáng. Bảng ghi kết quả sau khi lấy cả hai mẫu; mẫu reset là 1,200 V trong cả bốn trường hợp.</p>
+  <div class="table-wrapper">
+    <table>
+      <caption>Điện tích thu và điện áp ở FD sau khi chuyển</caption>
+      <thead>
+        <tr><th scope="col">Điều kiện</th><th scope="col">Thu × phơi</th><th scope="col">Gói electron</th><th scope="col">Mẫu tín hiệu</th><th scope="col">Reset − tín hiệu</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Tối</th><td>0 e⁻/ms × 5 ms</td><td>0 e⁻</td><td>1,200 V</td><td>0,000 V</td></tr>
+        <tr><th scope="row">Đủ sáng</th><td>2.000 e⁻/ms × 5 ms</td><td>10.000 e⁻</td><td>1,040 V</td><td>0,160 V</td></tr>
+        <tr><th scope="row">Đầy giếng</th><td>4.000 e⁻/ms × 8 ms</td><td>20.000 e⁻</td><td>0,880 V</td><td>0,320 V</td></tr>
+        <tr><th scope="row">Phơi thêm</th><td>4.000 e⁻/ms × 10 ms</td><td>20.000 e⁻</td><td>0,880 V</td><td>0,320 V</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Hai hàng cuối không đạt cùng tín hiệu vì ánh sáng bằng nhau, mà vì cả hai lượt đều kéo dài quá lúc PPD đã đầy. Đây là bão hòa điện tích ở giếng, chưa phải vượt trần của bộ số hóa.</p>
+</section>
+
+<section id="cmos-pixel-tai-lieu" class="htw-sources" aria-labelledby="cmos-pixel-tai-lieu-h">
+  <h2 id="cmos-pixel-tai-lieu-h" tabindex="-1">Nguồn và phép tính</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="cmos-pixel-source-s1"><a href="https://ericfossum.com/Publications/Papers/2014%20JEDS%20Review%20of%20the%20PPD.pdf" target="_blank" rel="noopener noreferrer">[S1] E. R. Fossum &amp; D. B. Hondongwa, A Review of the Pinned Photodiode for CCD and CMOS Image Sensors (2014, PDF)</a>: mục III.A–C, hình 4–6 về cấu trúc PPD, quá trình chuyển điện tích và đọc pixel 4T.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 id="cmos-pixel-phep-tinh">Tự tính điện áp rơi ở FD</h3>
+      <p>Với tốc độ thu <em>r</em> tính bằng e⁻/ms và thời gian <em>t</em> tính bằng ms, số electron kỳ vọng là <em>N</em> = min(<em>rt</em>, 20.000). Gọi <em>q</em> = 1,602176634 × 10<sup>−19</sup> C là độ lớn điện tích của một electron. Thay đổi điện tích ở FD là −<em>qN</em>. Với điện dung cố định <em>C</em><sub>FD</sub> = 10 fF, ta có <em>V</em><sub>tín hiệu</sub> = <em>V</em><sub>reset</sub> − <em>qN</em>/<em>C</em><sub>FD</sub>.</p>
+      <p>Mỗi electron làm FD hạ khoảng 16,02 µV. Với 20.000 electron, độ chênh là 0,320435 V trước khi làm tròn và mẫu tín hiệu còn khoảng 0,880 V. Cùng gói điện tích đặt vào FD có điện dung lớn hơn sẽ làm điện áp đổi ít hơn.</p>
+    </div>
+    <aside aria-label="Giới hạn của mô hình pixel CMOS">
+      <h3>Con số mô tả điều gì?</h3>
+      <p>Giếng 20.000 e⁻, điện dung 10 fF và mức reset 1,2 V là giá trị minh họa, không phải thông số của một cảm biến cụ thể. FD được giả định đủ sức nhận cả gói và không mất điện tích khi chuyển. Hình không theo tỷ lệ; chấm chỉ gợi mật độ, không đếm từng electron. Bài không tính phân bố điện trường, tốc độ chuyển, dòng tối, nhiễu, màu, khuếch đại, ADC hay thời điểm đọc các hàng.</p>
+    </aside>
+  </div>
+</section>
