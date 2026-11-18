@@ -1,0 +1,64 @@
+{% raw %}
+<figure class="htw-machine-scene htw-playground-scene" id="mosfet-scene" data-machine-scene tabindex="-1" aria-labelledby="mosfet-scene-title">
+<div class="htw-machine-plate">
+<div class="htw-machine-plate-bar">
+<p class="htw-machine-plate-title" id="mosfet-scene-title">MOSFET: Vì sao cổng cách điện vẫn bật được dòng điện?</p>
+<button type="button" class="htw-machine-chip htw-machine-theme" data-machine-theme aria-pressed="false" disabled>
+<span class="htw-machine-theme-icon" aria-hidden="true"></span><span>Nền sáng</span></button>
+</div>
+<div class="htw-machine-view"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 514" class="nmos-svg" role="img" aria-label="Bản cắt NMOS và đường đặc tính dòng máng" aria-labelledby="nmos-title" aria-describedby="nmos-description" data-machine-id="nmos-svg" data-nmos-region="cutoff" data-nmos-focus="device" data-machine-view="" focusable="false">
+  <title id="nmos-title">Bản cắt NMOS phẳng và đường đặc tính dòng máng</title>
+  <desc id="nmos-description">Cổng nằm trên lớp oxide cách điện. Hai vùng n+ nguồn và máng nằm trong nền p; tiếp xúc thân nối với nguồn. Đồ thị bên dưới cho thấy dòng máng theo điện áp máng–nguồn.</desc>
+  <text x="16" y="27" class="nmos-heading">01 · Bản cắt NMOS</text>
+  <text x="432" y="27" text-anchor="end" class="nmos-index">MINH HỌA</text>
+  <path class="nmos-rule" d="M16 41H432"/>
+  <path class="nmos-body-side" d="M401 148l23-17v109l-23 17Z"/>
+  <path class="nmos-body-top" d="M25 148l23-17h376l-23 17Z"/>
+  <path class="nmos-body" d="M25 148h376v109H25Z"/>
+  <path class="nmos-edge" d="M25 246h376l23-17"/>
+  <path class="nmos-body-contact" d="M48 149h35v20H48Z"/>
+  <path class="nmos-doped" d="M88 149h70v16q0 22-24 22h-27q-19 0-19-18Z M290 149h78v20q0 18-20 18h-32q-26 0-26-22Z"/>
+  <path class="nmos-contact" d="M52 127h24v22H52Z M102 117h29v32h-29Z M326 117h29v32h-29Z"/>
+  <path class="nmos-wires" d="M64 127V92h53v25m0-25V77 M225 91V77 M340 117V77"/>
+  <circle class="nmos-terminal" cx="117" cy="76" r="4"/><circle class="nmos-terminal" cx="225" cy="76" r="4"/><circle class="nmos-terminal" cx="340" cy="76" r="4"/>
+  <text x="117" y="66" text-anchor="middle">Nguồn · S</text><text x="225" y="66" text-anchor="middle">Cổng · G</text><text x="340" y="66" text-anchor="middle">Máng · D</text>
+  <path class="nmos-gate-top" d="M151 105l17-14h141l-17 14Z"/>
+  <path class="nmos-gate-side" d="M292 105l17-14v32l-17 16Z"/>
+  <rect class="nmos-gate" x="151" y="105" width="141" height="34" rx="2"/>
+  <text class="nmos-metal-label" x="221" y="128" text-anchor="middle">Cổng dẫn điện</text>
+  <path class="nmos-oxide" d="M151 139H292V149H151Z"/>
+  <path data-nmos-mark="charge" class="nmos-charge" d=""/>
+  <path data-nmos-mark="pinch" class="nmos-pinch" d="M290 149V189" display="none"/>
+  <text class="nmos-doping-label" x="120" y="173" text-anchor="middle">n+</text><text class="nmos-doping-label" x="336" y="173" text-anchor="middle">n+</text>
+  <text x="65" y="194" text-anchor="middle" class="nmos-mini">Thân</text>
+  <g data-nmos-mark="directions" display="none">
+    <path class="nmos-motion" d="M156 188H289l-8-4m8 4-8 4"/>
+    <text class="nmos-carrier-label nmos-mini" x="222" y="206" text-anchor="middle">Electron S → D</text>
+    <path class="nmos-current-vector" d="M289 216H156l8-4m-8 4 8 4"/>
+    <text class="nmos-mini" x="222" y="235" text-anchor="middle">Dòng quy ước D → S</text>
+  </g>
+  <text x="34" y="237" class="nmos-mini">Nền p</text>
+  <text x="432" y="279" text-anchor="end" class="nmos-note" data-nmos-label="channel">Chưa có kênh nghịch đảo</text>
+  <rect x="16" y="269" width="18" height="8" class="nmos-oxide"/><text x="40" y="279" class="nmos-note">Oxide cách điện</text>
+  <path class="nmos-rule" d="M16 291H432"/>
+  <text x="16" y="320" class="nmos-heading">02 · Đường đặc tính</text>
+  <text x="432" y="319" class="nmos-index" text-anchor="end" data-nmos-label="gate">VGS = 0,4 V</text>
+  <text x="56" y="344" class="nmos-note">I<tspan baseline-shift="sub" font-size="11">D</tspan> (mA)</text>
+  <path class="nmos-grid" d="M56 353H410 M56 405H410 M174 353V457 M292 353V457 M410 353V457"/>
+  <path class="nmos-axes" d="M56 353V457H410"/>
+  <g class="nmos-index" text-anchor="end"><text x="47" y="358">1,2</text><text x="47" y="410">0,6</text><text x="47" y="462">0</text></g>
+  <g class="nmos-index" text-anchor="middle"><text x="56" y="478">0</text><text x="174" y="478">1</text><text x="292" y="478">2</text><text x="410" y="478">3</text></g>
+  <text x="432" y="496" class="nmos-note" text-anchor="end">V<tspan baseline-shift="sub" font-size="11">DS</tspan> (V)</text>
+  <path data-nmos-mark="knee" class="nmos-knee" d=""/>
+  <path data-nmos-mark="curve" class="nmos-curve" d="M56 457H410"/>
+  <path data-nmos-mark="cursor" class="nmos-cursor" d=""/>
+  <circle data-nmos-mark="point" class="nmos-point" cx="339.2" cy="457" r="5.5"/>
+</svg></div>
+</div>
+<figcaption class="htw-machine-caption">
+<span class="htw-machine-status" data-machine-status>Phần tương tác chưa chạy; hình đang ở dạng tĩnh.</span>
+<dl class="htw-playground-readout" data-machine-readout aria-label="Số liệu của mô hình"></dl>
+</figcaption>
+<p class="htw-machine-sr" data-machine-announcement aria-live="polite" aria-atomic="true"></p>
+</figure>
+{% endraw %}

@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import vm, { Script } from 'node:vm';
 
-export const TOPICS = Object.freeze(['stepper-motor', 'barometric-altimeter', 'hard-disk-drive', 'open-differential', 'ac-generator', 'euv-lithography']);
+export const TOPICS = Object.freeze(['stepper-motor', 'barometric-altimeter', 'hard-disk-drive', 'open-differential', 'ac-generator', 'euv-lithography', 'mosfet']);
 export const FIXTURE_MARKER = '.htw-playground-test-fixture';
 const MANIFEST_KEYS = ['schemaVersion', 'topic', 'kind', 'sourceDigest', 'files'];
 const CONTROL_TAGS = 'button|input|select|textarea';
