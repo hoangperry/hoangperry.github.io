@@ -85,3 +85,10 @@
   subjects: "Điện từ · Máy móc"
   summary: "Theo cuộn dây quay và hai đồ thị từ thông, điện áp: vì sao từ thông cực đại thì điện áp bằng 0, quay nhanh làm đỉnh cao hơn, và dừng trục khác với tạm dừng mô phỏng."
   thumbnail: /assets/how-things-work/ac-generator/thumbnail.webp
+- id: euv-lithography
+  number: "13"
+  url: /how-things-work/euv-lithography/
+  title: "Bên trong máy quang khắc EUV: từ giọt thiếc đến một lớp mạch"
+  subjects: "Bán dẫn · Quang học"
+  summary: "Đi theo ánh sáng từ plasma thiếc qua gương, mặt nạ và khe quét. Thử đổi chu kỳ vạch, lệch tiêu và sai nhịp hai bàn để thấy khi nào mẫu mất nét, khi nào in lệch lớp cũ."
+  thumbnail: /assets/how-things-work/euv-lithography/thumbnail.webp

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "topic": "euv-lithography",
+  "kind": "playground",
+  "sourceDigest": "c3af108496789d2353fa524adf6687c16a76f30c473a7c8789a8a542e0f3614c",
+  "files": {
+    "_includes/how-things-work/euv-lithography-scene.html": "f271f6d98e42ccedac6715cabc38519686d13e0d1bfa6d838330b3797a64e0aa",
+    "_includes/how-things-work/euv-lithography-console.html": "6c099c5b51c99db5a6566a14087ffe819c8f4a81593cdfa9fcae853f3047138e",
+    "assets/how-things-work/euv-lithography/machine.js": "548046a1660d09c85bfd0ad673885508eb22b51df735d048cec1dd625b374860",
+    "assets/how-things-work/euv-lithography/machine.css": "f8165c49429af1e6828977ec2873e9435a935017ef9b0dd3099f9c9ddc01aa1d",
+    "assets/how-things-work/euv-lithography/thumbnail.webp": "58a1896760ea6282bf66e3fa1dbfad9bee2eaa810650fc3ec6e96a400b341562",
+    "assets/how-things-work/euv-lithography/NOTICE.txt": "5027b6e354ccf43b04edcfb0d043af8c1d1305c1e9c292a7b6fb212bbb372627"
+  }
+}
