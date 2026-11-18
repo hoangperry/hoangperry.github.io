@@ -113,3 +113,10 @@
   subjects: "Nhiếp ảnh · Xử lý ảnh"
   summary: "Soi lưới RGGB để tách giá trị đo khỏi giá trị nội suy. Đổi sang cạnh đen–trắng để thấy một ảnh không màu vẫn có thể sinh viền màu."
   thumbnail: /assets/how-things-work/bayer-demosaicing/thumbnail.webp
+- id: rolling-shutter
+  number: "17"
+  url: /how-things-work/rolling-shutter/
+  title: "Vì sao cột thẳng có thể bị nghiêng trong ảnh?"
+  subjects: "Nhiếp ảnh · Cảm biến"
+  summary: "Cho cùng một thanh chạy ngang dưới rolling và global shutter. Giữ thời gian phơi mỗi hàng như nhau để tách lệch hình khỏi nhòe."
+  thumbnail: /assets/how-things-work/rolling-shutter/thumbnail.webp

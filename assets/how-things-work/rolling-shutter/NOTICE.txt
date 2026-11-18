@@ -1,0 +1,13 @@
+How Things Work playground: Vì sao cột thẳng có thể bị nghiêng trong ảnh?
+Topic: rolling-shutter
+Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: 14ba3ba955d9a23c6c7adbf653b82ab7929c6f3cc882c2a8ffdc37270361cf56
+Checks recorded in the build receipt:
+- rolling-shutter/model.test.mjs: 8/8 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/rolling-shutter/tests/model.test.mjs)
+- Mode invariance: passed, 6 scripts
+- Parameter grid: passed, 6 cases
+Limitations:
+- Chín hàng, khung ngang 28 px và thanh rộng 4 px là số minh họa, không phải thông số cảm biến. Mỗi hàng phơi 4 ms; độ trễ hàng là 2 ms với rolling, 0 ms với global.
+- Ảnh diễn tả tỷ phần thời gian thanh phủ từng vị trí ngang, trên thang tuyến tính. Không mô phỏng quang học, nhiễu, rèm cơ, đèn nhấp nháy, khử méo hoặc đọc dữ liệu sau phơi.
+- Một giây trình diễn ứng với 5 ms trong mô hình; tổng thời gian phơi qua khung là 20 ms với rolling và 4 ms với global, không phải thời gian xuất ảnh.

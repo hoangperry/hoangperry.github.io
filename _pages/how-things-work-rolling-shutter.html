@@ -1,0 +1,128 @@
+---
+title: "Vì sao cột thẳng có thể bị nghiêng trong ảnh?"
+permalink: /how-things-work/rolling-shutter/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Một thanh dọc chạy ngang, chín hàng cảm biến đều phơi 4 ms. Chỉ cần dời thời điểm phơi của từng hàng, ảnh đã nghiêng. Đổi sang global shutter sẽ hết nghiêng, nhưng mép thanh vẫn nhòe."
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/rolling-shutter/machine.css
+script-includes:
+  - /assets/how-things-work/rolling-shutter/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="rolling-shutter" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/rolling-shutter-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh giữ ảnh mẫu rolling sang phải ở 20 ms. <a href="#rolling-shutter-ket-qua">Bảng đối chiếu</a> có cả kết quả của global shutter.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="rolling-shutter-scene" disabled><span class="htw-collapse-name">Cảnh, ảnh và cửa phơi</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài màn trập điện tử">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#rolling-shutter-canh">Thanh ngoài cảnh vẫn thẳng</a></li>
+            <li><a href="#rolling-shutter-cua-phoi">Hai cửa phơi ở hai thời điểm</a></li>
+            <li><a href="#rolling-shutter-mep-nhoe">Hết nghiêng, chưa hết nhòe</a></li>
+            <li><a href="#rolling-shutter-tu-thu">Tự thử</a></li>
+            <li><a href="#rolling-shutter-ket-qua">Bảng đối chiếu</a></li>
+            <li><a href="#rolling-shutter-tai-lieu">Nguồn và phép tính</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="rolling-shutter-canh" class="htw-step" data-machine-focus="scene" aria-labelledby="rolling-shutter-canh-h">
+        <p class="htw-step-label">01 · Cảnh</p>
+        <h2 id="rolling-shutter-canh-h" tabindex="-1">Thanh ngoài cảnh vẫn thẳng</h2>
+        <p>Nhìn thanh màu hổ phách ở trên, rồi nhìn vệt mà nó để lại bên dưới. Thanh chỉ trượt sang phải, không xoay. Vậy mà trong ảnh mẫu, tâm vệt ở hàng cuối H8 lại nằm bên phải tâm vệt ở hàng đầu H0 tới <strong>8 px</strong>. Không hàng nào bị kéo ngang sau khi chụp. Các hàng chỉ ghi cảnh ở những lúc khác nhau.</p>
+        <p>Trong bài <a href="https://hoang.tech/how-things-work/slr-film-camera/">máy ảnh SLR phim</a>, một điểm trên phim bắt đầu và kết thúc phơi khi hai mép rèm lần lượt đi qua. Ở đây vẫn cần hỏi hai câu đó, <em>bắt đầu lúc nào, kết thúc lúc nào?</em>, nhưng không có rèm chạy. Mạch trên cảm biến quyết định lúc từng hàng bắt đầu và ngừng tích tín hiệu ánh sáng.</p>
+      </section>
+
+      <section id="rolling-shutter-cua-phoi" class="htw-step" data-machine-focus="windows" aria-labelledby="rolling-shutter-cua-phoi-h">
+        <p class="htw-step-label">02 · Cửa phơi</p>
+        <h2 id="rolling-shutter-cua-phoi-h" tabindex="-1">Hai hàng, cùng 4 ms, nhưng không cùng lúc</h2>
+        <p>Ở cột cửa phơi, vòng tròn là mốc mở và ô vuông là mốc chốt. H0 của <strong>rolling shutter</strong> phơi từ 0 đến 4 ms; H1 từ 2 đến 6 ms; H8 từ 16 đến 20 ms. Mỗi đoạn đều dài 4 ms, chỉ dời sang phải 2 ms so với hàng trước. Ngay tại 4 ms, H0 chốt, H2 mở, còn H1 vẫn đang tích lũy. Nét đứt dọc đánh dấu thời điểm hiện tại; đường ngang đậm chỉ phần thời gian đã phơi.</p>
+        <p>Thanh đi sang phải 0,5 px mỗi mili giây. Sang hàng kế tiếp, toàn bộ cửa phơi trễ 2 ms nên toàn bộ vệt dịch thêm 1 px. Qua tám khoảng giữa chín hàng, ta được 8 px. Đổi hướng chạy của thanh, vệt nghiêng ngược lại; dừng thanh thì vệt thẳng dù hai hàng vẫn phơi lệch giờ. <a href="#rolling-shutter-nguon">[S1]</a></p>
+      </section>
+
+      <section id="rolling-shutter-mep-nhoe" class="htw-step" data-machine-focus="coverage" aria-labelledby="rolling-shutter-mep-nhoe-h">
+        <p class="htw-step-label">03 · Ảnh tích lũy</p>
+        <h2 id="rolling-shutter-mep-nhoe-h" tabindex="-1">Phơi cùng lúc thì hết nghiêng, chưa hết nhòe</h2>
+        <p><strong>Global shutter</strong> mở và chốt tất cả các hàng cùng lúc. Với cùng thanh chạy sang phải, H0 đến H8 đều phơi từ 0 đến 4 ms. Tâm các vệt thẳng hàng, nhưng thanh vẫn đi được <strong>2 px trong 4 ms</strong>. Đổi kiểu màn trập không làm ngắn cửa phơi.</p>
+        <p>Đậm nhạt trong vệt cho biết thanh phủ mỗi vị trí bao lâu. Ví dụ, ở H0 khi thanh chạy sang phải, vị trí <em>x</em> = 13,5 px nằm dưới thanh từ 0 đến 3 ms, nên nhận 3/4 mức tối đa. Vị trí <em>x</em> = 15 px nằm dưới thanh suốt 4 ms nên nhận mức tối đa. Mép vệt chuyển dần từ nhạt sang đậm vì thanh đi qua trong lúc đang phơi, không phải vì hình lấy một tư thế giữa cửa rồi làm mờ nó.</p>
+        <p>Phơi đồng thời không có nghĩa là <em>đọc dữ liệu</em> đồng thời. Một cảm biến global có thể giữ tín hiệu đã chốt rồi đọc lần lượt theo hàng; lượt đọc đó không kéo dài cửa phơi. Hình dừng ở lúc chốt hàng cuối, không mô phỏng phần đọc. <a href="#rolling-shutter-nguon">[S1]</a></p>
+      </section>
+    </div>
+  </div>
+
+  <section id="rolling-shutter-tu-thu" class="htw-try" aria-labelledby="rolling-shutter-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="rolling-shutter-tu-thu-h" tabindex="-1">Đổi cách phơi, giữ nguyên chuyển động</h2>
+      <ol class="htw-try-list">
+        <li><strong>Chỉ đổi màn trập.</strong> So hai mẫu <em>Rolling · sang phải</em> và <em>Global · vẫn sang phải</em>. Lệch tâm H8 so với H0 giảm từ +8 px xuống 0 px, còn mức nhòe do chuyển động vẫn là 2 px.</li>
+        <li><strong>Đổi chiều, rồi dừng thanh.</strong> Chọn <em>Rolling · đảo chiều</em> để thấy H8 lệch −8 px, rồi chọn <em>Rolling · đứng yên</em>: ảnh thẳng, không nhòe dù lịch phơi không đổi.</li>
+        <li><strong>Bắt hai việc ở cùng một mốc.</strong> Từ ảnh mẫu rolling, bấm <em>Từng bước</em> ba lần: 0, 2 rồi 4 ms. Ở bước 4 ms, nhìn H0 đã chốt, H1 đang phơi và H2 vừa mở nhưng chưa tích lũy. Bấm <em>Chạy</em> để tiếp tục từ đó, hoặc <em>Dừng</em> giữa hai mốc để xem phần ánh sáng đã tích lũy.</li>
+      </ol>
+      <p>Đổi cấu hình sẽ dừng lượt đang chạy và hiện ngay ảnh mẫu đã phơi xong. <strong>Chạy</strong> hoặc <strong>Từng bước</strong> từ ảnh mẫu hay từ cuối lượt sẽ bắt đầu lại ở mốc 0 ms; <strong>Đặt lại</strong> trở về ảnh mẫu rolling sang phải. Một giây trình diễn chỉ ứng với 5 ms trên trục: khoảng 4 giây xem cho rolling, 0,8 giây cho global.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên bảng điều khiển chưa hoạt động. Hình tĩnh và bảng đối chiếu vẫn đọc được.</p></noscript>
+      <p class="htw-try-fallback">Nếu nút vẫn khóa, hãy xem <a href="#rolling-shutter-ket-qua">bảng đối chiếu</a> và <a href="#rolling-shutter-phep-tinh">phép tính</a>.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="rolling-shutter-scene rolling-shutter-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="rolling-shutter-scene" disabled>Quay lại bài đọc</button></p>
+        <p><a href="#rolling-shutter-scene">Xem lại hình sau khi chỉnh</a></p>
+        <p class="rs-mobile-reading" data-machine-output aria-label="Kết quả phơi theo hàng"><span data-camera-reading>Rolling · lệch +8 px · nhòe 2 px · 9/9 hàng chốt · 20 ms</span></p>
+        {% include how-things-work/rolling-shutter-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="rolling-shutter-ket-qua" class="htw-sources" aria-labelledby="rolling-shutter-ket-qua-h">
+  <h2 id="rolling-shutter-ket-qua-h" tabindex="-1">Đối chiếu ảnh sau khi phơi</h2>
+  <div class="table-wrapper">
+    <table>
+      <caption>Với mỗi kiểu màn trập, lịch phơi của H0 và H8 không phụ thuộc vào hướng hay vận tốc của thanh.</caption>
+      <thead>
+        <tr><th scope="col">Cấu hình</th><th scope="col">Cửa H0; H8</th><th scope="col">Lệch H8 so với H0</th><th scope="col">Nhòe</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Rolling · phải</th><td>0–4; 16–20 ms</td><td>+8 px</td><td>2 px</td></tr>
+        <tr><th scope="row">Rolling · trái</th><td>0–4; 16–20 ms</td><td>−8 px</td><td>2 px</td></tr>
+        <tr><th scope="row">Rolling · đứng</th><td>0–4; 16–20 ms</td><td>0 px</td><td>0 px</td></tr>
+        <tr><th scope="row">Global · phải</th><td>0–4; 0–4 ms</td><td>0 px</td><td>2 px</td></tr>
+        <tr><th scope="row">Global · trái</th><td>0–4; 0–4 ms</td><td>0 px</td><td>2 px</td></tr>
+        <tr><th scope="row">Global · đứng</th><td>0–4; 0–4 ms</td><td>0 px</td><td>0 px</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Dấu + nghĩa là tâm vệt H8 lệch sang phải; dấu − nghĩa là sang trái. Số đo nhòe là quãng đường thanh đi trong một cửa phơi, không phải tổng bề rộng vệt. Thanh rộng 4 px; khi nó đi thêm 2 px trong lúc phơi, toàn vệt rộng 6 px và nhạt dần ở hai mép.</p>
+</section>
+
+<section id="rolling-shutter-tai-lieu" class="htw-sources" aria-labelledby="rolling-shutter-tai-lieu-h">
+  <h2 id="rolling-shutter-tai-lieu-h" tabindex="-1">Nguồn, phép tính và giới hạn</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3 id="rolling-shutter-phep-tinh">Tự tính một vệt</h3>
+      <p>Đánh số hàng <em>y</em> từ 0 đến 8. Hàng <em>y</em> mở ở <em>y</em>Δ và chốt ở <em>y</em>Δ + 4 ms, với Δ = 2 ms ở rolling và 0 ms ở global. Tâm thanh bắt đầu ở 14 px; tại thời điểm <em>t</em>, nó ở 14 px + <em>v</em><em>t</em>. Trên mỗi hàng, tâm của vệt đã chốt là vị trí ở giữa cửa phơi, 14 px + <em>v</em>(<em>y</em>Δ + 2 ms). Công thức này chỉ tìm <em>tâm</em>, không cho đậm nhạt của vệt.</p>
+      <p>Để tính đậm nhạt ở <em>x</em>, lấy phần thời gian thanh thực sự phủ <em>x</em> giao với phần cửa đã phơi, chia cho 4 ms. Với thanh chạy đều, hai mép cho hai đoạn dốc tuyến tính; đoạn được phủ suốt cửa phơi giữ mức tối đa.</p>
+    </div>
+    <div>
+      <h3 id="rolling-shutter-nguon">Tài liệu tham khảo</h3>
+      <p><a href="https://docs.baslerweb.com/electronic-shutter-types">[S1] Basler, Electronic Shutter Types</a>, mục <em>Global Shutter</em> và <em>Rolling Shutter</em>: lúc bắt đầu và kết thúc phơi ở từng hàng, độ trễ giữa hàng và trình tự đọc dữ liệu.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Đọc các con số đến đâu?</h3>
+      <p>Chín hàng, bề ngang 28 px, thanh rộng 4 px và các mốc ms là số minh họa. Bài giữ thanh trong khung, vận tốc không đổi và ánh sáng ổn định; không mô phỏng rèm cơ, đèn nhấp nháy, xử lý chống méo hay quang học. Thời gian phơi hết khung không phải thời gian đọc hết cảm biến hay thời gian xuất ảnh.</p>
+    </aside>
+  </div>
+</section>

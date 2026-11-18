@@ -1,0 +1,36 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="rolling-shutter-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Vì sao cột thẳng có thể bị nghiêng trong ảnh?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="capture">
+<legend class="htw-playground-group-label">Phơi sáng điện tử</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="shutter" data-playground-type="segmented" role="group" aria-labelledby="rolling-shutter-control-shutter-label">
+<span class="htw-playground-control-label" id="rolling-shutter-control-shutter-label">Kiểu màn trập</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="shutter" data-playground-option="&quot;rolling&quot;" aria-pressed="false" disabled>Rolling · lệch hàng</button>
+<button type="button" class="htw-machine-chip" data-playground-key="shutter" data-playground-option="&quot;global&quot;" aria-pressed="false" disabled>Global · đồng thời</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-toggle3" data-playground-control="velocity" data-playground-type="toggle3" role="group" aria-labelledby="rolling-shutter-control-velocity-label">
+<span class="htw-playground-control-label" id="rolling-shutter-control-velocity-label">Vận tốc ngang</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="velocity" data-playground-option="-0.5" aria-pressed="false" disabled>Trái · −0,5 px/ms</button>
+<button type="button" class="htw-machine-chip" data-playground-key="velocity" data-playground-option="0" aria-pressed="false" disabled>Đứng yên · 0 px/ms</button>
+<button type="button" class="htw-machine-chip" data-playground-key="velocity" data-playground-option="0.5" aria-pressed="false" disabled>Phải · +0,5 px/ms</button>
+</span>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="rolling-shutter-presets-label">
+<span class="htw-playground-group-label" id="rolling-shutter-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="rolling-right" disabled>Rolling · sang phải</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="global-right" disabled>Global · vẫn sang phải</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="rolling-left" disabled>Rolling · đảo chiều</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="rolling-still" disabled>Rolling · đứng yên</button>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}
