@@ -106,3 +106,10 @@
   subjects: "Nhiếp ảnh · Bán dẫn"
   summary: "Chỉnh độ sáng và thời gian phơi, rồi theo electron từ photodiode qua cổng chuyển đến nút đọc. Thử phơi thêm khi giếng đã đầy."
   thumbnail: /assets/how-things-work/cmos-pixel/thumbnail.webp
+- id: bayer-demosaicing
+  number: "16"
+  url: /how-things-work/bayer-demosaicing/
+  title: "Bộ lọc Bayer thiếu hai màu ở mỗi điểm, ảnh RGB đến từ đâu?"
+  subjects: "Nhiếp ảnh · Xử lý ảnh"
+  summary: "Soi lưới RGGB để tách giá trị đo khỏi giá trị nội suy. Đổi sang cạnh đen–trắng để thấy một ảnh không màu vẫn có thể sinh viền màu."
+  thumbnail: /assets/how-things-work/bayer-demosaicing/thumbnail.webp

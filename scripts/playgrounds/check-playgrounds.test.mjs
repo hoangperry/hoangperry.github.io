@@ -9,7 +9,7 @@ import { validatePlaygrounds, checkDifferentialBundle, TOPICS, DIFFERENTIAL, ass
 import { fixture, put, change, snapshot, webp, differentialBundle, DIFFERENTIAL_CONTROLS } from './fixtures/site-fixture.mjs';
 
 const VALIDATOR = fileURLToPath(new URL('./check-playgrounds.mjs', import.meta.url));
-const EXPECTED_TOPICS = ['stepper-motor', 'barometric-altimeter', 'hard-disk-drive', 'open-differential', 'ac-generator', 'euv-lithography', 'mosfet', 'cmos-pixel'];
+const EXPECTED_TOPICS = ['stepper-motor', 'barometric-altimeter', 'hard-disk-drive', 'open-differential', 'ac-generator', 'euv-lithography', 'mosfet', 'cmos-pixel', 'bayer-demosaicing'];
 const setup = (t, options) => { const value = fixture(options); t.after(() => fs.rmSync(value.root, { recursive: true, force: true })); return value; };
 const articlePath = (value, slug) => path.join(value.site, 'how-things-work', slug, 'index.html');
 const hub = (value) => path.join(value.site, 'how-things-work/index.html');
@@ -35,13 +35,13 @@ const rejects = (value, pattern, options = {}) => {
   return report;
 };
 
-test('blog registry explicitly covers all eight playgrounds including cmos-pixel', () => {
+test('blog registry explicitly covers all nine playgrounds including bayer-demosaicing', () => {
   assert.deepEqual(TOPICS, EXPECTED_TOPICS);
   assert.ok(Object.isFrozen(TOPICS));
 });
 
 for (const prefix of ['', '/preview']) {
-  test('all eight topics pass at ' + (prefix || 'root') + ': 48 payloads and 8 routes, without writing', (t) => {
+  test('all nine topics pass at ' + (prefix || 'root') + ': 54 payloads and 9 routes, without writing', (t) => {
     const value = setup(t, { prefix }); const before = snapshot(value.root);
     assert.deepEqual(value.topics, EXPECTED_TOPICS);
     for (const slug of EXPECTED_TOPICS) {
@@ -50,7 +50,7 @@ for (const prefix of ['', '/preview']) {
     }
     const report = validatePlaygrounds({ root: value.root, site: value.site, baseurl: prefix });
     assert.deepEqual(report.errors, []); assert.equal(report.ok, true);
-    assert.equal(report.filesChecked, 48); assert.equal(report.routesChecked, 8);
+    assert.equal(report.filesChecked, 54); assert.equal(report.routesChecked, 9);
     assert.deepEqual(snapshot(value.root), before);
   });
 }
@@ -280,17 +280,17 @@ for (const slug of EXPECTED_TOPICS) {
   });
 }
 
-for (const prefix of ['', '/preview']) test('CLI eight topics at ' + (prefix || 'root') + ': exit 0/1/2 and 48 payloads/8 routes', (t) => {
+for (const prefix of ['', '/preview']) test('CLI nine topics at ' + (prefix || 'root') + ': exit 0/1/2 and 54 payloads/9 routes', (t) => {
   const value = setup(t, { prefix });
   const run = (...args) => spawnSync(process.execPath, [VALIDATOR, ...args], { cwd: value.root, encoding: 'utf8', timeout: 5000 });
   const ok = run('--site', value.site, '--baseurl', prefix);
-  assert.equal(ok.status, 0, ok.stderr); assert.match(ok.stdout, /Playgrounds: valid \(48 payloads, 8 routes\)/);
+  assert.equal(ok.status, 0, ok.stderr); assert.match(ok.stdout, /Playgrounds: valid \(54 payloads, 9 routes\)/);
   if (prefix) assert.equal(run('--site', value.site).status, 1);
   assert.equal(run('--site', value.site, '--force').status, 2);
   assert.equal(run('--baseurl', prefix).status, 2);
   const relative = run('--site', '_site', '--baseurl', prefix);
   assert.equal(relative.status, 0, relative.stderr);
-  assert.match(relative.stdout, /Playgrounds: valid \(48 payloads, 8 routes\)/);
+  assert.match(relative.stdout, /Playgrounds: valid \(54 payloads, 9 routes\)/);
   fs.unlinkSync(articlePath(value, 'barometric-altimeter'));
   const broken = run('--site', value.site, '--baseurl', prefix);
   assert.equal(broken.status, 1, broken.stderr); assert.match(broken.stderr, /barometric-altimeter\/index\.html/);

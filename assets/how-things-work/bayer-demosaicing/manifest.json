@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "topic": "bayer-demosaicing",
+  "kind": "playground",
+  "sourceDigest": "f40828e880efcd761e72af2d994063129d1f53e8fd2018938f3ce7d6135ebdb0",
+  "files": {
+    "_includes/how-things-work/bayer-demosaicing-scene.html": "c6a3fbbd5eee306455206da0d9becfc99d02e5c72a59173f67a2e4c479e767a1",
+    "_includes/how-things-work/bayer-demosaicing-console.html": "21ce914310c7ba222d837d3185e0a56c590b68d08edced1611c489d869094b2f",
+    "assets/how-things-work/bayer-demosaicing/machine.js": "53c63b5e8ee3590f996640a8bb18ef93604a60b0e1550783d144a5a5d0c7eed2",
+    "assets/how-things-work/bayer-demosaicing/machine.css": "31d58a7f293fa9a9e6be6bfee7af0bd87637564c98931b0e5a6bde5d11809611",
+    "assets/how-things-work/bayer-demosaicing/thumbnail.webp": "c4333c0e2e901d6654a53572e9caa1bc7f7b0218f89006c9c62e4297f2678753",
+    "assets/how-things-work/bayer-demosaicing/NOTICE.txt": "18ebffd54f8f9448d212603aa84089f2c33a40383df90efc26a25c40fa494071"
+  }
+}

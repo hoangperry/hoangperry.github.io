@@ -1,0 +1,39 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="bayer-demosaicing-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Bộ lọc Bayer thiếu hai màu ở mỗi điểm, ảnh RGB đến từ đâu?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="image">
+<legend class="htw-playground-group-label">Đầu vào RGB</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="image" data-playground-type="segmented" role="group" aria-labelledby="bayer-demosaicing-control-image-label">
+<span class="htw-playground-control-label" id="bayer-demosaicing-control-image-label">Cảnh tổng hợp</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="image" data-playground-option="&quot;edge&quot;" aria-pressed="false" disabled>Cạnh đen–trắng</button>
+<button type="button" class="htw-machine-chip" data-playground-key="image" data-playground-option="&quot;flat&quot;" aria-pressed="false" disabled>Mảng màu đều</button>
+</span>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="coordinate">
+<legend class="htw-playground-group-label">Ô trong lưới · (x, y)</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="x" data-playground-type="range">
+<label class="htw-playground-control-label" id="bayer-demosaicing-control-x-label" for="bayer-demosaicing-control-x">x · Cột từ trái</label>
+<input type="range" class="htw-playground-slider" id="bayer-demosaicing-control-x" data-playground-key="x" data-playground-range min="1" max="6" step="1" disabled>
+<output class="htw-playground-value" id="bayer-demosaicing-control-x-value" for="bayer-demosaicing-control-x" data-playground-output="x" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">cột</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="y" data-playground-type="range">
+<label class="htw-playground-control-label" id="bayer-demosaicing-control-y-label" for="bayer-demosaicing-control-y">y · Hàng từ trên</label>
+<input type="range" class="htw-playground-slider" id="bayer-demosaicing-control-y" data-playground-key="y" data-playground-range min="1" max="6" step="1" disabled>
+<output class="htw-playground-value" id="bayer-demosaicing-control-y-value" for="bayer-demosaicing-control-y" data-playground-output="y" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">hàng</span></output>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="bayer-demosaicing-presets-label">
+<span class="htw-playground-group-label" id="bayer-demosaicing-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="neutral-edge" disabled>Cạnh trung tính · R (2, 2)</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="flat-color" disabled>Mảng đều · R (2, 2)</button>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}
