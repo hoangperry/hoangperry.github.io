@@ -1,0 +1,14 @@
+How Things Work playground: MOSFET: Vì sao cổng cách điện vẫn bật được dòng điện?
+Topic: mosfet
+Generated file: built by the MOSFET topic exporter from checked sources. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: 11e359250393b41c97941ab12b678a13e7a194aef8bc84e4206c5e117049f032
+Checks recorded in the build receipt:
+- nmos-model.test.mjs: 9/9 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/mosfet/tests/nmos-model.test.mjs)
+- Mode invariance: passed, 1 scripts
+- Parameter grid: passed, 1023 cases
+Limitations:
+- NMOS phẳng, kênh dài lý tưởng; thân nối nguồn, VGS và VDS không âm. VT = 0,8 V và β = 0,4 mA/V² là thông số minh họa, không thuộc một sản phẩm.
+- Mô hình tĩnh theo gần đúng kênh biến thiên chậm, ngưỡng không đổi. Bỏ dòng dưới ngưỡng, dòng rò, hiệu ứng thân, điều biến chiều dài kênh, bão hòa vận tốc và điện dung quá độ.
+- Dải màu biểu diễn độ lớn điện tích nghịch đảo mặt chia Cox, không phải chiều dày vật lý. Dấu thắt phía máng không đo chiều dài vùng nghèo.
+- Lượt quét 4 giây là trình diễn các điểm làm việc DC liên tiếp, không phải thời gian đáp ứng của MOSFET.

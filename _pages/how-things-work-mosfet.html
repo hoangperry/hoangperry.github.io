@@ -1,0 +1,149 @@
+---
+title: "MOSFET: Vì sao cổng cách điện vẫn bật được dòng điện?"
+permalink: /how-things-work/mosfet/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Cổng MOSFET không cần cấp electron cho kênh. Điện trường qua lớp oxide tạo kênh electron ngay trong silicon. Thử hai điện áp để thấy khi nào có kênh, khi nào có dòng và vì sao dòng vẫn chạy lúc đầu kênh sát máng bị thắt."
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/mosfet/machine.css
+script-includes:
+  - /assets/how-things-work/mosfet/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="mosfet" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/mosfet-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh cho thấy cấu hình ban đầu; dùng <a href="#mosfet-ket-qua">bảng đối chiếu</a> để đọc cả bốn trường hợp.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="mosfet-scene" disabled><span class="htw-collapse-name">Bản cắt MOSFET kênh n</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài MOSFET">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#mosfet-linh-kien">Hai điện áp, hai việc</a></li>
+            <li><a href="#mosfet-cong">Điện trường qua oxide</a></li>
+            <li><a href="#mosfet-kenh">Có kênh chưa chắc có dòng</a></li>
+            <li><a href="#mosfet-bao-hoa">Kênh thắt mà dòng vẫn chạy</a></li>
+            <li><a href="#mosfet-gioi-han">Đọc đúng bản cắt</a></li>
+            <li><a href="#mosfet-tu-thu">Tự thử</a></li>
+            <li><a href="#mosfet-ket-qua">Bảng đối chiếu không cần JavaScript</a></li>
+            <li><a href="#mosfet-tai-lieu">Nguồn và phép tính</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="mosfet-linh-kien" class="htw-step" data-machine-focus="device" aria-labelledby="mosfet-linh-kien-h">
+        <p class="htw-step-label">01 · Bản cắt</p>
+        <h2 id="mosfet-linh-kien-h" tabindex="-1">Hai điện áp, hai việc</h2>
+        <p>Đặt cực máng cao hơn cực nguồn 2,4 V. Cực máng đã có thể hút electron về phía mình, nhưng dòng trong hình vẫn bằng 0. Nhìn lên cổng: nó chỉ cao hơn nguồn 0,4 V, chưa đủ để tạo kênh trong mô hình. Điện áp ở máng và điện áp ở cổng làm hai việc khác nhau.</p>
+        <p>Trong bài <a href="https://hoang.tech/how-things-work/euv-lithography/">máy quang khắc EUV</a>, ta dừng ở lúc một mẫu được ghi lên lớp cản quang. Lần này ta nhìn vào một linh kiện: <strong>MOSFET kênh n</strong>, gọi tắt là NMOS. Dưới cổng G và lớp oxide cách điện là nền silicon loại p. Hai vùng pha tạp loại n ở hai đầu là cực nguồn S (<em>source</em>) và cực máng D (<em>drain</em>); phần thân được nối với S.</p>
+        <p>Lấy S làm mốc: <em>V</em><sub>GS</sub> là điện áp cổng so với nguồn, còn <em>V</em><sub>DS</sub> là điện áp máng so với nguồn. Đọc bản cắt theo hai hướng: từ cổng <em>xuống</em> mặt silicon để tìm kênh, rồi <em>dọc</em> mặt silicon từ S đến D để tìm dòng.</p>
+      </section>
+
+      <section id="mosfet-cong" class="htw-step" data-machine-focus="gate" aria-labelledby="mosfet-cong-h">
+        <p class="htw-step-label">02 · Cổng và oxide</p>
+        <h2 id="mosfet-cong-h" tabindex="-1">Oxide chặn dòng dẫn, nhưng điện trường vẫn đi qua</h2>
+        <p>Khi tăng điện áp cổng theo chiều dương, điện trường qua oxide đẩy lỗ trống ra xa mặt silicon. Lớp gần mặt nghèo hạt tải di động, để lộ các ion pha tạp âm cố định: đó là <strong>vùng nghèo</strong>. Vùng nghèo chưa phải kênh dẫn. Tăng điện áp thêm, electron tập trung ngay dưới oxide đến mức bề mặt chuyển sang dẫn kiểu n dù nền bên dưới vẫn là loại p. Lớp electron di động ấy là <strong>lớp nghịch đảo</strong>. <a href="#mosfet-source-s1">[S1]</a></p>
+        <p>Electron của dòng máng đi vào kênh từ S, không xuyên qua oxide từ cổng. Khi điện áp đã ổn định, dòng dẫn qua cổng gần như bằng 0 (<em>I</em><sub>G</sub> ≈ 0); mô hình lý tưởng bỏ qua dòng rò. Khi đổi điện áp, mạch lái vẫn phải nạp hoặc xả điện tích ở cổng, giống như với một tụ điện. Vì vậy có thể có dòng ở dây nối cổng trong lúc chuyển trạng thái, dù oxide không tạo đường dẫn cho electron vào kênh. <a href="#mosfet-source-s1">[S1]</a> <a href="#mosfet-source-s2">[S2]</a></p>
+      </section>
+
+      <section id="mosfet-kenh" class="htw-step" data-machine-focus="channel" aria-labelledby="mosfet-kenh-h">
+        <p class="htw-step-label">03 · Kênh electron</p>
+        <h2 id="mosfet-kenh-h" tabindex="-1">Có kênh chưa chắc có dòng</h2>
+        <p>Đặt <em>V</em><sub>GS</sub> = 2,0 V, cao hơn ngưỡng 0,8 V của bài, nhưng để <em>V</em><sub>DS</sub> = 0 V. Lớp electron nối từ S đến D đã có. Hai đầu cùng điện thế nên không có dòng thuần dọc kênh. Số 0 này khác số 0 lúc đầu: lần này <strong>có kênh nhưng không có chênh áp kéo dòng</strong>.</p>
+        <p>Giữ nguyên cổng và nâng <em>V</em><sub>DS</sub> lên 0,5 V. Electron trôi từ S sang D; dòng điện quy ước <em>I</em><sub>D</sub> có chiều ngược lại, từ D về S. Gần D, điện thế trong kênh cao hơn nên chênh áp giữa cổng và kênh nhỏ đi. Điện tích nghịch đảo thưa dần về phía D, dù điện áp cổng không đổi. Khi <em>V</em><sub>DS</sub> còn nhỏ, dòng tăng gần tỷ lệ với nó; đó là đầu vùng tuyến tính, còn gọi là vùng triode. <a href="#mosfet-source-s2">[S2]</a></p>
+      </section>
+
+      <section id="mosfet-bao-hoa" class="htw-step" data-machine-focus="saturation" aria-labelledby="mosfet-bao-hoa-h">
+        <p class="htw-step-label">04 · Bão hòa</p>
+        <h2 id="mosfet-bao-hoa-h" tabindex="-1">Kênh thắt sát máng vẫn không làm hở mạch</h2>
+        <p>Giữ <em>V</em><sub>GS</sub> = 2,0 V và tăng tiếp điện áp máng. Đến <em>V</em><sub>DS</sub> = 2,0 − 0,8 = <strong>1,2 V</strong>, điện tích nghịch đảo ở đầu kênh sát D tiến về 0 trong mô hình. Đó là điểm kênh bắt đầu thắt (<em>pinch-off</em>). Phần còn lại của kênh vẫn đưa electron tới vùng thắt, nơi điện trường kéo chúng vào máng. Bão hòa không phải ngắt kênh theo nghĩa hở mạch; dòng vẫn chạy. <a href="#mosfet-source-s2">[S2]</a></p>
+        <p>Vạch đứt trên đồ thị <em>I</em><sub>D</sub>–<em>V</em><sub>DS</sub> đánh dấu nơi đường cong chuyển sang đoạn ngang. Ở cùng điện áp cổng, tăng <em>V</em><sub>DS</sub> từ 1,2 lên 2,4 V vẫn cho <strong>0,288 mA</strong> trong mô hình này. Nếu đổi điện áp cổng, cả mức dòng bão hòa lẫn điện áp máng tại đó đều đổi. <a href="#mosfet-phep-tinh">Xem phép tính</a>.</p>
+      </section>
+
+      <section id="mosfet-gioi-han" class="htw-step" data-machine-focus="limits" aria-labelledby="mosfet-gioi-han-h">
+        <p class="htw-step-label">05 · Giới hạn</p>
+        <h2 id="mosfet-gioi-han-h" tabindex="-1">Dải màu biểu diễn điện tích, không phải độ dày</h2>
+        <p>Dải ngay dưới oxide biểu diễn độ lớn điện tích nghịch đảo trên một đơn vị diện tích, chia cho điện dung oxide trên một đơn vị diện tích. Dải hẹp đi nghĩa là ít điện tích nghịch đảo hơn, không phải silicon hay oxide mỏng đi. Hình không cho biết kích thước hay vị trí chính xác của vùng thắt kênh. Đây là sơ đồ của NMOS kênh dài lý tưởng, không phải lát cắt theo tỷ lệ của transistor sản xuất.</p>
+        <p>Mỗi điểm trên đồ thị ứng với một cặp điện áp không đổi. Một lượt quét chỉ cho ta đọc liên tiếp các điểm DC đó. Nó không tính điện tích cổng đang nạp nhanh đến đâu hay dòng thay đổi thế nào ngay sau khi đóng cắt. Đoạn ngang cũng là kết quả của giả thiết lý tưởng; chẳng hạn, điều biến chiều dài kênh có thể làm dòng thực tiếp tục tăng sau khi vào bão hòa. <a href="#mosfet-source-s3">[S3]</a></p>
+      </section>
+    </div>
+  </div>
+
+  <section id="mosfet-tu-thu" class="htw-try" aria-labelledby="mosfet-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="mosfet-tu-thu-h" tabindex="-1">Giữ một điện áp, đổi điện áp còn lại</h2>
+      <p>Mở tự thử để đưa chính bản cắt xuống cạnh bảng điều khiển. Trước khi quét, dùng hai thanh trượt hoặc các cấu hình mẫu để so sánh các điểm tĩnh.</p>
+      <ol class="htw-try-list">
+        <li><strong>Cùng dòng bằng 0, khác lý do.</strong> So cặp 0,4 V ở cổng, 2,4 V ở máng với cặp 2,0 V ở cổng, 0 V ở máng. Đừng chỉ đọc ô dòng: nhìn xem dưới oxide đã có kênh chưa.</li>
+        <li><strong>Cùng điện áp cổng, khác vùng làm việc.</strong> Giữ cổng ở 2,0 V. Đổi điện áp máng từ 0,5 V lên 2,4 V: đọc điểm làm việc trên đồ thị rồi nhìn đầu kênh sát máng. Dòng tăng từ 0,190 lên 0,288 mA, nhưng phần tăng đã dừng từ 1,2 V.</li>
+        <li><strong>Tìm điểm bắt đầu thắt.</strong> Giữ cổng ở 2,0 V, đặt máng ở 2,4 V rồi bấm <strong>Chạy</strong>. Lượt quét đi từ 0 V đến mức máng đã chọn trong 4 giây trình diễn. Dùng <strong>Dừng</strong> và <strong>Từng bước</strong> (0,25 giây mỗi bước) để đối chiếu đầu kênh sát D với điểm trên đường đặc tính. Bốn giây là thời gian xem, không phải thời gian đáp ứng của MOSFET.</li>
+      </ol>
+      <p>Chỉnh một thanh trượt hoặc chọn cấu hình mẫu sẽ hủy lượt quét và cho thấy ngay điểm tĩnh mới. <strong>Đặt lại</strong> đưa hình về cấu hình chưa có kênh.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên không mở được bảng điều khiển. Bạn vẫn có thể dùng hình tĩnh và bảng dưới đây để đối chiếu.</p></noscript>
+      <p class="htw-try-fallback">Nếu nút vẫn khóa, hãy đọc <a href="#mosfet-ket-qua">bảng đối chiếu</a> và <a href="#mosfet-phep-tinh">phép tính</a>.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="mosfet-scene mosfet-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="mosfet-scene" disabled>Quay lại bài đọc</button></p>
+        <p><a href="#mosfet-scene">Xem lại hình sau khi chỉnh</a></p>
+        <p class="nmos-mobile-reading" data-machine-output aria-label="Điểm làm việc đang đo"><span data-nmos-measured>VDS 2,4 V · ID 0,000 mA</span></p>
+        {% include how-things-work/mosfet-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="mosfet-ket-qua" class="htw-sources" aria-labelledby="mosfet-ket-qua-h">
+  <h2 id="mosfet-ket-qua-h" tabindex="-1">Bốn điểm làm việc đọc không cần JavaScript</h2>
+  <p>Trên hình tĩnh, tìm lớp oxide ngăn cổng với silicon và hai cực S, D ở hai đầu. Hai hàng đầu đều cho dòng bằng 0. Hai hàng cuối giữ nguyên điện áp cổng nhưng cho thấy hai đoạn khác nhau của cùng một đường đặc tính.</p>
+  <div class="table-wrapper">
+    <table>
+      <caption>Điện áp và dòng máng ở bốn cấu hình tĩnh của mô hình.</caption>
+      <thead>
+        <tr><th scope="col">Cấu hình</th><th scope="col"><em>V</em><sub>GS</sub></th><th scope="col"><em>V</em><sub>DS</sub></th><th scope="col"><em>I</em><sub>D</sub></th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Chưa có kênh</th><td>0,4 V</td><td>2,4 V</td><td>0 mA</td></tr>
+        <tr><th scope="row">Có kênh, chưa có dòng</th><td>2,0 V</td><td>0 V</td><td>0 mA</td></tr>
+        <tr><th scope="row">Có dòng, chưa bão hòa</th><td>2,0 V</td><td>0,5 V</td><td>0,190 mA</td></tr>
+        <tr><th scope="row">Bão hòa</th><td>2,0 V</td><td>2,4 V</td><td>0,288 mA</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Ở ba hàng có cùng điện áp cổng 2,0 V, ranh giới bão hòa nằm tại <em>V</em><sub>DS</sub> = 1,2 V. Điểm 2,4 V đã ở trên đoạn ngang, không phải nơi đoạn ngang bắt đầu.</p>
+</section>
+
+<section id="mosfet-tai-lieu" class="htw-sources" aria-labelledby="mosfet-tai-lieu-h">
+  <h2 id="mosfet-tai-lieu-h" tabindex="-1">Nguồn và phép tính</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="mosfet-source-s1"><a href="https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/resources/mit6_012f09_lec09/" target="_blank" rel="noopener noreferrer">[S1] MIT OpenCourseWare, MOS Capacitors I</a>: điện tích ở hai phía oxide, vùng nghèo và lớp nghịch đảo.</li>
+        <li id="mosfet-source-s2"><a href="https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/eeb94eab00ebb62a3fde0eec1484bc08_MIT6_012F09_lec11_gradual.pdf" target="_blank" rel="noopener noreferrer">[S2] MIT OpenCourseWare, The Gradual Channel Approximation for the MOSFET (PDF)</a>: dòng trôi, điện tích dọc kênh và ba vùng làm việc.</li>
+        <li id="mosfet-source-s3"><a href="https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/resources/mit6_012f09_lec11/" target="_blank" rel="noopener noreferrer">[S3] MIT OpenCourseWare, MOSFETs II; Large Signal Models</a>: bão hòa và điều biến chiều dài kênh.</li>
+        <li id="mosfet-source-s4"><a href="https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/d73e9baf5e8da993b7956eab4adcf04a_MIT6_012F09_lec11_drain.pdf" target="_blank" rel="noopener noreferrer">[S4] MIT OpenCourseWare, MOSFET Drain Current Modeling (PDF)</a>: dạng phương trình đơn giản hóa ở trang 2.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 id="mosfet-phep-tinh">Tự tính lại dòng máng</h3>
+      <p>Bài dùng gần đúng kênh biến thiên chậm trong nghịch đảo mạnh và giữ ngưỡng <em>V</em><sub>T</sub> = 0,8 V cố định. Đặt <em>a</em> = max(0, <em>V</em><sub>GS</sub> − <em>V</em><sub>T</sub>) là phần điện áp vượt ngưỡng. Với <em>V</em><sub>DS</sub> không âm, lấy <em>v</em> là số nhỏ hơn giữa <em>V</em><sub>DS</sub> và <em>a</em>. Khi đó <em>I</em><sub>D</sub> = β<em>v</em>(<em>a</em> − <em>v</em>/2), với β = μ<sub>n</sub><em>C</em><sub>ox</sub><em>W</em>/<em>L</em> = 0,4 mA/V². <a href="#mosfet-source-s4">[S4]</a></p>
+      <p>Khi <em>a</em> = 0 thì không có kênh dẫn trong mô hình; khi <em>a</em> &gt; 0 nhưng máng ở 0 V thì <em>v</em> vẫn bằng 0. Với cổng 2,0 V thì <em>a</em> = 1,2 V: ở máng 0,5 V, phép nhân là 0,4 × 0,5 × (1,2 − 0,25) = 0,190 mA. Từ 1,2 V trở lên, <em>v</em> giữ ở 1,2 V và dòng là 0,4 × 1,2²/2 = 0,288 mA. Hai đoạn gặp nhau ngay tại 1,2 V, không có bước nhảy của dòng.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình và cách đọc kết quả">
+      <h3>Đọc các con số đến đâu?</h3>
+      <p>Ngưỡng, hệ số β và các điện áp trên bảng là giá trị minh họa; dòng là kết quả tính, không phải số đo hay thông số của một linh kiện cụ thể. Mô hình bỏ qua dòng dưới ngưỡng, dòng rò, điện dung quá độ, hiệu ứng thân, điều biến chiều dài kênh và bão hòa vận tốc. Không dùng bảng này để suy ra tốc độ đóng cắt, điện áp chịu đựng hay kích thước transistor.</p>
+    </aside>
+  </div>
+</section>

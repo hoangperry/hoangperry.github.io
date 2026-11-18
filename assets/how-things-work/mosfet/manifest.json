@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "topic": "mosfet",
+  "kind": "playground",
+  "sourceDigest": "11e359250393b41c97941ab12b678a13e7a194aef8bc84e4206c5e117049f032",
+  "files": {
+    "_includes/how-things-work/mosfet-scene.html": "5f978dc542c25bce2aafc3ca203c878676981c90e1b9e686ba2452a10cce1ad8",
+    "_includes/how-things-work/mosfet-console.html": "7fb92e17ce396d017ebec6a8518005a8298b57087beb7b4a8baf45a16ebf67ce",
+    "assets/how-things-work/mosfet/machine.js": "ce856b2d0a090e520420ff24686199e469e8acc6c6a61649f638190ade189b07",
+    "assets/how-things-work/mosfet/machine.css": "afdfb0e9207da6b912788b89c7a1f60bc42615a897d69ba8a00049fe2f7c7983",
+    "assets/how-things-work/mosfet/thumbnail.webp": "3d523c0e281c56f7866e02ed6e1461bd9144cbb5ef9e12cebd62eb69542cdbba",
+    "assets/how-things-work/mosfet/NOTICE.txt": "8196fd45620074e6b3d13536a8c0e45cc52150ddad4991540fa1adf627c76987"
+  }
+}

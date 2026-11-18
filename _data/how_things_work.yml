@@ -92,3 +92,10 @@
   subjects: "Bán dẫn · Quang học"
   summary: "Đi theo ánh sáng từ plasma thiếc qua gương, mặt nạ và khe quét. Thử đổi chu kỳ vạch, lệch tiêu và sai nhịp hai bàn để thấy khi nào mẫu mất nét, khi nào in lệch lớp cũ."
   thumbnail: /assets/how-things-work/euv-lithography/thumbnail.webp
+- id: mosfet
+  number: "14"
+  url: /how-things-work/mosfet/
+  title: "MOSFET: Vì sao cổng cách điện vẫn bật được dòng điện?"
+  subjects: "Bán dẫn · Điện tử"
+  summary: "Thử hai điện áp trên bản cắt NMOS: vì sao có kênh chưa chắc có dòng, và vì sao dòng máng vẫn chạy khi kênh thắt và đi vào bão hòa."
+  thumbnail: /assets/how-things-work/mosfet/thumbnail.webp

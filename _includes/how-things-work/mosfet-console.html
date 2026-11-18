@@ -1,0 +1,31 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="mosfet-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình MOSFET: Vì sao cổng cách điện vẫn bật được dòng điện?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="bias">
+<legend class="htw-playground-group-label">Điện áp phân cực</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="vgs" data-playground-type="range">
+<label class="htw-playground-control-label" id="mosfet-control-vgs-label" for="mosfet-control-vgs">VGS · Cổng–nguồn</label>
+<input type="range" class="htw-playground-slider" id="mosfet-control-vgs" data-playground-key="vgs" data-playground-range min="0" max="3.2" step="0.1" disabled>
+<output class="htw-playground-value" id="mosfet-control-vgs-value" for="mosfet-control-vgs" data-playground-output="vgs" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">V</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="vds" data-playground-type="range">
+<label class="htw-playground-control-label" id="mosfet-control-vds-label" for="mosfet-control-vds">VDS · Máng–nguồn</label>
+<input type="range" class="htw-playground-slider" id="mosfet-control-vds" data-playground-key="vds" data-playground-range min="0" max="3" step="0.1" disabled>
+<output class="htw-playground-value" id="mosfet-control-vds-value" for="mosfet-control-vds" data-playground-output="vds" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">V</span></output>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="mosfet-presets-label">
+<span class="htw-playground-group-label" id="mosfet-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="cutoff" disabled>Chưa có kênh</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="channel" disabled>Có kênh, chưa có dòng</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="triode" disabled>Có dòng, chưa bão hòa</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="saturation" disabled>Bão hòa</button>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}
