@@ -120,3 +120,10 @@
   subjects: "Nhiếp ảnh · Cảm biến"
   summary: "Cho cùng một thanh chạy ngang dưới rolling và global shutter. Giữ thời gian phơi mỗi hàng như nhau để tách lệch hình khỏi nhòe."
   thumbnail: /assets/how-things-work/rolling-shutter/thumbnail.webp
+- id: iso-raw
+  number: "18"
+  url: /how-things-work/iso-raw/
+  title: "Tăng ISO có làm cảm biến thu thêm ánh sáng không?"
+  subjects: "Nhiếp ảnh · Điện tử"
+  summary: "Giữ nguyên độ phơi và đổi gain. Theo electron, tín hiệu analog và mã RAW để phân biệt đầy giếng với quá dải bộ số hóa."
+  thumbnail: /assets/how-things-work/iso-raw/thumbnail.webp

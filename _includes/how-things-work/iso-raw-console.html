@@ -1,0 +1,34 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="iso-raw-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Tăng ISO có làm cảm biến thu thêm ánh sáng không?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="signal">
+<legend class="htw-playground-group-label">Phơi sáng và khuếch đại</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="exposure" data-playground-type="range">
+<label class="htw-playground-control-label" id="iso-raw-control-exposure-label" for="iso-raw-control-exposure">Mức phơi · Electron sinh ra</label>
+<input type="range" class="htw-playground-slider" id="iso-raw-control-exposure" data-playground-key="exposure" data-playground-range min="0" max="25000" step="500" disabled>
+<output class="htw-playground-value" id="iso-raw-control-exposure-value" for="iso-raw-control-exposure" data-playground-output="exposure" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">e⁻</span></output>
+</div>
+<div class="htw-playground-control htw-playground-toggle3" data-playground-control="gain" data-playground-type="toggle3" role="group" aria-labelledby="iso-raw-control-gain-label">
+<span class="htw-playground-control-label" id="iso-raw-control-gain-label">Gain analog</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="gain" data-playground-option="1" aria-pressed="false" disabled>1×</button>
+<button type="button" class="htw-machine-chip" data-playground-key="gain" data-playground-option="2" aria-pressed="false" disabled>2×</button>
+<button type="button" class="htw-machine-chip" data-playground-key="gain" data-playground-option="4" aria-pressed="false" disabled>4×</button>
+</span>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="iso-raw-presets-label">
+<span class="htw-playground-group-label" id="iso-raw-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="same-charge" disabled>5.000 e⁻ · Gain 1×</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="exact-full-scale" disabled>Đúng biên ADC · Giếng chưa đầy</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="clipped-not-full" disabled>Quá dải ADC · Giếng chưa đầy</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="full-well" disabled>Giếng đầy · ADC đúng biên</button>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}

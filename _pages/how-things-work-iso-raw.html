@@ -1,0 +1,136 @@
+---
+title: "Tăng ISO có làm cảm biến thu thêm ánh sáng không?"
+permalink: /how-things-work/iso-raw/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Cùng 5.000 electron, mạch đọc có thể cho mã RAW 1024, 2048 hoặc 4095. Thử đổi gain để thấy vì sao mã có thể chạm trần ngay cả khi giếng điện tích còn chỗ."
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/iso-raw/machine.css
+script-includes:
+  - /assets/how-things-work/iso-raw/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="iso-raw" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/iso-raw-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh cho thấy 5.000 e⁻ ở gain 1×; <a href="#iso-raw-doi-chieu">bảng đối chiếu</a> có cả các cấu hình còn lại.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="iso-raw-scene" disabled><span class="htw-collapse-name">Chuỗi đọc một mẫu RAW</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài ISO và RAW">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#iso-raw-gieng">ISO có làm giếng nhận thêm electron?</a></li>
+            <li><a href="#iso-raw-gain">Một mẫu, ba mã</a></li>
+            <li><a href="#iso-raw-adc">Cùng 4095, khác chuyện</a></li>
+            <li><a href="#iso-raw-may-that">Cách máy thật dùng ISO</a></li>
+            <li><a href="#iso-raw-tu-thu">Tự thử</a></li>
+            <li><a href="#iso-raw-doi-chieu">Bảng đối chiếu không cần JavaScript</a></li>
+            <li><a href="#iso-raw-tai-lieu">Nguồn và phép tính</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="iso-raw-gieng" class="htw-step" data-machine-focus="charge" aria-labelledby="iso-raw-gieng-h">
+        <p class="htw-step-label">01 · Thu điện tích</p>
+        <h2 id="iso-raw-gieng-h" tabindex="-1">Tăng ISO không tự đưa thêm ánh sáng vào máy</h2>
+        <p>Đặt máy trên chân, chụp cùng một cảnh, giữ nguyên khẩu độ và tốc độ chụp. Nếu ảnh trông sáng hơn khi tăng ISO, có phải cảm biến vừa nhận thêm ánh sáng? <strong>Không.</strong> Với cùng mức phơi, việc đổi cách đọc tín hiệu không đưa thêm photon tới cảm biến. Trong hình, giếng giữ 5.000 electron. Ta có thể đổi mã đầu ra mà không đổi con số 5.000 ấy.</p>
+        <p>Ở mỗi điểm ảnh, photodiode biến một phần photon tới thành electron và tích chúng trong lúc phơi. Giếng điện tích của mô hình giữ tối đa <strong>20.000 e⁻</strong>. Nếu mức phơi sinh 25.000 e⁻, giếng vẫn chỉ giữ 20.000 e⁻. Con số “sinh ra” có thể tăng tiếp, nhưng con số “giữ trong giếng” thì không. Đây là giới hạn ở cảm biến, trước khi khuếch đại hay số hóa.</p>
+      </section>
+
+      <section id="iso-raw-gain" class="htw-step" data-machine-focus="analog" aria-labelledby="iso-raw-gain-h">
+        <p class="htw-step-label">02 · Điện áp analog</p>
+        <h2 id="iso-raw-gain-h" tabindex="-1">Cùng 5.000 electron, ba mã khác nhau</h2>
+        <p>Mạch đọc biến số electron được giữ thành một tín hiệu điện áp. Để lấy tín hiệu do ánh sáng tạo ra, ta xét chênh lệch so với mẫu lúc reset. Bài lấy điện áp ở đầu trên của dải ADC làm mốc <strong>100%</strong>, không gán một số volt của máy thật. Với 5.000 e⁻, điện áp trước gain bằng 25% dải trong mô hình. Gain analog nhân điện áp ấy lên <strong>trước</strong> khi ADC đọc nó. <a href="#iso-raw-source-s1">[S1]</a></p>
+        <p>Ở gain 1×, 2× và 4×, điện áp tới ADC lần lượt là 25%, 50% và 100% dải. Mã số tương ứng là <strong>1024, 2048 và 4095</strong>. Nhìn lại giếng: mức điện tích vẫn 5.000 e⁻ ở cả ba trường hợp. Đổi mức phơi khi giữ gain mới là phép thử làm thay đổi số electron sinh ra.</p>
+      </section>
+
+      <section id="iso-raw-adc" class="htw-step" data-machine-focus="adc" aria-labelledby="iso-raw-adc-h">
+        <p class="htw-step-label">03 · Số hóa và giới hạn</p>
+        <h2 id="iso-raw-adc-h" tabindex="-1">Đọc được 4095 chưa đủ để kết luận quá dải</h2>
+        <p>ADC là bộ chuyển đổi từ điện áp analog sang số. Ở đây ADC 12 bit có 4.096 mã, đánh số từ 0 đến 4095. Dãy 12 ô dưới số RAW viết cùng mã ấy bằng nhị phân, với bit cao nhất ở bên trái. Đó là một mẫu số, không phải pixel JPEG hay độ sáng trên màn hình.</p>
+        <p>Ở gain 4×, <strong>5.000 e⁻</strong> đưa điện áp tới đúng 100% dải. <strong>7.500 e⁻</strong> đưa nó lên 150%, vượt dải ADC. Cả hai cùng cho 4095, nhưng chỉ mẫu 150% bị cắt ngọn ở ADC; giếng chưa đầy trong cả hai trường hợp. Nếu chỉ có mã 4095, ta không đọc ngược được mẫu nào đã tạo ra nó.</p>
+        <p>Tình huống ngược lại cũng có: <strong>20.000 e⁻ ở gain 1×</strong> làm đầy giếng nhưng điện áp chỉ vừa tới biên ADC. Hình tách hai dòng trạng thái để ta không dùng trạng thái của khâu này đoán thay khâu kia: “Giếng đầy” kiểm tra điện tích giữ được; “ADC quá dải” kiểm tra điện áp sau gain.</p>
+      </section>
+
+      <section id="iso-raw-may-that" class="htw-step" data-machine-focus="analog" aria-labelledby="iso-raw-may-that-h">
+        <p class="htw-step-label">04 · Ra khỏi mô hình</p>
+        <h2 id="iso-raw-may-that-h" tabindex="-1">Trên máy thật, ISO không chỉ là một nút nhân</h2>
+        <p>Bài chỉ minh họa một đường đọc bằng gain analog, không gán 1×, 2×, 4× cho các mức ISO của một máy. Mạch có thể khuếch đại trước ADC hoặc dùng <strong>digital gain</strong> để nhân số sau ADC. Digital gain không biến hai mẫu đã bị gộp vào cùng một mã ADC trở lại thành hai mẫu khác nhau. <a href="#iso-raw-source-s1">[S1]</a></p>
+        <p>Nếu dùng chế độ tự động, đổi ISO có thể khiến máy chọn khẩu độ hay thời gian phơi khác. Khi ấy lượng ánh sáng đến cảm biến có thể đổi vì các thiết lập phơi đã đổi, không phải vì riêng con số ISO hút thêm ánh sáng. Muốn tách hai tác động, hãy khóa khẩu và tốc độ, rồi giữ nguyên ánh sáng của cảnh khi so sánh.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="iso-raw-tu-thu" class="htw-try" aria-labelledby="iso-raw-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="iso-raw-tu-thu-h" tabindex="-1">Giữ mức phơi trước, đổi gain sau</h2>
+      <ol class="htw-try-list">
+        <li><strong>Cố định 5.000 e⁻.</strong> Chọn lần lượt 1×, 2× và 4×. Đối chiếu điện tích trong giếng với điện áp sau gain và mã RAW. Các số thay ngay khi chỉnh, không cần bấm Chạy.</li>
+        <li><strong>Cố định gain 4×.</strong> Chọn <strong>Đúng biên ADC · Giếng chưa đầy</strong> để đặt 5.000 e⁻, rồi chọn <strong>Quá dải ADC · Giếng chưa đầy</strong> để đặt 7.500 e⁻. Mã vẫn là 4095, nhưng điện áp và cờ ADC đã đổi. Để thử giới hạn còn lại, chọn <strong>Giếng đầy · ADC đúng biên</strong>. Cấu hình này chuyển gain về <strong>1×</strong> và đặt 20.000 e⁻: giếng đầy nhưng ADC chỉ vừa chạm biên.</li>
+        <li><strong>Theo mạch đọc.</strong> Bấm <strong>Chạy</strong> để viền sáng lần lượt chỉ vào giếng, khuếch đại và ADC. <strong>Dừng</strong> giữ vị trí; <strong>Từng bước</strong> chuyển sang khâu kế tiếp. Nếu đã ở khâu cuối, bấm Chạy để xem lại từ đầu. Đây là thứ tự trình diễn, không phải thời gian xử lý của máy ảnh.</li>
+      </ol>
+      <p>Mỗi cấu hình mẫu đưa dấu chỉ về khâu đầu. <strong>Đặt lại</strong> khôi phục 5.000 e⁻ ở gain 1×.</p>
+      <noscript><p class="htw-noscript">Không cần bật JavaScript để so sánh: xem hình tĩnh và bảng ngay bên dưới.</p></noscript>
+      <p class="htw-try-fallback">Nếu nút vẫn khóa, hãy xem <a href="#iso-raw-doi-chieu">bảng đối chiếu</a>.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="iso-raw-scene iso-raw-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="iso-raw-scene" disabled>Quay lại bài đọc</button></p>
+        <p><a href="#iso-raw-scene">Xem lại chuỗi đọc sau khi chỉnh</a></p>
+        <p class="iso-mobile-reading" data-machine-output><span data-camera-reading>5.000 e⁻ · 25% dải · RAW 1024 · ADC trong dải · Giếng chưa đầy</span></p>
+        {% include how-things-work/iso-raw-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="iso-raw-doi-chieu" class="htw-sources" aria-labelledby="iso-raw-doi-chieu-h">
+  <h2 id="iso-raw-doi-chieu-h" tabindex="-1">Bảng đối chiếu không cần JavaScript</h2>
+  <p>Hình tĩnh ứng với hàng đầu. Ba hàng đầu giữ nguyên lượng electron; ba hàng tiếp theo giúp tách giới hạn điện tích khỏi giới hạn số hóa.</p>
+  <div class="table-wrapper">
+    <table>
+      <caption>Mức phơi, gain analog và mã ADC 12 bit của mô hình.</caption>
+      <thead>
+        <tr><th scope="col">Sinh ra · Gain</th><th scope="col">Sau gain</th><th scope="col">RAW</th><th scope="col">Hai giới hạn</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">5.000 e⁻ · 1×</th><td>25%</td><td>1024</td><td>Giếng chưa đầy, ADC trong dải</td></tr>
+        <tr><th scope="row">5.000 e⁻ · 2×</th><td>50%</td><td>2048</td><td>Giếng chưa đầy, ADC trong dải</td></tr>
+        <tr><th scope="row">5.000 e⁻ · 4×</th><td>100%</td><td>4095</td><td>Giếng chưa đầy, ADC đúng biên</td></tr>
+        <tr><th scope="row">7.500 e⁻ · 4×</th><td>150%</td><td>4095</td><td>Giếng chưa đầy, ADC quá dải</td></tr>
+        <tr><th scope="row">20.000 e⁻ · 1×</th><td>100%</td><td>4095</td><td>Giếng đầy, ADC đúng biên</td></tr>
+        <tr><th scope="row">25.000 e⁻ · 4×</th><td>400%</td><td>4095</td><td>Giếng đầy (chỉ giữ 20.000 e⁻), ADC quá dải</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="iso-raw-tai-lieu" class="htw-sources" aria-labelledby="iso-raw-tai-lieu-h">
+  <h2 id="iso-raw-tai-lieu-h" tabindex="-1">Nguồn và phép tính</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <p id="iso-raw-source-s1"><a href="https://docs.baslerweb.com/gain#analog-and-digital-gain" target="_blank" rel="noopener noreferrer">[S1] Basler, Analog and Digital Gain</a>: gain analog nằm trước số hóa, gain số nằm sau; máy khác nhau có thể dùng hai loại theo cách khác nhau. Thông số trong hình không lấy từ máy Basler.</p>
+    </div>
+    <div>
+      <h3>Tự tính lại một mã</h3>
+      <p>Gọi <em>E</em> là số electron sinh ra, <em>N</em> = min(<em>E</em>, 20.000) là số electron giữ lại và <em>g</em> là gain. Điện áp chuẩn hóa trước gain là <em>s</em> = <em>N</em>/20.000; điện áp sau gain là <em>g</em> × <em>s</em>. ADC kẹp giá trị này vào khoảng 0 đến 1, nhân 4095 rồi làm tròn đến số nguyên gần nhất. Giếng đầy khi <em>N</em> = 20.000. ADC chỉ quá dải khi <em>g</em> × <em>s</em> &gt; 1; vừa bằng 1 thì không quá dải.</p>
+      <p>Ví dụ 5.000 e⁻ ở 2×: <em>s</em> = 0,25, nên tín hiệu sau gain là 0,5. Nhân với 4095 được 2047,5, làm tròn lên 2048. Ở 7.500 e⁻ và 4×, tín hiệu 1,5 bị kẹp về 1 trước phép nhân, cho 4095.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Đọc các con số đến đâu?</h3>
+      <p>Đây là một giếng và một đường đọc lý tưởng. Bài không mô phỏng nhiễu, mạch khuếch đại bị bão hòa hay chuyển đổi gain kép (<em>dual conversion gain</em>), cũng không dựng tệp RAW, cân bằng trắng, JPEG hoặc màn hình. Không suy từ bảng này ra ISO tốt nhất, nhiễu hay dải tương phản của một máy cụ thể.</p>
+    </aside>
+  </div>
+</section>
