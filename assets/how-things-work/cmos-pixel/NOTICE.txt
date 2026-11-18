@@ -1,0 +1,13 @@
+How Things Work playground: Một pixel CMOS biến ánh sáng thành điện áp thế nào?
+Topic: cmos-pixel
+Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: 27ea42bb8751f09afbbdc470d84802c2f411d60416e80564beb590518b5aa33d
+Checks recorded in the build receipt:
+- cmos-pixel/model.test.mjs: 7/7 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/cmos-pixel/tests/model.test.mjs)
+- Mode invariance: passed, 3 scripts
+- Parameter grid: passed, 90 cases
+Limitations:
+- Ánh sáng không đổi trong một lượt; tốc độ thu là kỳ vọng electron đã thu, không phải tốc độ photon tới. Giếng 20.000 e⁻, điện dung 10 fF và mức reset 1,2 V là các thông số minh họa.
+- FD đủ dung lượng; chuyển hết electron trong một sự kiện. Không mô phỏng động học, điện thế bên trong silicon, mất điện tích, dòng tối, nhiễu, màu, mạch khuếch đại, ADC hoặc trình tự đọc theo hàng.
+- Hình không theo tỷ lệ. Chấm chỉ gợi mật độ; thời gian chạy là lịch trình diễn, không phải tốc độ đóng cắt của pixel.

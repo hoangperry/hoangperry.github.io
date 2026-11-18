@@ -99,3 +99,10 @@
   subjects: "Bán dẫn · Điện tử"
   summary: "Thử hai điện áp trên bản cắt NMOS: vì sao có kênh chưa chắc có dòng, và vì sao dòng máng vẫn chạy khi kênh thắt và đi vào bão hòa."
   thumbnail: /assets/how-things-work/mosfet/thumbnail.webp
+- id: cmos-pixel
+  number: "15"
+  url: /how-things-work/cmos-pixel/
+  title: "Một pixel CMOS biến ánh sáng thành điện áp thế nào?"
+  subjects: "Nhiếp ảnh · Bán dẫn"
+  summary: "Chỉnh độ sáng và thời gian phơi, rồi theo electron từ photodiode qua cổng chuyển đến nút đọc. Thử phơi thêm khi giếng đã đầy."
+  thumbnail: /assets/how-things-work/cmos-pixel/thumbnail.webp
