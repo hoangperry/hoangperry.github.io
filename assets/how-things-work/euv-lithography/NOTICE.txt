@@ -1,0 +1,16 @@
+How Things Work playground: Bên trong máy quang khắc EUV: từ giọt thiếc đến một lớp mạch
+Topic: euv-lithography
+Generated file: built by the EUV topic exporter from a checked artifact and its receipt. Do not edit by hand.
+Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
+Source digest: c3af108496789d2353fa524adf6687c16a76f30c473a7c8789a8a542e0f3614c
+Checks recorded in the build receipt:
+- euv-model.test.mjs: 15/15 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/euv-lithography/tests/euv-model.test.mjs)
+- euv-grid.test.mjs: 720/720 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/euv-lithography/tests/euv-grid.test.mjs)
+- Mode invariance: passed, 5 scripts
+- Parameter grid: passed, 720 cases
+Limitations:
+- Bản cắt là hình học minh họa, không theo tỷ lệ, không tái dựng thiết kế NXE:3400C hay số lượng gương thật. Bước sóng 13,5 nm, NA 0,33, trường 26 × 33 mm và thu nhỏ 4× là mốc công khai của nền NXE tham chiếu.
+- Nguồn thiếc, truyền qua chân không và gương nhiều lớp được minh họa theo trình tự; 8 giây và tốc độ trên hình là thời gian trình diễn, không phải thông số vận hành. Tổn hao gương minh họa không hiệu chuẩn liều.
+- Quang học vô hướng 1D, chiếu trên trục đơn sắc kết hợp, cách tử biên độ 50%, pupil cứng và pha lệch tiêu gần trục. Không gồm chiếu sáng một phần kết hợp, mask 3D, phân cực, OPC hoặc sai lệch quang sai thực.
+- Sai lệch ppm được cố ý áp đặt. Số nm là dịch tâm phơi dự kiến tại ba dấu, không phải độ overlay đo được. Tích phân khe hữu hạn giữ lại vệt nhòe trong khi quét.
+- Liều và ngưỡng cản quang dương là tương đối. Không có động học hóa học, nhiễu photon hay mô hình dự báo yield. Phơi và hiện cản quang không khắc silicon.

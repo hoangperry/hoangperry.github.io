@@ -1,0 +1,74 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="euv-lithography-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Bên trong máy quang khắc EUV: từ giọt thiếc đến một lớp mạch">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="scale">
+<legend class="htw-playground-group-label">Mức quan sát</legend>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="view" data-playground-type="segmented" role="group" aria-labelledby="euv-lithography-control-view-label">
+<span class="htw-playground-control-label" id="euv-lithography-control-view-label">Bản cắt và cận cảnh</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="view" data-playground-option="&quot;machine&quot;" aria-pressed="false" disabled>Toàn máy</button>
+<button type="button" class="htw-machine-chip" data-playground-key="view" data-playground-option="&quot;module&quot;" aria-pressed="false" disabled>Các cụm</button>
+<button type="button" class="htw-machine-chip" data-playground-key="view" data-playground-option="&quot;wafer&quot;" aria-pressed="false" disabled>Mẫu trên wafer</button>
+<button type="button" class="htw-machine-chip" data-playground-key="view" data-playground-option="&quot;pupil&quot;" aria-pressed="false" disabled>Soi khẩu độ</button>
+<button type="button" class="htw-machine-chip" data-playground-key="view" data-playground-option="&quot;section&quot;" aria-pressed="false" disabled>Soi cản quang</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="site" data-playground-type="segmented" role="group" aria-labelledby="euv-lithography-control-site-label">
+<span class="htw-playground-control-label" id="euv-lithography-control-site-label">Điểm soi cản quang</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="site" data-playground-option="&quot;start&quot;" aria-pressed="false" disabled>Đầu · 0 mm</button>
+<button type="button" class="htw-machine-chip" data-playground-key="site" data-playground-option="&quot;middle&quot;" aria-pressed="false" disabled>Giữa · 16,5 mm</button>
+<button type="button" class="htw-machine-chip" data-playground-key="site" data-playground-option="&quot;end&quot;" aria-pressed="false" disabled>Cuối · 33 mm</button>
+</span>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="imaging">
+<legend class="htw-playground-group-label">Ảnh trên wafer</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="pitch" data-playground-type="range">
+<label class="htw-playground-control-label" id="euv-lithography-control-pitch-label" for="euv-lithography-control-pitch">Chu kỳ vạch tại wafer</label>
+<input type="range" class="htw-playground-slider" id="euv-lithography-control-pitch" data-playground-key="pitch" data-playground-range min="32" max="76" step="1" disabled>
+<output class="htw-playground-value" id="euv-lithography-control-pitch-value" for="euv-lithography-control-pitch" data-playground-output="pitch" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">nm</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="focus" data-playground-type="range">
+<label class="htw-playground-control-label" id="euv-lithography-control-focus-label" for="euv-lithography-control-focus">Lệch tiêu</label>
+<input type="range" class="htw-playground-slider" id="euv-lithography-control-focus" data-playground-key="focus" data-playground-range min="-250" max="250" step="1" disabled>
+<output class="htw-playground-value" id="euv-lithography-control-focus-value" for="euv-lithography-control-focus" data-playground-output="focus" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">nm</span></output>
+</div>
+</fieldset>
+<fieldset class="htw-playground-group" data-playground-group="exposure">
+<legend class="htw-playground-group-label">Quét và phơi</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="sync" data-playground-type="range">
+<label class="htw-playground-control-label" id="euv-lithography-control-sync-label" for="euv-lithography-control-sync">Sai lệch tỷ lệ tốc độ</label>
+<input type="range" class="htw-playground-slider" id="euv-lithography-control-sync" data-playground-key="sync" data-playground-range min="-1" max="1" step="0.05" disabled>
+<output class="htw-playground-value" id="euv-lithography-control-sync-value" for="euv-lithography-control-sync" data-playground-output="sync" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">ppm</span></output>
+</div>
+<div class="htw-playground-control htw-playground-range" data-playground-control="dose" data-playground-type="range">
+<label class="htw-playground-control-label" id="euv-lithography-control-dose-label" for="euv-lithography-control-dose">Hệ số liều</label>
+<input type="range" class="htw-playground-slider" id="euv-lithography-control-dose" data-playground-key="dose" data-playground-range min="0.25" max="1.5" step="0.05" disabled>
+<output class="htw-playground-value" id="euv-lithography-control-dose-value" for="euv-lithography-control-dose" data-playground-output="dose" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">×</span></output>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="euv-lithography-presets-label">
+<span class="htw-playground-group-label" id="euv-lithography-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="baseline" disabled>Đúng tiêu, đúng nhịp</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="blocked" disabled>Pitch dưới ngưỡng</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="defocus" disabled>Lệch tiêu</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="sync-error" disabled>Lệch đồng bộ</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="under-dose" disabled>Thiếu liều</button>
+</div>
+<div class="htw-playground-challenges">
+<p class="htw-playground-group-label" id="euv-lithography-challenges-label">Thử thách</p>
+<ol class="htw-playground-challenge-list" aria-labelledby="euv-lithography-challenges-label">
+<li class="htw-playground-challenge" data-machine-challenge="printed" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Mở vạch đúng chỗ ở cả ba dấu</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="lost" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Hoàn tất lượt mà không mở vạch nào</span></li>
+<li class="htw-playground-challenge" data-machine-challenge="shifted" data-done="false"><span class="htw-playground-challenge-state" data-machine-challenge-state>Chưa xong</span> <span class="htw-playground-challenge-label">Cuối trường: dấu cũ còn phủ, tâm rãnh gần nhất cách ít nhất 8 nm</span></li>
+</ol>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}

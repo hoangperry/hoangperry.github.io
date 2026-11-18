@@ -1,0 +1,324 @@
+{% raw %}
+<figure class="htw-machine-scene htw-playground-scene" id="euv-lithography-scene" data-machine-scene tabindex="-1" aria-labelledby="euv-lithography-scene-title">
+<div class="htw-machine-plate">
+<div class="htw-machine-plate-bar">
+<p class="htw-machine-plate-title" id="euv-lithography-scene-title">Bên trong máy quang khắc EUV: từ giọt thiếc đến một lớp mạch</p>
+<button type="button" class="htw-machine-chip htw-machine-theme" data-machine-theme aria-pressed="false" disabled>
+<span class="htw-machine-theme-icon" aria-hidden="true"></span><span>Nền sáng</span></button>
+</div>
+<div class="htw-machine-view"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" class="euv-svg" role="img" aria-label="Bản cắt và mô hình máy quang khắc EUV" aria-labelledby="euv-svg-title" aria-describedby="euv-svg-description" data-machine-id="euv-svg" data-euv-view="machine" data-euv-focus="all" data-euv-phase="idle" data-euv-time="0" data-euv-source-frame="0" data-euv-wafer-mm="-2.64" data-euv-reticle-mm="10.56" data-machine-view="" focusable="false">
+    <title id="euv-svg-title">Bản cắt máy quang khắc EUV</title>
+    <desc id="euv-svg-description">Tia laser kích giọt thiếc. Gương gom EUV từ plasma về tiêu điểm trung gian F, rồi bộ chiếu sáng đưa EUV tới mặt nạ phản xạ. Gương chiếu tạo ảnh ở khe phơi trên wafer. Bên cạnh bàn phơi là bàn đo độc lập.</desc>
+    <defs><pattern id="euv-resist-hatch" width="5" height="5" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="5" height="5" rx="0" class="euv-hatch-base" /><path class="euv-hatch-line" d="M-1 1L1 -1 M0 5L5 0 M4 6L6 4" />
+    </pattern></defs>
+    <g data-euv-panel="machine" transform="translate(0 0)" display="inline"><text x="16" y="27" class="euv-index" >01</text><text x="52" y="28" class="euv-title" >Toàn máy</text><text x="424" y="28" class="euv-meta" text-anchor="end">NXE:3400C</text><path class="euv-rule" d="M16 43H424" />
+    <ellipse cx="221" cy="255" rx="189" ry="26" class="euv-shadow"/>
+    <g data-euv-part="frame">
+      <path class="euv-top" d="M69 252h21l9 -5h-21Z" /><path class="euv-side" d="M90 252l9 -5v15l-9 5Z" /><rect x="69" y="252" width="21" height="15" rx="1" class="euv-shade" /><rect x="66" y="265" width="27" height="4" rx="1" class="euv-side" /><path class="euv-top" d="M177 252h21l9 -5h-21Z" /><path class="euv-side" d="M198 252l9 -5v15l-9 5Z" /><rect x="177" y="252" width="21" height="15" rx="1" class="euv-shade" /><rect x="174" y="265" width="27" height="4" rx="1" class="euv-side" /><path class="euv-top" d="M321 252h21l9 -5h-21Z" /><path class="euv-side" d="M342 252l9 -5v15l-9 5Z" /><rect x="321" y="252" width="21" height="15" rx="1" class="euv-shade" /><rect x="318" y="265" width="27" height="4" rx="1" class="euv-side" />
+      <path class="euv-top" d="M43 239h337l27 -19h-337Z" /><path class="euv-side" d="M380 239l27 -19v16l-27 19Z" /><rect x="43" y="239" width="337" height="16" rx="1" class="euv-face" /><path class="euv-trim" d="M43 248H380L407 229" />
+      <path class="euv-side" d="M379 97 407 78V220L379 239Z" /><path class="euv-cavity" d="M59 100H379V239H59Z" />
+      <path class="euv-shade" d="M69 108H367V225H69Z" /><path class="euv-inner-wall" d="M69 108H367V221H69Z" />
+      <path class="euv-wall-seam" d="M72 206H364 M72 189H364 M72 172H364 M72 155H364 M72 138H364" />
+      <path class="euv-top" d="M43 95h337l27 -19h-337Z" /><path class="euv-side" d="M380 95l27 -19v10l-27 19Z" /><rect x="43" y="95" width="337" height="10" rx="1" class="euv-face" /><path class="euv-trim" d="M47 106H376" />
+      <path class="euv-top" d="M43 106h14l12 -8h-14Z" /><path class="euv-side" d="M57 106l12 -8v133l-12 8Z" /><rect x="43" y="106" width="14" height="133" rx="1" class="euv-face" /><path class="euv-top" d="M366 106h14l11 -7h-14Z" /><path class="euv-side" d="M380 106l11 -7v133l-11 7Z" /><rect x="366" y="106" width="14" height="133" rx="1" class="euv-face" />
+      <path class="euv-side" d="M58 106 94 87 77 116 58 130Z M366 215 342 238 366 238Z" />
+      <path class="euv-trim" d="M393 96V210 M399 92V206" />
+      <path class="euv-vent" d="M384 121l17 -11v3l-17 11Z" /><path class="euv-vent" d="M384 145l17 -11v3l-17 11Z" /><path class="euv-vent" d="M384 169l17 -11v3l-17 11Z" /><path class="euv-vent" d="M384 193l17 -11v3l-17 11Z" />
+      <circle class="euv-screw" cx="49" cy="101" r="1.4"/><path class="euv-screw-slot" d="M48.3 101.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="49" cy="246" r="1.4"/><path class="euv-screw-slot" d="M48.3 246.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="113" cy="101" r="1.4"/><path class="euv-screw-slot" d="M112.3 101.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="113" cy="246" r="1.4"/><path class="euv-screw-slot" d="M112.3 246.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="180" cy="101" r="1.4"/><path class="euv-screw-slot" d="M179.3 101.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="180" cy="246" r="1.4"/><path class="euv-screw-slot" d="M179.3 246.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="247" cy="101" r="1.4"/><path class="euv-screw-slot" d="M246.3 101.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="247" cy="246" r="1.4"/><path class="euv-screw-slot" d="M246.3 246.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="313" cy="101" r="1.4"/><path class="euv-screw-slot" d="M312.3 101.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="313" cy="246" r="1.4"/><path class="euv-screw-slot" d="M312.3 246.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="374" cy="101" r="1.4"/><path class="euv-screw-slot" d="M373.3 101.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="374" cy="246" r="1.4"/><path class="euv-screw-slot" d="M373.3 246.56l1.4 -1.1199999999999999" />
+      <circle class="euv-screw" cx="50" cy="119" r="1.7"/><path class="euv-screw-slot" d="M49.15 119.68l1.7 -1.36" /><circle class="euv-screw" cx="374" cy="119" r="1.7"/><path class="euv-screw-slot" d="M373.15 119.68l1.7 -1.36" /><circle class="euv-screw" cx="50" cy="150" r="1.7"/><path class="euv-screw-slot" d="M49.15 150.68l1.7 -1.36" /><circle class="euv-screw" cx="374" cy="150" r="1.7"/><path class="euv-screw-slot" d="M373.15 150.68l1.7 -1.36" /><circle class="euv-screw" cx="50" cy="181" r="1.7"/><path class="euv-screw-slot" d="M49.15 181.68l1.7 -1.36" /><circle class="euv-screw" cx="374" cy="181" r="1.7"/><path class="euv-screw-slot" d="M373.15 181.68l1.7 -1.36" /><circle class="euv-screw" cx="50" cy="212" r="1.7"/><path class="euv-screw-slot" d="M49.15 212.68l1.7 -1.36" /><circle class="euv-screw" cx="374" cy="212" r="1.7"/><path class="euv-screw-slot" d="M373.15 212.68l1.7 -1.36" /><circle class="euv-screw" cx="50" cy="231" r="1.7"/><path class="euv-screw-slot" d="M49.15 231.68l1.7 -1.36" /><circle class="euv-screw" cx="374" cy="231" r="1.7"/><path class="euv-screw-slot" d="M373.15 231.68l1.7 -1.36" />
+    </g>
+    <g data-euv-part="source">
+      <path class="euv-top" d="M64 216h99l10 -7h-99Z" /><path class="euv-side" d="M163 216l10 -7v13l-10 7Z" /><rect x="64" y="216" width="99" height="13" rx="1" class="euv-shade" />
+      <path class="euv-top" d="M71 181h13l8 -6h-13Z" /><path class="euv-side" d="M84 181l8 -6v33l-8 6Z" /><rect x="71" y="181" width="13" height="33" rx="1" class="euv-face" /><path class="euv-top" d="M131 188h15l8 -6h-15Z" /><path class="euv-side" d="M146 188l8 -6v25l-8 6Z" /><rect x="131" y="188" width="15" height="25" rx="1" class="euv-face" />
+      <path class="euv-pipe-wall" d="M78 216V209Q78 203 85 203H122Q128 203 128 195V188" /><path class="euv-pipe-core" d="M78 216V209Q78 203 85 203H122Q128 203 128 195V188" /><path class="euv-pipe-shine" d="M78 216V209Q78 203 85 203H122Q128 203 128 195V188" />
+      <path class="euv-source-shell" d="M84 137Q89 124 109 125H133Q149 129 149 143V177Q149 193 130 198H103Q81 196 80 178V152Z" />
+      <path class="euv-cavity" d="M87 146Q89 136 105 134H131Q142 138 142 148V175Q142 186 130 189H105Q87 187 87 176Z" />
+      <path class="euv-top" d="M100 123h11l4 -3h-11Z" /><path class="euv-side" d="M111 123l4 -3v29l-4 3Z" /><rect x="100" y="123" width="11" height="29" rx="1" class="euv-shade" /><path class="euv-tin" d="M100 149h11l-4 7h-3Z" />
+      <path class="euv-top" d="M62 165h24l7 -5h-24Z" /><path class="euv-side" d="M86 165l7 -5v12l-7 5Z" /><rect x="62" y="165" width="24" height="12" rx="1" class="euv-shade" /><path class="euv-laser" d="M84 169L106 161" /><path class="euv-laser-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(96 164) rotate(-21)"/>
+      <circle class="euv-tin" cx="106" cy="161" r="3"/><path class="euv-collector" d="M132 143Q146 163 126 184L121 182Q137 165 128 147Z" />
+      <circle class="euv-screw" cx="87" cy="139" r="1.6"/><path class="euv-screw-slot" d="M86.2 139.64l1.6 -1.2800000000000002" /><circle class="euv-screw" cx="87" cy="181" r="1.6"/><path class="euv-screw-slot" d="M86.2 181.64l1.6 -1.2800000000000002" />
+      <path class="euv-top" d="M144 135h16l7 -5h-16Z" /><path class="euv-side" d="M160 135l7 -5v22l-7 5Z" /><rect x="144" y="135" width="16" height="22" rx="1" class="euv-shade" />
+    </g>
+    <g data-euv-part="reticle">
+      <path class="euv-top" d="M170 108h86l8 -5h-86Z" /><path class="euv-side" d="M256 108l8 -5v7l-8 5Z" /><rect x="170" y="108" width="86" height="7" rx="1" class="euv-shade" /><rect x="176" y="106" width="78" height="2.5" rx="1" class="euv-rail-polish" />
+    <circle class="euv-screw" cx="174" cy="112" r="1.4"/><path class="euv-screw-slot" d="M173.3 112.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="252" cy="112" r="1.4"/><path class="euv-screw-slot" d="M251.3 112.56l1.4 -1.1199999999999999" />
+      <g data-euv-bind="machine-reticle" transform="translate(8.700 0)">
+        <path class="euv-top" d="M207 100h33l7 -5h-33Z" /><path class="euv-side" d="M240 100l7 -5v8l-7 5Z" /><rect x="207" y="100" width="33" height="8" rx="1" class="euv-bright" /><path class="euv-reticle-pattern" d="M212 108h24l-5 4h-21Z" />
+        <path class="euv-grating-line" d="M214 108v3 M220 108v3 M226 108v3 M232 108v3" />
+      </g>
+    </g>
+    <g data-euv-part="mirrors">
+      <path class="euv-mount" d="M149 108h12v25l13 9v5h-24Z M170 165h33l5-25h-7l-6 10h-25Z M238 159h22l3 12h-25Z M272 109h22v24h-11v-14h-11Z M310 174h12v27h-20l-7-16h7l7 8Z" />
+      <g transform="translate(168 136) rotate(49) scale(0.6)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g><g transform="translate(188 149) rotate(-22) scale(0.65)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g><g transform="translate(246 157) rotate(23) scale(0.73)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g><g transform="translate(282 141) rotate(32) scale(0.77)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g><g transform="translate(304 177) rotate(64) scale(0.72)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g>
+    </g>
+    <g data-euv-part="dual-stage">
+      <path class="euv-top" d="M208 231h149l8 -5h-149Z" /><path class="euv-side" d="M357 231l8 -5v7l-8 5Z" /><rect x="208" y="231" width="149" height="7" rx="1" class="euv-shade" /><rect x="214" y="229" width="141" height="2.5" rx="1" class="euv-rail-polish" />
+    <circle class="euv-screw" cx="212" cy="235" r="1.4"/><path class="euv-screw-slot" d="M211.3 235.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="353" cy="235" r="1.4"/><path class="euv-screw-slot" d="M352.3 235.56l1.4 -1.1199999999999999" /><path class="euv-top" d="M221 218h137l8 -5h-137Z" /><path class="euv-side" d="M358 218l8 -5v7l-8 5Z" /><rect x="221" y="218" width="137" height="7" rx="1" class="euv-shade" /><rect x="227" y="216" width="129" height="2.5" rx="1" class="euv-rail-polish" />
+    <circle class="euv-screw" cx="225" cy="222" r="1.4"/><path class="euv-screw-slot" d="M224.3 222.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="354" cy="222" r="1.4"/><path class="euv-screw-slot" d="M353.3 222.56l1.4 -1.1199999999999999" />
+      <g data-euv-bind="machine-wafer" transform="translate(-8.700 0)">
+        <path class="euv-top" d="M239 223h62l13 -10h-62Z" /><path class="euv-side" d="M301 223l13 -10v10l-13 10Z" /><rect x="239" y="223" width="62" height="10" rx="1" class="euv-bright" /><g transform="translate(273 220)"><ellipse cx="0" cy="2.7" rx="26" ry="8" class="euv-chuck"/>
+    <ellipse cx="0" cy="0" rx="24" ry="7" class="euv-wafer-disc"/>
+    <path class="euv-die-lines" d="M-21 0H21M-17 -3.5H17M-17 3.5H17M-12 -5.88v11.76M0 -7V7M12 -5.88v11.76" />
+    <path class="euv-die-lines" d="M-4 -3v6m-3 -3h6M5 -3v6m-3 -3h6" />
+    <path class="euv-notch" d="M-2 6l2 -2 2 2Z" /></g>
+      </g>
+      <path class="euv-top" d="M316 223h43l8 -7h-43Z" /><path class="euv-side" d="M359 223l8 -7v10l-8 7Z" /><rect x="316" y="223" width="43" height="10" rx="1" class="euv-face" /><g transform="translate(340 220)"><ellipse cx="0" cy="2.7" rx="20" ry="8" class="euv-chuck"/>
+    <ellipse cx="0" cy="0" rx="18" ry="7" class="euv-wafer-disc"/>
+    <path class="euv-die-lines" d="M-15 0H15M-11 -3.5H11M-11 3.5H11M-9 -5.88v11.76M0 -7V7M9 -5.88v11.76" />
+    <path class="euv-registration" d="M-4 -3v6m-3 -3h6M5 -3v6m-3 -3h6" />
+    <path class="euv-notch" d="M-2 6l2 -2 2 2Z" /></g>
+      <path class="euv-top" d="M348 159h12l7 -5h-12Z" /><path class="euv-side" d="M360 159l7 -5v52l-7 5Z" /><rect x="348" y="159" width="12" height="52" rx="1" class="euv-shade" /><path class="euv-top" d="M331 161h22l7 -5h-22Z" /><path class="euv-side" d="M353 161l7 -5v11l-7 5Z" /><rect x="331" y="161" width="22" height="11" rx="1" class="euv-bright" />
+      <rect x="336" y="172" width="9" height="9" rx="1" class="euv-shade" /><path class="euv-measurement" d="M340 181V214" />
+      <path class="euv-registration" d="M336 214v7m-3 -3h10" />
+    </g>
+    <g data-euv-part="optical-route">
+      <path class="euv-beam-fan" d="M106 161 132 143 126 184Z" />
+      <path class="euv-beam-fan" d="M130 151 149 134 129 176Z M149 134 169 132 167 140Z" />
+      <path class="euv-beam-halo" d="M129 166L149 134 168 136 188 149 223 110 246 157 282 141 304 177 273 220" /><path class="euv-beam" d="M129 166L149 134 168 136 188 149 223 110 246 157 282 141 304 177 273 220" />
+      <path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(179 143) rotate(33)"/><path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(265 148) rotate(-24)"/><path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(291 196) rotate(126)"/>
+      <circle class="euv-reflection" cx="149" cy="134" r="2"/><circle class="euv-reflection" cx="168" cy="136" r="2"/><circle class="euv-reflection" cx="188" cy="149" r="2"/><circle class="euv-reflection" cx="246" cy="157" r="2"/><circle class="euv-reflection" cx="282" cy="141" r="2"/><circle class="euv-reflection" cx="304" cy="177" r="2"/>
+      <text x="145" y="124" class="euv-label" >F</text>
+      <path class="euv-slit" d="M267 217l11 5 -3 2 -11-4Z" />
+    </g>
+    <g data-euv-callout="source"><path class="euv-guide" d="M16 71H91L105 129" /><circle class="euv-leader-pin" cx="105" cy="129" r="2.1"/><text x="16" y="66" class="euv-callout" >Nguồn thiếc</text></g>
+    <g data-euv-callout="reticle"><path class="euv-guide" d="M263 69H235L223 104" /><circle class="euv-leader-pin" cx="223" cy="104" r="2.1"/><text x="263" y="66" class="euv-callout" >Mặt nạ</text></g>
+    <g data-euv-callout="mirrors"><path class="euv-guide" d="M421 72H348L320 124 286 140" /><circle class="euv-leader-pin" cx="286" cy="140" r="2.1"/><text x="424" y="66" class="euv-callout" text-anchor="end">Gương chiếu</text></g>
+    <g data-euv-callout="laser"><path class="euv-guide" d="M16 261H26V184L70 173" /><circle class="euv-leader-pin" cx="70" cy="173" r="2.1"/><text x="16" y="282" class="euv-callout" >Laser kích</text></g>
+    <g data-euv-callout="exposure"><path class="euv-guide" d="M229 271L250 258 270 225" /><circle class="euv-leader-pin" cx="270" cy="225" r="2.1"/><text x="229" y="291" class="euv-callout" text-anchor="middle">Bàn phơi</text></g>
+    <g data-euv-callout="measure"><path class="euv-guide" d="M367 263L350 255 340 225" /><circle class="euv-leader-pin" cx="340" cy="225" r="2.1"/><text x="374" y="282" class="euv-callout" text-anchor="middle">Bàn đo</text></g>
+    <path class="euv-rule" d="M16 303H424" />
+    <path class="euv-beam" d="M16 323H38" /><path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(30 323) rotate(0)"/><text x="45" y="328" class="euv-label" >EUV · 13,5 nm</text>
+    <path class="euv-laser" d="M177 323H199" /><text x="206" y="328" class="euv-label" >Laser CO₂</text><text x="424" y="328" class="euv-meta" text-anchor="end">F · Tiêu điểm TG</text></g>
+    <g data-euv-panel="source" transform="translate(0 0)" display="none"><text x="16" y="27" class="euv-index" >02</text><text x="52" y="28" class="euv-title" >Nguồn tạo EUV</text><text x="424" y="28" class="euv-meta" text-anchor="end">CỤM NGUỒN</text><path class="euv-rule" d="M16 43H424" />
+    <ellipse cx="132" cy="208" rx="96" ry="13" class="euv-shadow"/><path class="euv-top" d="M37 193h188l25 -14h-188Z" /><path class="euv-side" d="M225 193l25 -14v13l-25 14Z" /><rect x="37" y="193" width="188" height="13" rx="1" class="euv-face" />
+    <path class="euv-top" d="M56 175h19l9 -5h-19Z" /><path class="euv-side" d="M75 175l9 -5v17l-9 5Z" /><rect x="56" y="175" width="19" height="17" rx="1" class="euv-shade" /><path class="euv-top" d="M180 173h25l9 -5h-25Z" /><path class="euv-side" d="M205 173l9 -5v20l-9 5Z" /><rect x="180" y="173" width="25" height="20" rx="1" class="euv-shade" />
+    <path class="euv-source-shell" d="M67 109Q74 83 106 79H174Q204 88 211 107V157Q203 179 174 186H103Q66 180 65 157Z" />
+    <path class="euv-cavity" d="M77 111Q83 90 108 89H172Q200 93 202 111V155Q197 173 172 177H106Q78 172 77 154Z" />
+    <path class="euv-trim" d="M86 110Q92 96 109 96H172Q189 98 195 109 M86 154Q91 168 108 170H171Q189 168 195 155" />
+    <circle class="euv-screw" cx="78" cy="108" r="1.8"/><path class="euv-screw-slot" d="M77.1 108.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="78" cy="157" r="1.8"/><path class="euv-screw-slot" d="M77.1 157.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="103" cy="84" r="1.8"/><path class="euv-screw-slot" d="M102.1 84.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="170" cy="84" r="1.8"/><path class="euv-screw-slot" d="M169.1 84.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="198" cy="103" r="1.8"/><path class="euv-screw-slot" d="M197.1 103.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="201" cy="159" r="1.8"/><path class="euv-screw-slot" d="M200.1 159.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="171" cy="181" r="1.8"/><path class="euv-screw-slot" d="M170.1 181.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="104" cy="181" r="1.8"/><path class="euv-screw-slot" d="M103.1 181.72l1.8 -1.4400000000000002" />
+    <path class="euv-pipe-wall" d="M102 63H122Q130 63 130 70V91" /><path class="euv-pipe-core" d="M102 63H122Q130 63 130 70V91" /><path class="euv-pipe-shine" d="M102 63H122Q130 63 130 70V91" /><rect x="122" y="87" width="16" height="21" rx="2" class="euv-shade" /><rect x="119" y="91" width="22" height="7" rx="2" class="euv-face" />
+    <path class="euv-tin" d="M125 108h10l-3 8h-4Z" /><circle class="euv-tin" cx="130" cy="121" r="1.5"/>
+    <path class="euv-top" d="M41 145h39l7 -5h-39Z" /><path class="euv-side" d="M80 145l7 -5v16l-7 5Z" /><rect x="41" y="145" width="39" height="16" rx="1" class="euv-shade" /><ellipse cx="79" cy="151" rx="5" ry="8" class="euv-side"/>
+    <g data-euv-bind="source-laser" display="none"><path class="euv-laser" d="M85 149L117 136" /><path class="euv-laser-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(103 142) rotate(-23)"/></g>
+    <path class="euv-collector" d="M174 106Q193 132 168 163L161 160Q184 130 168 110Z" />
+    <path class="euv-mount" d="M181 116l12 1 7 13v9h-14l-4 8Z" /><circle class="euv-screw" cx="194" cy="133" r="1.8"/><path class="euv-screw-slot" d="M193.1 133.72l1.8 -1.4400000000000002" />
+    <path class="euv-top" d="M206 121h36l12 -6h-36Z" /><path class="euv-side" d="M242 121l12 -6v20l-12 6Z" /><rect x="206" y="121" width="36" height="20" rx="1" class="euv-shade" /><ellipse cx="242" cy="131" rx="6" ry="10" class="euv-side"/>
+    <g data-euv-source-pose="0" display="inline"><g transform="translate(130 132) scale(1.3)"><circle class="euv-tin" cx="0" cy="0" r="4.2"/><path class="euv-measurement" d="M0 -11V-6" /></g></g><g data-euv-source-pose="1" display="none"><g transform="translate(130 132) scale(1.3)"><path class="euv-laser" d="M-18 7L-5 2" /><ellipse cx="0" cy="0" rx="8" ry="2.8" class="euv-tin"/></g></g><g data-euv-source-pose="2" display="none"><g transform="translate(130 132) scale(1.3)"><path class="euv-laser" d="M-18 7L-5 2" /><path class="euv-plasma" d="M0 -10 2.5 -4 9 -6 5 -1 11 2 4 3 5 9 0 6 -6 9 -5 3 -10 0 -4 -2 -5 -8 -1 -5Z" /><circle class="euv-tin" cx="0" cy="0" r="2"/></g></g><g data-euv-source-pose="3" display="none"><g transform="translate(130 132) scale(1.3)"><path class="euv-beam-fan" d="M-8 0 6 -8 6 8Z" /><path class="euv-mirror-face" d="M5 -9q7 9 0 18h2q8-9 0-18Z" /><path class="euv-beam" d="M7 -3L16 0 7 3" /></g><path class="euv-beam-fan" d="M130 132 173 107 168 162Z" /><path class="euv-beam-halo" d="M171 112L223 131 167 153" /><path class="euv-beam" d="M171 112L223 131 167 153" /></g>
+    <g data-euv-callout="tin-nozzle"><path class="euv-guide" d="M270 77H179L135 103" /><circle class="euv-leader-pin" cx="135" cy="103" r="2.1"/><text x="270" y="70" class="euv-callout" >Vòi thiếc</text></g>
+    <g data-euv-callout="collector"><path class="euv-guide" d="M270 106H210L177 116" /><circle class="euv-leader-pin" cx="177" cy="116" r="2.1"/><text x="270" y="100" class="euv-callout" >Gương gom</text></g>
+    <g data-euv-callout="source-output"><path class="euv-guide" d="M270 159H252L240 131" /><circle class="euv-leader-pin" cx="240" cy="131" r="2.1"/><text x="270" y="177" class="euv-callout" >Ra bộ chiếu sáng</text></g>
+    <text x="19" y="185" class="euv-meta" >CO₂</text>
+    <path class="euv-rule" d="M16 218H424" />
+    <g data-euv-source-step="0" data-euv-active="true"><rect x="20" y="229" width="92" height="70" rx="3" class="euv-step-tile" />
+        <text x="31" y="248" class="euv-step-number" >01</text><g transform="translate(69 257) scale(0.97)"><circle class="euv-tin" cx="0" cy="0" r="4.2"/><path class="euv-measurement" d="M0 -11V-6" /></g><text x="66" y="287" class="euv-label" text-anchor="middle">Giọt thiếc</text></g><g data-euv-source-step="1" data-euv-active="false"><rect x="122" y="229" width="92" height="70" rx="3" class="euv-step-tile" />
+        <text x="133" y="248" class="euv-step-number" >02</text><g transform="translate(171 257) scale(0.97)"><path class="euv-laser" d="M-18 7L-5 2" /><ellipse cx="0" cy="0" rx="8" ry="2.8" class="euv-tin"/></g><text x="168" y="287" class="euv-label" text-anchor="middle">Dàn giọt</text></g><g data-euv-source-step="2" data-euv-active="false"><rect x="224" y="229" width="92" height="70" rx="3" class="euv-step-tile" />
+        <text x="235" y="248" class="euv-step-number" >03</text><g transform="translate(273 257) scale(0.97)"><path class="euv-laser" d="M-18 7L-5 2" /><path class="euv-plasma" d="M0 -10 2.5 -4 9 -6 5 -1 11 2 4 3 5 9 0 6 -6 9 -5 3 -10 0 -4 -2 -5 -8 -1 -5Z" /><circle class="euv-tin" cx="0" cy="0" r="2"/></g><text x="270" y="287" class="euv-label" text-anchor="middle">Plasma</text></g><g data-euv-source-step="3" data-euv-active="false"><rect x="326" y="229" width="92" height="70" rx="3" class="euv-step-tile" />
+        <text x="337" y="248" class="euv-step-number" >04</text><g transform="translate(375 257) scale(0.97)"><path class="euv-beam-fan" d="M-8 0 6 -8 6 8Z" /><path class="euv-mirror-face" d="M5 -9q7 9 0 18h2q8-9 0-18Z" /><path class="euv-beam" d="M7 -3L16 0 7 3" /></g><text x="372" y="287" class="euv-label" text-anchor="middle">Gom EUV</text></g>
+    <text x="18" y="323" class="euv-label" data-euv-text="source-phase" >Giọt thiếc rời vòi.</text></g><g data-euv-panel="mirrors" transform="translate(0 350)" display="none"><text x="16" y="27" class="euv-index" >03</text><text x="52" y="28" class="euv-title" >Quang học phản xạ</text><text x="424" y="28" class="euv-meta" text-anchor="end">GƯƠNG / MẶT NẠ</text><path class="euv-rule" d="M16 43H424" />
+    <ellipse cx="220" cy="266" rx="184" ry="13" class="euv-shadow"/><path class="euv-top" d="M29 250h369l17 -10h-369Z" /><path class="euv-side" d="M398 250l17 -10v13l-17 10Z" /><rect x="29" y="250" width="369" height="13" rx="1" class="euv-shade" />
+    <path class="euv-top" d="M34 73h9l10 -6h-9Z" /><path class="euv-side" d="M43 73l10 -6v177l-10 6Z" /><rect x="34" y="73" width="9" height="177" rx="1" class="euv-shade" /><path class="euv-top" d="M199 73h10l10 -6h-10Z" /><path class="euv-side" d="M209 73l10 -6v177l-10 6Z" /><rect x="199" y="73" width="10" height="177" rx="1" class="euv-shade" /><path class="euv-top" d="M34 71h176l9 -5h-176Z" /><path class="euv-side" d="M210 71l9 -5v8l-9 5Z" /><rect x="34" y="71" width="176" height="8" rx="1" class="euv-face" />
+    <path class="euv-mount" d="M44 136h23l24 13v12H44Z M199 119h-24l-16 12v12h40Z M44 203h38l16 18v8H44Z M199 182h-26l-20 12v10h46Z" />
+    <rect x="90" y="70" width="6" height="24" rx="2" class="euv-shade" /><rect x="144" y="70" width="6" height="24" rx="2" class="euv-shade" />
+    <path class="euv-top" d="M83 87h74l8 -5h-74Z" /><path class="euv-side" d="M157 87l8 -5v7l-8 5Z" /><rect x="83" y="87" width="74" height="7" rx="1" class="euv-shade" /><rect x="89" y="85" width="66" height="2.5" rx="1" class="euv-rail-polish" />
+    <circle class="euv-screw" cx="87" cy="91" r="1.4"/><path class="euv-screw-slot" d="M86.3 91.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="153" cy="91" r="1.4"/><path class="euv-screw-slot" d="M152.3 91.56l1.4 -1.1199999999999999" /><path class="euv-top" d="M93 94h54l8 -4h-54Z" /><path class="euv-side" d="M147 94l8 -4v8l-8 4Z" /><rect x="93" y="94" width="54" height="8" rx="1" class="euv-bright" /><rect x="98" y="101" width="45" height="4" rx="1" class="euv-mirror-face" />
+    <rect x="100" y="101" width="4.5" height="4" rx="0" class="euv-absorber" /><rect x="110" y="101" width="4.5" height="4" rx="0" class="euv-absorber" /><rect x="120" y="101" width="4.5" height="4" rx="0" class="euv-absorber" /><rect x="130" y="101" width="4.5" height="4" rx="0" class="euv-absorber" />
+    <g transform="translate(81 153) rotate(21) scale(0.67)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g><g transform="translate(155 144) rotate(42) scale(0.75)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g><g transform="translate(163 202) rotate(10) scale(0.7)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g><g transform="translate(91 221) rotate(25) scale(0.7)">
+    <path class="euv-shade" d="M-13 -5 10 -5 17 4 13 16 -13 16 -18 5Z" /><rect x="-4" y="-10" width="8" height="24" rx="2" class="euv-face" />
+    <path class="euv-mirror-edge" d="M-21 -1 Q0 7 21 -1 L20 4 Q0 14 -20 4Z" /><path class="euv-mirror-face" d="M-21 -1 Q0 7 21 -1 L19 -4 Q0 4 -19 -4Z" />
+    <circle class="euv-screw" cx="-11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M-11.9 10.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="11" cy="10" r="1.8"/><path class="euv-screw-slot" d="M10.1 10.72l1.8 -1.4400000000000002" /></g>
+    <g class="euv-optical-cavity"><path class="euv-beam-halo" d="M47 128L81 153 120 105 155 144 163 202 91 221 112 247" /><path class="euv-beam" d="M47 128L81 153 120 105 155 144 163 202 91 221 112 247" />
+    <path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(100 131) rotate(-51)"/><path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(139 126) rotate(48)"/><path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(126 212) rotate(165)"/>
+    <circle class="euv-reflection" cx="81" cy="153" r="2"/><circle class="euv-reflection" cx="120" cy="105" r="2"/><circle class="euv-reflection" cx="155" cy="144" r="2"/><circle class="euv-reflection" cx="163" cy="202" r="2"/><circle class="euv-reflection" cx="91" cy="221" r="2"/><circle class="euv-reflection" cx="112" cy="247" r="2"/></g>
+    <g data-euv-callout="mask-detail"><path class="euv-guide" d="M243 69H167L139 99" /><circle class="euv-leader-pin" cx="139" cy="99" r="2.1"/><text x="243" y="66" class="euv-callout" >Mặt nạ phản xạ</text></g>
+    <text x="243" y="96" class="euv-label" >Vạch hấp thụ</text><path class="euv-measurement" d="M243 101H225L139 104" />
+    <path class="euv-top" d="M251 210h151l10 -7h-151Z" /><path class="euv-side" d="M402 210l10 -7v27l-10 7Z" /><rect x="251" y="210" width="151" height="27" rx="1" class="euv-shade" />
+    <rect x="251" y="208" width="151" height="5" rx="0" class="euv-layer-b" /><rect x="251" y="203" width="151" height="5" rx="0" class="euv-layer-a" /><rect x="251" y="198" width="151" height="5" rx="0" class="euv-layer-b" /><rect x="251" y="193" width="151" height="5" rx="0" class="euv-layer-a" /><rect x="251" y="188" width="151" height="5" rx="0" class="euv-layer-b" /><rect x="251" y="183" width="151" height="5" rx="0" class="euv-layer-a" /><rect x="251" y="178" width="151" height="5" rx="0" class="euv-layer-b" /><rect x="251" y="173" width="151" height="5" rx="0" class="euv-layer-a" />
+    <path class="euv-top" d="M251 173h151l10-7H261Z" />
+    <path class="euv-beam-halo" d="M255 120L301 174 355 118" /><path class="euv-beam" d="M255 120L301 174 355 118" /><path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(327 147) rotate(-46)"/>
+    <path class="euv-harmonic-guide" d="M273 141L302 180 337 142 M283 150L307 187 343 150" />
+    <path class="euv-guide" d="M402 180h13v32h-13" /><text x="402" y="232" class="euv-numeric" text-anchor="end">Mo / Si</text>
+    <text x="424" y="117" class="euv-meta" text-anchor="end">EUV</text>
+    <path class="euv-rule" d="M16 282H424" />
+    <text x="18" y="306" class="euv-label" >Phản xạ ở nhiều lớp; các sóng cộng pha.</text>
+    <text x="18" y="329" class="euv-muted" >Đường tia và số gương chỉ là sơ đồ.</text></g><g data-euv-panel="scan" transform="translate(0 700)" display="none"><text x="16" y="27" class="euv-index" >04</text><text x="52" y="28" class="euv-title" >Hai bàn quét ngược chiều</text><text x="424" y="28" class="euv-meta" text-anchor="end">QUÉT KHE</text><path class="euv-rule" d="M16 43H424" />
+    <path class="euv-top" d="M32 72h366l10 -8h-366Z" /><path class="euv-side" d="M398 72l10 -8v120l-10 8Z" /><rect x="32" y="72" width="366" height="120" rx="1" class="euv-cavity" />
+    <circle class="euv-screw" cx="39" cy="81" r="1.8"/><path class="euv-screw-slot" d="M38.1 81.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="393" cy="81" r="1.8"/><path class="euv-screw-slot" d="M392.1 81.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="39" cy="126" r="1.8"/><path class="euv-screw-slot" d="M38.1 126.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="393" cy="126" r="1.8"/><path class="euv-screw-slot" d="M392.1 126.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="39" cy="171" r="1.8"/><path class="euv-screw-slot" d="M38.1 171.72l1.8 -1.4400000000000002" /><circle class="euv-screw" cx="393" cy="171" r="1.8"/><path class="euv-screw-slot" d="M392.1 171.72l1.8 -1.4400000000000002" />
+    <path class="euv-top" d="M39 113h354l8 -5h-354Z" /><path class="euv-side" d="M393 113l8 -5v7l-8 5Z" /><rect x="39" y="113" width="354" height="7" rx="1" class="euv-shade" /><rect x="45" y="111" width="346" height="2.5" rx="1" class="euv-rail-polish" />
+    <circle class="euv-screw" cx="43" cy="117" r="1.4"/><path class="euv-screw-slot" d="M42.3 117.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="389" cy="117" r="1.4"/><path class="euv-screw-slot" d="M388.3 117.56l1.4 -1.1199999999999999" /><path class="euv-top" d="M39 178h354l8 -5h-354Z" /><path class="euv-side" d="M393 178l8 -5v7l-8 5Z" /><rect x="39" y="178" width="354" height="7" rx="1" class="euv-shade" /><rect x="45" y="176" width="346" height="2.5" rx="1" class="euv-rail-polish" />
+    <circle class="euv-screw" cx="43" cy="182" r="1.4"/><path class="euv-screw-slot" d="M42.3 182.56l1.4 -1.1199999999999999" /><circle class="euv-screw" cx="389" cy="182" r="1.4"/><path class="euv-screw-slot" d="M388.3 182.56l1.4 -1.1199999999999999" />
+    <g data-euv-bind="scan-reticle" transform="translate(76.560 0)">
+      <path class="euv-top" d="M124 92h194l6 -5h-194Z" /><path class="euv-side" d="M318 92l6 -5v13l-6 5Z" /><rect x="124" y="92" width="194" height="13" rx="1" class="euv-bright" /><rect x="130" y="101" width="182" height="7" rx="1" class="euv-mirror-edge" />
+      <path class="euv-grating-line" d="M155 101v7" /><path class="euv-grating-line" d="M221 101v7" /><path class="euv-grating-line" d="M287 101v7" />
+    </g>
+    <g data-euv-bind="scan-wafer" transform="translate(-76.560 0)">
+      <path class="euv-top" d="M123 160h196l6 -4h-196Z" /><path class="euv-side" d="M319 160l6 -4v13l-6 4Z" /><rect x="123" y="160" width="196" height="13" rx="1" class="euv-bright" /><g transform="translate(221 156)"><ellipse cx="0" cy="2.7" rx="95" ry="10" class="euv-chuck"/>
+    <ellipse cx="0" cy="0" rx="93" ry="9" class="euv-wafer-disc"/>
+    <path class="euv-die-lines" d="M-90 0H90M-86 -4.5H86M-86 4.5H86M-46.5 -7.56v15.12M0 -9V9M46.5 -7.56v15.12" />
+    <path class="euv-die-lines" d="M-4 -3v6m-3 -3h6M5 -3v6m-3 -3h6" />
+    <path class="euv-notch" d="M-2 8l2 -2 2 2Z" /></g>
+      <path class="euv-registration" d="M152 156h6m-3 -3v6" /><path class="euv-registration" d="M218 156h6m-3 -3v6" /><path class="euv-registration" d="M284 156h6m-3 -3v6" />
+    </g>
+    <g class="euv-optical-cavity" data-euv-fixed-slit="">
+      <path class="euv-beam-fan" d="M210.44 108H231.56V156H210.44Z" /><path class="euv-beam" d="M221 108V156" /><path class="euv-arrow" d="M-4 -3 3 0 -4 3Z" transform="translate(221 133) rotate(90)"/>
+      <path class="euv-slit" d="M210.44 107H231.56 M210.44 156H231.56" />
+    </g>
+    <path class="euv-track-arrow" d="M48 135H80 M354 135H386" /><path class="euv-track-head" d="M-4 -3 3 0 -4 3Z" transform="translate(48 135) rotate(180)"/><path class="euv-track-head" d="M-4 -3 3 0 -4 3Z" transform="translate(386 135) rotate(0)"/>
+    <text x="18" y="70" class="euv-label" >Mặt nạ ←</text><text x="424" y="67" class="euv-numeric" data-euv-text="reticle-mm" text-anchor="end"></text>
+    <text x="18" y="211" class="euv-label" >Wafer →</text><text x="424" y="211" class="euv-numeric" data-euv-text="wafer-mm" text-anchor="end"></text>
+    <path class="euv-rule" d="M16 221H424" />
+    <text x="18" y="242" class="euv-label" >Trường wafer · 33 mm</text><text x="424" y="242" class="euv-numeric" data-euv-text="ratio" text-anchor="end"></text>
+    <rect x="61" y="251" width="336" height="30" rx="2" class="euv-field" />
+    <path class="euv-field-grid" d="M61 251V281" /><path class="euv-field-grid" d="M94.6 251V281" /><path class="euv-field-grid" d="M128.2 251V281" /><path class="euv-field-grid" d="M161.8 251V281" /><path class="euv-field-grid" d="M195.4 251V281" /><path class="euv-field-grid" d="M229 251V281" /><path class="euv-field-grid" d="M262.6 251V281" /><path class="euv-field-grid" d="M296.2 251V281" /><path class="euv-field-grid" d="M329.8 251V281" /><path class="euv-field-grid" d="M363.40000000000003 251V281" /><path class="euv-field-grid" d="M397 251V281" />
+    <rect x="397" y="251" width="0" height="30" rx="0" class="euv-scanned" data-euv-bind="field-scanned"/>
+    <rect x="397" y="251" width="0" height="30" rx="0" class="euv-slit-band" data-euv-bind="field-slit"/>
+    <path class="euv-slit-cursor" d="M0 245v39m-4-39h8" data-euv-bind="slit-cursor" transform="translate(423.88 0)"/>
+    <g data-euv-field-site="0" data-euv-exposure="0" data-euv-developed="false">
+        <path class="euv-site-diamond" d="M397 259l6 7-6 7-6-7Z" /><text x="397" y="302" class="euv-numeric" text-anchor="middle">0</text></g><g data-euv-field-site="1" data-euv-exposure="0" data-euv-developed="false">
+        <path class="euv-site-diamond" d="M229 259l6 7-6 7-6-7Z" /><text x="229" y="302" class="euv-numeric" text-anchor="middle">16,5</text></g><g data-euv-field-site="2" data-euv-exposure="0" data-euv-developed="false">
+        <path class="euv-site-diamond" d="M61 259l6 7-6 7-6-7Z" /><text x="61" y="302" class="euv-numeric" text-anchor="middle">33</text></g>
+    <text x="424" y="302" class="euv-meta" text-anchor="end">mm</text>
+    <text x="18" y="323" class="euv-label" data-euv-text="scan-progress" >Tiến độ lượt: 0%</text><text x="424" y="323" class="euv-muted" text-anchor="end">← Tâm khe trên wafer</text>
+    <text x="18" y="344" class="euv-muted" >Trên: khe đứng yên trong hệ máy.</text></g>
+    <g data-euv-panel="optics" transform="translate(0 0)" display="none"><text x="16" y="27" class="euv-index" >05</text><text x="52" y="28" class="euv-title" >Ảnh quang học trên wafer</text><text x="424" y="28" class="euv-meta" text-anchor="end">DỮ LIỆU / 1</text><path class="euv-rule" d="M16 43H424" />
+    <text x="18" y="65" class="euv-label" >Bậc qua khẩu độ NA 0,33</text>
+    <g data-euv-order="-1" data-euv-admitted="true"><circle class="euv-order-ring" cx="29" cy="87" r="11"/><text x="29" y="92" class="euv-order-number" text-anchor="middle">−1</text><path class="euv-order-bar" d="M21 97l16 -20" /></g><g data-euv-order="0" data-euv-admitted="true"><circle class="euv-order-ring" cx="67" cy="87" r="11"/><text x="67" y="92" class="euv-order-number" text-anchor="middle">0</text><path class="euv-order-bar" d="M59 97l16 -20" /></g><g data-euv-order="1" data-euv-admitted="true"><circle class="euv-order-ring" cx="105" cy="87" r="11"/><text x="105" y="92" class="euv-order-number" text-anchor="middle">+1</text><path class="euv-order-bar" d="M97 97l16 -20" /></g>
+    <text x="423" y="65" class="euv-numeric" data-euv-text="mask-pitch" text-anchor="end">Mặt nạ 192 nm</text>
+    <text x="423" y="89" class="euv-numeric" data-euv-text="wafer-pitch" text-anchor="end">Wafer 48 nm</text>
+    <rect x="65" y="105" width="355" height="18" rx="2" class="euv-plot-matte" />
+    <path class="euv-mask-bars" data-euv-bind="mask-bars" d=""/>
+    <text x="18" y="118" class="euv-meta" >4:1</text>
+    <text x="18" y="153" class="euv-index" >I</text><path class="euv-chart-grid" d="M65 143H420" /><text x="56" y="147" class="euv-tick" text-anchor="end">1,3</text><path class="euv-chart-grid" d="M65 197.5H420" /><text x="56" y="201.5" class="euv-tick" text-anchor="end">0,65</text><path class="euv-chart-grid" d="M65 252H420" /><text x="56" y="256" class="euv-tick" text-anchor="end">0</text><path class="euv-axis" d="M65 143V252H420" />
+  <path class="euv-axis" d="M65 252v5" /><text x="65" y="274" class="euv-tick" text-anchor="middle">−96</text><path class="euv-axis" d="M153.75 252v5" /><text x="153.75" y="274" class="euv-tick" text-anchor="middle">−48</text><path class="euv-axis" d="M242.5 252v5" /><text x="242.5" y="274" class="euv-tick" text-anchor="middle">0</text><path class="euv-axis" d="M331.25 252v5" /><text x="331.25" y="274" class="euv-tick" text-anchor="middle">48</text><path class="euv-axis" d="M420 252v5" /><text x="420" y="274" class="euv-tick" text-anchor="middle">96</text>
+    <path class="euv-intensity-area" data-euv-bind="intensity-area" d=""/>
+    <path class="euv-intensity" data-euv-bind="intensity" data-euv-series="intensity" d=""/>
+    <text x="420" y="289" class="euv-meta" text-anchor="end">x (nm)</text><path class="euv-rule" d="M16 296H424" />
+    <text x="18" y="317" class="euv-label" data-euv-text="contrast" ></text><text x="424" y="317" class="euv-numeric" data-euv-text="defocus" text-anchor="end"></text>
+    <text x="18" y="339" class="euv-numeric" data-euv-text="harmonics" ></text></g><g data-euv-panel="sites" transform="translate(0 350)" display="none"><text x="16" y="27" class="euv-index" >06</text><text x="52" y="28" class="euv-title" >Liều, hiện và chồng lớp</text><text x="424" y="28" class="euv-meta" text-anchor="end">DỮ LIỆU / 2</text><path class="euv-rule" d="M16 43H424" />
+    <path class="euv-dose" d="M18 62h19" /><text x="43" y="67" class="euv-label" >Liều</text>
+    <path class="euv-threshold" d="M99 62h23" /><text x="129" y="67" class="euv-label" data-euv-text="threshold" >Ngưỡng 0,75</text>
+    <path class="euv-old-mark" d="M266 59v7m-4-3h8" /><text x="276" y="67" class="euv-label" >Dấu lớp cũ</text>
+    <g data-euv-site="0" data-euv-field-mm="0" data-euv-exposure="0" data-euv-developed="false" data-euv-overlay-nm="0" transform="translate(0 84)">
+        <text x="18" y="11" class="euv-point-label" >0 mm</text>
+        <text x="119" y="11" class="euv-label" data-euv-text="site-0-phase" >Chưa phơi</text>
+        <text x="423" y="11" class="euv-numeric" data-euv-text="site-0-overlay" text-anchor="end">Δ = 0,00 nm</text>
+        <rect x="65" y="19" width="355" height="30" rx="1" class="euv-plot-matte" />
+        <path class="euv-axis" d="M65 49H420" />
+        <text x="57" y="28" class="euv-tick" text-anchor="end">2</text><text x="57" y="49" class="euv-tick" text-anchor="end">0</text>
+        <path class="euv-threshold" data-euv-bind="threshold-0" d=""/>
+        <path class="euv-dose" data-euv-bind="dose-0" data-euv-series="dose" d=""/>
+        <rect x="65" y="52" width="355" height="7" rx="1" class="euv-undeveloped" data-euv-bind="undeveloped-0"/>
+        <rect x="65" y="52" width="355" height="7" rx="1" class="euv-remaining" data-euv-bind="remaining-0" display="none"/>
+        <path class="euv-removed" data-euv-bind="removed-0" data-euv-series="removed" fill="url(#euv-resist-hatch)" d="" display="none"/>
+        <path class="euv-old-mark" d="M242.5 20V61m-4 0h8" />
+        <path class="euv-shift-mark" d="M0 49l4 4-4 4-4-4Z" data-euv-bind="shift-0" transform="translate(242.5 0)"/>
+      </g><g data-euv-site="1" data-euv-field-mm="16.5" data-euv-exposure="0" data-euv-developed="false" data-euv-overlay-nm="0" transform="translate(0 157)">
+        <text x="18" y="11" class="euv-point-label" >16,5 mm</text>
+        <text x="119" y="11" class="euv-label" data-euv-text="site-1-phase" >Chưa phơi</text>
+        <text x="423" y="11" class="euv-numeric" data-euv-text="site-1-overlay" text-anchor="end">Δ = 0,00 nm</text>
+        <rect x="65" y="19" width="355" height="30" rx="1" class="euv-plot-matte" />
+        <path class="euv-axis" d="M65 49H420" />
+        <text x="57" y="28" class="euv-tick" text-anchor="end">2</text><text x="57" y="49" class="euv-tick" text-anchor="end">0</text>
+        <path class="euv-threshold" data-euv-bind="threshold-1" d=""/>
+        <path class="euv-dose" data-euv-bind="dose-1" data-euv-series="dose" d=""/>
+        <rect x="65" y="52" width="355" height="7" rx="1" class="euv-undeveloped" data-euv-bind="undeveloped-1"/>
+        <rect x="65" y="52" width="355" height="7" rx="1" class="euv-remaining" data-euv-bind="remaining-1" display="none"/>
+        <path class="euv-removed" data-euv-bind="removed-1" data-euv-series="removed" fill="url(#euv-resist-hatch)" d="" display="none"/>
+        <path class="euv-old-mark" d="M242.5 20V61m-4 0h8" />
+        <path class="euv-shift-mark" d="M0 49l4 4-4 4-4-4Z" data-euv-bind="shift-1" transform="translate(242.5 0)"/>
+      </g><g data-euv-site="2" data-euv-field-mm="33" data-euv-exposure="0" data-euv-developed="false" data-euv-overlay-nm="0" transform="translate(0 230)">
+        <text x="18" y="11" class="euv-point-label" >33 mm</text>
+        <text x="119" y="11" class="euv-label" data-euv-text="site-2-phase" >Chưa phơi</text>
+        <text x="423" y="11" class="euv-numeric" data-euv-text="site-2-overlay" text-anchor="end">Δ = 0,00 nm</text>
+        <rect x="65" y="19" width="355" height="30" rx="1" class="euv-plot-matte" />
+        <path class="euv-axis" d="M65 49H420" />
+        <text x="57" y="28" class="euv-tick" text-anchor="end">2</text><text x="57" y="49" class="euv-tick" text-anchor="end">0</text>
+        <path class="euv-threshold" data-euv-bind="threshold-2" d=""/>
+        <path class="euv-dose" data-euv-bind="dose-2" data-euv-series="dose" d=""/>
+        <rect x="65" y="52" width="355" height="7" rx="1" class="euv-undeveloped" data-euv-bind="undeveloped-2"/>
+        <rect x="65" y="52" width="355" height="7" rx="1" class="euv-remaining" data-euv-bind="remaining-2" display="none"/>
+        <path class="euv-removed" data-euv-bind="removed-2" data-euv-series="removed" fill="url(#euv-resist-hatch)" d="" display="none"/>
+        <path class="euv-old-mark" d="M242.5 20V61m-4 0h8" />
+        <path class="euv-shift-mark" d="M0 49l4 4-4 4-4-4Z" data-euv-bind="shift-2" transform="translate(242.5 0)"/>
+      </g>
+    <text x="65" y="305" class="euv-tick" text-anchor="middle">−96</text><text x="242.5" y="305" class="euv-tick" text-anchor="middle">0</text><text x="420" y="305" class="euv-tick" text-anchor="middle">96</text>
+    <text x="18" y="324" class="euv-label" >Sau hiện:</text><rect x="87" y="315" width="16" height="8" rx="1" class="euv-remaining" /><text x="110" y="324" class="euv-muted" >cản quang còn</text>
+    <rect x="237" y="315" width="16" height="8" rx="0" class="euv-removed" fill="url(#euv-resist-hatch)"/><text x="260" y="324" class="euv-muted" >vùng bị rửa</text><text x="423" y="324" class="euv-meta" text-anchor="end">x (nm)</text>
+    <text x="18" y="343" class="euv-muted" >◇ Tâm phơi dự kiến; + cùng chiều wafer.</text></g>
+    <g data-euv-panel="pupil" transform="translate(0 0)" display="none"><text x="16" y="27" class="euv-index" >07</text><text x="52" y="28" class="euv-title" >Soi khẩu độ</text><text x="424" y="28" class="euv-meta" text-anchor="end">CẬN CẢNH</text><path class="euv-rule" d="M16 43H424" />
+    <text x="18" y="65" class="euv-label" >Mặt phẳng khẩu độ</text><text x="422" y="65" class="euv-meta" text-anchor="end">sin θ</text>
+    <rect x="30" y="76" width="380" height="39" rx="2" class="euv-plot-matte" />
+    <rect x="71.5" y="76" width="297" height="39" rx="2" class="euv-pupil-window" />
+    <path class="euv-axis" d="M30 98H410 M71.5 116v6 M220 116v6 M368.5 116v6" />
+    <g data-euv-detail-order="-1">
+      <circle class="euv-order-ring" cx="0" cy="98" r="12"/><text x="0" y="103" class="euv-order-number" text-anchor="middle">−1</text><path class="euv-order-bar" d="M-8 107l16 -19" />
+    </g><g data-euv-detail-order="0">
+      <circle class="euv-order-ring" cx="0" cy="98" r="12"/><text x="0" y="103" class="euv-order-number" text-anchor="middle">0</text><path class="euv-order-bar" d="M-8 107l16 -19" />
+    </g><g data-euv-detail-order="1">
+      <circle class="euv-order-ring" cx="0" cy="98" r="12"/><text x="0" y="103" class="euv-order-number" text-anchor="middle">+1</text><path class="euv-order-bar" d="M-8 107l16 -19" />
+    </g>
+    <text x="71.5" y="140" class="euv-tick" text-anchor="middle">−0,33</text><text x="220" y="140" class="euv-tick" text-anchor="middle">0</text><text x="368.5" y="140" class="euv-tick" text-anchor="middle">+0,33</text>
+    <text x="18" y="161" class="euv-numeric" data-euv-text="pupil-first" ></text><text x="422" y="161" class="euv-label" data-euv-text="pupil-admitted" text-anchor="end"></text>
+    <path class="euv-rule" d="M16 174H424" />
+    <text x="18" y="196" class="euv-label" >Cộng biên độ tại x = 0</text>
+    <path class="euv-chart-grid" d="M83 254H230 M116 201V311" />
+    <text x="226" y="248" class="euv-tick" text-anchor="end">Re</text><text x="104" y="216" class="euv-tick" text-anchor="end">Im</text>
+    <path class="euv-pupil-sum" d="" data-euv-bind="pupil-result"/>
+    <path class="euv-axis" d="M116 254h43" /><circle class="euv-leader-pin" cx="159" cy="254" r="2.7"/>
+    <path class="euv-dose" d="" data-euv-bind="pupil-vector"/>
+    <circle class="euv-pupil-tip" r="3.5" cx="159" cy="254" data-euv-bind="pupil-tip"/>
+    <text x="250" y="220" class="euv-label" >φ của cặp ±1</text><text x="422" y="243" class="euv-numeric" data-euv-text="pupil-phase" text-anchor="end"></text>
+    <text x="250" y="272" class="euv-numeric" data-euv-text="pupil-center" ></text><text x="250" y="294" class="euv-numeric" data-euv-text="pupil-half" ></text>
+    <path class="euv-axis" d="M18 329h17" /><text x="41" y="334" class="euv-label" >Bậc 0</text>
+    <path class="euv-dose" d="M127 329h17" /><text x="150" y="334" class="euv-label" >Cặp ±1</text>
+    <path class="euv-pupil-sum" d="M252 329h17" /><text x="275" y="334" class="euv-label" >Tổng E (I = |E|²)</text></g><g data-euv-panel="section" transform="translate(0 0)" display="none"><text x="16" y="27" class="euv-index" >08</text><text x="52" y="28" class="euv-title" >Lát cắt cản quang</text><text x="424" y="28" class="euv-meta" text-anchor="end">DỰ KIẾN</text><path class="euv-rule" d="M16 43H424" />
+    <text x="18" y="66" class="euv-label" data-euv-text="section-location" ></text><text x="422" y="66" class="euv-label" data-euv-text="section-state" text-anchor="end"></text>
+    <rect x="65" y="82" width="355" height="86" rx="2" class="euv-plot-matte" /><path class="euv-chart-grid" d="M65 82H420" /><text x="56" y="86" class="euv-tick" text-anchor="end">2</text><path class="euv-chart-grid" d="M65 168H420" /><text x="56" y="172" class="euv-tick" text-anchor="end">0</text><path class="euv-axis" d="M65 82V168H420" />
+  <path class="euv-axis" d="M65 168v5" /><text x="65" y="190" class="euv-tick" text-anchor="middle">−96</text><path class="euv-axis" d="M153.75 168v5" /><text x="153.75" y="190" class="euv-tick" text-anchor="middle">−48</text><path class="euv-axis" d="M242.5 168v5" /><text x="242.5" y="190" class="euv-tick" text-anchor="middle">0</text><path class="euv-axis" d="M331.25 168v5" /><text x="331.25" y="190" class="euv-tick" text-anchor="middle">48</text><path class="euv-axis" d="M420 168v5" /><text x="420" y="190" class="euv-tick" text-anchor="middle">96</text>
+    <text x="18" y="91" class="euv-index" >D</text><path class="euv-threshold" d="" data-euv-bind="section-threshold"/>
+    <path class="euv-dose" d="" data-euv-bind="section-dose"/><text x="421" y="129" class="euv-tick" text-anchor="end">0,75</text>
+    <text x="421" y="208" class="euv-meta" text-anchor="end">x (nm)</text>
+    <path class="euv-chart-grid" d="M65 192V222 M420 192V222" />
+    <rect x="65" y="246" width="355" height="7" rx="0" class="euv-section-film" />
+    <path class="euv-side" d="M65 253H420l-7 19H65Z" />
+    <path class="euv-chart-grid" d="M65 259H418 M65 265H415" />
+    <path class="euv-remaining" d="" data-euv-bind="section-resist"/>
+    <path class="euv-old-mark" d="M242.5 82V168 M242.5 196V259" />
+    <path class="euv-shift-mark" d="M0 248l5 5-5 5-5-5Z" data-euv-bind="section-shift"/>
+    <text x="65" y="288" class="euv-label" >Cản quang / lớp dưới / đế</text><text x="422" y="288" class="euv-meta" text-anchor="end">Trục đứng phóng đại</text>
+    <path class="euv-rule" d="M16 299H424" />
+    <text x="18" y="320" class="euv-numeric" data-euv-text="section-drift" ></text>
+    <text x="18" y="341" class="euv-muted" >┆ Dấu lớp cũ     ◇ Tâm phơi dự kiến</text></g>
+  </svg></div>
+</div>
+<figcaption class="htw-machine-caption">
+<span class="htw-machine-status" data-machine-status>Phần tương tác chưa chạy; hình đang ở dạng tĩnh.</span>
+<dl class="htw-playground-readout" data-machine-readout aria-label="Số liệu của mô hình"></dl>
+</figcaption>
+<p class="htw-machine-sr" data-machine-announcement aria-live="polite" aria-atomic="true"></p>
+</figure>
+{% endraw %}

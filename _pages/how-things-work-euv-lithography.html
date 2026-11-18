@@ -1,0 +1,245 @@
+---
+title: "Bên trong máy quang khắc EUV: từ giọt thiếc đến một lớp mạch"
+permalink: /how-things-work/euv-lithography/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Theo ánh sáng 13,5 nm từ giọt thiếc qua mặt nạ phản xạ đến lớp cản quang. Thử cùng một trường quét để phân biệt mẫu mất vạch vì quang học với mẫu còn vạch nhưng lệch khỏi lớp cũ."
+social-image: /assets/how-things-work/euv-lithography/thumbnail.webp
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/euv-lithography/machine.css
+script-includes:
+  - /assets/how-things-work/euv-lithography/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="euv-lithography" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/euv-lithography-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt: hình tĩnh và bài đọc vẫn có ở đây. Không thể chạy hoặc bước từng nhịp; xem <a href="#euv-ket-qua">bảng kết quả</a> để đối chiếu năm cấu hình.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="euv-lithography-scene" disabled><span class="htw-collapse-name">Bản cắt máy quang khắc EUV</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài máy quang khắc EUV">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#euv-may">Theo đường sáng tới wafer</a></li>
+            <li><a href="#euv-nguon-sang">Hai xung cho một giọt thiếc</a></li>
+            <li><a href="#euv-guong">Gương nhiều lớp trong chân không</a></li>
+            <li><a href="#euv-mat-na">Mặt nạ phản xạ và tỷ lệ 4:1</a></li>
+            <li><a href="#euv-quang-hoc">Mất bậc nhiễu xạ khác lệch tiêu</a></li>
+            <li><a href="#euv-soi-khau-do">Soi khẩu độ và pha</a></li>
+            <li><a href="#euv-quet">Hai bàn trượt, một khe phơi</a></li>
+            <li><a href="#euv-can-quang">Từ ảnh sáng đến lớp cản quang</a></li>
+            <li><a href="#euv-soi-can-quang">Soi lát cắt sau hiện</a></li>
+            <li><a href="#euv-chong-lop">Mẫu còn nét nhưng lệch lớp</a></li>
+            <li><a href="#euv-gioi-han">Giới hạn của mô hình</a></li>
+            <li><a href="#euv-tu-thu">Tự thử</a></li>
+            <li><a href="#euv-ket-qua">Bảng kết quả đọc không cần JavaScript</a></li>
+            <li><a href="#euv-tai-lieu">Nguồn và phép tính</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="euv-may" class="htw-step" data-machine-focus="machine" aria-labelledby="euv-may-h">
+        <p class="htw-step-label">01 · Toàn máy</p>
+        <h2 id="euv-may-h" tabindex="-1">Từ một chớp sáng đến một vạch trên wafer</h2>
+        <p>Trong bản cắt, đường sáng gấp khúc bắt đầu ở một giọt thiếc và kết thúc thành một dải hẹp trên wafer, đĩa bán dẫn mang các lớp mạch. Hãy lần theo dải ấy: gương thu gom ánh sáng từ nguồn, cụm chiếu sáng đưa ánh sáng tới mặt nạ, rồi cụm gương chiếu dựng một ảnh thu nhỏ trên lớp cản quang. Chỉ vùng đang đi qua khe mới nhận liều. Sau khi hiện, nơi nhận đủ liều có thể trở thành một rãnh hở trong lớp cản quang. Chưa có đường dây dẫn điện nào được tạo ở bước này. <a href="#euv-source-s05">[S5]</a> <a href="#euv-source-s11">[S11]</a></p>
+        <p>Máy tham chiếu là <strong>ASML TWINSCAN NXE:3400C</strong>: ánh sáng EUV (cực tím bước sóng cực ngắn) 13,5 nm, khẩu độ số NA 0,33, quang học phản xạ thu nhỏ 4× và trường phơi tối đa 26 × 33 mm. Trường là vùng nhận một bản sao của mẫu trong một lượt, không phải cả wafer. Bản cắt được vẽ riêng để theo dõi đường sáng và chuyển động; kích thước, vị trí các cụm và số lần gấp của đường quang không phải bản vẽ lắp của hãng. <a href="#euv-source-s01">[S1]</a> <a href="#euv-source-s02">[S2]</a></p>
+        <p>Ta sẽ theo đúng một mẫu sọc từ ba góc nhìn: <strong>Toàn máy → Cụm → Wafer</strong>. Ở wafer, có hai câu hỏi khác nhau: các vạch có hiện ra không, và nếu có, chúng có nằm đúng chỗ so với lớp đã làm trước không? Cuộn bài để đổi vùng được nhấn mạnh; lượt phơi chưa chạy cho tới khi bạn dùng bảng tự thử.</p>
+      </section>
+
+      <section id="euv-nguon-sang" class="htw-step" data-machine-focus="source" aria-labelledby="euv-nguon-sang-h">
+        <p class="htw-step-label">02 · Nguồn thiếc</p>
+        <h2 id="euv-nguon-sang-h" tabindex="-1">Xung thứ nhất dàn giọt; xung thứ hai tạo plasma</h2>
+        <p>Ở vòi phun, thiếc lỏng rời vòi thành giọt. Xung laser sơ bộ làm giọt dàn thành một đĩa mỏng: mục đích là tạo một đích rộng hơn để xung chính truyền năng lượng vào thiếc hiệu quả. Xung chính biến thiếc thành plasma nóng. Plasma phát bức xạ, trong đó phần quanh <strong>13,5 nm</strong> được dùng để phơi. 13,5 nm là bước sóng ánh sáng lấy <em>từ plasma</em>, không phải bước sóng của laser dùng để kích. <a href="#euv-source-s02">[S2]</a> <a href="#euv-source-s03">[S3]</a></p>
+        <p>Giọt → đĩa → plasma là ba trạng thái của cùng một đích, không phải ba nguồn sáng. Gương thu, hay <em>collector</em>, gom một phần EUV về <strong>tiêu điểm trung gian F</strong> trên bản cắt. Từ F, cụm chiếu sáng định hình vùng được rọi và phân bố góc tới mặt nạ; ở đoạn này ánh sáng chưa mang mẫu mạch. ASML và TRUMPF mô tả khoảng 50.000 giọt mỗi giây. Các chớp trong hình đã được giãn thời gian để nhìn rõ trình tự; không dùng chúng để suy ra tần số nguồn hay liều trên wafer. <a href="#euv-source-s02">[S2]</a> <a href="#euv-source-s03">[S3]</a> <a href="#euv-source-s13">[S13]</a></p>
+      </section>
+
+      <section id="euv-guong" class="htw-step" data-machine-focus="mirrors" aria-labelledby="euv-guong-h">
+        <p class="htw-step-label">03 · Gương</p>
+        <h2 id="euv-guong-h" tabindex="-1">Chân không giữ đường sáng; nhiều lớp giúp gương phản xạ</h2>
+        <p>Với EUV 13,5 nm, không khí và thủy tinh hấp thụ mạnh. Bơm chân không giải quyết phần đường đi giữa các bề mặt; nó không biến thủy tinh thành vật liệu làm thấu kính EUV. Thay vì cho chùm sáng đi xuyên qua kính, máy dùng các gương để thu, định hình và tạo ảnh. Các đoạn gấp khúc trong bản cắt tách ba vai trò đó: gương thu lấy sáng từ plasma, gương chiếu sáng chuẩn bị chùm tới mặt nạ, gương chiếu sau mặt nạ tạo ảnh trên wafer. <a href="#euv-source-s04">[S4]</a> <a href="#euv-source-s05">[S5]</a></p>
+        <p>Trong lát phóng đại, các lớp molypden và silic (Mo/Si) xếp xen kẽ. Một phần sóng phản xạ ở mỗi mặt phân cách. Chọn bề dày để các phần phản xạ trở về gần cùng pha ở bước sóng và góc làm việc thì chúng cộng biên độ với nhau, giúp tăng lượng sáng phản xạ. Đây là giao thoa trong màng gương; nó khác sự giao thoa giữa các bậc nhiễu xạ tạo ảnh ở wafer. <a href="#euv-source-s05">[S5]</a></p>
+        <p>Tổn hao vẫn nhân dồn. Nếu <em>giả sử</em> mỗi lần phản xạ giữ đúng phần công suất <em>R</em> = 0,70, sau <em>n</em> lần còn <em>R</em><sup>n</sup>: bốn lần còn khoảng 24%, sáu lần khoảng 12%. Đây là bài tính độc lập, không phải số gương, hiệu suất hay ngân sách liều của NXE:3400C. Không dùng độ sáng của đường tím hay ví dụ 0,70 này để tính liều trong thí nghiệm.</p>
+        <ul aria-label="Công suất còn lại trong ví dụ mỗi lần giữ 70%">
+          <li>Ban đầu <meter min="0" max="1" value="1" aria-label="Ban đầu: 100%"></meter> 100%</li>
+          <li>Sau 1 lần <meter min="0" max="1" value="0.7" aria-label="Sau một lần: 70%"></meter> 70%</li>
+          <li>Sau 4 lần <meter min="0" max="1" value="0.2401" aria-label="Sau bốn lần: 24%"></meter> 24%</li>
+          <li>Sau 6 lần <meter min="0" max="1" value="0.117649" aria-label="Sau sáu lần: 11,8%"></meter> 11,8%</li>
+        </ul>
+      </section>
+
+      <section id="euv-mat-na" class="htw-step" data-machine-focus="reticle" aria-labelledby="euv-mat-na-h">
+        <p class="htw-step-label">04 · Mặt nạ</p>
+        <h2 id="euv-mat-na-h" tabindex="-1">Mặt nạ mang mẫu lớn gấp bốn; ảnh đi ra bằng phản xạ</h2>
+        <p>Mặt nạ, hay <em>reticle</em>, là nơi chùm sáng lần đầu mang thông tin về mẫu. Vùng phản xạ và vùng có lớp hấp thụ trả lại lượng sáng khác nhau. Hãy hình dung các sọc của bài như một tấm gương có những dải tối xen kẽ, không phải tấm phim có lỗ để EUV xuyên qua. Cụm gương chiếu của NXE thu ảnh xuống còn một phần tư theo mỗi chiều. <a href="#euv-source-s01">[S1]</a> <a href="#euv-source-s05">[S5]</a> <a href="#euv-source-s10">[S10]</a></p>
+        <p><em>Pitch</em> <em>p</em> là <strong>chu kỳ trên wafer</strong>: khoảng cách từ tâm một sọc tới tâm sọc kế tiếp, gồm một vạch và một khe. Cấu hình 48 nm tương ứng với chu kỳ 192 nm trên mặt nạ. Với tỷ lệ vạch:khe 1:1, nửa chu kỳ trên wafer là 24 nm; đó là kích thước hình học của mẫu quy đổi, chưa chắc bằng bề rộng rãnh cản quang sau hiện.</p>
+        <p>Trong tính toán, cách tử một chiều có biên độ phản xạ lý tưởng 1 ở nửa sáng và 0 ở nửa tối. Trên mỗi lát wafer, <em>x</em> là tọa độ cục bộ tính bằng nm quanh dấu cũ; khi ảnh chưa trượt, tâm vùng sáng lý tưởng nằm ở <em>x</em> = 0. Chiều dương của <em>x</em> cùng chiều bàn wafer chạy. Mô hình không dùng một reticle thật hay tính độ phản xạ từ bề dày và vật liệu của lớp hấp thụ.</p>
+      </section>
+
+      <section id="euv-quang-hoc" class="htw-step" data-machine-focus="optics" aria-labelledby="euv-quang-hoc-h">
+        <p class="htw-step-label">05 · Quang học chiếu</p>
+        <h2 id="euv-quang-hoc-h" tabindex="-1">36 nm mất bậc; lệch tiêu vẫn còn bậc nhưng đổi pha</h2>
+        <p>Chiếu sóng đơn sắc kết hợp dọc trục vào mẫu sọc, ta nhận các hướng nhiễu xạ rời rạc, gọi là <em>bậc</em>. Bậc 0 không mang biến thiên theo vị trí. Cặp bậc ±1 chứa thông tin về nhịp lặp cơ bản. Pitch càng nhỏ, cặp bậc ấy càng xa trục. Khẩu độ hữu hạn chỉ nhận các bậc thỏa |<em>m</em>|λ/<em>p</em> ≤ NA. Ở 48 nm, 13,5/48 ≈ 0,281 nên 0 và ±1 lọt qua. Ở 36 nm, 13,5/36 = 0,375 vượt NA 0,33: chỉ còn bậc 0, cho cường độ phẳng 0,25. <a href="#euv-source-s07">[S7]</a> <a href="#euv-source-s08">[S8]</a></p>
+        <p>Giữ 48 nm nhưng đặt lệch tiêu <strong>+85 nm</strong>: cả ba bậc trên vẫn lọt. Bây giờ cặp ±1 lệch pha gần một phần tư chu kỳ sóng so với bậc 0. Vì cường độ là bình phương độ lớn của <em>tổng biên độ</em>, thành phần biến thiên theo chu kỳ 48 nm gần như triệt tiêu, nhưng phép bình phương vẫn để lại điều hòa có chu kỳ 24 nm. Đường không phẳng; hai đỉnh mỗi chu kỳ gốc đều dưới ngưỡng hiện của bài. Điều hòa thứ hai trong <em>cường độ</em> không phải bậc nhiễu xạ ±2 lọt qua gương. <a href="#euv-source-s08">[S8]</a> <a href="#euv-phep-tinh">Xem phép khai triển</a>.</p>
+        <p>Ngưỡng lọt bậc ±1 là λ/NA ≈ 40,91 nm <em>pitch</em>, chỉ cho cách tử chiếu kết hợp dọc trục của bài. Công thức Rayleigh <em>CD</em> = <em>k</em><sub>1</sub>λ/NA nói về kích thước tới hạn trong một quy trình, có hệ số phụ thuộc chiếu sáng, mặt nạ và quy trình. Không đổi tên 40,91 nm thành CD tối thiểu của scanner, hoặc đánh đồng nó với tên node công nghệ. <a href="#euv-source-s01">[S1]</a> <a href="#euv-source-s07">[S7]</a></p>
+        <p>Chiếu lệch trục có thể đưa bậc 0 và một bậc bên vào khẩu độ cùng lúc. Chỉ hai bậc đó đã có thể giao thoa thành vân, dù chưa chắc đủ tương phản và liều để hiện rãnh. Chẳng hạn imec và ASML đã in sọc chu kỳ <strong>24 nm</strong> trong một lần phơi trên NXE:3400B (NA 0,33) bằng cách tối ưu chiếu sáng, bù sai lệch do mặt nạ và dùng cản quang phù hợp. Kết quả đó không mâu thuẫn với ngưỡng 40,91 nm của phép thử dọc trục. <a href="#euv-source-s14">[S14]</a> <a href="#euv-source-s15">[S15]</a></p>
+      </section>
+
+      <section id="euv-soi-khau-do" class="htw-step" data-machine-focus="pupil" aria-labelledby="euv-soi-khau-do-h">
+        <p class="htw-step-label">Soi cận · Khẩu độ</p>
+        <h2 id="euv-soi-khau-do-h" tabindex="-1">40 và 41 nm nằm ở hai phía của mép khẩu độ</h2>
+        <p>Trong <strong>Soi khẩu độ</strong>, dải tím chạy từ −0,33 đến +0,33 trên trục sin θ của mô hình phía wafer. Bậc 0 luôn ở giữa; ±1 đối xứng qua tâm. Đổi pitch từ 40 nm sang 41 nm: độ lớn sin θ₁ giảm từ 0,3375 xuống khoảng 0,3293. Vạch gạch biến mất vì hai bậc vừa lọt vào. Bước nhảy rõ như vậy là do khẩu độ lý tưởng cắt cứng và nguồn chiếu kết hợp dọc trục, không phải đường đáp ứng đo được trên NXE. <a href="#euv-source-s08">[S8]</a></p>
+        <p>Giữ pitch 48 nm rồi đổi tiêu từ 0 đến +85 và +171 nm. Khẩu độ không kéo các chấm ±1 đi đâu; thay vào đó, ở hình dưới, véc-tơ của cặp ±1 quay so với bậc 0. Tại <em>x</em> = 0 hai bậc bên góp cùng pha nên hình gộp chúng thành một véc-tơ, nối vào đầu véc-tơ bậc 0. Bình phương độ dài véc-tơ tổng là <em>I</em>(0), khác với cộng cường độ của ba bậc riêng rẽ.</p>
+        <p>Ở +85 nm, cặp ±1 gần vuông pha với bậc 0: <em>I</em>(0) và <em>I</em>(p/2) gần bằng nhau. Ở +171 nm, cặp đó gần ngược pha: <em>I</em>(0) chỉ khoảng 0,019 nhưng <em>I</em>(p/2) trở lại khoảng 1,292. Nghĩa là trong mô hình này, tương phản có thể trở lại <em>sai chỗ</em>, không giảm đều theo độ lệch tiêu. Không diễn giải điểm đảo pha này thành tiêu cự thứ hai của máy.</p>
+      </section>
+
+      <section id="euv-quet" class="htw-step" data-machine-focus="scan" aria-labelledby="euv-quet-h">
+        <p class="htw-step-label">06 · Quét qua khe</p>
+        <h2 id="euv-quet-h" tabindex="-1">Mặt nạ và wafer chạy ngược chiều để ảnh đứng yên trên wafer</h2>
+        <p>Khe sáng chỉ rọi một dải của trường tại một thời điểm. Bàn mặt nạ kéo mẫu qua khe; bàn wafer chạy theo chiều ngược lại để hứng ảnh. Ảnh đảo chiều dọc trục quét và thu nhỏ 4×, vì vậy trong quy ước của bài, bàn mặt nạ phải đi ngược chiều và nhanh gấp bốn lần bàn wafer mới giữ ảnh đứng yên <em>so với bề mặt wafer đang chạy</em>. Quét hết một trường rồi chuyển sang trường kế là chuyện khác với phơi toàn bộ trường trong một chớp. <a href="#euv-source-s01">[S1]</a> <a href="#euv-source-s06">[S6]</a></p>
+        <p>Ở nửa trên của hình, hai vị trí khe đứng yên trong hệ máy trong khi mặt nạ và wafer trượt qua. Nửa dưới đổi sang hệ gắn với wafer: ba dấu đứng yên, còn khe quét từ phải sang trái.</p>
+        <p>Đừng nhầm cặp bàn này với hai <em>bàn wafer</em> của TWINSCAN. Khi một wafer ở vị trí phơi dưới cụm gương, wafer kia có thể được đo vị trí ở trạm đo. Mục đích là đo và phơi song song, không phải có hai wafer được phơi đồng thời. Cột đo trong hình chỉ gợi vị trí làm việc; nó không tính kết quả đo. <a href="#euv-source-s01">[S1]</a> <a href="#euv-source-s06">[S6]</a></p>
+        <p>Dọc cạnh 33 mm, bài đánh số đầu, giữa, cuối theo thứ tự các dấu <em>gặp khe</em>: 0, 16,5, 33 mm. Trong máy, khe đứng yên còn wafer chạy; nếu đứng trên wafer mà nhìn, khe đi ngược chiều chuyển động của bàn. Vì thế chiều đánh số dọc trường ngược với chiều dương của trục <em>x</em> cục bộ trên các lát nm.</p>
+        <p>Trong hệ gắn với wafer, vị trí tâm khe theo thứ tự gặp dấu được chuẩn hóa thành <em>u</em>: 0 ở đầu trường, 1 ở cuối. Tâm khe chạy từ −0,08 đến 1,08; mỗi mép cách tâm 0,08. Khi tâm bắt đầu ở −0,08, mép trước vừa chạm đầu trường; khi tâm đến 1,08, mép sau vừa rời cuối trường. Quét quá mép cho cả ba dấu đủ thời gian đi qua khe, không để hai đầu vô tình nhận nửa liều. Cả lượt dài 8 giây <strong>trình diễn</strong>; bề rộng khe chuẩn hóa và thời gian này do bài chọn, không phải thông số cơ khí NXE.</p>
+      </section>
+
+      <section id="euv-can-quang" class="htw-step" data-machine-focus="resist" aria-labelledby="euv-can-quang-h">
+        <p class="htw-step-label">07 · Cản quang</p>
+        <h2 id="euv-can-quang-h" tabindex="-1">Cường độ cho biết đang sáng tới đâu; liều cho biết đã nhận bao nhiêu</h2>
+        <p>Đặt đúng tiêu ở 48 nm và tạm dừng khi một mép khe vừa tới dấu đầu. Đỉnh trên đường <em>cường độ</em> có thể đã cao, nhưng đường <em>liều tích lũy</em> ở dấu ấy mới bắt đầu tăng. Mỗi điểm chỉ tích sáng trong lúc khe phủ lên nó. Bài lấy tích phân cường độ trong đoạn đã phơi, chia cho toàn thời gian khe đi qua một dấu rồi nhân hệ số liều. Ngoài khe, không có phần đóng góp mới. Trên hình, đường cường độ giữ thang cố định để còn so được một ảnh phẳng 0,25 với một đỉnh cao hơn 1.</p>
+        <p>Scanner phơi chứ không hiện rãnh. Photon EUV có thể giải phóng electron; các electron thứ cấp góp phần khởi phát biến đổi hóa học trong màng. Với cản quang dương, vùng đã phơi dễ hòa tan hơn khi hiện. Sấy sau phơi (nếu quy trình cần) và hiện là công đoạn riêng. Sau đó mới có thể chuyển mẫu xuống lớp dưới, chẳng hạn bằng khắc. Trong bài, sau khi một dấu nhận đủ lượt khe, ta xem ngay <strong>kết quả dự kiến sau hiện</strong>: vùng có liều chuẩn hóa <em>D</em> ≥ 0,75 được coi là rửa trôi; vùng dưới ngưỡng vẫn còn. <a href="#euv-source-s11">[S11]</a> <a href="#euv-source-s16">[S16]</a> <a href="#euv-source-s17">[S17]</a></p>
+        <p>Chọn <strong>Thiếu liều</strong> (0.40×). Bậc nhiễu xạ và đường cường độ không đổi so với mặc định, nhưng ngay cả đỉnh liều hoàn tất cũng chỉ khoảng 0,517. Cản quang không mở rãnh, dù ảnh quang học vẫn có vạch. Đừng gộp trường hợp này với 36 nm: ở đó chính ảnh đã mất biến thiên trước khi nói tới liều.</p>
+      </section>
+
+      <section id="euv-soi-can-quang" class="htw-step" data-machine-focus="section" aria-labelledby="euv-soi-can-quang-h">
+        <p class="htw-step-label">Soi cận · Wafer</p>
+        <h2 id="euv-soi-can-quang-h" tabindex="-1">Theo một điểm từ đường liều xuống đáy rãnh</h2>
+        <p>Chọn <strong>Soi cản quang</strong>, rồi đổi giữa các dấu đầu, giữa và cuối. Mỗi vị trí ngang trên đồ thị nằm ngay trên cùng vị trí trong lát cắt. Chừng nào dấu đang phơi, lớp cản quang vẫn liền, kể cả khi một phần đường liều đã vượt ngưỡng. Khi dấu phơi xong, lát cắt chuyển sang kết quả dự kiến sau hiện: chỉ vùng đạt ngưỡng mở xuống mặt lớp dưới. Lớp dưới và đế không mất đi. Mép rãnh lấy theo ô mẫu 2 nm; chiều đứng phóng đại, không phải độ dày màng hay hình dáng thành rãnh đo được.</p>
+        <p>Thử +0,5 ppm ở dấu cuối. Nét đứt giữ mốc cũ tại <em>x</em> = 0, hình thoi đánh dấu tâm phơi dự kiến +16,5 nm. Dòng dưới lát cắt cho biết ảnh đã đi từ <strong>+15,18 đến +17,82 nm</strong> trong khoảng dấu nằm dưới khe. Một số là vị trí tâm, hai số kia là đầu và cuối đoạn quét đã phơi. Đừng dùng độ dài đoạn 2,64 nm làm bề rộng rãnh: rãnh do toàn bộ đường liều cắt ngưỡng quyết định.</p>
+      </section>
+
+      <section id="euv-chong-lop" class="htw-step" data-machine-focus="overlay" aria-labelledby="euv-chong-lop-h">
+        <p class="htw-step-label">08 · Chồng lớp</p>
+        <h2 id="euv-chong-lop-h" tabindex="-1">Ảnh còn nét nhưng rãnh sau hiện lệch khỏi dấu cũ</h2>
+        <p>Chọn <strong>Lệch đồng bộ</strong> (+0.5 ppm), giữ 48 nm, đúng tiêu và liều 1×. Bàn mặt nạ đi nhanh hơn tỷ lệ lý tưởng một phần rất nhỏ: tỷ số vận tốc có dấu đổi từ −4 thành −4,000002. Sai số tỷ lệ ấy tích thành độ trượt dọc đường quét. Trên 33 mm, nửa phần triệu là 16,5 nm: không lớn trên bản cắt toàn máy, nhưng đã hơn một phần ba chu kỳ 48 nm của mẫu. Dấu cũ đứng yên trong hệ tọa độ wafer, chỉ ảnh mới trượt.</p>
+        <p>Ở đầu, giữa và cuối trường, đọc lần lượt <strong>0 / +8.25 / +16.5 nm</strong> sau khi từng dấu phơi xong. Chúng là độ dịch ảnh <strong>tại tâm khoảng phơi</strong> của mỗi dấu, cũng là độ dịch trung bình của chuyển động tuyến tính trong khoảng ấy. Nếu bảng số đã hiện trước khi phơi thì đó chỉ là số dự kiến. Chúng không phải số đo chồng lớp của máy, vị trí mép rãnh đo được hay độ dịch tức thời ở lúc khe rời dấu. Dấu dương theo chiều bàn wafer, không theo chiều khe lần lượt gặp các dấu. Đổi sang −0.5 ppm thì độ dịch đổi dấu, còn các bậc quang học giữ nguyên.</p>
+        <p>Khe có bề rộng nên ngay trong lúc phơi một dấu, vị trí ảnh không đứng yên: với +0.5 ppm, ảnh đi thêm 2,64 nm từ lúc mép trước chạm tới lúc mép sau rời dấu. Tích liều vừa làm mẫu dịch theo tâm khoảng phơi, vừa làm nhòe nhẹ. Vì vậy dấu đầu có độ dịch tâm bằng 0 nhưng vẫn chịu nhòe. Cả ba dấu vẫn mở rãnh ở cấu hình này. Trong sản xuất, <em>overlay</em> là độ chồng khớp giữa hai lớp, được xác định bằng phép đo trên wafer; thước của bài chỉ cô lập một nguồn sai lệch theo một trục. <a href="#euv-source-s01">[S1]</a> <a href="#euv-source-s12">[S12]</a></p>
+        <p>Thử thách lệch lớp xét rãnh dự kiến sau hiện, không xét hình thoi: tại cuối trường, dấu cũ phải còn được cản quang phủ và tâm rãnh gần nhất phải cách dấu ít nhất 8 nm. Một ảnh gần đảo pha có thể làm rãnh mở ngay tại dấu cũ dù mốc tâm phơi dịch nhiều.</p>
+        <p><a href="#euv-so-sanh">Đặt hai kết quả cạnh nhau trên cùng thang đo.</a></p>
+      </section>
+
+      <section id="euv-gioi-han" class="htw-step" data-machine-focus="limits" aria-labelledby="euv-gioi-han-h">
+        <p class="htw-step-label">09 · Giới hạn</p>
+        <h2 id="euv-gioi-han-h" tabindex="-1">Một trường, một trục, một mẫu; không phải bản sao scanner</h2>
+        <p>Mẫu 1D, nguồn kết hợp dọc trục và khẩu độ cắt bậc lý tưởng giúp lần ra vì sao một vạch biến mất. Chúng bỏ qua chiếu sáng lệch trục, độ kết hợp hữu hạn, mặt nạ ba chiều, hiệu chỉnh mẫu, quang sai và biến thiên theo trường. NA 0,33, thu nhỏ 4× và trường 26 × 33 mm là của NXE:3400C. Không dùng thông số từ EXE High NA để tính cho máy này: EXE dùng NA 0,55, thu nhỏ bất đối xứng 4×/8× và trường bằng nửa trường NXE. <a href="#euv-source-s01">[S1]</a> <a href="#euv-source-s08">[S8]</a> <a href="#euv-source-s10">[S10]</a></p>
+        <p>Khung, bệ, ray và hai vị trí wafer trong hình giúp nhận ra đâu là cụm được đỡ cố định, đâu là cụm di chuyển. Không dùng chúng để suy ra hành trình, gia tốc, cộng hưởng hay cấu tạo truyền động của hãng. Bài áp đặt vận tốc quét đều và sai số đồng bộ theo tỷ lệ; không tính tăng giảm tốc ở mép trường, rung, giãn nở nhiệt, vòng điều khiển vị trí, lấy nét chủ động hay quy trình chuyển bàn. Các mức nm lệch tiêu và ppm cố ý đặt chỉ là nút thử, không phải dung sai của máy. <a href="#euv-source-s06">[S6]</a> <a href="#euv-source-s12">[S12]</a></p>
+        <p>Ngưỡng hiện 0,75 không dự báo liều vật lý, hóa học cản quang hay tỷ lệ chip đạt. Ở quy trình thật, nhiễu số photon và các phản ứng ngẫu nhiên trong vật liệu có thể sinh lỗi cô lập như vạch đứt, cầu nối, tiếp điểm mất hoặc dính nhau, dù ảnh trung bình trông ổn. Trong bài, mọi sọc cùng điều kiện cho cùng kết quả; không có mô phỏng xác suất lỗi. <a href="#euv-source-s09">[S9]</a></p>
+      </section>
+    </div>
+  </div>
+
+  <section id="euv-tu-thu" class="htw-try" aria-labelledby="euv-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="euv-tu-thu-h" tabindex="-1">Cho cùng một trường chạy hai phép so sánh</h2>
+      <p>Mở chế độ tự thử để đưa chính bản cắt này xuống cạnh bảng điều khiển. Cấu hình mặc định là pitch 48 nm, tiêu 0 nm, đồng bộ 0 ppm, liều 1×. Dùng Chạy, Tạm dừng và Từng bước để xem đầu trường nhận liều trước, rồi đến giữa và cuối. Tạm dừng giữ nguyên thời gian và liều đang tích; khi chưa chạy hoặc đang tạm dừng, Từng bước tiến thêm 0,1 giây trình diễn.</p>
+      <ol class="htw-try-list">
+        <li><strong>Phép thử quang học.</strong> Chạy <strong>Đúng tiêu, đúng nhịp</strong> làm đối chứng, rồi thử <strong>Pitch dưới ngưỡng</strong> (36 nm) và <strong>Lệch tiêu</strong> (+85 nm). Ở góc nhìn wafer, đọc bậc lọt và dạng đường cường độ trước khi đọc cản quang. Hai lượt lỗi đều không mở rãnh nhưng một đường phẳng, đường kia vẫn có hai gợn mỗi chu kỳ.</li>
+        <li><strong>Phép thử đồng bộ.</strong> Chạy <strong>Lệch đồng bộ</strong> (+0.5 ppm). Đối chiếu từng lát với dấu cũ tại đầu, giữa, cuối trường sau khi nó phơi xong, thay vì lấy độ lệch hiện thời của khe làm kết quả. Kiểm tra xem các rãnh còn hay mất trước khi đọc chúng lệch sang phía nào.</li>
+        <li><strong>Đối chứng liều.</strong> Thử <strong>Thiếu liều</strong> (0.40×) và so với lượt mặc định trên cùng thang. Hai đường cường độ giống nhau; đường liều hạ xuống còn 40% và không còn vượt ngưỡng hiện.</li>
+      </ol>
+      <p>Đổi pitch, tiêu, đồng bộ hoặc hệ số liều sẽ chuẩn bị lượt mới; liều cũ không trộn với liều mới. Cấu hình mẫu cũng về liều 0 và mở góc wafer, nhưng không tự chạy. Đổi sang <strong>Soi khẩu độ</strong> hoặc <strong>Soi cản quang</strong>, hay chọn dấu khác, chỉ đổi cách xem: liều và đồng hồ vẫn giữ nguyên.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt nên không thể mở bảng điều khiển. Bạn có thể theo đường quang trên hình tĩnh, rồi tự dự đoán và đối chiếu từng lượt trong bảng dưới đây.</p></noscript>
+      <p class="htw-try-fallback">Nếu các nút vẫn khóa, hãy dùng <a href="#euv-ket-qua">bảng kết quả</a> và <a href="#euv-phep-tinh">phép tính</a>; không cần chạy hoạt cảnh để đọc trọn thí nghiệm.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="euv-lithography-scene euv-lithography-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="euv-lithography-scene" disabled>Quay lại bài đọc</button></p>
+        <p><a href="#euv-lithography-scene">Xem lại hình sau khi chỉnh</a></p>
+        {% include how-things-work/euv-lithography-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="euv-ket-qua" class="htw-sources" aria-labelledby="euv-ket-qua-h">
+  <h2 id="euv-ket-qua-h" tabindex="-1">Đọc một lượt quét mà không cần chạy hình</h2>
+  <h3 id="euv-so-sanh">Cùng một mẫu: mất vạch hay lệch vị trí?</h3>
+  <figure class="euv-failure-comparison" style="margin:1.75rem 0">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:0.75rem"><img width="312" height="220" style="display:block;width:100%;height:auto" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMTIgMjIwIj4KPHJlY3Qgd2lkdGg9IjMxMiIgaGVpZ2h0PSIyMjAiIHJ4PSI0IiBmaWxsPSIjMTYxNTFkIi8+CjxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmaWxsPSIjZjJlYWY1Ij4KPHRleHQgeD0iMTgiIHk9IjI3IiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjE3Ij5BIMK3IEzhu4djaCB0acOqdTwvdGV4dD4KPHRleHQgeD0iMTgiIHk9IjQ4IiBmb250LXNpemU9IjEyIiBmaWxsPSIjYzZiOGNmIj56ID0gKzg1IG5tIMK3IGN14buRaSB0csaw4budbmcgKDMzIG1tKTwvdGV4dD4KPHBhdGggZD0iTTMxIDY3VjE0N0gyOTMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhlODE5YiIvPgo8dGV4dCB4PSIyNSIgeT0iNzEiIHRleHQtYW5jaG9yPSJlbmQiIGZvbnQtc2l6ZT0iMTAiPjEsNDwvdGV4dD4KPHRleHQgeD0iMjUiIHk9IjE0OSIgdGV4dC1hbmNob3I9ImVuZCIgZm9udC1zaXplPSIxMCI+MDwvdGV4dD4KPHBhdGggZD0iTTMxIDEwNC4xNDI4NTcxNDI4NTcxNEgyOTMiIHN0cm9rZT0iI2U1YjM4MCIgc3Ryb2tlLWRhc2hhcnJheT0iNCA0Ii8+Cjx0ZXh0IHg9IjI4OSIgeT0iOTkuMTQyODU3MTQyODU3MTQiIHRleHQtYW5jaG9yPSJlbmQiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiNmZmQ1YTQiPm5nxrDhu6FuZyAwLDc1PC90ZXh0Pgo8cGF0aCBkPSJNMzEuMDAgMTA5LjMzIEwzMy43MyAxMTAuODkgTDM2LjQ2IDExNS4xNSBMMzkuMTkgMTIwLjk4IEw0MS45MiAxMjYuODEgTDQ0LjY1IDEzMS4xMSBMNDcuMzggMTMyLjcxIEw1MC4xMCAxMzEuMjIgTDUyLjgzIDEyNy4wNCBMNTUuNTYgMTIxLjI5IEw1OC4yOSAxMTUuNTQgTDYxLjAyIDExMS4zMiBMNjMuNzUgMTA5Ljc4IEw2Ni40OCAxMTEuMzIgTDY5LjIxIDExNS41NCBMNzEuOTQgMTIxLjI5IEw3NC42NyAxMjcuMDQgTDc3LjQwIDEzMS4yMiBMODAuMTMgMTMyLjcxIEw4Mi44NSAxMzEuMTEgTDg1LjU4IDEyNi44MSBMODguMzEgMTIwLjk4IEw5MS4wNCAxMTUuMTUgTDkzLjc3IDExMC44OSBMOTYuNTAgMTA5LjMzIEw5OS4yMyAxMTAuODkgTDEwMS45NiAxMTUuMTUgTDEwNC42OSAxMjAuOTggTDEwNy40MiAxMjYuODEgTDExMC4xNSAxMzEuMTEgTDExMi44OCAxMzIuNzEgTDExNS42MCAxMzEuMjIgTDExOC4zMyAxMjcuMDQgTDEyMS4wNiAxMjEuMjkgTDEyMy43OSAxMTUuNTQgTDEyNi41MiAxMTEuMzIgTDEyOS4yNSAxMDkuNzggTDEzMS45OCAxMTEuMzIgTDEzNC43MSAxMTUuNTQgTDEzNy40NCAxMjEuMjkgTDE0MC4xNyAxMjcuMDQgTDE0Mi45MCAxMzEuMjIgTDE0NS42MyAxMzIuNzEgTDE0OC4zNSAxMzEuMTEgTDE1MS4wOCAxMjYuODEgTDE1My44MSAxMjAuOTggTDE1Ni41NCAxMTUuMTUgTDE1OS4yNyAxMTAuODkgTDE2Mi4wMCAxMDkuMzMgTDE2NC43MyAxMTAuODkgTDE2Ny40NiAxMTUuMTUgTDE3MC4xOSAxMjAuOTggTDE3Mi45MiAxMjYuODEgTDE3NS42NSAxMzEuMTEgTDE3OC4zOCAxMzIuNzEgTDE4MS4xMCAxMzEuMjIgTDE4My44MyAxMjcuMDQgTDE4Ni41NiAxMjEuMjkgTDE4OS4yOSAxMTUuNTQgTDE5Mi4wMiAxMTEuMzIgTDE5NC43NSAxMDkuNzggTDE5Ny40OCAxMTEuMzIgTDIwMC4yMSAxMTUuNTQgTDIwMi45NCAxMjEuMjkgTDIwNS42NyAxMjcuMDQgTDIwOC40MCAxMzEuMjIgTDIxMS4xMyAxMzIuNzEgTDIxMy44NSAxMzEuMTEgTDIxNi41OCAxMjYuODEgTDIxOS4zMSAxMjAuOTggTDIyMi4wNCAxMTUuMTUgTDIyNC43NyAxMTAuODkgTDIyNy41MCAxMDkuMzMgTDIzMC4yMyAxMTAuODkgTDIzMi45NiAxMTUuMTUgTDIzNS42OSAxMjAuOTggTDIzOC40MiAxMjYuODEgTDI0MS4xNSAxMzEuMTEgTDI0My44OCAxMzIuNzEgTDI0Ni42MCAxMzEuMjIgTDI0OS4zMyAxMjcuMDQgTDI1Mi4wNiAxMjEuMjkgTDI1NC43OSAxMTUuNTQgTDI1Ny41MiAxMTEuMzIgTDI2MC4yNSAxMDkuNzggTDI2Mi45OCAxMTEuMzIgTDI2NS43MSAxMTUuNTQgTDI2OC40NCAxMjEuMjkgTDI3MS4xNyAxMjcuMDQgTDI3My45MCAxMzEuMjIgTDI3Ni42MyAxMzIuNzEgTDI3OS4zNSAxMzEuMTEgTDI4Mi4wOCAxMjYuODEgTDI4NC44MSAxMjAuOTggTDI4Ny41NCAxMTUuMTUgTDI5MC4yNyAxMTAuODkgTDI5My4wMCAxMDkuMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2QxYWZmZiIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KPHJlY3QgeD0iMzEiIHk9IjE3NSIgd2lkdGg9IjI2MiIgaGVpZ2h0PSIxNyIgZmlsbD0iI2Y1ZTFiOSIvPgoKPHBhdGggZD0iTTE2MiA2NFYxOTYiIHN0cm9rZT0iI2ZjZmJmNSIgc3Ryb2tlLWRhc2hhcnJheT0iMiAzIi8+Cgo8dGV4dCB4PSIzMSIgeT0iMTY0IiBmb250LXNpemU9IjExIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4tOTY8L3RleHQ+PHRleHQgeD0iOTYuNSIgeT0iMTY0IiBmb250LXNpemU9IjExIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4tNDg8L3RleHQ+PHRleHQgeD0iMTYyIiB5PSIxNjQiIGZvbnQtc2l6ZT0iMTEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjA8L3RleHQ+PHRleHQgeD0iMjI3LjUiIHk9IjE2NCIgZm9udC1zaXplPSIxMSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NDg8L3RleHQ+PHRleHQgeD0iMjkzIiB5PSIxNjQiIGZvbnQtc2l6ZT0iMTEiIHRleHQtYW5jaG9yPSJlbmQiPis5NiBubTwvdGV4dD4KPHRleHQgeD0iMzEiIHk9IjIwOSIgZm9udC1zaXplPSIxMSI+xJDhu4luaCBsaeG7gXUgMCw2NTkgwrcgzpQgZOG7sSBraeG6v24gMCBubTwvdGV4dD4KPC9nPjwvc3ZnPg==" alt="A · Lệch tiêu: đỉnh liều 0,659; dịch tâm phơi dự kiến 0 nm; không mở vạch.">
+<img width="312" height="220" style="display:block;width:100%;height:auto" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMTIgMjIwIj4KPHJlY3Qgd2lkdGg9IjMxMiIgaGVpZ2h0PSIyMjAiIHJ4PSI0IiBmaWxsPSIjMTYxNTFkIi8+CjxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmaWxsPSIjZjJlYWY1Ij4KPHRleHQgeD0iMTgiIHk9IjI3IiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjE3Ij5CIMK3IEzhu4djaCDEkeG7k25nIGLhu5k8L3RleHQ+Cjx0ZXh0IHg9IjE4IiB5PSI0OCIgZm9udC1zaXplPSIxMiIgZmlsbD0iI2M2YjhjZiI+zrUgPSArMCw1IHBwbSDCtyBjdeG7kWkgdHLGsOG7nW5nICgzMyBtbSk8L3RleHQ+CjxwYXRoIGQ9Ik0zMSA2N1YxNDdIMjkzIiBmaWxsPSJub25lIiBzdHJva2U9IiM4ZTgxOWIiLz4KPHRleHQgeD0iMjUiIHk9IjcxIiB0ZXh0LWFuY2hvcj0iZW5kIiBmb250LXNpemU9IjEwIj4xLDQ8L3RleHQ+Cjx0ZXh0IHg9IjI1IiB5PSIxNDkiIHRleHQtYW5jaG9yPSJlbmQiIGZvbnQtc2l6ZT0iMTAiPjA8L3RleHQ+CjxwYXRoIGQ9Ik0zMSAxMDQuMTQyODU3MTQyODU3MTRIMjkzIiBzdHJva2U9IiNlNWIzODAiIHN0cm9rZS1kYXNoYXJyYXk9IjQgNCIvPgo8dGV4dCB4PSIyODkiIHk9Ijk5LjE0Mjg1NzE0Mjg1NzE0IiB0ZXh0LWFuY2hvcj0iZW5kIiBmb250LXNpemU9IjExIiBmaWxsPSIjZmZkNWE0Ij5uZ8aw4buhbmcgMCw3NTwvdGV4dD4KPHBhdGggZD0iTTMxLjAwIDE0NS41OSBMMzMuNzMgMTQxLjc3IEwzNi40NiAxMzQuNzYgTDM5LjE5IDEyNC41NiBMNDEuOTIgMTEyLjAzIEw0NC42NSA5OC43NSBMNDcuMzggODYuNjkgTDUwLjEwIDc3Ljg1IEw1Mi44MyA3My43NiBMNTUuNTYgNzUuMTUgTDU4LjI5IDgxLjc2IEw2MS4wMiA5Mi40NCBMNjMuNzUgMTA1LjM3IEw2Ni40OCAxMTguNTAgTDY5LjIxIDEzMC4wMiBMNzEuOTQgMTM4LjY4IEw3NC42NyAxNDQuMDUgTDc3LjQwIDE0Ni40OCBMODAuMTMgMTQ2Ljg5IEw4Mi44NSAxNDYuNDEgTDg1LjU4IDE0Ni4wMCBMODguMzEgMTQ2LjE1IEw5MS4wNCAxNDYuNjkgTDkzLjc3IDE0Ni44NyBMOTYuNTAgMTQ1LjU5IEw5OS4yMyAxNDEuNzcgTDEwMS45NiAxMzQuNzYgTDEwNC42OSAxMjQuNTYgTDEwNy40MiAxMTIuMDMgTDExMC4xNSA5OC43NSBMMTEyLjg4IDg2LjY5IEwxMTUuNjAgNzcuODUgTDExOC4zMyA3My43NiBMMTIxLjA2IDc1LjE1IEwxMjMuNzkgODEuNzYgTDEyNi41MiA5Mi40NCBMMTI5LjI1IDEwNS4zNyBMMTMxLjk4IDExOC41MCBMMTM0LjcxIDEzMC4wMiBMMTM3LjQ0IDEzOC42OCBMMTQwLjE3IDE0NC4wNSBMMTQyLjkwIDE0Ni40OCBMMTQ1LjYzIDE0Ni44OSBMMTQ4LjM1IDE0Ni40MSBMMTUxLjA4IDE0Ni4wMCBMMTUzLjgxIDE0Ni4xNSBMMTU2LjU0IDE0Ni42OSBMMTU5LjI3IDE0Ni44NyBMMTYyLjAwIDE0NS41OSBMMTY0LjczIDE0MS43NyBMMTY3LjQ2IDEzNC43NiBMMTcwLjE5IDEyNC41NiBMMTcyLjkyIDExMi4wMyBMMTc1LjY1IDk4Ljc1IEwxNzguMzggODYuNjkgTDE4MS4xMCA3Ny44NSBMMTgzLjgzIDczLjc2IEwxODYuNTYgNzUuMTUgTDE4OS4yOSA4MS43NiBMMTkyLjAyIDkyLjQ0IEwxOTQuNzUgMTA1LjM3IEwxOTcuNDggMTE4LjUwIEwyMDAuMjEgMTMwLjAyIEwyMDIuOTQgMTM4LjY4IEwyMDUuNjcgMTQ0LjA1IEwyMDguNDAgMTQ2LjQ4IEwyMTEuMTMgMTQ2Ljg5IEwyMTMuODUgMTQ2LjQxIEwyMTYuNTggMTQ2LjAwIEwyMTkuMzEgMTQ2LjE1IEwyMjIuMDQgMTQ2LjY5IEwyMjQuNzcgMTQ2Ljg3IEwyMjcuNTAgMTQ1LjU5IEwyMzAuMjMgMTQxLjc3IEwyMzIuOTYgMTM0Ljc2IEwyMzUuNjkgMTI0LjU2IEwyMzguNDIgMTEyLjAzIEwyNDEuMTUgOTguNzUgTDI0My44OCA4Ni42OSBMMjQ2LjYwIDc3Ljg1IEwyNDkuMzMgNzMuNzYgTDI1Mi4wNiA3NS4xNSBMMjU0Ljc5IDgxLjc2IEwyNTcuNTIgOTIuNDQgTDI2MC4yNSAxMDUuMzcgTDI2Mi45OCAxMTguNTAgTDI2NS43MSAxMzAuMDIgTDI2OC40NCAxMzguNjggTDI3MS4xNyAxNDQuMDUgTDI3My45MCAxNDYuNDggTDI3Ni42MyAxNDYuODkgTDI3OS4zNSAxNDYuNDEgTDI4Mi4wOCAxNDYuMDAgTDI4NC44MSAxNDYuMTUgTDI4Ny41NCAxNDYuNjkgTDI5MC4yNyAxNDYuODcgTDI5My4wMCAxNDUuNTkiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2QxYWZmZiIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KPHJlY3QgeD0iMzEiIHk9IjE3NSIgd2lkdGg9IjI2MiIgaGVpZ2h0PSIxNyIgZmlsbD0iI2Y1ZTFiOSIvPgo8cmVjdCB4PSI0My4yOCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjQ2LjAxIiB5PSIxNzUiIHdpZHRoPSIyLjczIiBoZWlnaHQ9IjE3IiBmaWxsPSIjMjYxYjM2Ii8+PHJlY3QgeD0iNDguNzQiIHk9IjE3NSIgd2lkdGg9IjIuNzMiIGhlaWdodD0iMTciIGZpbGw9IiMyNjFiMzYiLz48cmVjdCB4PSI1MS40NyIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjU0LjIwIiB5PSIxNzUiIHdpZHRoPSIyLjczIiBoZWlnaHQ9IjE3IiBmaWxsPSIjMjYxYjM2Ii8+PHJlY3QgeD0iNTYuOTMiIHk9IjE3NSIgd2lkdGg9IjIuNzMiIGhlaWdodD0iMTciIGZpbGw9IiMyNjFiMzYiLz48cmVjdCB4PSI1OS42NiIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjEwOC43OCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjExMS41MSIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjExNC4yNCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjExNi45NyIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjExOS43MCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjEyMi40MyIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjEyNS4xNiIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjE3NC4yOCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjE3Ny4wMSIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjE3OS43NCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjE4Mi40NyIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjE4NS4yMCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjE4Ny45MyIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjE5MC42NiIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjIzOS43OCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjI0Mi41MSIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjI0NS4yNCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjI0Ny45NyIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjI1MC43MCIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjI1My40MyIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPjxyZWN0IHg9IjI1Ni4xNiIgeT0iMTc1IiB3aWR0aD0iMi43MyIgaGVpZ2h0PSIxNyIgZmlsbD0iIzI2MWIzNiIvPgo8cGF0aCBkPSJNMTYyIDY0VjE5NiIgc3Ryb2tlPSIjZmNmYmY1IiBzdHJva2UtZGFzaGFycmF5PSIyIDMiLz4KPHBhdGggZD0iTTE4NC41MTU2MjUgMTc3bC0zIDdoNnoiIGZpbGw9IiNmNWUxYjkiIHN0cm9rZT0iI2ZmZGI4OSIvPgo8dGV4dCB4PSIzMSIgeT0iMTY0IiBmb250LXNpemU9IjExIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4tOTY8L3RleHQ+PHRleHQgeD0iOTYuNSIgeT0iMTY0IiBmb250LXNpemU9IjExIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4tNDg8L3RleHQ+PHRleHQgeD0iMTYyIiB5PSIxNjQiIGZvbnQtc2l6ZT0iMTEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjA8L3RleHQ+PHRleHQgeD0iMjI3LjUiIHk9IjE2NCIgZm9udC1zaXplPSIxMSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NDg8L3RleHQ+PHRleHQgeD0iMjkzIiB5PSIxNjQiIGZvbnQtc2l6ZT0iMTEiIHRleHQtYW5jaG9yPSJlbmQiPis5NiBubTwvdGV4dD4KPHRleHQgeD0iMzEiIHk9IjIwOSIgZm9udC1zaXplPSIxMSI+xJDhu4luaCBsaeG7gXUgMSwyODIgwrcgzpQgZOG7sSBraeG6v24gKzE2LDUgbm08L3RleHQ+CjwvZz48L3N2Zz4=" alt="B · Lệch đồng bộ: đỉnh liều 1,282; dịch tâm phơi dự kiến 16,5 nm; có vạch mở lệch dấu lớp cũ."></div>
+<figcaption>Liều đã tích ở cuối trường, chung trục ngang ±96 nm và chung thang liều 0–1,4. Nét dọc đứt là dấu lớp cũ; phần tối trên dải cản quang là vùng đã mở. Tam giác trên dải phải chỉ tâm phơi đã dịch, không phải số đo overlay của máy thật.</figcaption>
+</figure>
+  <p>Trên hình tĩnh, theo giọt thiếc tới gương thu, tới mặt nạ, qua cụm gương chiếu rồi dừng ở khe trên wafer. Tưởng tượng khe đi từ ngoài mép đầu tới ngoài mép cuối. Một dấu có ba trạng thái liên tiếp: chưa nhận liều, đang nhận liều, đã phơi xong và có thể đọc kết quả sau hiện. Khi tâm khe ở đúng giữa trường, dấu đầu đã xong, dấu giữa đã nhận đúng nửa thời gian phơi và dấu cuối chưa phơi. Đọc bảng ở cuối lượt, khi cả ba dấu đã qua đủ khe.</p>
+  <div class="table-wrapper">
+    <table>
+      <caption>Kết quả của mô hình sau 8 giây trình diễn; liều là số chuẩn hóa, không phải mJ/cm².</caption>
+      <thead>
+        <tr><th scope="col">Cấu hình</th><th scope="col">Ảnh, liều và cản quang sau hiện</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Đúng tiêu, đúng nhịp</th><td>48 nm · 0 nm · 0 ppm · 1×. Bậc 0, ±1; đỉnh liều ≈ 1,292. Có rãnh ở cả ba dấu, thẳng với các mốc cũ (0 / 0 / 0 nm).</td></tr>
+        <tr><th scope="row">Pitch dưới ngưỡng</th><td>36 nm; các mục khác như mặc định. Chỉ bậc 0 lọt: cường độ và liều cuối lượt đều phẳng ở 0,25. Không mở rãnh tại cả ba dấu.</td></tr>
+        <tr><th scope="row">Lệch tiêu</th><td>+85 nm; các mục khác như mặc định. Vẫn lọt 0, ±1. Điều hòa chu kỳ 24 nm còn rõ, nhưng đỉnh liều ≈ 0,659. Không mở rãnh tại cả ba dấu.</td></tr>
+        <tr><th scope="row">Lệch đồng bộ</th><td>+0.5 ppm; các mục khác như mặc định. Ảnh quang học vẫn như mặc định; liều bị nhòe nhẹ và vẫn đủ mở rãnh ở cả ba dấu. Độ dịch tại tâm khoảng phơi, theo thứ tự đầu / giữa / cuối: 0 / +8.25 / +16.5 nm.</td></tr>
+        <tr><th scope="row">Thiếu liều</th><td>0.40×; các mục khác như mặc định. Ảnh quang học vẫn như mặc định nhưng đỉnh liều ≈ 0,517. Không mở rãnh tại cả ba dấu.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Ba lượt không mở rãnh không đại diện cho cùng một lỗi. Hãy đọc theo thứ tự: còn bậc nào, cường độ có biến thiên không, liều có qua ngưỡng không, và cuối cùng vạch mới nằm ở đâu so với dấu cũ.</p>
+</section>
+
+<section id="euv-tai-lieu" class="htw-sources" aria-labelledby="euv-tai-lieu-h">
+  <h2 id="euv-tai-lieu-h" tabindex="-1">Nguồn và phép tính</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="euv-source-s01"><a href="https://www.asml.com/en/products/euv-lithography-systems/twinscan-nxe3400c" target="_blank" rel="noopener noreferrer">[S1] ASML, TWINSCAN NXE:3400C</a>: NA 0,33, quang học phản xạ thu nhỏ 4×, trường tối đa 26 × 33 mm và căn chỉnh tại vị trí đo.</li>
+        <li id="euv-source-s02"><a href="https://www.asml.com/en/technology/lithography-principles/light-and-lasers" target="_blank" rel="noopener noreferrer">[S2] ASML, Light and lasers</a>: tạo EUV 13,5 nm bằng plasma thiếc, trình tự hai xung và ví dụ 50.000 giọt/s.</li>
+        <li id="euv-source-s03"><a href="https://www.trumpf.com/en_US/solutions/applications/euv-lithography/euv-drive-laser/" target="_blank" rel="noopener noreferrer">[S3] TRUMPF, EUV Drive Laser</a>: cụm lấy nét cuối FFA, vai trò của xung sơ bộ và xung chính.</li>
+        <li id="euv-source-s04"><a href="https://www.asml.com/en/technology/lithography-principles/lenses-and-mirrors" target="_blank" rel="noopener noreferrer">[S4] ASML, Lenses &amp; mirrors</a>: NA, gương đa lớp và đường quang EUV trong chân không.</li>
+        <li id="euv-source-s05"><a href="https://www.zeiss.com/semiconductor-manufacturing-technology/inspiring-technology/euv-lithography.html" target="_blank" rel="noopener noreferrer">[S5] ZEISS SMT, EUV lithography</a>: gương Mo/Si, cộng pha phản xạ, vai trò cụm thu, chiếu sáng và chiếu ảnh; 70% là mốc tham khảo cho ví dụ tổn hao độc lập.</li>
+        <li id="euv-source-s06"><a href="https://www.asml.com/en/technology/lithography-principles/mechanics-and-mechatronics" target="_blank" rel="noopener noreferrer">[S6] ASML, Mechanics &amp; mechatronics</a>: quét qua khe ngược chiều và kiến trúc TWINSCAN đo một wafer trong lúc phơi wafer kia.</li>
+        <li id="euv-source-s07"><a href="https://www.asml.com/en/technology/lithography-principles/rayleigh-criterion" target="_blank" rel="noopener noreferrer">[S7] ASML, The Rayleigh criterion</a>: quan hệ CD, λ, NA và hệ số quy trình <em>k</em><sub>1</sub>.</li>
+        <li id="euv-source-s08"><a href="https://lithoguru.com/scientist/litho_tutor/TUTOR03%20(Summer%2093).pdf" target="_blank" rel="noopener noreferrer">[S8] Chris A. Mack, The Formation of an Aerial Image, part 3 (PDF)</a>: tạo ảnh từ các bậc lọt khẩu độ và pha gần trục do lệch tiêu. Bài áp dụng nguyên lý sóng này cho cách tử phản xạ lý tưởng.</li>
+        <li id="euv-source-s09"><a href="https://www.imec-int.com/en/imec-magazine/imec-magazine-july-2019/euv-lithography-sailing-along-the-stochastic-cliffs" target="_blank" rel="noopener noreferrer">[S9] imec, Sailing along the stochastic cliffs</a>: lỗi in ngẫu nhiên và giới hạn khi suy từ ảnh trung bình sang xác suất lỗi.</li>
+        <li id="euv-source-s10"><a href="https://www.asml.com/en/company/stories/2024/5-things-high-na-euv" target="_blank" rel="noopener noreferrer">[S10] ASML, 5 things you should know about High NA EUV lithography</a>: phân biệt NXE và EXE về NA, tỷ lệ thu nhỏ và trường phơi.</li>
+        <li id="euv-source-s11"><a href="https://www.asml.com/en/company/stories/2021/semiconductor-manufacturing-process-steps" target="_blank" rel="noopener noreferrer">[S11] ASML, 6 crucial steps in semiconductor manufacturing</a>: vai trò lớp cản quang dương, phơi, hiện và chuyển mẫu sang lớp vật liệu.</li>
+        <li id="euv-source-s12"><a href="https://www.asml.com/en/technology/lithography-principles/measuring-accuracy" target="_blank" rel="noopener noreferrer">[S12] ASML, Measuring accuracy</a>: phép đo chồng lớp và phân biệt đo trên wafer với cảm biến, hiệu chỉnh trong scanner.</li>
+        <li id="euv-source-s13"><a href="https://www.euvlitho.com/2018/P22.pdf#page=4" target="_blank" rel="noopener noreferrer">[S13] ZEISS SMT, Optics for EUV Lithography, trang 4</a>: sơ đồ từ plasma qua collector và tiêu điểm trung gian đến bộ chiếu sáng, mặt nạ và wafer.</li>
+        <li id="euv-source-s14"><a href="https://www.asml.com/en/technology/lithography-principles/pushing-k1-further" target="_blank" rel="noopener noreferrer">[S14] ASML, Pushing k₁ further</a>: chiếu lệch trục và định hình phân bố góc chiếu.</li>
+        <li id="euv-source-s15"><a href="https://www.imec-int.com/en/articles/imec-demonstrates-24nm-pitch-lines-with-single-exposure-euv-lithography-on-asml-s-nxe-3400b-scanner" target="_blank" rel="noopener noreferrer">[S15] imec, 24 nm pitch on NXE:3400B</a>: chu kỳ 24 nm với quang học NA 0,33 và một lần phơi trong quy trình tối ưu.</li>
+        <li id="euv-source-s16"><a href="https://doi.org/10.1117/12.3010751" target="_blank" rel="noopener noreferrer">[S16] Singh và cộng sự, Actinic photoemission spectroscopy of litho materials</a>: electron thứ cấp và biến đổi hóa học trong cản quang.</li>
+        <li id="euv-source-s17"><a href="https://www.tel.com/news/topics/2021/20210608_001.html" target="_blank" rel="noopener noreferrer">[S17] Tokyo Electron, Coater/Developer cho phòng thí nghiệm EUV</a>: thiết bị phủ/hiện riêng, nối cùng dây chuyền với scanner.</li>
+      </ul>
+      <p>Các nguồn công khai xác nhận nguyên lý và thông số nêu đích danh. Bản cắt, cách tử, lịch quét và các kết quả số của bài là minh họa riêng, không lấy từ bản vẽ hay log vận hành của nhà sản xuất.</p>
+    </div>
+    <div>
+      <h3 id="euv-phep-tinh">Tự tính lại kết quả</h3>
+      <p><strong>Từ mẫu tới ảnh.</strong> Với vùng sáng chiếm nửa chu kỳ và đối xứng quanh <em>x</em> = 0, hệ số Fourier là <em>c</em><sub>0</sub> = 1/2 và <em>c</em><sub>m</sub> = sin(<em>m</em>π/2)/(<em>m</em>π) cho <em>m</em> khác 0. Chỉ cộng các bậc thỏa |<em>m</em>|λ/<em>p</em> ≤ NA. Trong dải 32–76 nm, không bậc nào từ |<em>m</em>| = 2 trở lên lọt qua. Pha tương đối gần trục do lệch tiêu <em>z</em> là φ<sub>m</sub> = −πλ<em>z</em>(<em>m</em>/<em>p</em>)². Cộng các biên độ phức trước rồi mới tính cường độ: <em>I</em>(<em>x</em>) = |Σ <em>c</em><sub>m</sub> exp(<em>i</em>[2π<em>mx</em>/<em>p</em> + φ<sub>m</sub>])|². <em>x</em>, <em>p</em>, <em>z</em> và λ ở đây tính bằng nm trong hệ tọa độ wafer.</p>
+      <p><strong>Tại sao lệch tiêu không làm đường phẳng?</strong> Khi 0 và ±1 cùng lọt, đặt θ = 2π<em>x</em>/<em>p</em>. Khi đó <em>I</em> = 1/4 + (2/π) cos φ<sub>1</sub> cos θ + (2/π²)(1 + cos 2θ). Ở tiêu 0, đỉnh là (1/2 + 2/π)² ≈ 1,292. Khi <em>z</em> = <em>p</em>²/(2λ) ≈ 85,33 nm với <em>p</em> = 48 nm, φ<sub>1</sub> = −π/2; hệ số cos θ bằng 0 nhưng hệ số cos 2θ vẫn là 2/π². Tại +85 nm của cấu hình mẫu, hệ số cos θ còn khoảng 0,0039 và đỉnh khoảng 0,659. Nếu chỉ có bậc 0, công thức trở về <em>I</em> = |1/2|² = 0,25.</p>
+      <p><strong>Từ quét tới độ dịch.</strong> Với ε là sai lệch tính bằng ppm, tỷ số vận tốc có dấu là <em>v</em><sub>mask</sub>/<em>v</em><sub>wafer</sub> = −4(1 + ε·10<sup>−6</sup>). Gọi <em>x</em><sub>mask</sub> và <em>x</em><sub>wafer</sub> là dịch chuyển của hai bàn trong hệ máy kể từ lúc tâm khe gặp dấu đầu (<em>u</em> = 0), cùng lấy chiều bàn wafer chạy làm chiều dương. Hai số này khác tọa độ <em>x</em> cục bộ quanh một dấu. Vì ảnh đảo chiều và thu nhỏ 4×, ảnh dịch −<em>x</em><sub>mask</sub>/4 trong hệ máy. Trừ phần mà wafer đã dịch, ta có δ = −<em>x</em><sub>mask</sub>/4 − <em>x</em><sub>wafer</sub>. Thay <em>x</em><sub>wafer</sub> = 33<em>u</em> mm và tỷ số trên, ta được δ(<em>u</em>) = 33ε<em>u</em> nm. Tại tâm ba khoảng phơi, <em>u</em> lần lượt là 0, 0,5 và 1; với ε = +0,5, kết quả là 0 / +8,25 / +16,5 nm.</p>
+      <p><strong>Từ ảnh tới liều.</strong> Gọi <em>s</em> là vị trí dấu (0, 0,5 hoặc 1), <em>h</em> = 0,08 là nửa bề rộng khe, và <em>q</em> là hệ số liều. Nếu tâm khe hiện ở <em>u</em>, lấy <em>a</em> = <em>s</em> − <em>h</em> và <em>b</em> là giá trị nhỏ hơn giữa <em>u</em> và <em>s</em> + <em>h</em>. Khi <em>b</em> ≤ <em>a</em>, liều bằng 0. Sau đó,</p>
+      <p><em>D</em>(<em>x</em>) = [<em>q</em>/(2<em>h</em>)] ∫<sub><em>a</em></sub><sup><em>b</em></sup> <em>I</em>(<em>x</em> − δ(<em>w</em>)) d<em>w</em>.</p>
+      <p>Vì tốc độ quét được áp đặt đều, chia cho 2<em>h</em> theo tọa độ <em>u</em> tương đương chia cho cả thời gian khe đi qua dấu. Nếu ε = 0 và dấu đã phơi xong, <em>D</em> = <em>qI</em>, cho đỉnh khoảng 0,517 khi <em>q</em> = 0,40. Nếu ε khác 0, lấy trung bình trong khoảng [<em>a</em>, <em>b</em>] bằng cách tính các điều hòa cosin ở tâm khoảng rồi nhân hệ số sinc. Với điều hòa thứ <em>j</em> (1 hoặc 2), hệ số là sinc[<em>j</em>π(33ε)(<em>b</em> − <em>a</em>)/<em>p</em>], trong đó sinc <em>y</em> = sin <em>y</em>/<em>y</em> và sinc 0 = 1. Nhân thêm phần thời gian đã phơi (<em>b</em> − <em>a</em>)/(2<em>h</em>) và hệ số liều <em>q</em> để ra <em>D</em>, không cần đếm khung hình. Với một dấu đã phơi đủ khe, ảnh trượt một đoạn 2<em>h</em>·|33ε| = 2,64 nm ở +0,5 ppm; hai điều hòa giảm biên độ khác nhau. Cuối cùng mới áp quy tắc <em>D</em> ≥ 0,75 để mở rãnh.</p>
+    </div>
+    <aside aria-label="Ranh giới của các con số">
+      <h3>Cách đọc các con số</h3>
+      <ul>
+        <li><strong>Thông số công khai:</strong> bước sóng, NA, tỷ lệ thu nhỏ và trường tối đa của máy tham chiếu.</li>
+        <li><strong>Giá trị do bài chọn:</strong> mẫu sọc, khe chuẩn hóa, thời gian trình diễn, sai lệch áp đặt, liều quy đổi và ngưỡng hiện.</li>
+        <li><strong>Kết quả suy từ mô hình:</strong> bậc lọt, dạng cường độ, liều, vùng cản quang rửa trôi và độ dịch tâm khoảng phơi. Không dùng các kết quả đó làm thông số scanner, số đo chồng lớp hay dự báo tỷ lệ chip đạt.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
