@@ -127,3 +127,10 @@
   subjects: "Nhiếp ảnh · Điện tử"
   summary: "Giữ nguyên độ phơi và đổi gain. Theo electron, tín hiệu analog và mã RAW để phân biệt đầy giếng với quá dải bộ số hóa."
   thumbnail: /assets/how-things-work/iso-raw/thumbnail.webp
+- id: phase-detect-af
+  number: "19"
+  url: /how-things-work/phase-detect-af/
+  title: "Máy ảnh biết phải lấy nét về hướng nào bằng cách nào?"
+  subjects: "Nhiếp ảnh · Quang học"
+  summary: "So hai tín hiệu từ hai nửa khẩu độ và kéo qua điểm nét. Thử cảnh phẳng để thấy khi nào máy không đo được hướng chỉnh."
+  thumbnail: /assets/how-things-work/phase-detect-af/thumbnail.webp

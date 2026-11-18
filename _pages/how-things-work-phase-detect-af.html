@@ -1,0 +1,137 @@
+---
+title: "Máy ảnh biết phải lấy nét về hướng nào bằng cách nào?"
+permalink: /how-things-work/phase-detect-af/
+layout: how-things-work
+lang: vi
+options: fullwidth nolanding
+excerpt: "Hai nửa khẩu độ cho hai tín hiệu cùng lúc. Kéo mặt đo qua điểm hội tụ để thấy dấu độ lệch đổi chiều, rồi thử một mảng phẳng để biết khi nào máy ảnh không có đủ chi tiết để lấy nét."
+style-includes:
+  - /css/how-things-work.css
+  - /css/photography-machines.css
+  - /assets/how-things-work/phase-detect-af/machine.css
+script-includes:
+  - /assets/how-things-work/phase-detect-af/machine.js
+---
+
+<div class="htw-machine" data-htw-figure="phase-detect-af" data-theme="dark" data-mode="reader">
+  <div class="htw-reading">
+    <div class="htw-reader-slot" data-machine-reader-slot>
+      {% include how-things-work/phase-detect-af-scene.html %}
+      <div class="htw-reader-bar">
+        <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh cho thấy mặt đo trước điểm hội tụ; xem <a href="#phase-detect-af-ket-qua">bảng đối chiếu</a> để đọc cả bốn trường hợp.</p></noscript>
+        <button type="button" class="htw-collapse" data-machine-collapse aria-expanded="true" aria-controls="phase-detect-af-scene" disabled><span class="htw-collapse-name">Bản cắt lấy nét theo pha</span><span class="htw-collapse-state" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="htw-story" data-machine-story>
+      <nav class="htw-toc" aria-label="Các phần của bài lấy nét theo pha">
+        <details>
+          <summary>Các phần của bài</summary>
+          <ol>
+            <li><a href="#phase-detect-af-hai-nua">Hai nửa khẩu độ, hai góc nhìn</a></li>
+            <li><a href="#phase-detect-af-doi-dau">Hai cạnh đổi chỗ khi qua mặt hội tụ</a></li>
+            <li><a href="#phase-detect-af-mang-phang">Không thấy cạnh không có nghĩa là đã nét</a></li>
+            <li><a href="#phase-detect-af-hieu-chinh">Từ độ lệch đến hướng chỉnh</a></li>
+            <li><a href="#phase-detect-af-tu-thu">Tự thử</a></li>
+            <li><a href="#phase-detect-af-ket-qua">Bảng đối chiếu không cần JavaScript</a></li>
+            <li><a href="#phase-detect-af-tai-lieu">Nguồn và phép tính</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <section id="phase-detect-af-hai-nua" class="htw-step" data-machine-focus="pupil" aria-labelledby="phase-detect-af-hai-nua-h">
+        <p class="htw-step-label">01 · Hai nửa khẩu độ</p>
+        <h2 id="phase-detect-af-hai-nua-h" tabindex="-1">Cùng một cạnh, hai góc nhìn qua ống kính</h2>
+        <p>Hướng máy ảnh vào mép một khung cửa. Trong hình ban đầu, tín hiệu A thấy mép ở −1 còn tín hiệu B thấy nó ở +1. B nằm bên phải A trên đồ thị, chênh đúng <strong>+2 đơn vị hình</strong>. Thứ tự ấy là manh mối về hướng cần chỉnh, dù máy chưa thử làm ảnh nét hơn.</p>
+        <p>Trong một cảm biến kiểu <em>Dual Pixel</em>, mỗi pixel có hai photodiode dưới cùng một vi thấu kính. Mỗi photodiode nhận ánh sáng ưu tiên từ một nửa khác nhau của khẩu độ nhìn qua ống kính. Xét các pixel lân cận, ta có hai dãy giá trị độ sáng A và B của cùng một vùng ảnh. Cặp tín hiệu lấy nét nhìn cùng cảnh ở cùng thời điểm, không phải hai ảnh chụp lần lượt trước và sau khi xoay vòng nét. Cặp photodiode cũng phục vụ tạo ảnh. <a href="#phase-detect-af-source-s1">[S1]</a></p>
+      </section>
+
+      <section id="phase-detect-af-doi-dau" class="htw-step" data-machine-focus="planes" aria-labelledby="phase-detect-af-doi-dau-h">
+        <p class="htw-step-label">02 · Hình học tia</p>
+        <h2 id="phase-detect-af-doi-dau-h" tabindex="-1">Hai cạnh đổi chỗ khi qua mặt hội tụ</h2>
+        <p>Trong bản cắt, trục quang học <em>z</em> chạy từ khẩu độ về bên phải. Tọa độ ngang ảnh <em>x</em> được vẽ hướng lên để thấy hai tia cắt nhau; trên đồ thị độ sáng bên dưới, <em>x</em> tăng từ trái sang phải. Đường đứt đứng đánh dấu mặt hội tụ <em>z</em><sub>f</sub>, còn đường liền có hai gạch ngang đánh dấu mặt đo <em>z</em>.</p>
+        <p>Với cách gán mặc định <strong>A = Trái</strong>, khi mặt đo nằm <strong>trước</strong> chỗ hai tia gặp nhau, mép B có tọa độ lớn hơn mép A. Khi mặt đo nằm <strong>sau</strong> chỗ gặp, thứ tự đảo lại. Ngay ở nơi hai tia gặp nhau, hai cạnh trùng tại <em>x</em> = 0. Trong bài, “lệch pha” chỉ độ dịch ngang <strong>Δ<em>x</em> = <em>x</em><sub>B</sub> − <em>x</em><sub>A</sub></strong> giữa hai tín hiệu ảnh; không phải độ trễ theo thời gian hay pha của sóng ánh sáng.</p>
+        <p>Trên đồ thị, đường A là đường liền, đường B là đường đứt. Hai dấu tròn và vuông đánh vị trí cạnh tại mức sáng 0,5. Khi gán A cho nửa khẩu độ đối diện, hai tên đổi chỗ, nên dấu của hiệu đổi; mặt đo và độ lớn sai lệch không đổi.</p>
+      </section>
+
+      <section id="phase-detect-af-mang-phang" class="htw-step" data-machine-focus="signals" aria-labelledby="phase-detect-af-mang-phang-h">
+        <p class="htw-step-label">03 · Tín hiệu đo</p>
+        <h2 id="phase-detect-af-mang-phang-h" tabindex="-1">Hai đường trùng nhau chưa chắc đã nét</h2>
+        <p>Thay mép cửa bằng một khoảng tường có độ sáng đều. Dịch một đường ngang sang trái hay phải bao nhiêu cũng không đổi hình dạng của nó. Không có cạnh ở mức giữa để ghép, nên ta không biết hai tín hiệu lệch nhau bao nhiêu. Hình báo <strong>Không đủ chi tiết</strong>, không báo Δ<em>x</em> = 0.</p>
+        <p>Các dấu ở bản cắt chỉ nơi hai tia minh họa đi qua mặt đo. Dấu trên đồ thị mới là vị trí cạnh tìm được từ tín hiệu. Khi không có cạnh, chỉ các dấu trên đồ thị biến mất.</p>
+        <p>Đây là hai kết quả khác nhau: một cạnh có tương phản mà A và B đo được ở cùng vị trí cho số 0; một mảng phẳng không cho phép đo. Trên máy thật, hãy để vùng lấy nét phủ một chi tiết sáng–tối rõ thay vì chỉ phủ phần tường trơn.</p>
+      </section>
+
+      <section id="phase-detect-af-hieu-chinh" class="htw-step" data-machine-focus="planes" aria-labelledby="phase-detect-af-hieu-chinh-h">
+        <p class="htw-step-label">04 · Hiệu chỉnh lý tưởng</p>
+        <h2 id="phase-detect-af-hieu-chinh-h" tabindex="-1">Dấu chỉ phía cần chỉnh, không chỉ chiều quay</h2>
+        <p>Khi ghép được một cạnh, dấu của Δ<em>x</em> cho biết mặt đo ở phía nào so với mặt hội tụ, miễn là giữ đúng quy ước gán A/B. Mô hình tăng δ nếu δ âm và giảm δ nếu δ dương, từng nấc 0,05, cho đến đúng 0. Nếu không ghép được cạnh, nó không tự chỉnh.</p>
+        <p>Thanh trượt dời <em>mặt đo trên sơ đồ</em> để ta nhìn thấy sai lệch giữa hai mặt. Nó không mô tả máy dời cảm biến đi lấy nét. Trong máy ảnh, chỉnh nhóm thấu kính làm thay đổi vị trí mặt hội tụ so với cảm biến. Bài không suy ra chiều quay, số bước motor hay thời gian lấy nét của ống kính nào.</p>
+      </section>
+    </div>
+  </div>
+
+  <section id="phase-detect-af-tu-thu" class="htw-try" aria-labelledby="phase-detect-af-tu-thu-h">
+    <div class="htw-try-intro">
+      <p class="htw-step-label">Sau bài đọc</p>
+      <h2 id="phase-detect-af-tu-thu-h" tabindex="-1">Đổi phía, đổi nhãn, rồi bỏ cạnh</h2>
+      <ol class="htw-try-list">
+        <li><strong>Đọc hai phía của điểm nét.</strong> So <strong>Trước mặt hội tụ</strong> với <strong>Sau mặt hội tụ</strong>: Δ<em>x</em> đổi từ +2,00 sang −2,00. Kéo δ từ đầu này sang đầu kia và tìm vị trí hai dấu cạnh chồng lên nhau.</li>
+        <li><strong>Đổi quy ước dấu.</strong> Ở một giá trị δ khác 0, chọn <strong>A = Phải</strong>. Số đo đảo dấu, nhưng vạch mặt đo ở nguyên chỗ và hướng hiệu chỉnh không đổi.</li>
+        <li><strong>So thiếu chi tiết với đã nét.</strong> Chọn <strong>Mảng phẳng</strong>, kể cả khi δ = 0. Đồ thị vẫn hiện hai tín hiệu ngang, nhưng không hiện hai dấu cạnh và không cho hướng chỉnh.</li>
+        <li><strong>Tiến về điểm nét.</strong> Chọn một cấu hình có cạnh và đang lệch nét. <strong>Từng bước</strong> đưa δ gần 0 thêm một nấc; <strong>Chạy</strong> thực hiện cùng các nấc cách nhau nửa giây trình diễn. <strong>Dừng</strong> giữ nguyên mặt đo. Từ hai phía, phép chỉnh đều dừng ở 0, không đi quá.</li>
+      </ol>
+      <p>Đổi một giá trị hoặc chọn cấu hình mẫu sẽ dừng lượt hiệu chỉnh. <strong>Đặt lại</strong> khôi phục cạnh tương phản ở trước mặt hội tụ với cách gán nhãn ban đầu.</p>
+      <noscript><p class="htw-noscript">JavaScript đang tắt. Hãy dùng hình tĩnh và bảng bên dưới để đối chiếu.</p></noscript>
+      <p class="htw-try-fallback">Nếu nút vẫn khóa, hãy đọc <a href="#phase-detect-af-ket-qua">bảng đối chiếu</a> và <a href="#phase-detect-af-phep-tinh">phép tính</a>.</p>
+      <p class="htw-try-actions"><button type="button" class="button special htw-mode-button" data-machine-mode="explore" aria-controls="phase-detect-af-scene phase-detect-af-console" disabled>Mở chế độ tự thử</button></p>
+    </div>
+    <div class="htw-try-grid">
+      <div class="htw-explore-slot" data-machine-explore-slot></div>
+      <div class="htw-explore-controls" data-machine-console hidden inert>
+        <p class="htw-explore-return"><button type="button" class="button htw-mode-button" data-machine-mode="reader" aria-controls="phase-detect-af-scene" disabled>Quay lại bài đọc</button></p>
+        <p><a href="#phase-detect-af-scene">Xem lại hình sau khi chỉnh</a></p>
+        <p data-machine-output class="af-control-reading"><span data-camera-reading>Δx = +2,00 đv. hình · Tăng δ về 0</span></p>
+        {% include how-things-work/phase-detect-af-console.html %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="phase-detect-af-ket-qua" class="htw-sources" aria-labelledby="phase-detect-af-ket-qua-h">
+  <h2 id="phase-detect-af-ket-qua-h" tabindex="-1">Đọc kết quả khi không có JavaScript</h2>
+  <p>Hình tĩnh ứng với hàng đầu: mặt đo nằm trước mặt hội tụ; dấu tròn A nằm bên trái dấu vuông B trên đồ thị. Đọc Δ<em>x</em> theo chiều từ A tới B.</p>
+  <div class="table-wrapper">
+    <table>
+      <caption>Δ<em>x</em> = <em>x</em><sub>B</sub> − <em>x</em><sub>A</sub>, tính bằng đơn vị hình, với cách gán A/B ban đầu.</caption>
+      <thead><tr><th scope="col">Mẫu sáng</th><th scope="col">δ</th><th scope="col">Δ<em>x</em></th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Có cạnh · trước hội tụ</th><td>−0,25</td><td>+2</td></tr>
+        <tr><th scope="row">Có cạnh · đúng hội tụ</th><td>0</td><td>0</td></tr>
+        <tr><th scope="row">Có cạnh · sau hội tụ</th><td>+0,25</td><td>−2</td></tr>
+        <tr><th scope="row">Mảng phẳng</th><td>Bất kỳ</td><td>Không xác định</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Đổi A và B lật dấu hai số khác 0 trong bảng. Số 0 vẫn là số 0; trường hợp không xác định vẫn không xác định.</p>
+</section>
+
+<section id="phase-detect-af-tai-lieu" class="htw-sources" aria-labelledby="phase-detect-af-tai-lieu-h">
+  <h2 id="phase-detect-af-tai-lieu-h" tabindex="-1">Nguồn và phép tính</h2>
+  <div class="htw-sources-grid">
+    <div>
+      <h3>Tài liệu tham khảo</h3>
+      <ul>
+        <li id="phase-detect-af-source-s1"><a href="https://global.canon/en/news/2013/jul02e.html" target="_blank" rel="noopener noreferrer">[S1] Canon, Dual Pixel CMOS AF (2/7/2013)</a>: hai photodiode độc lập trong một pixel dùng để tạo ảnh và lấy nét theo pha. Mục <em>Reference information — Phase-difference AF</em> giải thích cách so vị trí hai ảnh để suy ra hướng và mức cần chỉnh.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 id="phase-detect-af-phep-tinh">Tự tính dấu độ lệch</h3>
+      <p>Đặt gốc <em>z</em> ở mặt phẳng khẩu độ. Ở đó, tia A đi qua <em>x</em> = −<em>a</em>, tia B đi qua <em>x</em> = +<em>a</em>, với <em>a</em> = 4 đơn vị hình. Cả hai tới <em>x</em> = 0 tại <em>z</em><sub>f</sub>. Nội suy theo đường thẳng với δ = (<em>z</em> − <em>z</em><sub>f</sub>)/<em>z</em><sub>f</sub> cho <em>x</em><sub>A</sub> = <em>a</em>δ và <em>x</em><sub>B</sub> = −<em>a</em>δ. Vì thế Δ<em>x</em> = −2<em>a</em>δ = −8δ. Chẳng hạn ở δ = −0,25, ta lấy +1 − (−1) = +2.</p>
+      <p>Mỗi tín hiệu có cùng dạng cạnh tăng từ 0,125 lên 0,875 theo mức sáng chuẩn hóa. Mô hình tìm chỗ mỗi cạnh đi qua 0,5 rồi lấy hiệu hai vị trí. Đó là cách đo cho ví dụ có một cạnh, không phải thuật toán lấy nét của Canon.</p>
+    </div>
+    <aside aria-label="Giới hạn mô hình">
+      <h3>Đọc các con số đến đâu?</h3>
+      <p>Đây là mô hình tia gần trục với hai tia đại diện. Hai tín hiệu giữ nguyên hình dạng khi dịch; bài không tính ảnh mờ của một điểm sáng, nhiễu, lấy mẫu pixel hay cảnh có nhiều chi tiết lặp lại. Các số trên hình không phải pixel, milimét hay thông số hiệu chuẩn ống kính; nửa giây mỗi nấc chỉ để dễ quan sát.</p>
+    </aside>
+  </div>
+</section>

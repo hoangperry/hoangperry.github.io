@@ -1,0 +1,88 @@
+{% raw %}
+<figure class="htw-machine-scene htw-playground-scene" id="phase-detect-af-scene" data-machine-scene tabindex="-1" aria-labelledby="phase-detect-af-scene-title">
+<div class="htw-machine-plate">
+<div class="htw-machine-plate-bar">
+<p class="htw-machine-plate-title" id="phase-detect-af-scene-title">Máy ảnh biết phải lấy nét về hướng nào bằng cách nào?</p>
+<button type="button" class="htw-machine-chip htw-machine-theme" data-machine-theme aria-pressed="false" disabled>
+<span class="htw-machine-theme-icon" aria-hidden="true"></span><span>Nền sáng</span></button>
+</div>
+<div class="htw-machine-view"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 599" class="af-svg" role="img" aria-label="Hai đường tia và hai tín hiệu lấy nét theo pha" aria-labelledby="af-title" aria-describedby="af-desc" data-machine-id="af-svg" data-camera-stage="before-focus" data-af-order="normal" data-af-focus="all" data-machine-view="" focusable="false">
+  <title id="af-title">Lấy nét theo pha: hai nửa khẩu độ, hai tín hiệu</title>
+  <desc id="af-desc">Hai tia tiêu biểu từ hai nửa khẩu độ gặp nhau tại mặt hội tụ. Đồ thị đặt hai tín hiệu lấy cùng lúc trên cùng trục vị trí. Hai cạnh đổi thứ tự khi đi qua mặt hội tụ; thứ tự cũng phụ thuộc cách gán nhãn A và B. Với mảng phẳng, không xác định được vị trí cạnh.</desc>
+  <g class="af-optics">
+    <rect class="af-panel" x="8" y="8" width="432" height="310" rx="9"/>
+    <text class="af-heading" x="20" y="32">01 · Bản cắt quang học</text>
+    <path class="af-rule" d="M20 42H428"/>
+    <text x="20" y="65">Khẩu độ</text>
+    <path class="af-axis" d="M26 145H424l-7 -4m7 4l-7 4"/>
+    <text x="423" y="135" text-anchor="end" class="af-muted">z</text>
+    <text x="423" y="197" text-anchor="end" class="af-muted">x ↑</text>
+    <path class="af-focus-plane" d="M320 72V220"/>
+    <text class="af-muted" x="320" y="65" text-anchor="middle">Hội tụ z<tspan baseline-shift="sub" font-size="14">f</tspan></text>
+    <rect class="af-pupil-housing" x="60" y="72" width="16" height="146" rx="5"/>
+    <path class="af-half af-physical-right" d="M68 77V141"/>
+    <path class="af-half af-physical-left" d="M68 149V213"/>
+    <path class="af-rib" d="M55 73H81M55 145H81M55 217H81"/>
+    <text class="af-physical-right af-channel-text" data-af-text="pupil-right" x="46" y="90" text-anchor="end">B</text>
+    <text class="af-physical-left af-channel-text" data-af-text="pupil-left" x="46" y="214" text-anchor="end">A</text>
+    <path class="af-beam af-physical-right" d="M68 77L320 145L398 166.04761904761904"/>
+    <path class="af-beam af-physical-left" d="M68 213L320 145L398 123.95238095238095"/>
+    <circle class="af-focus-point" cx="320" cy="145" r="4"/>
+    <g data-af-mark="plane" transform="translate(257 0)">
+      <path class="af-measure-plane" d="M-7 80H7M0 80V220M-7 220H7"/>
+      <g class="af-hit af-physical-left" data-af-mark="ray-left" transform="translate(0 162)">
+        <circle class="af-mark-a" cx="0" cy="0" r="6.5"/><rect class="af-mark-b" x="-3.5" y="-3.5" width="7" height="7" rx="1"/>
+      </g>
+      <g class="af-hit af-physical-right" data-af-mark="ray-right" transform="translate(0 128)">
+        <circle class="af-mark-a" cx="0" cy="0" r="6.5"/><rect class="af-mark-b" x="-3.5" y="-3.5" width="7" height="7" rx="1"/>
+      </g>
+      <text x="0" y="242" text-anchor="middle">Mặt đo z</text>
+    </g>
+    <path class="af-rule" d="M20 253H428"/>
+    <text x="20" y="278">Chung vi thấu kính</text>
+    <text x="20" y="304" class="af-muted">Hai photodiode</text>
+    <path class="af-microlens" d="M268 279C281 253 394 253 408 279Z"/>
+    <path class="af-rule" d="M267 279H409M267 308H409M338 279V308"/>
+    <rect class="af-diode af-physical-left" x="276" y="283" width="54" height="21" rx="3"/>
+    <rect class="af-diode af-physical-right" x="346" y="283" width="54" height="21" rx="3"/>
+    <text class="af-channel-text af-physical-left" data-af-text="diode-left" x="303" y="300" text-anchor="middle">A</text>
+    <text class="af-channel-text af-physical-right" data-af-text="diode-right" x="373" y="300" text-anchor="middle">B</text>
+  </g>
+  <g class="af-signals">
+    <rect class="af-panel" x="8" y="328" width="432" height="263" rx="9"/>
+    <text class="af-heading" x="20" y="352">02 · Hai tín hiệu cùng lúc</text>
+    <text class="af-muted" x="20" y="378">Mức sáng (0–1)</text>
+    <path class="af-signal-a" d="M236 373H270"/><text class="af-a-text" x="280" y="378">A</text>
+    <path class="af-signal-b" d="M337 373H371"/><text class="af-b-text" x="381" y="378">B</text>
+    <defs><clipPath id="af-plot"><rect x="68" y="391" width="330" height="108"/></clipPath></defs>
+    <g transform="translate(0 26)">
+      <path class="af-grid" d="M68 365H398M68 419H398M113 365V473M233 365V473M353 365V473"/>
+      <path class="af-axis" d="M68 365V473H407l-7 -4m7 4l-7 4"/>
+      <g class="af-muted" text-anchor="end"><text x="57" y="371">1</text><text x="57" y="425">0,5</text><text x="57" y="478">0</text></g>
+      <g class="af-muted" text-anchor="middle"><text x="113" y="495">−4</text><text x="233" y="495">0</text><text x="353" y="495">+4</text></g>
+    </g>
+    <g clip-path="url(#af-plot)">
+      <g transform="translate(0 26)">
+        <path class="af-signal-a" data-af-mark="signal-a" d="M-7 459.5L188 459.5L218 378.5L413 378.5"/>
+        <path class="af-signal-b" data-af-mark="signal-b" d="M53 459.5L248 459.5L278 378.5L473 378.5"/>
+        <g data-af-mark="edges">
+          <path class="af-guide" data-af-mark="edge-guides" d="M203 419V473M263 419V473"/>
+          <circle class="af-edge-a" data-af-mark="edge-a" cx="203" cy="419" r="6.5"/>
+          <rect class="af-edge-b" data-af-mark="edge-b" x="259.5" y="415.5" width="7" height="7" rx="1"/>
+        </g>
+      </g>
+    </g>
+    <text class="af-muted" x="422" y="522" text-anchor="end">x</text>
+    <path class="af-rule" d="M20 534H428"/>
+    <text class="af-result" data-af-text="result" x="20" y="557">Δx = +2,00 đv. hình</text>
+    <text class="af-muted" data-af-text="direction" x="20" y="580">Tăng δ về 0</text>
+  </g>
+</svg></div>
+</div>
+<figcaption class="htw-machine-caption">
+<span class="htw-machine-status" data-machine-status>Phần tương tác chưa chạy; hình đang ở dạng tĩnh.</span>
+<dl class="htw-playground-readout" data-machine-readout aria-label="Số liệu của mô hình"></dl>
+</figcaption>
+<p class="htw-machine-sr" data-machine-announcement aria-live="polite" aria-atomic="true"></p>
+</figure>
+{% endraw %}

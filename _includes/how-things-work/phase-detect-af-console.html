@@ -1,0 +1,40 @@
+{% raw %}
+<div class="htw-machine-console-panel htw-playground-console" id="phase-detect-af-console" data-machine-console-panel>
+<div class="htw-machine-controls" role="group" aria-label="Điều khiển mô hình Máy ảnh biết phải lấy nét về hướng nào bằng cách nào?">
+<button type="button" class="htw-machine-button htw-machine-button--primary" data-machine-run disabled><span class="htw-machine-run-icon" aria-hidden="true"></span><span>Chạy</span></button>
+<button type="button" class="htw-machine-button" data-machine-pause disabled><span class="htw-machine-pause-icon" aria-hidden="true"></span><span>Dừng</span></button>
+<button type="button" class="htw-machine-button" data-machine-step disabled><span class="htw-machine-step-icon" aria-hidden="true"></span><span>Từng bước</span></button>
+<button type="button" class="htw-machine-button" data-machine-reset disabled><span class="htw-machine-reset-icon" aria-hidden="true"></span><span>Đặt lại</span></button>
+</div>
+<fieldset class="htw-playground-group" data-playground-group="measurement">
+<legend class="htw-playground-group-label">Mặt đo và mẫu sáng</legend>
+<div class="htw-playground-control htw-playground-range" data-playground-control="defocus" data-playground-type="range">
+<label class="htw-playground-control-label" id="phase-detect-af-control-defocus-label" for="phase-detect-af-control-defocus">δ · Lệch mặt hội tụ</label>
+<input type="range" class="htw-playground-slider" id="phase-detect-af-control-defocus" data-playground-key="defocus" data-playground-range min="-0.25" max="0.25" step="0.05" disabled>
+<output class="htw-playground-value" id="phase-detect-af-control-defocus-value" for="phase-detect-af-control-defocus" data-playground-output="defocus" aria-live="off"><span data-playground-value-text>—</span> <span class="htw-playground-unit">(tỷ lệ)</span></output>
+</div>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="scene" data-playground-type="segmented" role="group" aria-labelledby="phase-detect-af-control-scene-label">
+<span class="htw-playground-control-label" id="phase-detect-af-control-scene-label">Mẫu sáng</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="scene" data-playground-option="&quot;edge&quot;" aria-pressed="false" disabled>Cạnh tương phản</button>
+<button type="button" class="htw-machine-chip" data-playground-key="scene" data-playground-option="&quot;flat&quot;" aria-pressed="false" disabled>Mảng phẳng</button>
+</span>
+</div>
+<div class="htw-playground-control htw-playground-segmented" data-playground-control="pupil-order" data-playground-type="segmented" role="group" aria-labelledby="phase-detect-af-control-pupil-order-label">
+<span class="htw-playground-control-label" id="phase-detect-af-control-pupil-order-label">Gán nhãn hai nửa khẩu độ</span>
+<span class="htw-playground-options">
+<button type="button" class="htw-machine-chip" data-playground-key="pupil-order" data-playground-option="&quot;normal&quot;" aria-pressed="false" disabled>A = Trái</button>
+<button type="button" class="htw-machine-chip" data-playground-key="pupil-order" data-playground-option="&quot;swapped&quot;" aria-pressed="false" disabled>A = Phải</button>
+</span>
+</div>
+</fieldset>
+<div class="htw-playground-presets" role="group" aria-labelledby="phase-detect-af-presets-label">
+<span class="htw-playground-group-label" id="phase-detect-af-presets-label">Cấu hình mẫu</span>
+<button type="button" class="htw-machine-chip" data-machine-preset="near-plane" disabled>Trước mặt hội tụ</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="aligned" disabled>Đúng mặt hội tụ</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="far-plane" disabled>Sau mặt hội tụ</button>
+<button type="button" class="htw-machine-chip" data-machine-preset="flat-tone" disabled>Mảng phẳng</button>
+</div>
+<p class="htw-machine-note">Dừng, rời tab hoặc quay lại bài đọc đều giữ nguyên trạng thái của mô hình.</p>
+</div>
+{% endraw %}
