@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tự dựng ống kính, quét bán kính, đo vết tia và thiết kế màng phủ quang học nhiều lớp trên từng mặt kính.">
+  <title>Xưởng thiết kế ống kính · How Things Work</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="studio-0d4f928473a95e53.css">
+  <script type="module" src="studio-01a514e3a331c921.js"></script>
+</head>
+<body><main class="studio">
+  <nav class="studio-nav"><a href="../">← Bàn học 50 mm</a><span>HOW THINGS WORK / QUANG HỌC</span></nav>
+  <header class="studio-header"><div><p class="lens-kicker">XƯỞNG THỰC HÀNH / THIẾT KẾ TỪNG MẶT KÍNH</p><h1>Tự dựng ống kính</h1><p>Bắt đầu với một phôi phẳng. Uốn từng mặt để gom tia, rồi xếp lớp phủ để thay đổi lượng sáng truyền qua.</p></div><a href="#first-lens">Cách dựng chiếc đầu tiên ↓</a></header>
+  <noscript><p>Cần bật JavaScript để sửa kính và truy vết tia. Phần hướng dẫn cuối trang vẫn đọc được.</p></noscript>
+  <p id="boot-status" role="status">Đang mở bàn thiết kế…</p>
+  <div id="workspace" hidden>
+    <section class="project-bar" aria-label="Hồ sơ thiết kế">
+      <label>Tên thiết kế<input type="text" id="project-name" maxlength="80" required></label>
+      <div class="studio-file-tools"><button type="button" id="save" class="lens-primary">Lưu bản nháp</button><button type="button" id="export">Tải JSON</button><label class="file-button">Mở JSON<input type="file" id="import" accept=".json,application/json"></label></div>
+      <div class="project-start"><label for="starter">Điểm xuất phát</label><select id="starter"><option value="blank">Phôi kính phẳng</option><option value="singlet">Thấu kính đơn</option><option value="doublet">Cặp tiêu sắc</option><option value="triplet">Cooke ba kính</option><option value="tessar">Tessar bốn kính</option><option value="gauss">Gauss kép</option><option value="canon">Canon phi cầu</option><option value="sigma">Sigma · đầu rộng</option></select><button type="button" id="new-design">Tạo bản mới</button></div>
+      <p id="project-status" class="studio-status" role="status"></p>
+    </section>
+    <nav class="studio-shortcuts" aria-label="Di chuyển trong xưởng"><a href="#editor-title">Sửa kính</a><a href="#measurement-title">Xem đường tia</a><a href="#planes-title">Đặt mặt ảnh</a><a href="#sweep-title">Quét bán kính</a><a href="#coating-studio">Thiết kế lớp phủ</a><a href="#san-xuat">Quy trình sản xuất</a></nav>
+    <div class="studio-columns">
+      <section class="studio-panel studio-output" aria-labelledby="measurement-title">
+        <div class="panel-title"><span class="index">01</span><h2 id="measurement-title">Bàn đo quang học</h2></div>
+        <div class="plot-header"><h3>Đường truyền tia</h3><label>Góc nhìn <select id="view-field"><option value="0">0° · tâm</option><option value="6">6°</option><option value="12">12° · rìa</option></select></label></div>
+        <svg id="section-view" viewBox="0 0 740 260" role="img" aria-label="Mặt cắt ống kính và đường truyền ba màu tới cảm biến"><defs><clipPath id="studio-clip"><rect x="16" y="18" width="708" height="209"/></clipPath></defs><g id="section-drawing" clip-path="url(#studio-clip)"></g><g id="section-labels"></g></svg>
+        <p class="plot-key"><span class="lens-key red">C · đỏ</span><span class="lens-key d">d · vàng-lục</span><span class="lens-key blue">F · lam</span><span class="lens-key sensor">Cảm biến</span></p>
+        <p id="optical-error" role="status" class="instrument-note"></p>
+        <div class="goals"><label>Tiêu cự đích (mm)<input id="target-efl" type="number" min="0.01" step="any" required></label><label>Số khẩu đích<input id="target-fno" type="number" min="0.01" step="any" required></label></div>
+        <div class="readings"><div><small>Tiêu cự đo được</small><strong id="efl">—</strong><span id="efl-delta"></span></div><div><small>Khẩu độ ở vô cực</small><strong id="fno">—</strong><span id="fno-delta"></span></div></div>
+        <div class="plot-header"><h3>Vết tia trên cảm biến</h3><button type="button" id="pin">Ghim đối chiếu</button></div>
+        <svg id="studio-spot" viewBox="0 0 520 164" role="img" aria-label="Giao điểm tia theo màu trên cùng trục micromét"><g id="spot-drawing"></g></svg>
+        <p id="spot-caption" class="studio-note"></p>
+        <table class="data-table"><caption>Cùng một vị trí cảm biến · vật ở vô cực</caption><thead><tr><th>Trường</th><th>RMS (µm)</th><th>Tia tới</th><th>RMS ghim (µm)</th></tr></thead><tbody id="field-report"></tbody></table>
+        <div class="reference-info"><span id="reference-caption">Chưa ghim mốc.</span><button type="button" id="clear-reference" hidden>Bỏ ghim</button></div>
+      </section>
+      <div class="studio-inputs"><section class="studio-panel" aria-labelledby="editor-title"><div class="panel-title"><span class="index">02</span><h2 id="editor-title">Bản kê phần tử</h2></div><p class="studio-note">Theo chiều ánh sáng: từ vật đến cảm biến. Bán kính R có dấu; để trống nếu mặt phẳng.</p><div id="prescription-editor"></div></section>
+      <section class="studio-panel" aria-labelledby="planes-title"><div class="panel-title"><span class="index">03</span><h2 id="planes-title">Lá khẩu &amp; mặt ảnh</h2></div>
+        <div class="control-pairs"><label>Khẩu sau kính số<input id="stop-after" type="number" min="0" step="1" required></label><label>Lệch khỏi mốc (mm)<input id="stop-offset" type="number" step="any" required></label><label>Bán kính lá khẩu (mm)<input id="stop-radius" type="number" min="0.001" step="any" required></label><label>Vị trí cảm biến (mm)<input id="sensor" type="number" step="any" required></label></div>
+        <p class="studio-note">Mốc 0 là đỉnh mặt đầu, mốc khác là đỉnh mặt sau kính đã chọn. Cảm biến tính từ đỉnh mặt đầu.</p><button type="button" id="fit">Đặt cảm biến nét ở tâm</button>
+      </section></div>
+    </div>
+    <section class="studio-panel study-panel" aria-labelledby="sweep-title"><div class="panel-title"><span class="index">04</span><h2 id="sweep-title">Thử một dải bán kính</h2></div><p>Quét năm giá trị trên một mặt của kính đang chọn. Giữ nguyên cảm biến và lá khẩu; chỉ khi bấm <strong>Áp dụng</strong> thì thiết kế mới đổi.</p>
+      <form id="sweep-form" class="sweep-controls"><label>Mặt cần quét<select id="sweep-side"><option value="front">Trước</option><option value="back">Sau</option></select></label><label>Từ R (mm)<input id="sweep-from" type="number" step="any" value="30" required></label><label>Đến R (mm)<input id="sweep-to" type="number" step="any" value="70" required></label><button type="submit">Quét 5 giá trị</button></form>
+      <p id="sweep-status" class="studio-note" role="status"></p><div id="sweep-results" hidden><table class="data-table"><caption id="sweep-caption"></caption><thead><tr><th>R (mm)</th><th>Tiêu cự (mm)</th><th>Số khẩu</th><th>RMS (µm)</th><th>Tia tới</th><th>Chọn</th></tr></thead><tbody id="sweep-rows"></tbody></table></div>
+    </section>
+    <section id="coating-studio" class="studio-panel" aria-labelledby="coating-title">
+      <div class="panel-title"><span class="index">05</span><h2 id="coating-title">Thiết kế lớp phủ</h2></div>
+      <p>Tia có thể đã đến đúng tiêu điểm nhưng một phần ánh sáng vẫn phản xạ ở mặt kính. Hãy thử một lớp MgF₂, rồi đổi vật liệu hoặc xếp thêm lớp để xem phần nào của phổ được truyền qua.</p>
+      <div class="film-layout">
+        <div class="film-recipe">
+          <div class="control-pairs"><label>Phần tử kính<select id="film-element"></select></label><label>Mặt phủ<select id="film-side"><option value="front">Mặt trước</option><option value="back">Mặt sau</option></select></label></div>
+          <p id="film-contact" class="instrument-note"></p>
+          <fieldset id="film-tools">
+            <legend>Công thức màng mỏng</legend>
+            <div class="film-start"><label>Mẫu khởi đầu<select id="film-preset"><option value="single">Chống phản xạ · MgF₂</option><option value="double">Chống phản xạ đa lớp · MgF₂ / Al₂O₃</option><option value="sic">SiC · một lớp chiết suất cao</option><option value="mirror">Gương Bragg · 3 cặp TiO₂ / SiO₂</option><option value="bare">Mặt trần · không phủ</option></select></label><button type="button" id="film-apply">Dùng mẫu</button></div>
+            <p class="studio-note">Đọc từ không khí vào nền kính trên cả hai mặt. Mẫu λ/4 dùng bước sóng đang đo, tính ở góc tới 0°.</p>
+            <p class="film-stack-heading">KHÔNG KHÍ <span>↓</span></p><ol id="film-layers" aria-label="Thứ tự màng từ ngoài vào trong"></ol>
+            <p id="film-substrate" class="film-stack-heading"></p>
+            <div class="lens-options"><button type="button" id="film-add">Thêm lớp sát kính</button><button type="button" id="film-copy">Chép sang các mặt hở</button></div>
+          </fieldset>
+          <p id="film-status" role="status" class="studio-note"></p>
+        </div>
+        <div class="film-measure">
+          <h3>Phổ phản xạ của một mặt</h3>
+          <div class="control-pairs"><label for="film-wave">Bước sóng đo <output id="film-wave-out" for="film-wave"></output><input type="range" id="film-wave" min="490" max="650" value="550" step="1"></label><label for="film-angle">Góc tới từ không khí <output id="film-angle-out" for="film-angle"></output><input type="range" id="film-angle" min="0" max="60" value="0" step="1"></label></div>
+          <svg id="film-spectrum" viewBox="0 0 400 170" role="img" aria-labelledby="film-plot-title film-plot-desc"><title id="film-plot-title">Phản xạ theo bước sóng</title><desc id="film-plot-desc">Tỷ lệ công suất phản xạ của ánh sáng không phân cực, so với mặt trần cùng vật liệu. Trục ngang là nanomét, trục đứng là phần trăm.</desc><g id="film-curves"></g><path id="film-cursor" class="film-cursor"/></svg>
+          <p class="film-legend"><span>Đang thiết kế</span><span>Mặt trần</span><span id="film-pin-key" hidden>Mốc ghim</span></p>
+          <p id="film-readout" class="film-readout"></p><p id="film-polar" class="studio-note"></p>
+          <div class="lens-options"><button type="button" id="film-pin">Ghim phổ này</button><button type="button" id="film-unpin" hidden>Bỏ mốc phổ</button><span id="film-reference" class="studio-note"></span></div>
+          <p id="film-system" class="film-system"></p>
+        </div>
+      </div>
+      <details class="film-notes"><summary>Cách đọc kết quả · SIC của Nikon khác gì vật liệu SiC?</summary>
+        <p><a href="https://imaging.nikon.com/imaging/lineup/lens/glossary/#sic">Nikon Super Integrated Coating (SIC)</a> là tên công nghệ chống phản xạ đa lớp. Nikon mô tả tác dụng, không cho thứ tự và độ dày từng lớp ở nguồn này. Mẫu đa lớp trong xưởng để thử nguyên lý, không phải công thức Nikon. <a href="https://doi.org/10.1364/AO.10.001034">β-SiC (silicon carbide)</a> là một vật liệu khác; chiết suất cao không tự động có nghĩa là phản xạ thấp.</p>
+        <p>Phổ dùng giao thoa màng phẳng, nhẵn, không hấp thụ (k = 0); lấy chiết suất khối tham chiếu, theo tia thường cho tinh thể lưỡng chiết. Màng chế tạo thực tế có thể khác. R và T là phần công suất; s và p là hai phân cực. Phép đo một mặt luôn chiếu từ không khí, không phải góc trường của ống.</p>
+        <p>Truyền thẳng toàn ống là tích truyền qua từng mặt ở 0°, chỉ tính lượt đi đầu tiên. Mặt dán tính một tiếp giáp kính–kính, không tính màng hoặc keo. Không mô phỏng ảnh ma, tán xạ, hấp thụ trong kính hay T-stop; lớp phủ không đổi tiêu cự hoặc RMS hình học.</p>
+        <p>Nguồn chiết suất theo bước sóng: <span id="film-sources"></span>.</p>
+      </details>
+    </section>
+    <section id="san-xuat" class="studio-panel factory" aria-labelledby="factory-title">
+      <div class="panel-title"><span class="index">06</span><h2 id="factory-title">Một ống kính được làm ra như thế nào?</h2></div>
+      <p class="factory-intro">Theo một phiếu qua xưởng, từ phôi kính đến ống đã lắp. Mỗi trạm cho biết cần làm gì, kiểm tra bằng gì và khi nào phải giữ lại chi tiết. Chọn trạm bất kỳ để xem; muốn hoàn tất phiếu thì lần lượt kiểm từng trạm.</p>
+      <div class="factory-toolbar"><button type="button" id="factory-start" class="lens-primary">Lập phiếu từ thiết kế đang mở</button><button type="button" id="factory-demo">Thử mẫu cặp tiêu sắc có phủ</button><button type="button" id="factory-download">Tải phiếu (.txt)</button></div>
+      <p id="factory-change" class="instrument-note" role="status"></p>
+      <header class="factory-batch"><div><p class="lens-kicker" id="factory-origin"></p><h3 id="factory-name"></h3><p id="factory-summary"></p></div><div class="factory-meter"><label for="factory-progress" id="factory-progress-label"></label><progress id="factory-progress" value="0" max="1"></progress></div></header>
+      <div class="factory-layout">
+        <nav class="factory-stations" aria-label="Trạm chế tạo"><ol id="factory-stations"></ol></nav>
+        <article class="factory-station">
+          <div class="factory-heading"><p class="lens-kicker" id="factory-index"></p><h3 id="factory-stage" tabindex="-1"></h3></div>
+          <div class="factory-operation"><figure id="factory-art" aria-label="Minh họa nguyên lý, không theo tỷ lệ"></figure><div><p id="factory-operation"></p><p class="factory-check"><strong>Kiểm bằng gì?</strong><br><span id="factory-inspection"></span></p></div></div>
+          <details id="factory-specs" open><summary>Việc cần làm theo bản thiết kế</summary><ul id="factory-jobs"></ul></details>
+          <form id="factory-form" class="factory-form" novalidate>
+            <h4>Kiểm tra trước khi chuyển trạm</h4><p id="factory-hint"></p>
+            <div id="factory-inputs"></div>
+            <p class="factory-result" id="factory-result" role="status"></p>
+            <button type="submit" id="factory-accept" class="lens-primary">Xác nhận kiểm tra</button>
+            <button type="button" id="factory-resume" hidden>Về trạm đang làm</button>
+          </form>
+          <a class="lens-jump" id="factory-trial-link" href="#thu-sai-so" hidden>Thử ảnh hưởng của bề dày lên vết tia →</a>
+        </article>
+      </div>
+      <details id="thu-sai-so" class="factory-trial">
+        <summary>Thử sai số gia công: ống còn nét như bản vẽ không?</summary>
+        <p>Giả sử một miếng kính dày hơn hoặc hai kính cách nhau xa hơn dự kiến. Nhập kích thước thực hành hoặc lấy bề dày từ lần kiểm gần nhất tại trạm <strong>Tạo hình hai mặt</strong>. Phép thử không sửa phiếu và không quyết định đạt hay loại.</p>
+        <p id="trial-ticket" class="lens-kicker"></p>
+        <form id="trial-form" novalidate>
+          <div class="factory-toolbar"><button type="button" id="trial-copy" disabled>Lấy bề dày đã kiểm</button><button type="button" id="trial-reset">Về kích thước bản vẽ</button></div>
+          <p id="trial-copy-note" class="studio-note"></p>
+          <div id="trial-dimensions"></div>
+          <button type="submit" class="lens-primary">So với bản vẽ</button>
+        </form>
+        <p id="trial-status" class="studio-note" role="status"></p>
+        <table class="data-table" id="trial-results" hidden>
+          <caption>Dự đoán ở cùng vị trí cảm biến · vật ở vô cực</caption>
+          <thead><tr><th scope="col">Đại lượng</th><th scope="col">Bản vẽ</th><th scope="col">Bản thử</th><th scope="col">Chênh lệch</th></tr></thead><tbody></tbody>
+        </table>
+        <p class="studio-note">RMS là độ phân tán vết tia; số nhỏ hơn không nhất thiết tốt hơn nếu có ít tia tới cảm biến hơn. Giữ vị trí cảm biến tính từ đỉnh mặt đầu, không tự lấy nét lại. Khẩu giữ độ lệch so với kính làm mốc. Không mô phỏng lệch tâm, nghiêng kính hay sai số lớp phủ.</p>
+      </details>
+      <p class="studio-note">Các số đo do bạn nhập cho bài thực hành. Dung sai ở đây là giả định để học, không phải tiêu chuẩn nhà máy. Phiếu chỉ giữ trong phiên này; hãy tải phiếu nếu muốn lưu kết quả.</p>
+      <details class="film-notes"><summary>Đối chiếu với sản xuất thực tế</summary>
+        <p>Đây là một tuyến chế tạo quang–cơ điển hình, không phải công thức riêng của một hãng. <a href="https://global.canon/en/technology/canon-tech/interview/element/">Canon mô tả cả gia công lẫn ép khuôn kính phi cầu</a>; bản thiết kế phi cầu không tự quyết định phải dùng công nghệ nào.</p>
+        <p><a href="https://www.edmundoptics.com/knowledge-center/application-notes/optics/tips-for-designing-manufacturable-lenses-and-assemblies/">Edmund Optics giải thích lượng dư gia công, định tâm và sai lệch tích lũy lúc lắp</a>. Ở khâu cuối, <a href="https://www.sigma-global.com/en/manufacturing/">Sigma mô tả phép đo MTF trên từng ống Global Vision</a>. Xưởng này chỉ đối chiếu các số đo của bài tập; không đo MTF thật, độ bền hay chứng nhận xuất xưởng.</p>
+      </details>
+    </section>
+  </div>
+  <section id="first-lens" class="studio-guide"><p class="lens-kicker">THỰC HÀNH / THIẾT KẾ ĐẦU TIÊN</p><h2>Từ tấm kính đến một ống hội tụ</h2><ol><li><strong>Tạo độ cong.</strong> Từ phôi N-BK7, đặt mặt trước +50 mm, mặt sau −50 mm. So với hai mặt phẳng: tia song song bắt đầu hội tụ. Số dương nghĩa là tâm cong nằm về phía cảm biến.</li><li><strong>Đặt mặt ảnh.</strong> Bấm “Đặt cảm biến nét ở tâm”, ghim kết quả, rồi nhìn số tia và RMS ở 12°. Nét giữa ảnh không đảm bảo nét rìa.</li><li><strong>Chỉnh có đối chứng.</strong> Quét R mặt trước từ 30 đến 70 mm; chọn một cấu hình gần tiêu cự đích. Nếu RMS giảm nhưng mất nhiều tia, đừng vội coi là cải thiện. Lưu bản nháp để mở lại hoặc tải JSON để giữ nhiều phiên bản.</li></ol>
+  <p>Mô hình truy vết hình học trong một lát cắt với ba bước sóng và 15 tia mẫu mỗi màu. RMS là độ phân tán giao điểm, không phải MTF hay ảnh chụp. Số tia tới không phải phần trăm công suất sáng. Có thể <a href="#thu-sai-so">thử sai số bề dày và khe khí</a>; chưa xét nhiễu xạ toàn hệ, nghiêng kính hoặc lệch tâm. <a href="../#lesson-title">Cơ sở mô hình và nguồn dữ liệu kính</a>.</p></section>
+</main></body>
+</html>
