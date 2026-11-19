@@ -1,6 +1,12 @@
 <div id="lens-design-lab" class="lens-page" data-theme="dark">
     <p class="lens-lede">Lấy nét cho tia lục là chưa đủ. Thử gom ba màu trên cùng một cảm biến ở 50 mm f/4. Bắt đầu với một miếng kính, thử các bố cục nhiều nhóm rồi mở zoom Sigma để xem nhóm lấy nét dịch chuyển ra sao.</p>
     <noscript><img class="lens-fallback" src="{{ '/assets/how-things-work/lens-design/thumbnail.webp' | relative_url }}" alt="Mặt cắt cụm Canon tám kính: các tia đi qua lá khẩu rồi hội tụ tại cảm biến."></noscript>
+    <nav class="lens-options lens-entry" aria-label="Chọn bàn làm việc">
+      <a class="lens-jump" href="studio/">Mở xưởng tự thiết kế →</a>
+      <a class="lens-jump" href="studio/#coating-studio">Thiết kế lớp phủ quang học →</a>
+      <a class="lens-jump" href="studio/#san-xuat">Từ phôi kính đến ống hoàn chỉnh →</a>
+      <a class="lens-jump" href="#ban-thu">Thử các mẫu của bài ↓</a>
+    </nav>
 
     <section class="htw-machine lens-bench" id="ban-thu" aria-labelledby="bench-title">
       <header class="lens-bench-head">
@@ -69,7 +75,8 @@
             <p id="result-note" class="lens-note lens-result" role="status"></p>
             <figure class="lens-figure lens-spot">
               <div class="lens-figure-head"><h3>Vết tia trên cảm biến</h3><span id="spot-scale"></span></div>
-              <svg id="spot-view" viewBox="0 0 520 142" role="img" aria-labelledby="spot-title spot-desc"><title id="spot-title">Vết sáng theo màu trên cảm biến</title><desc id="spot-desc">Các dấu được tách theo màu để dễ so; độ lệch chỉ đo theo phương ngang.</desc><g id="spot-drawing"></g></svg>
+              <svg id="spot-view" viewBox="0 0 520 164" role="img" aria-labelledby="spot-title spot-desc"><title id="spot-title">Vết sáng theo màu trên cảm biến</title><desc id="spot-desc">Ba hàng chấm là giao điểm tia hình học. Thanh Ø bên dưới, khi có, biểu diễn đường kính đĩa Airy lý tưởng trên cùng thang micromét.</desc><g id="spot-drawing"></g></svg>
+              <p class="lens-note lens-airy"><strong>Ø Airy lý tưởng · vạch d:</strong> <span id="airy-reading">—</span></p>
               <p id="pin-info" class="lens-note" role="status" hidden></p>
               <figcaption>Ba hàng tách theo màu cho dễ đọc; trục ngang dùng chung. Đây là vết tia hình học 1D, không phải ảnh hay PSF 2D.</figcaption>
             </figure>
@@ -155,14 +162,16 @@
         <li><strong>Dùng thêm kính có tán sắc khác.</strong> Mở cặp tiêu sắc, đưa về f/4 và đặt lại cảm biến của thiết kế này. So hai phép đo. Sau đó chọn một miếng trong cặp, đổi nó thành cùng loại kính với miếng kia: số lượng kính không đổi, nhưng độ bù sắc sai thay đổi. Tiêu cự tốt ở tâm chưa nói gì về rìa ảnh; kéo góc trường để thử lát cắt lệch trục.</li>
         <li><strong>So nét ở tâm và ngoài trục.</strong> Để vật ở vô cực, chọn cặp tiêu sắc rồi ghim ở f/4. Kéo góc trường từ 0° lên 12° mà không dời cảm biến. Lần lượt chọn Cooke, Tessar và Gauss kép: đều là 50 mm f/4 nhưng số nhóm, vị trí lá khẩu và mặt dán khác nhau. So cả RMS lẫn số tia tới đích: thêm kính không tự động làm ảnh nét hơn ở mọi góc.</li>
         <li><strong>Lắp nhóm của bạn.</strong> Ghim lại cặp tiêu sắc, thêm một miếng kính ở cuối, rồi cho mặt trước bán kính +100 mm. Miếng mới bắt đầu là tấm phẳng; khi uốn mặt, nó có thêm quang lực. Đặt lại cảm biến và so tiêu cự, RMS lẫn số tia tới đích. Chỉ giữ thay đổi nào cải thiện vệt mà không đánh mất mục tiêu 50 mm và f/4.</li>
-        <li><strong>Thử một ống tiêu cự cố định mở lớn.</strong> Mở Canon phi cầu và chọn góc 0°. Ghim ở f/1,2 rồi bấm <strong>Đưa về f/4</strong>; giữ nguyên cảm biến để thấy cùng một bố cục thay đổi ra sao khi cắt tia rìa. Mở trình chỉnh kính, chọn phần tử số 2 và xem các hệ số A4–A10 của mặt trước.</li>
+        <li><strong>Khép khẩu mãi có nét hơn không?</strong> Chọn Canon phi cầu, vật ở vô cực và góc 0°. Ghim ở f/1,2 rồi bấm <strong>Đưa về f/4</strong>, không dời cảm biến. So RMS với mốc ghim: các tia rìa bị chặn, vệt hình học thu lại. Nhìn thanh Ø ngay dưới ba hàng chấm: vì sao đốm nhiễu xạ lý tưởng lại rộng ra? Mở trình chỉnh kính, chọn phần tử số 2 để xem các hệ số phi cầu A4–A10 của mặt trước.</li>
         <li><strong>Tách zoom, lấy nét và motor.</strong> Mở mẫu Sigma. Đổi giữa ba bộ khoảng cách trong bảng để thấy các nhóm đổi chỗ theo zoom. Chọn vật hữu hạn và giữ nguyên cảm biến. Chạy một lần, đổi motor rồi chạy lại cùng hành trình. VCM tạo lực dọc trục; siêu âm trượt tác động trực tiếp lên thanh; siêu âm vòng tạo chuyển động quay, qua cam mới thành tịnh tiến.</li>
       </ol>
       <h2>Phép đo đang nói gì?</h2>
       <p>Tia khúc xạ tại từng mặt theo định luật Snell. Mặt phi cầu dùng hệ số conic và các bậc chẵn; ở khe bằng 0 chỉ có một lần khúc xạ kính–kính. Tiêu cự và khẩu độ được tính gần trục; RMS là độ lệch chuẩn của tất cả giao điểm tia truyền tới cùng một cảm biến trong lát cắt. Nhóm lấy nét được dò trong hành trình hữu hạn để giảm RMS hình học, không phải firmware AF của một hãng.</p>
-      <p>Đây là bàn học thiết kế, không phải phần mềm duyệt sản xuất: không có nhiễu xạ, lớp phủ, nhiễu cảm biến, dung sai chế tạo hay PSF 2D. Tia không tới cảm biến không được xem là nét. Tỷ lệ tia mẫu tới đích không phải phần trăm công suất sáng hay T-stop. Mô hình motor minh họa đường truyền lực và vị trí, không dự báo tốc độ hay lực motor thật.</p>
+      <p>Thanh Ø là thước độ dài, không phải hàng tia thứ tư. Với một điểm sáng ở vô cực trên trục, khẩu tròn lý tưởng và ảnh đúng nét, đường kính vòng tối đầu tiên xấp xỉ 2,44 × λ × N. Ở đây λ là bước sóng vàng-lục 0,5876 µm, N là số khẩu. Khép khẩu làm N tăng. Thước này không đổi khi dời cảm biến: nó mô tả ảnh lý tưởng ở tiêu điểm, không phải vết mất nét đang đo.</p>
+      <p>RMS đo độ phân tán của tia trong một lát cắt; Ø đo đường kính đĩa nhiễu xạ. Không cộng hai số hoặc lấy chỗ chúng bằng nhau làm “khẩu nét nhất”. Bàn thử không tính ảnh điểm 2D (PSF), lớp phủ, nhiễu cảm biến hay dung sai chế tạo. Tỷ lệ tia mẫu tới đích không phải phần trăm công suất sáng hay T-stop. Hình motor minh họa đường truyền lực và vị trí, không dự báo tốc độ hay lực motor thật.</p>
       <h2>Nguồn để đối chiếu</h2>
       <ul>
+        <li><a href="https://www.edmundoptics.com/knowledge-center/application-notes/imaging/limitations-on-resolution-and-contrast-the-airy-disk/">Edmund Optics · The Airy Disk and Diffraction Limit</a>: công thức (1) cho đường kính đĩa Airy của khẩu tròn.</li>
         <li><a href="https://patents.google.com/patent/US4364644A/en">Canon · US4364644A, ví dụ 1</a>: Gauss 8 kính với một mặt phi cầu. Bàn thử thu kích thước từ tiêu cự chuẩn hóa 100 xuống 50 mm, giữ cách dịch 7 kính trước của ví dụ và giữ lá khẩu cố định trong mô phỏng.</li>
         <li><a href="https://patents.google.com/patent/JP7751289B2/en">Sigma · JP7751289B2, ví dụ số 1</a>: bán kính, bề dày, chỉ số d, số Abbe, hệ số phi cầu, khoảng cách nhóm tại ba mốc zoom và hai khoảng vật. Miệng kính và chỉ số đỏ/lam trong bàn thử là ước lượng có ghi rõ, không phải dữ liệu đầy đủ của một ống bán lẻ.</li>
         <li><a href="https://media.schott.com/api/public/content/41e799d0bf874807a0bb8e702fbb75b5?v=54856406">SCHOTT N-BK7</a> và <a href="https://media.schott.com/api/public/content/061f3156c83a44ed9220770b0f65a869?v=">N-F2</a>: dữ liệu thủy tinh cho các mẫu học 50 mm.</li>
