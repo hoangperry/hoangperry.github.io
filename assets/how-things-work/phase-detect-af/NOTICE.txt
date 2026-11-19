@@ -2,7 +2,7 @@ How Things Work playground: Máy ảnh biết phải lấy nét về hướng n�
 Topic: phase-detect-af
 Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 4efc03970aed98903981ffed7d6c8b1f99be13f02bb3aed6418e20ef2365fa64
+Source digest: e5bf175745adcc908f0856a5adda359d037705edb3ae39b841d8ce031f2c7b75
 Checks recorded in the build receipt:
 - phase-detect-af/model.test.mjs: 10/10 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/phase-detect-af/tests/model.test.mjs)
 - Mode invariance: passed, 4 scripts
@@ -11,3 +11,5 @@ Limitations:
 - Hình học tia gần trục với hai tia đại diện từ hai nửa khẩu độ. a = 4 và độ dịch đo bằng đơn vị hình, không phải thông số ống kính hay số pixel.
 - Hai tín hiệu cùng lúc là hai bản dịch ngang của cùng một cạnh lý tưởng. Mảng phẳng không cho vị trí cạnh, độ dịch hay hướng chỉnh. Không mô phỏng PSF, nhiễu, lấy mẫu pixel hoặc thuật toán của hãng.
 - Dịch mặt đo để quan sát sai lệch so với mặt hội tụ; không phải cảm biến trượt khi lấy nét. Hiệu chỉnh một nấc mỗi nửa giây chỉ là nhịp trình diễn, không mô phỏng motor, chiều quay hay độ trễ cơ khí.
+
+Geometry generated with the repository-pinned Anatomy kit (MIT).
