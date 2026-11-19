@@ -1,0 +1,173 @@
+<div id="lens-design-lab" class="lens-page" data-theme="dark">
+    <p class="lens-lede">Lấy nét cho tia lục là chưa đủ. Thử gom ba màu trên cùng một cảm biến ở 50 mm f/4. Bắt đầu với một miếng kính, thử các bố cục nhiều nhóm rồi mở zoom Sigma để xem nhóm lấy nét dịch chuyển ra sao.</p>
+    <noscript><img class="lens-fallback" src="{{ '/assets/how-things-work/lens-design/thumbnail.webp' | relative_url }}" alt="Mặt cắt cụm Canon tám kính: các tia đi qua lá khẩu rồi hội tụ tại cảm biến."></noscript>
+
+    <section class="htw-machine lens-bench" id="ban-thu" aria-labelledby="bench-title">
+      <header class="lens-bench-head">
+        <div><p class="lens-kicker">01 / THIẾT KẾ QUANG HỌC</p><h2 id="bench-title">Một cảm biến cho ba màu</h2></div>
+        <button type="button" id="theme" hidden>Nền sáng</button>
+      </header>
+      <noscript><p>Bật JavaScript để truy vết tia và chạy motor. Phần giải thích, cách thử và nguồn bên dưới vẫn đọc được.</p></noscript>
+      <p id="load-error" class="lens-warning" role="alert" hidden></p>
+      <div id="lens-controls" hidden>
+        <div class="lens-toolbar">
+          <fieldset id="preset" aria-describedby="preset-scale">
+            <legend>Mở thiết kế</legend>
+            <div class="lens-library">
+              <div class="lens-family" role="group" aria-labelledby="preset-basics">
+                <p id="preset-basics" class="lens-family-title">01 · Nền tảng</p>
+                <div class="lens-presets">
+                  <button type="button" data-design="singlet" aria-pressed="true"><strong>Thấu kính đơn</strong></button>
+                  <button type="button" data-design="doublet" aria-pressed="false"><strong>Cặp tiêu sắc</strong></button>
+                </div>
+              </div>
+              <div class="lens-family" role="group" aria-labelledby="preset-classics">
+                <p id="preset-classics" class="lens-family-title">02 · Bố cục cổ điển</p>
+                <div class="lens-presets">
+                  <button type="button" data-design="triplet" aria-pressed="false"><strong>Cooke</strong></button>
+                  <button type="button" data-design="tessar" aria-pressed="false"><strong>Tessar</strong></button>
+                  <button type="button" data-design="gauss" aria-pressed="false"><strong>Gauss kép</strong></button>
+                </div>
+              </div>
+              <div class="lens-family" role="group" aria-labelledby="preset-published">
+                <p id="preset-published" class="lens-family-title">03 · Thiết kế công bố</p>
+                <div class="lens-presets">
+                  <button type="button" data-design="canon" aria-pressed="false"><strong>Canon phi cầu</strong></button>
+                  <button type="button" data-design="sigma" aria-pressed="false"><strong>Zoom Sigma</strong></button>
+                </div>
+              </div>
+            </div>
+            <p id="preset-scale" class="lens-note">Vạch đứng là lá khẩu. Mặt cắt thu theo từng mẫu, không cùng tỉ lệ.</p>
+          </fieldset>
+          <fieldset id="zoom-controls" hidden>
+            <legend>Ba cấu hình, không nội suy cam zoom</legend>
+            <div class="lens-fields">
+              <label>Vị trí zoom<select id="zoom"><option value="wide">50,50 mm</option><option value="mid">85,38 mm</option><option value="tele">136,50 mm</option></select></label>
+              <label>Khoảng cách theo bảng<select id="conjugate"><option value="infinity">Vô cực</option><option value="near">Hữu hạn · theo bản công bố</option></select></label>
+            </div>
+          </fieldset>
+          <div class="lens-selection">
+            <p id="design-origin" class="lens-note" aria-live="polite"></p>
+            <div class="lens-options"><button type="button" id="pin">Ghim đối chiếu</button><button type="button" id="clear-pin" hidden>Bỏ ghim</button></div>
+          </div>
+        </div>
+
+        <div class="lens-workspace">
+          <div class="lens-instruments">
+            <figure class="lens-figure">
+              <div class="lens-figure-head"><h3>Mặt cắt dọc trục</h3><span id="section-caption"></span></div>
+              <svg id="ray-view" viewBox="0 0 740 260" role="img" aria-labelledby="ray-title ray-desc"><title id="ray-title">Đường tia qua thiết kế hiện tại</title><desc id="ray-desc">Ba bước sóng đi từ trái sang phải qua kính và tới mặt phẳng cảm biến.</desc><defs><clipPath id="lens-trace-clip"><rect x="16" y="21" width="708" height="206"/></clipPath></defs><g id="ray-drawing" clip-path="url(#lens-trace-clip)"></g><g id="ray-labels"></g></svg>
+              <label class="lens-wavelength">Tia hiện trên mặt cắt <select id="wavelength"><option value="all">Cả ba màu</option><option value="r">Đỏ · C</option><option value="d">Vàng-lục · d</option><option value="b">Lam · F</option></select></label>
+              <figcaption><span class="lens-key red">Đỏ · C</span><span class="lens-key d">Vàng-lục · d</span><span class="lens-key blue">Lam · F</span><span class="lens-key sensor">Cảm biến</span><span class="lens-key focus-key">Nhóm lấy nét</span></figcaption>
+            </figure>
+            <div id="metrics" class="lens-metrics" aria-label="Kết quả đang đo">
+              <div><span>Tiêu cự hiệu dụng</span><strong id="out-efl">—</strong></div>
+              <div><span>Khẩu độ ở vô cực</span><strong id="out-fno">—</strong></div>
+              <div><span>RMS vệt dọc lát cắt</span><strong id="out-rms">—</strong></div>
+              <div><span>Tia mẫu tới cảm biến</span><strong id="out-rays">—</strong></div>
+            </div>
+            <p id="result-note" class="lens-note lens-result" role="status"></p>
+            <figure class="lens-figure lens-spot">
+              <div class="lens-figure-head"><h3>Vết tia trên cảm biến</h3><span id="spot-scale"></span></div>
+              <svg id="spot-view" viewBox="0 0 520 142" role="img" aria-labelledby="spot-title spot-desc"><title id="spot-title">Vết sáng theo màu trên cảm biến</title><desc id="spot-desc">Các dấu được tách theo màu để dễ so; độ lệch chỉ đo theo phương ngang.</desc><g id="spot-drawing"></g></svg>
+              <p id="pin-info" class="lens-note" role="status" hidden></p>
+              <figcaption>Ba hàng tách theo màu cho dễ đọc; trục ngang dùng chung. Đây là vết tia hình học 1D, không phải ảnh hay PSF 2D.</figcaption>
+            </figure>
+          </div>
+
+          <aside class="lens-settings" aria-label="Chỉnh cấu hình phép thử">
+            <fieldset>
+              <legend>Điều kiện đo</legend>
+              <label>Khoảng cách vật tính từ mốc trước<select id="distance"><option value="inf">Vô cực</option><option value="2000">2 m</option><option value="800">0,8 m</option><option value="500">0,5 m</option></select></label>
+              <label>Góc trường <output id="field-value" for="field">0°</output><input type="range" id="field" min="0" max="12" step="1" value="0"></label>
+              <label>Mở bán kính lá khẩu <output id="iris-value" for="iris">100%</output><input type="range" id="iris" min="20" max="100" step="any" value="100"></label>
+              <button type="button" id="set-f4">Đưa về f/4</button>
+            </fieldset>
+            <fieldset>
+              <legend>Cảm biến · cố định khi motor chạy</legend>
+              <label>Vị trí trên trục (mm)<input type="number" id="sensor" step="0.01"></label>
+              <button type="button" id="fit-sensor">Đặt tại vệt RMS nhỏ nhất</button>
+            </fieldset>
+            <p class="lens-note">Ghim một thiết kế để giữ nguyên kính, khẩu và vị trí cảm biến của nó. Khoảng cách vật và góc trường luôn áp dụng cho cả hai.</p>
+          </aside>
+        </div>
+
+        <details id="editor" class="lens-editor">
+          <summary>Chỉnh và lắp thêm kính <span id="element-count"></span></summary>
+          <div class="lens-editor-body">
+            <p class="lens-note">Bán kính âm nghĩa là tâm cong hướng về phía vật; bỏ trống để tạo mặt phẳng. Hai miếng có khe 0 phải khớp mặt và ở cùng nhóm; sửa một mặt dán sẽ sửa cả mặt đối diện. Các miếng trong nhóm lấy nét dịch cùng nhau.</p>
+            <div class="lens-editor-nav">
+              <label>Phần tử đang chọn <select id="element"></select></label>
+              <div class="lens-options"><button type="button" id="add-element">Thêm kính ở cuối</button><button type="button" id="remove-element">Bỏ kính đang chọn</button></div>
+            </div>
+            <fieldset class="lens-editor-fields lens-fields" id="element-fields">
+              <legend>Vật liệu và giới hạn hình học</legend>
+              <label>Kính<select data-part="glass" id="glass"></select></label>
+              <label>Nhóm<input type="number" data-part="group" min="1" step="1" required></label>
+              <label>Dày tâm (mm)<input type="number" data-part="thickness" min="0.05" step="any" required></label>
+              <label>Khe đến kính sau (mm)<input type="number" data-part="gap" min="0" step="any" required></label>
+              <label>Bán kính hữu dụng (mm)<input type="number" data-part="semi" min="0.1" step="any" required></label>
+            </fieldset>
+            <div class="lens-surface-fields" id="surface-fields"></div>
+            <fieldset class="lens-fields">
+              <legend>Vị trí và khẩu độ</legend>
+              <label>Lá khẩu sau phần tử số<input type="number" id="stop-after" step="1" min="0" required></label>
+              <label>Khoảng từ mốc đến lá khẩu (mm)<input type="number" id="stop-offset" step="any" required></label>
+              <label>Bán kính lá khẩu mở hết (mm)<input type="number" id="stop-radius" min="0.1" step="any" required></label>
+            </fieldset>
+            <p class="lens-note">Mốc lá khẩu là đỉnh mặt sau phần tử đã chọn. Chọn số 0 để lấy đỉnh mặt đầu tiên làm mốc; khoảng âm đặt khẩu về phía vật. Lá khẩu không dịch theo nhóm lấy nét.</p>
+            <p id="editor-note" class="lens-note" role="status"></p>
+          </div>
+        </details>
+
+        <section class="lens-drive" aria-labelledby="drive-title">
+          <header class="lens-drive-head"><p class="lens-kicker">02 / LẤY NÉT BÊN TRONG ỐNG</p><h2 id="drive-title">Ba cơ cấu, cùng một nhóm kính</h2><p>Đổi khoảng cách vật ở trên, giữ cảm biến đứng yên, rồi để motor đưa nhóm đã chọn tới vị trí giảm vệt nhòe. Có thể chạy lại cùng hành trình để so cách truyền lực.</p></header>
+          <div class="lens-drive-grid">
+            <figure class="lens-figure">
+              <div class="lens-figure-head"><h3>Cụm lấy nét cắt mở</h3><span id="drive-caption"></span></div>
+              <div id="drive-bench"></div>
+              <figcaption id="drive-principle"></figcaption>
+            </figure>
+            <div class="lens-settings lens-drive-controls">
+              <fieldset>
+                <legend>Truyền động</legend>
+                <label>Motor<select id="motor"><option value="vcm">Voice coil · tuyến tính</option><option value="nano">Siêu âm trượt</option><option value="ring">Siêu âm vòng + cam</option></select></label>
+                <label>Nhóm di động<select id="focus-group"></select></label>
+                <label>Vị trí nhóm (mm)<output id="focus-position" for="focus-shift">0,00 mm</output><input id="focus-shift" type="range" min="-12" max="12" step="0.01" value="0"></label>
+              </fieldset>
+              <div class="lens-options">
+                <button type="button" id="auto-focus" class="lens-primary">Tìm nét và chạy</button>
+                <button type="button" id="pause-drive" disabled>Dừng</button>
+                <button type="button" id="replay-drive" disabled>Chạy lại</button>
+                <button type="button" id="reset-drive">Về vị trí gốc</button>
+              </div>
+              <p class="lens-note" id="drive-status" role="status"></p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <article class="lens-reading" aria-labelledby="lesson-title">
+      <p class="lens-kicker">SÁU PHÉP THỬ</p><h2 id="lesson-title">Sửa lỗi nào trước?</h2>
+      <ol>
+        <li><strong>Đặt nét rồi giữ lại mốc.</strong> Mở một thấu kính, đưa về f/4 và đặt cảm biến ở nơi RMS nhỏ nhất. Ghim kết quả. Tại đó, ba dãy dấu màu có cùng trục đo nhưng không nhất thiết có cùng bề rộng. Khép khẩu cắt tia rìa; mở lại f/4 mới thấy cầu sai và sai màu dọc còn bao nhiêu.</li>
+        <li><strong>Dùng thêm kính có tán sắc khác.</strong> Mở cặp tiêu sắc, đưa về f/4 và đặt lại cảm biến của thiết kế này. So hai phép đo. Sau đó chọn một miếng trong cặp, đổi nó thành cùng loại kính với miếng kia: số lượng kính không đổi, nhưng độ bù sắc sai thay đổi. Tiêu cự tốt ở tâm chưa nói gì về rìa ảnh; kéo góc trường để thử lát cắt lệch trục.</li>
+        <li><strong>So nét ở tâm và ngoài trục.</strong> Để vật ở vô cực, chọn cặp tiêu sắc rồi ghim ở f/4. Kéo góc trường từ 0° lên 12° mà không dời cảm biến. Lần lượt chọn Cooke, Tessar và Gauss kép: đều là 50 mm f/4 nhưng số nhóm, vị trí lá khẩu và mặt dán khác nhau. So cả RMS lẫn số tia tới đích: thêm kính không tự động làm ảnh nét hơn ở mọi góc.</li>
+        <li><strong>Lắp nhóm của bạn.</strong> Ghim lại cặp tiêu sắc, thêm một miếng kính ở cuối, rồi cho mặt trước bán kính +100 mm. Miếng mới bắt đầu là tấm phẳng; khi uốn mặt, nó có thêm quang lực. Đặt lại cảm biến và so tiêu cự, RMS lẫn số tia tới đích. Chỉ giữ thay đổi nào cải thiện vệt mà không đánh mất mục tiêu 50 mm và f/4.</li>
+        <li><strong>Thử một ống tiêu cự cố định mở lớn.</strong> Mở Canon phi cầu và chọn góc 0°. Ghim ở f/1,2 rồi bấm <strong>Đưa về f/4</strong>; giữ nguyên cảm biến để thấy cùng một bố cục thay đổi ra sao khi cắt tia rìa. Mở trình chỉnh kính, chọn phần tử số 2 và xem các hệ số A4–A10 của mặt trước.</li>
+        <li><strong>Tách zoom, lấy nét và motor.</strong> Mở mẫu Sigma. Đổi giữa ba bộ khoảng cách trong bảng để thấy các nhóm đổi chỗ theo zoom. Chọn vật hữu hạn và giữ nguyên cảm biến. Chạy một lần, đổi motor rồi chạy lại cùng hành trình. VCM tạo lực dọc trục; siêu âm trượt tác động trực tiếp lên thanh; siêu âm vòng tạo chuyển động quay, qua cam mới thành tịnh tiến.</li>
+      </ol>
+      <h2>Phép đo đang nói gì?</h2>
+      <p>Tia khúc xạ tại từng mặt theo định luật Snell. Mặt phi cầu dùng hệ số conic và các bậc chẵn; ở khe bằng 0 chỉ có một lần khúc xạ kính–kính. Tiêu cự và khẩu độ được tính gần trục; RMS là độ lệch chuẩn của tất cả giao điểm tia truyền tới cùng một cảm biến trong lát cắt. Nhóm lấy nét được dò trong hành trình hữu hạn để giảm RMS hình học, không phải firmware AF của một hãng.</p>
+      <p>Đây là bàn học thiết kế, không phải phần mềm duyệt sản xuất: không có nhiễu xạ, lớp phủ, nhiễu cảm biến, dung sai chế tạo hay PSF 2D. Tia không tới cảm biến không được xem là nét. Tỷ lệ tia mẫu tới đích không phải phần trăm công suất sáng hay T-stop. Mô hình motor minh họa đường truyền lực và vị trí, không dự báo tốc độ hay lực motor thật.</p>
+      <h2>Nguồn để đối chiếu</h2>
+      <ul>
+        <li><a href="https://patents.google.com/patent/US4364644A/en">Canon · US4364644A, ví dụ 1</a>: Gauss 8 kính với một mặt phi cầu. Bàn thử thu kích thước từ tiêu cự chuẩn hóa 100 xuống 50 mm, giữ cách dịch 7 kính trước của ví dụ và giữ lá khẩu cố định trong mô phỏng.</li>
+        <li><a href="https://patents.google.com/patent/JP7751289B2/en">Sigma · JP7751289B2, ví dụ số 1</a>: bán kính, bề dày, chỉ số d, số Abbe, hệ số phi cầu, khoảng cách nhóm tại ba mốc zoom và hai khoảng vật. Miệng kính và chỉ số đỏ/lam trong bàn thử là ước lượng có ghi rõ, không phải dữ liệu đầy đủ của một ống bán lẻ.</li>
+        <li><a href="https://media.schott.com/api/public/content/41e799d0bf874807a0bb8e702fbb75b5?v=54856406">SCHOTT N-BK7</a> và <a href="https://media.schott.com/api/public/content/061f3156c83a44ed9220770b0f65a869?v=">N-F2</a>: dữ liệu thủy tinh cho các mẫu học 50 mm.</li>
+        <li><a href="https://patents.google.com/patent/US540339A/en">Bằng sáng chế triplet của H. Dennis Taylor</a> và tài liệu ZEISS về <a href="https://lenspire.zeiss.com/photo/app/uploads/2022/02/technical-article-lens-names-tessar.pdf">Tessar</a>, <a href="https://lenspire.zeiss.com/photo/app/uploads/2022/02/technical-article-lens-names-planar.pdf">Planar/Gauss kép</a>: nguồn cho bố cục nhóm kính. Kích thước và nhóm lấy nét của ba mẫu được chọn riêng cho bàn thử, không sao chép thông số ống lịch sử.</li>
+        <li><a href="https://global.canon/en/c-museum/product/rf546.html">Canon RF50mm F1.4 L VCM</a>, <a href="https://www.usa.canon.com/shop/p/rf50mm-f1-4-l-vcm">mô tả hai nhóm truyền động</a> và <a href="https://www.canon-europe.com/pro/infobank/usm-stm-lens-technology/">nguyên lý USM</a>: ống Canon dùng VCM cho nhóm nét sau và Nano USM cho nhóm nổi. Các motor trên bàn là phương án thay thế để so nguyên lý, không nhận là sơ đồ lắp của Canon hoặc Sigma.</li>
+      </ul>
+    </article>
+</div>

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "topic": "lens-design",
+  "files": {
+    "_includes/how-things-work/lens-design-lab.html": "aed9d36aadaae0d5815e2eba679085d2a432de6f2974f05a42fe2f752535e225",
+    "assets/how-things-work/lens-design/lab.js": "9db03c838ee83721eaf3e127aad3d9e112e802305987601b6dd250017132fb88",
+    "assets/how-things-work/lens-design/lab.css": "81508901d4fd51fa16fefc378a3cb39209678d2b084d3a624329a4cfcb6be6ce",
+    "assets/how-things-work/lens-design/thumbnail.webp": "f8e24d4797e99fa0047d98f8eeed4deac0d4fb5cfaa3a5aea19414c5ef0d6f64"
+  }
+}
