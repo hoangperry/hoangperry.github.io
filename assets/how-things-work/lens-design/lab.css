@@ -1,0 +1,189 @@
+#lens-design-lab {
+  color-scheme: dark;
+  --paper: #15191b;
+  --plate: #1c2225;
+  --card: #222a2e;
+  --screen: #111719;
+  --ink: #edf1eb;
+  --muted: #b0bdbd;
+  --line: #425155;
+  --accent: #a7edbd;
+  --on-accent: #14261b;
+  --red: #ff9088;
+  --green: #d4e89a;
+  --blue: #92bbff;
+  --sensor: #dabbf2;
+  --glass: #61a3ab38;
+  --glass-edge: #90b1b5;
+  --lens-drive-ink: var(--ink);
+  --lens-drive-muted: var(--muted);
+  --lens-drive-paper: var(--screen);
+  --lens-drive-line: var(--line);
+  --lens-drive-accent: var(--accent);
+  --mono: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-family: system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+#lens-design-lab[data-theme='light'] {
+  color-scheme: light;
+  --paper: #f7f7f0;
+  --plate: #edf0e9;
+  --card: #f9faf5;
+  --screen: #e5ebe5;
+  --ink: #182a2d;
+  --muted: #435d60;
+  --line: #a6b9b6;
+  --accent: #176750;
+  --on-accent: white;
+  --red: #ac2d2a;
+  --green: #496011;
+  --blue: #1d51a9;
+  --sensor: #754197;
+  --glass: #338d9a32;
+  --glass-edge: #476e76;
+  --anatomy-shade-0: #829597;
+  --anatomy-shade-1: #9dafad;
+  --anatomy-shade-2: #b9c9c5;
+  --anatomy-shade-3: #d5ded7;
+  --anatomy-top: #eef3e9;
+  --anatomy-faint: #718685;
+  --anatomy-lo: #4b676b;
+  --anatomy-mid: #526c70;
+  --anatomy-hi: #2d4c52;
+}
+#lens-design-lab *, #lens-design-lab *::before, #lens-design-lab *::after { box-sizing: border-box; }
+#lens-design-lab [hidden] { display: none !important; }
+#lens-design-lab button, #lens-design-lab input, #lens-design-lab select, #lens-design-lab summary { font: inherit; }
+#lens-design-lab a { color: var(--accent); text-underline-offset: .18em; }
+#lens-design-lab :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+#lens-design-lab { width: min(100%, 79rem); margin-inline: auto; padding: 0 clamp(.75rem, 3vw, 2.75rem) 4rem; }
+#lens-design-lab .lens-intro { max-width: 63rem; padding: clamp(2.25rem, 7vw, 5.25rem) 0 clamp(1.75rem, 4vw, 3rem); }
+#lens-design-lab .lens-kicker { margin: 0 0 .65rem; color: var(--accent); font: 650 .72rem/1.5 var(--mono); letter-spacing: .12em; }
+#lens-design-lab h1, #lens-design-lab h2, #lens-design-lab h3 { margin: 0; line-height: 1.12; }
+#lens-design-lab h1 { max-width: 18ch; font-size: clamp(2.7rem, 7.5vw, 6rem); font-weight: 820; letter-spacing: -.075em; }
+#lens-design-lab h2 { font-size: clamp(1.55rem, 3.7vw, 2.45rem); letter-spacing: -.046em; }
+#lens-design-lab h3 { font-size: 1rem; letter-spacing: -.018em; }
+#lens-design-lab .lens-lede { max-width: 60ch; margin: 1.1rem 0 .65rem; font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.6; color: var(--muted); }
+#lens-design-lab .lens-jump { display: inline-flex; align-items: center; min-height: 44px; font-weight: 650; }
+#lens-design-lab .lens-bench { padding: clamp(.65rem, 2.25vw, 1.8rem); border: 1px solid var(--line); border-radius: 12px; background: var(--plate); scroll-margin-top: .75rem; }
+#lens-design-lab .lens-bench-head, #lens-design-lab .lens-figure-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .4rem 1rem; }
+#lens-design-lab .lens-bench-head { align-items: center; padding: .25rem .2rem 1.1rem; }
+#lens-design-lab .lens-bench-head .lens-kicker { margin-bottom: .35rem; }
+#lens-design-lab .lens-toolbar { display: grid; gap: .6rem; margin-bottom: 1rem; }
+#lens-design-lab .lens-toolbar #zoom-controls { max-width: 34rem; }
+#lens-design-lab .lens-selection { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .55rem 0; border-block: 1px solid var(--line); }
+#lens-design-lab .lens-selection > .lens-note { flex: 1 1 34ch; }
+#lens-design-lab .lens-workspace, #lens-design-lab .lens-drive-grid { display: grid; grid-template-columns: minmax(0, 2.35fr) minmax(14rem, 1fr); gap: 1rem; align-items: start; }
+#lens-design-lab .lens-instruments, #lens-design-lab .lens-settings, #lens-design-lab .lens-editor-body, #lens-design-lab .lens-drive { display: grid; gap: .75rem; min-width: 0; }
+#lens-design-lab .lens-settings { padding: .85rem; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+#lens-design-lab .lens-settings fieldset, #lens-design-lab .lens-editor fieldset { display: grid; gap: .45rem .75rem; }
+#lens-design-lab fieldset { min-width: 0; padding: 0; margin: 0; border: 0; }
+#lens-design-lab fieldset + fieldset { margin-top: .35rem; }
+#lens-design-lab legend { padding: 0; margin-bottom: .4rem; color: var(--ink); font-size: .89rem; font-weight: 700; }
+#lens-design-lab label { display: block; min-width: 0; color: var(--muted); font-size: .85rem; line-height: 1.4; font-weight: 600; }
+#lens-design-lab label output { margin-inline-start: .28em; color: var(--ink); font: .78rem var(--mono); }
+#lens-design-lab button, #lens-design-lab input[type='number'], #lens-design-lab select, #lens-design-lab summary {
+  min-height: 44px; border: 1px solid var(--line); border-radius: 6px; padding: .45rem .65rem;
+  background: var(--screen); color: var(--ink);
+}
+#lens-design-lab button { font-size: .86rem; font-weight: 660; cursor: pointer; }
+#lens-design-lab button:hover:not(:disabled) { border-color: var(--accent); }
+#lens-design-lab button:disabled { opacity: .5; cursor: default; }
+#lens-design-lab button[aria-pressed='true'], #lens-design-lab .lens-primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+#lens-design-lab label select, #lens-design-lab label input { display: block; margin-top: .25rem; width: 100%; }
+#lens-design-lab select, #lens-design-lab input { max-width: 100%; min-width: 0; }
+#lens-design-lab input[type='range'] { accent-color: var(--accent); min-height: 44px; margin: 0; }
+#lens-design-lab .lens-options { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+#lens-design-lab .lens-library { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 2fr); gap: 1rem; }
+#lens-design-lab .lens-family { display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+#lens-design-lab .lens-family-title { margin: 0 0 .4rem; font: 600 .74rem/1.4 var(--mono); color: var(--muted); }
+#lens-design-lab .lens-presets { display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; gap: .4rem; }
+#lens-design-lab .lens-presets button { display: grid; grid-template-rows: auto 1fr auto; gap: .2rem; padding: .4rem .5rem .55rem; text-align: start; line-height: 1.25; }
+#lens-design-lab .lens-presets button strong { align-self: center; font-size: .86rem; font-weight: 700; }
+#lens-design-lab .lens-presets button span { color: var(--muted); font: .73rem var(--mono); }
+#lens-design-lab .lens-presets svg { display: block; width: 100%; height: auto; }
+#lens-design-lab .lens-presets svg .opt-glass, #lens-design-lab .lens-presets svg .opt-stop { vector-effect: non-scaling-stroke; stroke-width: 1; }
+#lens-design-lab .lens-presets button[aria-pressed='true'] { color: var(--ink); border-color: var(--accent); background: color-mix(in srgb, var(--screen) 89%, var(--accent)); box-shadow: inset 0 -2px var(--accent); }
+#lens-design-lab .lens-presets button[aria-pressed='true'] span { color: var(--accent); }
+#lens-design-lab #preset-scale { margin-top: .4rem; }
+#lens-design-lab .lens-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: .5rem .75rem; }
+#lens-design-lab .lens-note, #lens-design-lab .lens-warning { margin: 0; color: var(--muted); font-size: .83rem; line-height: 1.5; }
+#lens-design-lab .lens-warning { padding: .6rem; color: var(--ink); border: 1px solid var(--red); }
+#lens-design-lab .lens-result { min-height: 1.3em; padding-inline: .25rem; }
+#lens-design-lab .lens-figure { margin: 0; padding: clamp(.45rem, 1.3vw, .9rem); min-width: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+#lens-design-lab .lens-figure-head { margin: .15rem 0 .5rem; }
+#lens-design-lab .lens-figure-head span { color: var(--muted); font: .74rem/1.4 var(--mono); }
+#lens-design-lab .lens-figure > svg, #lens-design-lab .lens-figure #drive-bench > svg { display: block; width: 100%; height: auto; }
+#lens-design-lab #ray-view, #lens-design-lab #spot-view, #lens-design-lab #drive-bench { border-radius: 6px; background: var(--screen); }
+#lens-design-lab .lens-figure figcaption { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin-top: .65rem; color: var(--muted); font-size: .83rem; line-height: 1.5; }
+#lens-design-lab #pin-info { margin-top: .55rem; color: var(--ink); }
+#lens-design-lab .lens-key { white-space: nowrap; }
+#lens-design-lab .lens-wavelength { display: flex; flex-wrap: wrap; gap: .3rem .65rem; align-items: center; margin-top: .55rem; }
+#lens-design-lab .lens-wavelength select { width: auto; margin: 0; }
+#lens-design-lab #ray-view[data-wave='r'] .opt-ray:not(.wave-r), #lens-design-lab #ray-view[data-wave='d'] .opt-ray:not(.wave-d), #lens-design-lab #ray-view[data-wave='b'] .opt-ray:not(.wave-b) { display: none; }
+#lens-design-lab .lens-key::before { display: inline-block; width: .72em; height: 2px; vertical-align: .25em; margin-right: .4em; content: ''; background: var(--mark); }
+#lens-design-lab .red, #lens-design-lab .wave-r { --mark: var(--red); }
+#lens-design-lab .d, #lens-design-lab .wave-d { --mark: var(--green); }
+#lens-design-lab .blue, #lens-design-lab .wave-b { --mark: var(--blue); }
+#lens-design-lab .sensor { --mark: var(--sensor); }
+#lens-design-lab .focus-key { --mark: var(--accent); }
+#lens-design-lab .opt-grid { stroke: var(--line); stroke-width: .75; }
+#lens-design-lab .opt-axis { stroke: var(--muted); stroke-dasharray: 4 4; opacity: .7; }
+#lens-design-lab .opt-glass { fill: var(--glass); stroke: var(--glass-edge); stroke-width: 1.3; }
+#lens-design-lab .opt-moving { stroke: var(--accent); }
+#lens-design-lab .opt-selected { stroke-width: 2.25; }
+#lens-design-lab .opt-stop { stroke: var(--ink); stroke-width: 3; fill: none; }
+#lens-design-lab .opt-sensor { stroke: var(--sensor); stroke-width: 2; }
+#lens-design-lab .opt-ray { fill: none; stroke: var(--mark); stroke-width: 1.3; opacity: .82; stroke-linejoin: round; }
+#lens-design-lab .opt-blocked { stroke-dasharray: 3 4; opacity: .42; }
+#lens-design-lab .opt-label { fill: var(--muted); font: 24px var(--mono); }
+#lens-design-lab .opt-spot-label { fill: var(--muted); font: 16px var(--mono); }
+#lens-design-lab .opt-point { fill: var(--mark); }
+#lens-design-lab .opt-pinned { stroke: var(--mark); stroke-width: 1.3; fill: none; opacity: .86; }
+#lens-design-lab .lens-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+#lens-design-lab .lens-metrics > div { display: grid; gap: .22rem; padding: .55rem .65rem; min-width: 0; }
+#lens-design-lab .lens-metrics > div + div { border-left: 1px solid var(--line); }
+#lens-design-lab .lens-metrics span { color: var(--muted); font-size: .74rem; }
+#lens-design-lab .lens-metrics strong { font: 650 clamp(.83rem, 1.7vw, 1.1rem)/1.45 var(--mono); overflow-wrap: anywhere; }
+#lens-design-lab .lens-editor { margin-block: 1rem; }
+#lens-design-lab .lens-editor summary { display: list-item; cursor: pointer; font-weight: 700; padding-block: .65rem; }
+#lens-design-lab .lens-editor summary span { color: var(--muted); font: .83rem var(--mono); }
+#lens-design-lab .lens-editor-body { background: var(--card); border: 1px solid var(--line); border-radius: 8px; margin-top: .5rem; padding: .85rem; }
+#lens-design-lab .lens-editor-nav { display: flex; flex-wrap: wrap; gap: .55rem 1rem; align-items: end; }
+#lens-design-lab .lens-surface-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+#lens-design-lab .lens-surface-fields > fieldset { margin: 0; }
+#lens-design-lab .lens-drive { padding-top: .65rem; border-top: 1px solid var(--line); }
+#lens-design-lab .lens-drive-head p:not(.lens-kicker) { max-width: 70ch; margin: .45rem 0; color: var(--muted); line-height: 1.55; }
+#lens-design-lab .lens-reading { max-width: 75ch; margin: 3rem auto 0; line-height: 1.7; overflow-wrap: anywhere; }
+#lens-design-lab .lens-reading h2:not(:first-of-type) { margin-top: 1.8rem; }
+#lens-design-lab .lens-reading li + li { margin-top: .65rem; }
+@media (max-width: 810px) {
+  #lens-design-lab .lens-workspace, #lens-design-lab .lens-drive-grid { grid-template-columns: minmax(0, 1fr); }
+  #lens-design-lab .lens-settings { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #lens-design-lab .lens-settings > .lens-note { grid-column: 1 / -1; }
+  #lens-design-lab .lens-settings fieldset + fieldset { margin-top: 0; }
+  #lens-design-lab .lens-drive-controls .lens-options { align-content: start; }
+}
+@media (max-width: 720px) {
+  #lens-design-lab .lens-library { grid-template-columns: minmax(0, 1fr); gap: .7rem; }
+  #lens-design-lab .lens-presets svg { height: 2rem; }
+}
+@media (max-width: 480px) {
+  #lens-design-lab .lens-surface-fields { grid-template-columns: minmax(0, 1fr); }
+  #lens-design-lab .lens-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #lens-design-lab .lens-metrics > div:nth-child(3) { border-left: 0; }
+  #lens-design-lab .lens-metrics > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  #lens-design-lab .lens-drive-controls { grid-template-columns: minmax(0, 1fr); }
+}
+
+#lens-design-lab { padding: clamp(.65rem, 2vw, 1.5rem); border-radius: 12px; letter-spacing: normal; line-height: 1.5; }
+#lens-design-lab .lens-lede { margin-top: 0; }
+#lens-design-lab .lens-fallback { display: block; width: min(100%, 44rem); margin: 1rem 0; border-radius: 8px; }
+#lens-design-lab input, #lens-design-lab select, #lens-design-lab button { box-shadow: none; text-transform: none; letter-spacing: normal; height: auto; }
+#lens-design-lab input[type='range'] { appearance: auto; }
+#lens-design-lab button, #lens-design-lab select { width: auto; }
+#lens-design-lab label select, #lens-design-lab label input { width: 100%; }
+#lens-design-lab .lens-wavelength select { width: auto; }
+#lens-design-lab h2, #lens-design-lab h3 { text-transform: none; color: var(--ink); }
+#lens-design-lab .lens-reading strong { color: inherit; }

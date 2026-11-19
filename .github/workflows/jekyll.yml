@@ -64,6 +64,9 @@ jobs:
       - name: Validate playgrounds export and routes
         run: node scripts/playgrounds/check-playgrounds.mjs --site _site --baseurl "${{ steps.pages.outputs.base_path }}"
 
+      - name: Validate the lens design article
+        run: node scripts/playgrounds/check-lens-design.mjs _site "${{ steps.pages.outputs.base_path }}"
+
       # Index the novels for client-side full-text search. Runs against the
       # built _site so the /pagefind/ bundle ships inside the same artifact.
       - name: Build Pagefind index

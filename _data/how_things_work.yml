@@ -134,3 +134,10 @@
   subjects: "Nhiếp ảnh · Quang học"
   summary: "So hai tín hiệu từ hai nửa khẩu độ và kéo qua điểm nét. Thử cảnh phẳng để thấy khi nào máy không đo được hướng chỉnh."
   thumbnail: /assets/how-things-work/phase-detect-af/thumbnail.webp
+- id: lens-design
+  number: "20"
+  url: /how-things-work/lens-design/
+  title: "Tự thiết kế ống kính 50 mm"
+  subjects: "Nhiếp ảnh · Quang học"
+  summary: "Lắp từng mặt kính, so vết tia ở tâm và ngoài trục, rồi thử ba cách dịch nhóm lấy nét. Bắt đầu từ một thấu kính, đến Canon phi cầu và zoom Sigma."
+  thumbnail: /assets/how-things-work/lens-design/thumbnail.webp
