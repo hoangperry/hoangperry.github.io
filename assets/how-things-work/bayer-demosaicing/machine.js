@@ -1008,6 +1008,7 @@ var mountRenderer = (function mountRenderer(root) {
     selection: node.querySelector('[data-bayer-selection]'),
   }));
   const pitch = Number(panels[0].pixels[0].getAttribute('width'));
+  const anatomyCursor = svg.querySelector('[data-bayer-anatomy-cursor]');
   const stencil = Array.from(svg.querySelectorAll('[data-bayer-stencil]'), (node) => ({ node, label: node.querySelector('text') }));
   const equations = Array.from(svg.querySelectorAll('[data-bayer-equation]'), (node) => ({
     label: node.querySelector('[data-bayer-result]'), detail: node.querySelector('[data-bayer-detail]'),
@@ -1051,6 +1052,10 @@ var mountRenderer = (function mountRenderer(root) {
 
   function paintInspection(view) {
     attr(svg, 'data-bayer-site', `${view.x},${view.y}`);
+    if (anatomyCursor) {
+      attr(anatomyCursor, 'transform', `translate(${view.x} ${view.y})`);
+      attr(anatomyCursor, 'visibility', 'visible');
+    }
     for (const { selection } of panels) {
       attr(selection, 'transform', `translate(${view.x * pitch} ${view.y * pitch})`);
     }

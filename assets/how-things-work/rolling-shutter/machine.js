@@ -981,6 +981,11 @@ var mountRenderer = (function mountRenderer(root, data) {
   if (!svg) throw new Error('Cannot find the rolling shutter plate');
   const find = (key) => svg.querySelector(`[data-rs-mark="${key}"]`);
   const bar = find('bar'), cursor = find('cursor'), clock = find('clock'), moment = find('moment'), velocity = find('velocity');
+  // The article and bundle have separate cache lifetimes; older SVGs have no bench.
+  const target = svg.querySelector('[data-rs-anatomy-target]');
+  const targetDx = Number.parseFloat(target?.getAttribute('data-rs-anatomy-dx'));
+  const targetDy = Number.parseFloat(target?.getAttribute('data-rs-anatomy-dy'));
+  if (target && (!Number.isFinite(targetDx) || !Number.isFinite(targetDy))) throw new Error('Invalid rolling shutter target projection');
   const readingNode = root.querySelector('[data-camera-reading]');
   const { scene, image, timing, rows } = data.plate;
   const { rowCount, rowDelayMs, exposureMs, frameWidthPx, barWidthPx } = data.parameters;
@@ -1025,6 +1030,10 @@ var mountRenderer = (function mountRenderer(root, data) {
       attr(svg, 'data-camera-shutter', controls.shutter);
       attr(svg, 'data-camera-milestone', frame.moment.timeMs);
       attr(bar, 'x', round(scene.x + (frame.sceneCenterPx - barWidthPx / 2) * scene.width / frameWidthPx));
+      if (target) {
+        const centre = frame.sceneCenterPx - frameWidthPx / 2;
+        attr(target, 'transform', `translate(${round(centre * targetDx)} ${round(centre * targetDy)})`);
+      }
       attr(cursor, 'd', `M${round(tAt(frame.timeMs))} ${rows.y}V${chartBottom}`);
       text(clock, frame.clockLabel);
       text(moment, frame.momentLabel);
