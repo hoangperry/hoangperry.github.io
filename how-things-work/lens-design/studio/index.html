@@ -6,8 +6,8 @@
   <meta name="description" content="Tự chế tạo một ống kính: mài hai mặt phôi, thử lớp phủ rồi lắp kính và chỉnh nét trên bàn quang học.">
   <title>Tự chế tạo ống kính · How Things Work</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="studio-ba164acd191de9d6.css">
-  <script type="module" src="studio-f2727da55c3a2d96.js"></script>
+  <link rel="stylesheet" href="studio-8d9e71e119833a6e.css">
+  <script type="module" src="studio-840304eb04074e55.js"></script>
 </head>
 <body data-mode="maker"><main class="studio">
   <nav class="studio-nav" aria-label="Lối vào xưởng"><a href="../">← Bàn học 50 mm</a><a class="maker-only" href="#ban-thiet-ke">Bàn chuyên sâu →</a><a class="advanced-only" href="#tu-che-tao">← Về bàn chế tạo</a></nav>
@@ -16,7 +16,7 @@
   <p id="boot-status" role="status">Đang chuẩn bị phôi kính…</p>
   <div id="workspace" hidden>
     <section id="tu-che-tao" data-room="maker" aria-labelledby="maker-title">
-      <header class="maker-intro"><p class="maker-overline">XƯỞNG QUANG HỌC <span>/</span> BÀI THỰC HÀNH</p><h1 id="maker-title">Tự làm một ống kính</h1></header>
+      <header class="maker-intro"><p class="maker-overline">XƯỞNG QUANG HỌC <span>/</span> BÀI THỰC HÀNH</p><h1 id="maker-title">Tự làm một ống kính</h1><p>Mài chiếc kính đầu tiên. Sau khi lấy nét, bạn có thể mài thêm kính để ghép vào cùng ống.</p></header>
       <ol id="mk-progress" aria-label="Các công đoạn"><li>Mặt trước</li><li>Mặt sau</li><li>Lớp phủ</li><li>Lắp ống</li><li>Thành phẩm</li></ol>
       <div class="maker-bench">
         <figure class="maker-figure"><div id="mk-art"></div><figcaption>Minh họa phóng đại, không theo tỷ lệ.</figcaption></figure>
@@ -35,7 +35,18 @@
             <label><input type="radio" name="mk-coat" value="SiC">SiC · silic cacbua</label>
           </fieldset>
           <p id="mk-reading" role="status"></p><p id="mk-result" hidden></p>
-          <div class="mk-actions"><button type="button" class="lens-primary" id="mk-next">Chốt mặt trước</button><button type="button" id="mk-back" hidden>Quay lại</button><button type="button" id="mk-restart" hidden>Làm chiếc khác</button></div>
+          <section id="mk-compare" hidden aria-labelledby="mk-compare-title">
+            <h3 id="mk-compare-title">Kính vừa thêm đã đổi ảnh thế nào?</h3>
+            <p id="mk-finding"></p>
+            <table class="data-table"><caption>Mỗi cụm lấy nét tốt nhất ở tâm, cùng lá khẩu và vật ở vô cực.</caption>
+              <thead><tr><th scope="col">Phép đo</th><th scope="col" id="mk-before-count">Trước</th><th scope="col" id="mk-after-count">Sau</th></tr></thead><tbody id="mk-stats"></tbody>
+            </table>
+          </section>
+          <fieldset id="mk-extend" hidden><legend>Mài thêm một thấu kính</legend>
+            <button type="button" id="mk-negative">+ Kính phân kỳ <small>Thử bù sắc sai</small></button>
+            <button type="button" id="mk-positive">+ Kính hội tụ <small>Gom tia mạnh hơn</small></button>
+          </fieldset>
+          <div class="mk-actions"><button type="button" class="lens-primary" id="mk-next">Chốt mặt trước</button><button type="button" id="mk-back" hidden>Quay lại</button><button type="button" id="mk-download" hidden>Tải bản vẽ (.json)</button><button type="button" id="mk-undo" hidden>Tháo kính cuối</button><button type="button" id="mk-restart" hidden>Làm ống mới</button></div>
         </section>
       </div>
     </section>
