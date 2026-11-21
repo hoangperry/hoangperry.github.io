@@ -2,11 +2,11 @@ How Things Work playground: Ổ cứng HDD tìm và đọc một sector bằng c
 Topic: hard-disk-drive
 Generated file: built by publish-hard-disk-drive.mjs from a checked artifact and its receipt. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 997ee2c09e94c45dbb5942de3f85f33f40492d465cdfc2f426006be745f3f191
+Source digest: 4dee4c970754338a8888a52ad9df85dac89eae683479c508b1c007a9a4909870
 Checks recorded in the build receipt:
 - HDD model, scene, renderer, adapters and build helpers: 82/82 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/hard-disk-drive/tests/hdd-build.test.mjs playgrounds/hard-disk-drive/tests/hdd-geometry.test.mjs playgrounds/hard-disk-drive/tests/hdd-invariance.test.mjs playgrounds/hard-disk-drive/tests/hdd-model.test.mjs playgrounds/hard-disk-drive/tests/hdd-parameter-grid.test.mjs playgrounds/hard-disk-drive/tests/hdd-reader-layout.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-artifact.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-digest.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-payloads.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-rollback.test.mjs playgrounds/hard-disk-drive/tests/hdd-renderer.test.mjs playgrounds/hard-disk-drive/tests/hdd-scene.test.mjs)
 - HDD root publisher regressions: 8/8 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap tests/publish-hard-disk-drive.test.mjs)
-- frozen shared playground non-browser contracts: 72/72 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs)
+- frozen shared playground non-browser contracts: 74/74 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs)
 - Mode invariance: passed, 4 scripts
 - Parameter grid: passed, 13791 cases
 Limitations:

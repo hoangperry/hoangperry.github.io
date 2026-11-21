@@ -14,10 +14,9 @@ var runtime = (function createPlaygroundRuntime() {
   const TEXT = {
     ready: 'Sẵn sàng',
     running: 'Đang chạy',
-    paused: 'Đã dừng',
+    paused: 'Không chạy',
     failed: 'Không chạy được phần tương tác. Hình vẫn ở dạng tĩnh và bài viết vẫn đọc được.',
     run: 'Đang chạy mô phỏng.',
-    resume: 'Tiếp tục chạy từ trạng thái đã dừng.',
     pause: 'Đã dừng. Trạng thái được giữ nguyên.',
     step: (status) => (status ? `Từng bước: ${status}` : 'Đã đi một bước.'),
     reset: 'Đã đặt lại về trạng thái ban đầu.',
@@ -98,6 +97,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -158,16 +158,19 @@ var runtime = (function createPlaygroundRuntime() {
         map.set(element.id, `${instanceId}--${original}`);
       }
     }
-    for (const subtree of subtrees) {
-      for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
-        if (map.has(element.id)) set(element, 'id', map.get(element.id));
+    if (map.size > 0) {
+      for (const subtree of subtrees) {
+        for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
+          if (map.has(element.id)) set(element, 'id', map.get(element.id));
+        }
       }
-    }
-    for (const element of [root, ...root.querySelectorAll('*')]) {
-      for (const attribute of Array.from(element.attributes)) {
-        if (attribute.name === 'id' || attribute.name === 'data-machine-id') continue;
-        const next = rewriteAttribute(attribute.name, attribute.value, map);
-        if (next !== attribute.value) set(element, attribute.name, next);
+      for (const element of [root, ...root.querySelectorAll('*')]) {
+        for (const attribute of Array.from(element.attributes)) {
+          const name = attribute.name;
+          if (name === 'id' || name === 'data-machine-id') continue;
+          const next = rewriteAttribute(name, attribute.value, map);
+          if (next !== attribute.value) set(element, name, next);
+        }
       }
     }
     return {
@@ -217,6 +220,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -227,11 +231,12 @@ var runtime = (function createPlaygroundRuntime() {
       throw new Error('createModel must return { snapshot, advance, command, reset }');
     }
 
-    function read() {
+    function read(repeatAnnouncement = false) {
       const next = validateSnapshot(model.snapshot(), index);
-      if (next.announcement && next.announcement !== lastModelNote) modelNotes.push(next.announcement);
+      if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -242,7 +247,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -306,20 +311,21 @@ var runtime = (function createPlaygroundRuntime() {
       return act(() => {
         if (mode !== 'explore') return false; // the reader never operates the playground
         const before = current;
-        if (key === 'run') {
+        if (key === 'run' || key === 'step') {
           if (before.running) return false;
-          model.command({ key: 'run' });
-          runtimeNote = before.time > 0 ? TEXT.resume : TEXT.run;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
+          const refused = model.command({ key }) === false;
+          const after = read(refused);
+          if (refused || (key === 'run' && !after.running)) return false;
+          runtimeNote = key === 'run' ? TEXT.run : TEXT.step(after.status);
           clock.reset();
         } else if (key === 'pause') {
           if (!before.running) return false;
           model.command({ key: 'pause' });
           runtimeNote = TEXT.pause;
-          clock.reset();
-        } else if (key === 'step') {
-          if (before.running) return false;
-          model.command({ key: 'step' });
-          runtimeNote = TEXT.step(read().status); // the achieved state, never a guess from the previous one
           clock.reset();
         } else if (key === 'reset') {
           model.command({ key: 'reset' });
@@ -576,7 +582,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -587,7 +593,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -635,8 +642,10 @@ var runtime = (function createPlaygroundRuntime() {
       place(next);
       readingDirty = true;
       if (fromUser) {
-        if (next === 'explore') scene.focus({ preventScroll: false });
-        else {
+        if (next === 'explore') {
+          if (typeof renderer.focusExplore === 'function') renderer.focusExplore();
+          else scene.focus({ preventScroll: false });
+        } else {
           const opener = $('[data-machine-mode="explore"]');
           if (opener) opener.focus();
         }
@@ -694,6 +703,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -1206,7 +1216,7 @@ var mountRenderer = (function mountRenderer(root, data) {
 runtime.boot({
   slug: "ac-generator",
   descriptor: {"title":"Máy phát điện xoay chiều tạo ra điện áp thế nào?","controls":{"groups":[{"key":"rotation","label":"Chuyển động quay","controls":[{"type":"range","key":"shaft-rpm","label":"Tốc độ trục","min":0,"max":120,"step":30,"unit":"RPM"},{"type":"segmented","key":"direction","label":"Chiều quay nhìn từ phía +z","options":[{"value":1,"label":"Dương: ngược chiều kim đồng hồ"},{"value":-1,"label":"Âm: cùng chiều kim đồng hồ"}]}]},{"key":"setup","label":"Thiết lập trước khi chạy","controls":[{"type":"segmented","key":"initial-angle","label":"Góc ban đầu giữa B và pháp tuyến n (độ)","options":[{"value":0,"label":"0°"},{"value":90,"label":"90°"},{"value":180,"label":"180°"},{"value":270,"label":"270°"}]}]}],"presets":[{"key":"baseline","label":"Cơ bản: 60 RPM"},{"key":"fast","label":"Tăng tốc: 120 RPM"},{"key":"reverse","label":"Đảo chiều: 60 RPM, chiều âm"},{"key":"stopped","label":"Dừng cơ học: 0 RPM"},{"key":"flux-maximum","label":"Từ thông ban đầu cực đại"}],"challenges":[{"key":"speed","label":"Hoàn tất một lượt có ít nhất 1 s ở 120 RPM"},{"key":"reverse","label":"Hoàn tất một lượt có ít nhất 1 s quay chiều âm"},{"key":"stopped","label":"Hoàn tất một lượt có ít nhất 1 s dừng cơ học"}]}},
-  data: {"schemaVersion":1,"parameters":{"turns":100,"fieldTesla":0.2,"areaM2":0.01,"durationSeconds":8,"stepSeconds":0.1,"sampleSeconds":0.016666666666666666},"defaults":{"shaft-rpm":60,"direction":1,"initial-angle":90},"presets":{"baseline":{"shaft-rpm":60,"direction":1,"initial-angle":90},"fast":{"shaft-rpm":120,"direction":1,"initial-angle":90},"reverse":{"shaft-rpm":60,"direction":-1,"initial-angle":90},"stopped":{"shaft-rpm":0,"direction":1,"initial-angle":0},"flux-maximum":{"shaft-rpm":60,"direction":1,"initial-angle":0}},"controls":{"groups":[{"key":"rotation","label":"Chuyển động quay","controls":[{"type":"range","key":"shaft-rpm","label":"Tốc độ trục","min":0,"max":120,"step":30,"unit":"RPM"},{"type":"segmented","key":"direction","label":"Chiều quay nhìn từ phía +z","options":[{"value":1,"label":"Dương: ngược chiều kim đồng hồ"},{"value":-1,"label":"Âm: cùng chiều kim đồng hồ"}]}]},{"key":"setup","label":"Thiết lập trước khi chạy","controls":[{"type":"segmented","key":"initial-angle","label":"Góc ban đầu giữa B và pháp tuyến n (độ)","options":[{"value":0,"label":"0°"},{"value":90,"label":"90°"},{"value":180,"label":"180°"},{"value":270,"label":"270°"}]}]}],"presets":[{"key":"baseline","label":"Cơ bản: 60 RPM"},{"key":"fast","label":"Tăng tốc: 120 RPM"},{"key":"reverse","label":"Đảo chiều: 60 RPM, chiều âm"},{"key":"stopped","label":"Dừng cơ học: 0 RPM"},{"key":"flux-maximum","label":"Từ thông ban đầu cực đại"}],"challenges":[{"key":"speed","label":"Hoàn tất một lượt có ít nhất 1 s ở 120 RPM"},{"key":"reverse","label":"Hoàn tất một lượt có ít nhất 1 s quay chiều âm"},{"key":"stopped","label":"Hoàn tất một lượt có ít nhất 1 s dừng cơ học"}]},"text":{"boundary":"Chuyển động quay được áp đặt; mạch hở với vôn kế lý tưởng. Không mô phỏng dòng điện, tải hoặc công suất.","stoppedNote":"Dừng cơ học ở 0 RPM: thời gian vẫn chạy, từ thông giữ nguyên và điện áp bằng 0. Tạm dừng mô phỏng chỉ đóng băng thời gian, không đổi tốc độ trục."},"scene":{"width":440,"height":924,"rotor":{"x":150,"y":153,"normalLength":68,"normalLabelRadius":85,"angleRadius":35},"plots":{"left":62,"width":358,"height":106,"flux":{"top":520,"min":-2.2,"max":2.2},"emf":{"top":698,"min":-2.8,"max":2.8}}}},
+  data: {"schemaVersion":1,"stepUnavailableByPhase":{"idle":"Chưa bắt đầu thí nghiệm. Nhấn Chạy rồi Dừng để tiến từng bước.","done":"Đã hoàn tất thí nghiệm. Nhấn Chạy để bắt đầu lượt mới."},"parameters":{"turns":100,"fieldTesla":0.2,"areaM2":0.01,"durationSeconds":8,"stepSeconds":0.1,"sampleSeconds":0.016666666666666666},"defaults":{"shaft-rpm":60,"direction":1,"initial-angle":90},"presets":{"baseline":{"shaft-rpm":60,"direction":1,"initial-angle":90},"fast":{"shaft-rpm":120,"direction":1,"initial-angle":90},"reverse":{"shaft-rpm":60,"direction":-1,"initial-angle":90},"stopped":{"shaft-rpm":0,"direction":1,"initial-angle":0},"flux-maximum":{"shaft-rpm":60,"direction":1,"initial-angle":0}},"controls":{"groups":[{"key":"rotation","label":"Chuyển động quay","controls":[{"type":"range","key":"shaft-rpm","label":"Tốc độ trục","min":0,"max":120,"step":30,"unit":"RPM"},{"type":"segmented","key":"direction","label":"Chiều quay nhìn từ phía +z","options":[{"value":1,"label":"Dương: ngược chiều kim đồng hồ"},{"value":-1,"label":"Âm: cùng chiều kim đồng hồ"}]}]},{"key":"setup","label":"Thiết lập trước khi chạy","controls":[{"type":"segmented","key":"initial-angle","label":"Góc ban đầu giữa B và pháp tuyến n (độ)","options":[{"value":0,"label":"0°"},{"value":90,"label":"90°"},{"value":180,"label":"180°"},{"value":270,"label":"270°"}]}]}],"presets":[{"key":"baseline","label":"Cơ bản: 60 RPM"},{"key":"fast","label":"Tăng tốc: 120 RPM"},{"key":"reverse","label":"Đảo chiều: 60 RPM, chiều âm"},{"key":"stopped","label":"Dừng cơ học: 0 RPM"},{"key":"flux-maximum","label":"Từ thông ban đầu cực đại"}],"challenges":[{"key":"speed","label":"Hoàn tất một lượt có ít nhất 1 s ở 120 RPM"},{"key":"reverse","label":"Hoàn tất một lượt có ít nhất 1 s quay chiều âm"},{"key":"stopped","label":"Hoàn tất một lượt có ít nhất 1 s dừng cơ học"}]},"text":{"boundary":"Chuyển động quay được áp đặt; mạch hở với vôn kế lý tưởng. Không mô phỏng dòng điện, tải hoặc công suất.","stoppedNote":"Dừng cơ học ở 0 RPM: thời gian vẫn chạy, từ thông giữ nguyên và điện áp bằng 0. Tạm dừng mô phỏng chỉ đóng băng thời gian, không đổi tốc độ trục."},"scene":{"width":440,"height":924,"rotor":{"x":150,"y":153,"normalLength":68,"normalLabelRadius":85,"angleRadius":35},"plots":{"left":62,"width":358,"height":106,"flux":{"top":520,"min":-2.2,"max":2.2},"emf":{"top":698,"min":-2.8,"max":2.8}}}},
   createModel: createModel,
   mountRenderer: mountRenderer
 }, document);
