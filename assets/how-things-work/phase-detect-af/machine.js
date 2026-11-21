@@ -157,16 +157,19 @@ var runtime = (function createPlaygroundRuntime() {
         map.set(element.id, `${instanceId}--${original}`);
       }
     }
-    for (const subtree of subtrees) {
-      for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
-        if (map.has(element.id)) set(element, 'id', map.get(element.id));
+    if (map.size > 0) {
+      for (const subtree of subtrees) {
+        for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
+          if (map.has(element.id)) set(element, 'id', map.get(element.id));
+        }
       }
-    }
-    for (const element of [root, ...root.querySelectorAll('*')]) {
-      for (const attribute of Array.from(element.attributes)) {
-        if (attribute.name === 'id' || attribute.name === 'data-machine-id') continue;
-        const next = rewriteAttribute(attribute.name, attribute.value, map);
-        if (next !== attribute.value) set(element, attribute.name, next);
+      for (const element of [root, ...root.querySelectorAll('*')]) {
+        for (const attribute of Array.from(element.attributes)) {
+          const name = attribute.name;
+          if (name === 'id' || name === 'data-machine-id') continue;
+          const next = rewriteAttribute(name, attribute.value, map);
+          if (next !== attribute.value) set(element, name, next);
+        }
       }
     }
     return {
@@ -631,8 +634,10 @@ var runtime = (function createPlaygroundRuntime() {
       place(next);
       readingDirty = true;
       if (fromUser) {
-        if (next === 'explore') scene.focus({ preventScroll: false });
-        else {
+        if (next === 'explore') {
+          if (typeof renderer.focusExplore === 'function') renderer.focusExplore();
+          else scene.focus({ preventScroll: false });
+        } else {
           const opener = $('[data-machine-mode="explore"]');
           if (opener) opener.focus();
         }
@@ -1067,22 +1072,18 @@ var mountRenderer = (function mountRenderer(root, data) {
     const transport = root.querySelector('[data-machine-console-panel] .htw-machine-controls');
     const run = transport?.querySelector('[data-machine-run]');
     if (!dock || !run) return renderer;
-    const scene = dock.closest('[data-machine-scene]');
-    const focusPlayback = () => {
-      if (root.getAttribute('data-mode') !== 'explore') return;
-      run.focus({ preventScroll: true });
-      dock.scrollIntoView({ block: 'center', behavior: 'instant' });
-    };
-    scene.addEventListener('focus', focusPlayback);
     const home = transport.parentNode;
     const next = transport.nextSibling;
     dock.prepend(transport);
     return {
       render: renderer.render,
+      focusExplore() {
+        run.focus({ preventScroll: true });
+        dock.scrollIntoView({ block: 'center', behavior: 'instant' });
+      },
       dispose() {
         try { renderer.dispose(); }
         finally {
-          scene.removeEventListener('focus', focusPlayback);
           home.insertBefore(transport, next);
         }
       },

@@ -291,6 +291,10 @@
 
 /* ---------- Console ---------- */
 
+/* A host theme's fixed button height must not clip wrapped labels; the base controls keep the 44px minimum. */
+.htw-machine[data-htw-figure="iso-raw"] .htw-machine-chip,
+.htw-machine[data-htw-figure="iso-raw"] .htw-machine-button { height: auto; }
+.htw-machine[data-htw-figure="iso-raw"] .htw-machine-theme { flex: none; }
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-console { gap: 1.1rem; }
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-console .htw-machine-controls {
   display: grid;
@@ -298,6 +302,13 @@
   gap: .5rem;
 }
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-console .htw-machine-controls .htw-machine-button { padding: 0 .6rem; }
+.htw-machine[data-htw-figure="iso-raw"] .htw-machine-reset-icon {
+  width: .7rem;
+  height: .8rem;
+  flex: none;
+  background: currentColor;
+  clip-path: polygon(0 0, 22% 0, 22% 100%, 0 100%, 0 0, 100% 0, 100% 100%, 30% 50%, 100% 0);
+}
 
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-group {
   display: grid;
@@ -338,7 +349,12 @@
 }
 
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-options { display: flex; flex-wrap: wrap; gap: .375rem; min-width: 0; }
-.htw-machine[data-htw-figure="iso-raw"] .htw-playground-options .htw-machine-chip { flex: 1 1 auto; padding: 0 .7rem; }
+.htw-machine[data-htw-figure="iso-raw"] .htw-playground-options .htw-machine-chip {
+  flex: 1 1 auto;
+  padding: .45rem .7rem;
+  line-height: 1.35;
+  white-space: normal;
+}
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-toggle3 { grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr); }
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-toggle3 .htw-playground-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-toggle3 .htw-machine-chip { font-size: .8rem; }
@@ -411,7 +427,12 @@
 
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-presets { display: flex; flex-wrap: wrap; gap: .375rem; min-width: 0; }
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-presets .htw-playground-group-label { margin-bottom: .45rem; }
-.htw-machine[data-htw-figure="iso-raw"] .htw-playground-presets .htw-machine-chip { flex: 1 1 auto; padding: 0 .7rem; }
+.htw-machine[data-htw-figure="iso-raw"] .htw-playground-presets .htw-machine-chip {
+  flex: 1 1 auto;
+  padding: .45rem .7rem;
+  line-height: 1.35;
+  white-space: normal;
+}
 
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-challenges { min-width: 0; }
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-challenge-list { display: grid; gap: 0; margin: .45rem 0 0; padding: 0; list-style: none; }
@@ -523,12 +544,12 @@
 .htw-machine[data-htw-figure="iso-raw"] .camera-anatomy-ground { fill: var(--anatomy-paper); }
 .htw-machine[data-htw-figure="iso-raw"] .camera-anatomy-divider { fill: none; stroke: var(--htw-machine-line); }
 .htw-machine[data-htw-figure="iso-raw"] .camera-cover-view .camera-motion { display: none; }
-.htw-machine[data-htw-figure="iso-raw"] .camera-open-motion { align-self: start; margin-bottom: var(--space-xs); }
+.htw-machine[data-htw-figure="iso-raw"] .camera-open-motion { align-self: start; margin-bottom: var(--space-xs, .5rem); }
 .htw-machine[data-htw-figure="iso-raw"] .camera-open-motion[disabled],
 .htw-machine[data-htw-figure="iso-raw"][data-mode="reader"] .camera-transport { display: none; }
 .htw-machine[data-htw-figure="iso-raw"] .camera-transport { margin: .35rem 0 .55rem; }
 .htw-machine[data-htw-figure="iso-raw"] .camera-transport .htw-machine-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr)); gap: .45rem; margin: 0; }
-.htw-machine[data-htw-figure="iso-raw"] .camera-transport .htw-machine-button { min-height: 44px; padding-inline: .45rem; white-space: normal; }
+.htw-machine[data-htw-figure="iso-raw"] .camera-transport .htw-machine-button { min-height: 44px; padding: .45rem; line-height: 1.35; white-space: normal; }
 .htw-machine[data-htw-figure="iso-raw"] .camera-settings-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; }
 
 /* A short or narrow viewport cannot fit both the bench and a legible plot in the sticky reader. */
@@ -537,7 +558,7 @@
   .htw-machine[data-htw-figure="iso-raw"][data-mode="reader"] .htw-reader-slot { position: static; margin: 0; padding: 0; border: 0; box-shadow: none; background: transparent; }
   .htw-machine[data-htw-figure="iso-raw"][data-mode="reader"] .htw-reader-slot [data-machine-view] { max-height: none; }
   .htw-machine[data-htw-figure="iso-raw"][data-mode="reader"] .htw-step,
-  .htw-machine[data-htw-figure="iso-raw"][data-mode="reader"] .htw-step:last-of-type { min-height: 0; scroll-margin-top: calc(var(--htw-header) + 1rem); }
+  .htw-machine[data-htw-figure="iso-raw"][data-mode="reader"] .htw-step:last-of-type { min-height: 0; scroll-margin-top: calc(var(--htw-header, 3.25rem) + 1rem); }
 }
 
 .htw-machine[data-htw-figure="iso-raw"] {
@@ -682,13 +703,12 @@
 .htw-machine[data-htw-figure="iso-raw"] [data-camera-stage="adc"] .iso-board-sample-ring { stroke: var(--iso-board-output); }
 .htw-machine[data-htw-figure="iso-raw"] [data-camera-stage="adc"] .iso-board-sample-dot { fill: var(--iso-board-output); }
 
-.htw-machine[data-htw-figure="iso-raw"] .htw-playground-presets .htw-machine-chip { white-space: normal; min-height: 44px; }
 .htw-machine[data-htw-figure="iso-raw"] .iso-mobile-reading { display: none; }
 @media (max-width: 1099px) {
   .htw-machine[data-htw-figure="iso-raw"] .iso-mobile-reading {
     display: block;
     position: sticky;
-    top: var(--htw-header);
+    top: var(--htw-header, 3.25rem);
     z-index: 1;
     margin: 0 0 .75rem;
     padding: .55rem .75rem;
