@@ -614,10 +614,10 @@
 .htw-machine[data-htw-figure="phase-detect-af"] .af-guide { fill: none; stroke: var(--af-muted); stroke-dasharray: 4 4; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-edge-a { fill: var(--af-panel); stroke: var(--af-a); stroke-width: 2.4; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-edge-b { fill: var(--af-panel); stroke: var(--af-b); stroke-width: 2; }
-.htw-machine[data-htw-figure="phase-detect-af"] [data-af-focus="pupil"] .af-pupil-housing,
-.htw-machine[data-htw-figure="phase-detect-af"] [data-af-focus="pupil"] .af-microlens { stroke: var(--af-ink); stroke-width: 2.2; }
-.htw-machine[data-htw-figure="phase-detect-af"] [data-af-focus="planes"] .af-measure-plane { stroke-width: 3; }
-.htw-machine[data-htw-figure="phase-detect-af"] [data-af-focus="signals"] .af-signals .af-panel { stroke: var(--af-muted); stroke-width: 1.65; }
+.htw-machine[data-htw-figure="phase-detect-af"][data-mode="reader"] [data-af-focus="pupil"] .af-pupil-housing,
+.htw-machine[data-htw-figure="phase-detect-af"][data-mode="reader"] [data-af-focus="pupil"] .af-microlens { stroke: var(--af-ink); stroke-width: 2.2; }
+.htw-machine[data-htw-figure="phase-detect-af"][data-mode="reader"] [data-af-focus="planes"] .af-measure-plane { stroke-width: 3; }
+.htw-machine[data-htw-figure="phase-detect-af"][data-mode="reader"] [data-af-focus="signals"] .af-signals .af-panel { stroke: var(--af-muted); stroke-width: 1.65; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg .af-anatomy .af-board-copper { stroke: var(--camera-gold); }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg .af-anatomy .af-lens-polish { stroke: var(--af-muted); opacity: .55; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg .af-anatomy .af-microlens-grid,
@@ -628,8 +628,8 @@
   opacity: .75;
 }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg .af-anatomy .af-optical-receiver { fill: var(--af-channel); opacity: .6; }
-.htw-machine[data-htw-figure="phase-detect-af"] .af-svg[data-af-focus="pupil"] .af-anatomy .af-pupil-channel { stroke-width: 2.1; opacity: 1; }
-.htw-machine[data-htw-figure="phase-detect-af"] .af-svg[data-af-focus="signals"] .af-anatomy .af-optical-receiver { opacity: 1; }
+.htw-machine[data-htw-figure="phase-detect-af"][data-mode="reader"] .af-svg[data-af-focus="pupil"] .af-anatomy .af-pupil-channel { stroke-width: 2.1; opacity: 1; }
+.htw-machine[data-htw-figure="phase-detect-af"][data-mode="reader"] .af-svg[data-af-focus="signals"] .af-anatomy .af-optical-receiver { opacity: 1; }
 
 .htw-machine[data-htw-figure="phase-detect-af"] .af-bench-motion { pointer-events: none; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg .af-bench-label {
@@ -648,7 +648,7 @@
 .htw-machine[data-htw-figure="phase-detect-af"] .af-bench-axis { stroke-dasharray: 3 4; opacity: .7; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-bench-focus { stroke-dasharray: 3 3; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-bench-plane { fill: var(--af-lens); fill-opacity: .24; stroke: var(--af-ink); stroke-width: 1.65; }
-.htw-machine[data-htw-figure="phase-detect-af"] [data-af-focus="planes"] .af-bench-plane { stroke-width: 2.6; }
+.htw-machine[data-htw-figure="phase-detect-af"][data-mode="reader"] [data-af-focus="planes"] .af-bench-plane { stroke-width: 2.6; }
 .htw-machine[data-htw-figure="phase-detect-af"] [data-af-plate-contrast="true"] .af-bench-flat { display: none; }
 .htw-machine[data-htw-figure="phase-detect-af"] .htw-playground-console .htw-machine-button { min-height: 44px; padding-block: .45rem; line-height: 1.35; white-space: normal; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-control-reading { display: none; }
