@@ -633,6 +633,21 @@
   max-height: calc(100vh - var(--htw-header, 3.25rem) - 9rem);
   max-height: calc(100svh - var(--htw-header, 3.25rem) - 9rem);
 }
+@media (max-width: 1279px), (max-height: 899px) {
+  .htw-machine[data-htw-figure="stepper-motor"][data-mode="reader"] .htw-reader-slot {
+    position: static;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+  .htw-machine[data-htw-figure="stepper-motor"][data-mode="reader"] .htw-reader-slot .htw-machine-view > svg { max-height: none; }
+  .htw-machine[data-htw-figure="stepper-motor"][data-mode="reader"] .htw-step {
+    min-height: 0;
+    scroll-margin-top: calc(var(--htw-header, 3.25rem) + 1rem);
+  }
+}
 /* Font sizes are in drawing units: a 480-unit drawing shown ~310 px wide (phone) needs ~17 units for 11 px text. */
 @media (max-width: 640px) {
   .htw-machine[data-htw-figure="stepper-motor"] [data-machine-scene] { --sm-fs: 18px; --sm-fs-small: 17px; --sm-fs-big: 19px; }

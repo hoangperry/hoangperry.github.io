@@ -2,7 +2,7 @@ How Things Work playground: Ổ cứng HDD tìm và đọc một sector bằng c
 Topic: hard-disk-drive
 Generated file: built by publish-hard-disk-drive.mjs from a checked artifact and its receipt. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 4dee4c970754338a8888a52ad9df85dac89eae683479c508b1c007a9a4909870
+Source digest: 4cfc739f73049839f4ac555264e08d45d58b8f582c0fb7a23e979e1325c5b3fe
 Checks recorded in the build receipt:
 - HDD model, scene, renderer, adapters and build helpers: 82/82 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/hard-disk-drive/tests/hdd-build.test.mjs playgrounds/hard-disk-drive/tests/hdd-geometry.test.mjs playgrounds/hard-disk-drive/tests/hdd-invariance.test.mjs playgrounds/hard-disk-drive/tests/hdd-model.test.mjs playgrounds/hard-disk-drive/tests/hdd-parameter-grid.test.mjs playgrounds/hard-disk-drive/tests/hdd-reader-layout.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-artifact.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-digest.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-payloads.test.mjs playgrounds/hard-disk-drive/tests/hdd-release-rollback.test.mjs playgrounds/hard-disk-drive/tests/hdd-renderer.test.mjs playgrounds/hard-disk-drive/tests/hdd-scene.test.mjs)
 - HDD root publisher regressions: 8/8 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap tests/publish-hard-disk-drive.test.mjs)

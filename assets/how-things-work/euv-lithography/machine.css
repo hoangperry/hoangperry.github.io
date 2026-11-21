@@ -539,6 +539,20 @@
 }
 /* The sticky reader uses one equal-height crop at a time. Keep its labels sized to the column, not the viewport height. */
 .htw-machine[data-htw-figure="euv-lithography"][data-mode="reader"] .htw-reader-slot .euv-svg { max-height: none; }
+@media (max-width: 980px), (max-height: 899px) {
+  .htw-machine[data-htw-figure="euv-lithography"][data-mode="reader"] .htw-reader-slot {
+    position: static;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+  .htw-machine[data-htw-figure="euv-lithography"][data-mode="reader"] .htw-step {
+    min-height: 0;
+    scroll-margin-top: calc(var(--htw-header, 3.25rem) + 1rem);
+  }
+}
 .htw-machine[data-htw-figure="euv-lithography"] .euv-svg text {
   fill: var(--euv-ink);
   stroke: none;
@@ -603,7 +617,8 @@
 .htw-machine[data-htw-figure="euv-lithography"] .euv-mirror-face,
 .htw-machine[data-htw-figure="euv-lithography"] .euv-collector { fill: var(--euv-mirror); stroke: var(--euv-cut-edge); stroke-width: .75; }
 .htw-machine[data-htw-figure="euv-lithography"] .euv-mirror-edge { fill: var(--euv-face); stroke: var(--euv-cut-edge); stroke-width: .8; }
-.htw-machine[data-htw-figure="euv-lithography"] .euv-plasma { fill: var(--euv-laser-on-metal); stroke: var(--euv-reflect); stroke-width: .7; stroke-linejoin: round; }
+.htw-machine[data-htw-figure="euv-lithography"] .euv-plasma { fill: var(--euv-laser); stroke: var(--euv-cut-edge); stroke-width: .7; stroke-linejoin: round; }
+.htw-machine[data-htw-figure="euv-lithography"] [data-euv-source-pose] .euv-plasma { fill: var(--euv-laser-on-metal); stroke: var(--euv-reflect); }
 .htw-machine[data-htw-figure="euv-lithography"] .euv-reticle-pattern { fill: var(--euv-mirror); stroke: var(--euv-cut-edge); stroke-width: .6; }
 .htw-machine[data-htw-figure="euv-lithography"] .euv-grating-line { fill: none; stroke: var(--euv-cavity); stroke-width: 1.1; }
 .htw-machine[data-htw-figure="euv-lithography"] .euv-absorber { fill: var(--euv-shell); }

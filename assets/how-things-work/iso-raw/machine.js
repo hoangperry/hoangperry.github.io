@@ -61,9 +61,16 @@ var runtime = (function createPlaygroundRuntime() {
     const text = String(step);
     const exponent = /e-(\d+)$/.exec(text);
     const decimals = Math.min(20, exponent ? Number(exponent[1]) : (text.split('.')[1] || '').length);
-    let fixed = value.toFixed(decimals);
-    if (Number(fixed) === 0) fixed = (0).toFixed(decimals);
-    return fixed.replace('.', ',');
+    const fixed = Math.abs(value).toFixed(decimals);
+    const sign = value < 0 && Number(fixed) !== 0 ? '−' : '';
+    let number = fixed.replace('.', ',');
+    if (Math.abs(value) < 1e21) { // toFixed uses scientific notation beyond this point.
+      const comma = number.indexOf(',');
+      for (let i = (comma < 0 ? number.length : comma) - 3; i > 0; i -= 3) {
+        number = number.slice(0, i) + '.' + number.slice(i);
+      }
+    }
+    return sign + number;
   }
 
   function indexControls(controls) {

@@ -61,9 +61,16 @@ var runtime = (function createPlaygroundRuntime() {
     const text = String(step);
     const exponent = /e-(\d+)$/.exec(text);
     const decimals = Math.min(20, exponent ? Number(exponent[1]) : (text.split('.')[1] || '').length);
-    let fixed = value.toFixed(decimals);
-    if (Number(fixed) === 0) fixed = (0).toFixed(decimals);
-    return fixed.replace('.', ',');
+    const fixed = Math.abs(value).toFixed(decimals);
+    const sign = value < 0 && Number(fixed) !== 0 ? '−' : '';
+    let number = fixed.replace('.', ',');
+    if (Math.abs(value) < 1e21) { // toFixed uses scientific notation beyond this point.
+      const comma = number.indexOf(',');
+      for (let i = (comma < 0 ? number.length : comma) - 3; i > 0; i -= 3) {
+        number = number.slice(0, i) + '.' + number.slice(i);
+      }
+    }
+    return sign + number;
   }
 
   function indexControls(controls) {
@@ -97,6 +104,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -219,6 +227,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -234,6 +243,7 @@ var runtime = (function createPlaygroundRuntime() {
       if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -244,7 +254,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -310,6 +320,10 @@ var runtime = (function createPlaygroundRuntime() {
         const before = current;
         if (key === 'run' || key === 'step') {
           if (before.running) return false;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
           const refused = model.command({ key }) === false;
           const after = read(refused);
           if (refused || (key === 'run' && !after.running)) return false;
@@ -575,7 +589,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -586,7 +600,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -695,6 +710,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -973,6 +989,8 @@ var mountRenderer = (function mountRenderer(root) {
   const xAt = (voltage) => 56 + voltage * 118;
   const yAt = (milliamps) => 457 - milliamps * (104 / 1.2);
   let previousCurve;
+  let previousCharge;
+  let previousHasChannel;
 
   function attr(node, key, value) {
     const old = node.getAttribute(key);
@@ -997,14 +1015,18 @@ var mountRenderer = (function mountRenderer(root) {
       attr(svg, 'data-nmos-id', idMa);
       mark('directions', 'display', display(idMa > 0));
       mark('pinch', 'display', display(region === 'saturation'));
-      let band = '';
-      if (hasChannel) {
-        band = `M151 149H292`;
-        const samples = channelChargeV.length - 1;
-        for (let i = samples; i >= 0; i--) band += `L${px(151 + 141 * i / samples)} ${px(149 + 11 * channelChargeV[i])}`;
-        band += 'Z';
+      if (channelChargeV !== previousCharge || hasChannel !== previousHasChannel) {
+        let band = '';
+        if (hasChannel) {
+          band = `M151 149H292`;
+          const samples = channelChargeV.length - 1;
+          for (let i = samples; i >= 0; i--) band += `L${px(151 + 141 * i / samples)} ${px(149 + 11 * channelChargeV[i])}`;
+          band += 'Z';
+        }
+        mark('charge', 'd', band);
+        previousCharge = channelChargeV;
+        previousHasChannel = hasChannel;
       }
-      mark('charge', 'd', band);
       const label = !hasChannel ? 'Chưa có kênh nghịch đảo' : idMa === 0 ? 'Có kênh · không có dòng' : region === 'saturation' ? 'Kênh thắt sát máng' : 'Điện tích giảm về phía máng';
       if (channel.textContent !== label) channel.textContent = label;
       const gateLabel = `VGS = ${volts(vgsV)} V`;

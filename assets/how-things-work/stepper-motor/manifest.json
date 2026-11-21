@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "stepper-motor",
   "kind": "playground",
-  "sourceDigest": "b22fee8b38bc5b415c210d207023b369cd2d0c49f88a493dfa733ed29ca8ac9e",
+  "sourceDigest": "bf4c281f07d43b976dc04bfd10f1b5da980481f982cf37c7fe78912f00126eec",
   "files": {
-    "_includes/how-things-work/stepper-motor-scene.html": "8310df336fceb3f6d24993ad90877990a1f34c6842124e255cc32f47efc4fe47",
+    "_includes/how-things-work/stepper-motor-scene.html": "959e613f2846eebefd0f4fb4cab2fcd53505d6ee4be0fbb0f4bbb03b7939ffcf",
     "_includes/how-things-work/stepper-motor-console.html": "eeae1ac99c2099ad86e14faa2b8c38f1d67ff555448c9fb160e2ffeb635f55cb",
-    "assets/how-things-work/stepper-motor/machine.js": "c84e7c6a17295ed759cbbb3ba4bab2ea1160e01cdc16ab5ed2fd35793675bf4a",
-    "assets/how-things-work/stepper-motor/machine.css": "41ab60e74a4f358e6daa078de0191ce18996aeea1e39c52366d0ffb0ad620f82",
+    "assets/how-things-work/stepper-motor/machine.js": "2559a7b4caf95ada7779dc34f803b8483a72e0a61321bd758b46a2b236cce57a",
+    "assets/how-things-work/stepper-motor/machine.css": "7bb74550b8c9933adcad3567ade63e01d05e649bea1aea2debb5cf0c63bb9626",
     "assets/how-things-work/stepper-motor/thumbnail.webp": "99d1cf67d74e23746d6b0e2206e9fc76af0d2810037c95b1d055159226409825",
-    "assets/how-things-work/stepper-motor/NOTICE.txt": "9e06ebd8bfa0d3512ce92dce0540d5bdc5c78c40b222d1339f8714dcad89df6c"
+    "assets/how-things-work/stepper-motor/NOTICE.txt": "2a8d82d11039c87eabf94c45470980901fc5adbe20450f94e66b5f8803afcde8"
   }
 }

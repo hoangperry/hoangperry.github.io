@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "barometric-altimeter",
   "kind": "playground",
-  "sourceDigest": "51ac62ffa75155effacec790f9ca8c867e2cb80fe194d1a593abe5e401d8a4ff",
+  "sourceDigest": "44384e6f3fa21f6efed43a26fd48e4b1d92d5a9856b3e8922091b59f3e0384d6",
   "files": {
     "_includes/how-things-work/barometric-altimeter-scene.html": "d1e8f517f4df9909cbe8614a266d530e5873bd6b7e86b42807b726c8e172b6b3",
     "_includes/how-things-work/barometric-altimeter-console.html": "758dcea7137d3fe6c6da772ee828f1790f64bc0ef00e5c04472b76a94925a1b5",
-    "assets/how-things-work/barometric-altimeter/machine.js": "5de3e67f6a0d45f0f9f5eea5662b8ee86320735136204dbde611a871c148c990",
+    "assets/how-things-work/barometric-altimeter/machine.js": "7bcf4c6489c9e7448761c3333f04264279208753e17c12415c7ac1cffa90a156",
     "assets/how-things-work/barometric-altimeter/machine.css": "123924cdeabd84deb7f30544511d95d0a99e25f745c2e066c3860525c80fccd3",
     "assets/how-things-work/barometric-altimeter/thumbnail.webp": "5312c5c53efff3b3546094037e719d0c078a909359fd2401ff47571ea3780015",
-    "assets/how-things-work/barometric-altimeter/NOTICE.txt": "189fa32158afef37e933750ef8ae24278fc836fa8b04fee8fec23e7e27ecbcae"
+    "assets/how-things-work/barometric-altimeter/NOTICE.txt": "8af959fa5ef2512d72ed996cbbaa7343a80b139d3a6299a60aa511a167b61bd6"
   }
 }
