@@ -8,14 +8,15 @@ excerpt: "Hai nửa khẩu độ cho hai tín hiệu cùng lúc. Kéo mặt đo 
 style-includes:
   - /css/how-things-work.css
   - /css/photography-machines.css
-  - /assets/how-things-work/phase-detect-af/machine.css?v=e5bf175745adcc90
+  - /assets/how-things-work/phase-detect-af/machine.css?v=7ed2c9aee52f8d68
 script-includes:
-  - /assets/how-things-work/phase-detect-af/machine.js?v=e5bf175745adcc90
+  - /assets/how-things-work/phase-detect-af/machine.js?v=7ed2c9aee52f8d68
 ---
 
 <div class="htw-machine" data-htw-figure="phase-detect-af" data-theme="dark" data-mode="reader">
   <div class="htw-reading">
     <div class="htw-reader-slot" data-machine-reader-slot>
+      <button type="button" class="button special htw-mode-button camera-open-motion" data-machine-mode="explore" aria-controls="phase-detect-af-scene phase-detect-af-console" disabled>Xem hai tia gặp nhau</button>
       {% include how-things-work/phase-detect-af-scene.html %}
       <div class="htw-reader-bar">
         <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh cho thấy mặt đo trước điểm hội tụ; xem <a href="#phase-detect-af-ket-qua">bảng đối chiếu</a> để đọc cả bốn trường hợp.</p></noscript>
@@ -42,7 +43,7 @@ script-includes:
         <p class="htw-step-label">01 · Hai nửa khẩu độ</p>
         <h2 id="phase-detect-af-hai-nua-h" tabindex="-1">Cùng một cạnh, hai góc nhìn qua ống kính</h2>
         <p>Hướng máy ảnh vào mép một khung cửa. Trong hình ban đầu, tín hiệu A thấy mép ở −1 còn tín hiệu B thấy nó ở +1. B nằm bên phải A trên đồ thị, chênh đúng <strong>+2 đơn vị hình</strong>. Thứ tự ấy là manh mối về hướng cần chỉnh, dù máy chưa thử làm ảnh nét hơn.</p>
-        <p>Cụm quang cắt mở đặt ống kính, khẩu độ và cảm biến trong cùng một hình. Cảm biến trong cụm đó đứng yên; sơ đồ tia bên dưới mới dịch mặt đo tưởng tượng để giải thích vì sao thứ tự hai cạnh đổi khi qua nét.</p>
+        <p>Mở <strong>Xem hai tia gặp nhau</strong> rồi bấm <strong>Chạy</strong>. Trên cụm quang, mặt đo giả định dịch dọc trục trong khi cảm biến thật đứng yên. Hai dấu giao trên mặt đo tiến về nhau khi hiệu chỉnh và trùng nhau ở mặt hội tụ; qua mặt đó, chúng đổi thứ tự.</p>
         <p>Trong một cảm biến kiểu <em>Dual Pixel</em>, mỗi pixel có hai photodiode dưới cùng một vi thấu kính. Mỗi photodiode nhận ánh sáng ưu tiên từ một nửa khác nhau của khẩu độ nhìn qua ống kính. Xét các pixel lân cận, ta có hai dãy giá trị độ sáng A và B của cùng một vùng ảnh. Cặp tín hiệu lấy nét nhìn cùng cảnh ở cùng thời điểm, không phải hai ảnh chụp lần lượt trước và sau khi xoay vòng nét. Cặp photodiode cũng phục vụ tạo ảnh. <a href="#phase-detect-af-source-s1">[S1]</a></p>
       </section>
 
