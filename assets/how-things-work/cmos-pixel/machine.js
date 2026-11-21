@@ -97,6 +97,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -219,6 +220,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -234,6 +236,7 @@ var runtime = (function createPlaygroundRuntime() {
       if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -244,7 +247,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -310,6 +313,10 @@ var runtime = (function createPlaygroundRuntime() {
         const before = current;
         if (key === 'run' || key === 'step') {
           if (before.running) return false;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
           const refused = model.command({ key }) === false;
           const after = read(refused);
           if (refused || (key === 'run' && !after.running)) return false;
@@ -575,7 +582,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -586,7 +593,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -695,6 +703,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -827,7 +836,7 @@ var createModel = (function createModel(data) {
   };
   const reading = (key, label, text) => Object.freeze({ key, label, text });
   const volts = (n) => `${n.toFixed(3).replace('.', ',')} V`;
-  const electrons = (n) => `${String(Math.round(n + 1e-8)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')} e⁻`;
+  const electrons = (n) => `${n > 0 && n < 0.5 ? '<1' : String(Math.round(n + 1e-8)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')} e⁻`;
   const voltageOrDash = (n) => n === null ? '—' : volts(n);
 
   let controls, settings, cached;
@@ -995,12 +1004,16 @@ var mountRenderer = (function mountRenderer(root, data) {
   const anatomyNote = anatomyText('note');
   const anatomyRoute = svg.querySelector('[data-cmos-anatomy-route]');
   const anatomyGlint = svg.querySelector('[data-cmos-anatomy-glint]');
+  const desc = svg.querySelector('[data-cmos-desc]');
+  const legend = desc?.textContent;
   const mobile = root.querySelector('[data-camera-reading]');
   const { resetV, fullWellElectrons, secondsPerExposureMs, readoutBeatSeconds } = data.parameters;
   const attributes = new Map();
   const texts = new Map();
+  let previousPixel, previousStage, previousLabel, previousReading, previousStatus;
 
   function attr(node, key, value) {
+    if (!node) return;
     const previous = node.getAttribute(key);
     const next = String(value);
     if (previous === next) return;
@@ -1021,11 +1034,21 @@ var mountRenderer = (function mountRenderer(root, data) {
     for (let index = 0; index < dots.length; index++) attr(dots[index], 'display', index < count ? 'inline' : 'none');
   }
   const volts = (value) => `${value.toFixed(3).replace('.', ',')} V`;
-  const charge = (value) => `${value > 0 && value < 0.5 ? '<1' : String(Math.round(value)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')} e⁻`;
+  const charge = (value) => `${value > 0 && value < 0.5 ? '<1' : String(Math.round(value + 1e-8)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')} e⁻`;
 
-  function paintAnatomy(pixel, stage, label, time, reducedMotion) {
+  function paintAnatomyGlint(pixel, time, reducedMotion) {
+    if (!anatomyRoute || !anatomyGlint) return;
+    const transferred = pixel.gateOpen && pixel.fdElectrons > 0;
+    // This is the fraction of the existing display beat, not a transfer duration.
+    const progress = (time - pixel.exposureElapsedMs * secondsPerExposureMs - readoutBeatSeconds) / readoutBeatSeconds;
+    const sweep = transferred && !reducedMotion && progress > 1e-6 && progress < 1;
+    attr(anatomyGlint, 'display', sweep ? 'inline' : 'none');
+    if (sweep) attr(anatomyGlint, 'stroke-dashoffset', (0.22 - 1.22 * progress).toFixed(3));
+  }
+
+  function paintAnatomy(pixel, stage, label) {
     if (!anatomyRoute) return;
-    const { ppdElectrons, fdElectrons, gateOpen, wellFull, exposureElapsedMs } = pixel;
+    const { ppdElectrons, fdElectrons, gateOpen, wellFull } = pixel;
     const transferred = gateOpen && fdElectrons > 0;
     packet(anatomyPpd, ppdElectrons);
     packet(anatomyFd, fdElectrons);
@@ -1039,24 +1062,25 @@ var mountRenderer = (function mountRenderer(root, data) {
     text(anatomyNote, transferred ? 'Vệt minh họa'
       : gateOpen ? 'Không có e⁻' : wellFull ? 'PPD đã đầy'
         : stage === 'ready' ? 'PPD → FD dưới TG' : 'Chấm gợi mật độ');
-    if (anatomyGlint) {
-      // This is the fraction of the existing display beat, not a transfer duration.
-      const progress = (time - exposureElapsedMs * secondsPerExposureMs - readoutBeatSeconds) / readoutBeatSeconds;
-      const sweep = transferred && !reducedMotion && progress > 1e-6 && progress < 1;
-      attr(anatomyGlint, 'display', sweep ? 'inline' : 'none');
-      if (sweep) attr(anatomyGlint, 'stroke-dashoffset', (0.22 - 1.22 * progress).toFixed(3));
-    }
   }
 
   return {
-    render({ stage, stageLabel: label, pixel, time, cameraReading }, { focus = 'device', reducedMotion = false } = {}) {
+    render({ stage, stageLabel: label, pixel, time, cameraReading, status }, { focus = 'device', reducedMotion = false } = {}) {
+      attr(svg, 'data-cmos-focus', focus);
+      paintAnatomyGlint(pixel, time, reducedMotion);
+      if (pixel === previousPixel && stage === previousStage && label === previousLabel
+        && cameraReading === previousReading && status === previousStatus) return;
+      previousPixel = pixel;
+      previousStage = stage;
+      previousLabel = label;
+      previousReading = cameraReading;
+      previousStatus = status;
       const { ppdElectrons, fdElectrons, fdV, predictedDeltaV, resetSampleV, signalSampleV, gateOpen, wellFull } = pixel;
       attr(svg, 'data-camera-stage', stage);
-      attr(svg, 'data-cmos-focus', focus);
       attr(svg, 'data-cmos-transferring', gateOpen && fdElectrons > 0);
       packet(ppdDots, ppdElectrons);
       packet(fdDots, fdElectrons);
-      paintAnatomy(pixel, stage, label, time, reducedMotion);
+      paintAnatomy(pixel, stage, label);
       text(stageLabel, wellFull ? `${label} · đầy giếng` : label);
       text(gateLabel, gateOpen ? 'TG mở' : 'TG đóng');
       text(fdLabel, `FD ${volts(fdV)}`);
@@ -1067,6 +1091,7 @@ var mountRenderer = (function mountRenderer(root, data) {
       const x = (52 + 338 * ((signalV - 0.85) / 0.35)).toFixed(2);
       attr(signalMark, 'x1', x);
       attr(signalMark, 'x2', x);
+      if (desc) text(desc, `${legend} ${cameraReading}.${status ? ` ${status}` : ''}`);
       text(mobile, cameraReading);
     },
     dispose() {

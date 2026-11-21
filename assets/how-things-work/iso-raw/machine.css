@@ -594,6 +594,7 @@
 .htw-machine[data-htw-figure="iso-raw"] .iso-svg text {
   fill: var(--iso-ink);
   font: 570 16px system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
 }
 .htw-machine[data-htw-figure="iso-raw"] .iso-svg .iso-heading { font-size: 19px; font-weight: 720; }
 .htw-machine[data-htw-figure="iso-raw"] .iso-svg .iso-index,
@@ -719,5 +720,6 @@
     font-weight: 650;
     line-height: 1.45;
     font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
   }
 }
