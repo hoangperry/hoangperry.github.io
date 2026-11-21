@@ -6087,16 +6087,30 @@ function trayIndexKinematics(L, cycleDegrees, totalDegrees, solve) {
   if (!data.turn || !Array.isArray(data.turn.parts) || !data.rig) fail('native scene packet/rig missing');
   // Caller-owned clone: the mounted packet never aliases the frozen boot data, and membership is fixed from here on.
   const packet = JSON.parse(JSON.stringify(data.turn));
-  const native = kit.TURN.mount(view, packet);
+  // TURN mutates and reorders the real paths, even during its first mount. Its destroy()
+  // releases observers but does not repaint. Keep the authored rig outside the live tree
+  // so even a partially failed native write cannot leave closed shutters next to a lit slide.
+  const nativeLayer = view.querySelector('svg[data-live]');
+  if (!nativeLayer) fail('native layer missing');
+  const staticLayer = nativeLayer.cloneNode(true);
+  function restoreLayer() {
+    view.insertBefore(staticLayer, nativeLayer);
+    nativeLayer.remove();
+  }
+  let native;
   let readout = null;
   try {
+    native = kit.TURN.mount(view, packet);
     if (typeof native.set !== 'function' || typeof native.destroy !== 'function') fail('TURN mount lacks the public set/destroy API');
     readout = root.ownerDocument.createElement('p');
     readout.setAttribute('data-projector-readout', '');
     readout.className = 'htw-projector-readout';
     caption.append(readout);
   } catch (error) {
-    try { native.destroy(); } finally { if (readout) readout.remove(); }
+    try { if (native) native.destroy(); } finally {
+      restoreLayer();
+      if (readout) readout.remove();
+    }
     throw error;
   }
   // Linear 0..1 positive transmittance -> sRGB display code (display encoding only; the model value is untouched).
@@ -6111,10 +6125,33 @@ function trayIndexKinematics(L, cycleDegrees, totalDegrees, solve) {
   let disposed = false;
   let paints = 0;
   let poses = 0;
+  const priorViewAttrs = new Map();
+  const viewAttr = (key, value) => {
+    if (!priorViewAttrs.has(key)) priorViewAttrs.set(key, view.getAttribute(key));
+    view.setAttribute(key, String(value));
+  };
+  const initialScreen = ['data-projection', 'data-projection-slide', 'data-transmission'].map((k) => [k, screenNode.getAttribute(k)]);
+  const initialCone = ['fill-opacity', 'data-projection'].map((k) => [k, coneNode.getAttribute(k)]);
+  const initialCells = cells.map((cell) => cell.getAttribute('fill'));
+  let projectionPainted = false;
+  function restoreStatic() {
+    for (const [k, v] of priorViewAttrs) {
+      if (v === null) view.removeAttribute(k); else view.setAttribute(k, v);
+    }
+    if (projectionPainted) {
+      for (const [k, v] of initialScreen) { if (v === null) screenNode.removeAttribute(k); else screenNode.setAttribute(k, v); }
+      for (const [k, v] of initialCone) { if (v === null) coneNode.removeAttribute(k); else coneNode.setAttribute(k, v); }
+      for (let i = 0; i < cells.length; i++) {
+        const v = initialCells[i];
+        if (v === null) cells[i].removeAttribute('fill'); else if (cells[i].getAttribute('fill') !== v) cells[i].setAttribute('fill', v);
+      }
+    }
+  }
   function paintProjection(p) {
     if (!p || p.columns !== SCREEN.columns || p.rows !== SCREEN.rows || !Array.isArray(p.rgb) || p.rgb.length !== SCREEN.columns * SCREEN.rows * 3) fail('projection raster shape');
     const on = p.slideId !== null && p.transmission > 0;
     if (!on && (p.transmission !== 0 || p.rgb.some((v) => v !== 0))) fail('dark projection carries light');
+    projectionPainted = true;
     for (let i = 0; i < cells.length; i++) {
       const fill = 'rgb(' + code(p.rgb[3 * i]) + ',' + code(p.rgb[3 * i + 1]) + ',' + code(p.rgb[3 * i + 2]) + ')';
       if (cells[i].getAttribute('fill') !== fill) cells[i].setAttribute('fill', fill);
@@ -6125,22 +6162,31 @@ function trayIndexKinematics(L, cycleDegrees, totalDegrees, solve) {
     coneNode.setAttribute('fill-opacity', String(Math.round(0.22 * p.transmission * 1000) / 1000));
     coneNode.setAttribute('data-projection', on ? 'on' : 'dark');
   }
+  function dispose() {
+    if (disposed) return;
+    disposed = true;
+    try { native.destroy(); } finally {
+      restoreLayer();
+      readout.remove();
+      restoreStatic();
+    }
+  }
   return {
     render(snapshot, options = {}) {
       if (disposed) fail('renderer disposed');
       try {
-      view.setAttribute('data-projector-focus', options.focus || 'all');
+      viewAttr('data-projector-focus', options.mode === 'explore' ? snapshot.stageKey : options.focus || 'all');
       if (snapshot === previousSnapshot) return;
       const values = sceneGroupValues(data.rig, snapshot);
       const signature = JSON.stringify(values);
       if (signature !== previousValues) { native.set(values); poses += 1; previousValues = signature; }
       if (snapshot.projection !== previousProjection) { paintProjection(snapshot.projection); previousProjection = snapshot.projection; }
       const sh = snapshot.shutter, gate = snapshot.gate, p = snapshot.projection;
-      view.setAttribute('data-snapshot-time', String(snapshot.time));
-      view.setAttribute('data-snapshot-cycle', String(snapshot.cycle));
-      view.setAttribute('data-gate-slide', gate.slideId === null ? '' : String(gate.slideId));
-      view.setAttribute('data-lifter-slide', snapshot.lifter.slideId === null ? '' : String(snapshot.lifter.slideId));
-      view.setAttribute('data-pupil-t', String(sh.pupilTransmission));
+      viewAttr('data-snapshot-time', snapshot.time);
+      viewAttr('data-snapshot-cycle', snapshot.cycle);
+      viewAttr('data-gate-slide', gate.slideId === null ? '' : gate.slideId);
+      viewAttr('data-lifter-slide', snapshot.lifter.slideId === null ? '' : snapshot.lifter.slideId);
+      viewAttr('data-pupil-t', sh.pupilTransmission);
       const held = gate.slideId === null ? (snapshot.lifter.slideId === null ? 'Cửa chiếu trống' : 'Dương bản ' + snapshot.lifter.slideId + ' trên bàn nâng') :
         'Cửa chiếu: dương bản ' + gate.slideId + (gate.seated ? ' đã tựa' : '') + (gate.clamped ? ', đã kẹp' : ', chưa kẹp');
       readout.textContent = held + ' · Lá trái/phải ' + fixed(sh.leafDegrees[0], 1) + '°/' + fixed(sh.leafDegrees[1], 1) + '° · Độ mở cửa sáng ' +
@@ -6149,23 +6195,15 @@ function trayIndexKinematics(L, cycleDegrees, totalDegrees, solve) {
         ' · Góc khay ' + fixed(snapshot.tray.angleDegrees, 1) + '° · Bàn nâng ' + fixed(snapshot.lifter.z * data.rig.scale, 2) + ' mm · Thời gian ' + fixed(snapshot.time, 3) + ' s, chu kỳ ' + snapshot.cycle;
       previousSnapshot = snapshot;
       paints += 1;
-      view.setAttribute('data-projector-paints', String(paints));
-      view.setAttribute('data-projector-poses', String(poses));
+      viewAttr('data-projector-paints', paints);
+      viewAttr('data-projector-poses', poses);
       } catch (error) {
-        // Freeze the visible scene and remove live numbers if any SVG write fails.
-        // The shared runtime disables controls and announces the static fallback.
-        try { native.destroy(); } finally { readout.remove(); }
+        // Restore both the authored rig and its projection before announcing fallback.
+        dispose();
         throw error;
       }
     },
-    dispose() {
-      if (disposed) return;
-      disposed = true;
-      try { native.destroy(); } finally {
-        readout.remove();
-        for (const name of ['focus', 'paints', 'poses']) view.removeAttribute('data-projector-' + name);
-      }
-    },
+    dispose,
   };
 });
 runtime.boot({

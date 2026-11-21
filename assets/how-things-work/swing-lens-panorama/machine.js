@@ -4872,14 +4872,15 @@ return (function mountPanoramaRenderer(root, data, TURN, makeRig) {
     if (parent) parent.appendChild(node);
     return node;
   };
-  const sceneLayer = el('g', { 'data-pan-scene': '',
-    'aria-label': 'Liều tiềm ẩn tương đối trên cùng dải phim cong, chưa tráng', class: 'iso-live iso-parts' });
+  const sceneLayer = el('g', { 'data-pan-scene': '', class: 'iso-live iso-parts' });
   const readout = doc.createElement('p'); readout.setAttribute('data-pan-readout', ''); readout.setAttribute('class', 'pan-readout');
   const rig = makeRig(data, TURN), groups = new Map(), prior = new Map();
   const hidden = fallback.map(n => n.getAttribute('display'));
   let previous = null, latest = null, disposed = false, committed = false, filmCells = 0;
   const cleanupErrors = [];
-  const fmt = (value, digits) => value.toFixed(digits).replace('.', ',');
+  const fmt = (value, digits) => {
+    return value.toFixed(digits).replace(/^-0(?=\.0+$|$)/, '0').replace('.', ',');
+  };
   const attempt = fn => { try { fn(); } catch (error) { cleanupErrors.push(error); } };
   const viewAttr = (k, v) => { if (!prior.has(k)) prior.set(k, view.getAttribute(k)); set(view, k, v); };
   function dispose() {
@@ -4940,10 +4941,13 @@ return (function mountPanoramaRenderer(root, data, TURN, makeRig) {
       groups.delete(name);
     }
     // Exact native order, no manually elevated film/optical overlay.
-    for (const i of build.orders.flat()) sceneLayer.appendChild(groups.get(build.scene.runs[i].name).node);
+    const flatOrder = build.orders.flat();
+    const nodes = sceneLayer.childNodes;
+    if (nodes.length !== flatOrder.length || flatOrder.some((i, j) => nodes[j] !== groups.get(build.scene.runs[i].name).node)) {
+      for (const i of flatOrder) sceneLayer.appendChild(groups.get(build.scene.runs[i].name).node);
+    }
   }
   function paintFilm(snapshot, build) {
-    for (const entry of groups.values()) if (entry.ink) { entry.node.removeChild(entry.ink); entry.ink = null; }
     const records = [{ frame: snapshot.exposureFrame, dose: snapshot.dose, role: 'exposing' }];
     if (snapshot.held && snapshot.held.frame !== snapshot.exposureFrame)
       records.push({ frame: snapshot.held.frame, dose: snapshot.held.dose, role: 'held' });
@@ -4956,8 +4960,9 @@ return (function mountPanoramaRenderer(root, data, TURN, makeRig) {
       const nearerRight = (poly[0][0] + poly[1][0] - poly[2][0] - poly[3][0]) * V[0] + (poly[0][1] + poly[1][1] - poly[2][1] - poly[3][1]) * V[1] >= 0;
       const a = poly[nearerRight ? 0 : 3], b = poly[nearerRight ? 1 : 2];
       const at = s => a.map((v, i) => v + (b[i] - v) * ((s - piece.s0) / (piece.s1 - piece.s0)));
+      let ci = 0;
       for (const rec of records) for (let c = 0; c < cols; c++) {
-        const start = data.film.gateStart - 62 * (rec.frame - 1) + build.q;
+        const start = data.film.gateStart - data.model.pitch * (rec.frame - data.model.firstFrame) + build.q;
         const lo = Math.max(piece.s0, start + data.film.gateLength * c / cols);
         const hi = Math.min(piece.s1, start + data.film.gateLength * (c + 1) / cols);
         if (!(hi > lo)) continue;
@@ -4967,13 +4972,28 @@ return (function mountPanoramaRenderer(root, data, TURN, makeRig) {
           const dose = rec.dose[r * cols + c], level = Math.min(1, Math.max(0, dose));
           const z0 = 41.5 - 24 * (r + 1) / rows, z1 = 41.5 - 24 * r / rows;
           const points = [[...x, z0], [...y, z0], [...y, z1], [...x, z1]].map(project);
-          el('path', { class: 'pan-cell', 'data-dose': dose, 'data-frame': rec.frame, 'data-frame-role': rec.role,
+          const attrs = { class: 'pan-cell', 'data-dose': dose, 'data-frame': rec.frame, 'data-frame-role': rec.role,
             'data-material-start': lo - build.q, 'data-material-end': hi - build.q,
             // Retain route endpoints AND q: subtraction can collapse tiny material-coordinate slivers.
             'data-route-start': lo, 'data-route-end': hi, 'data-total-transport': build.q,
             fill: `rgb(${Math.round(40 + 170 * level)},${Math.round(37 + 90 * level)},${Math.round(30 + 20 * level)})`,
-            d: points.map((p, i) => `${i ? 'L' : 'M'}${p[0]} ${p[1]}`).join('') + 'Z' }, entry.ink); count++;
+            d: points.map((p, i) => `${i ? 'L' : 'M'}${p[0]} ${p[1]}`).join('') + 'Z' };
+          const existing = entry.ink.childNodes[ci];
+          if (existing) {
+            for (const [k, v] of Object.entries(attrs)) set(existing, k, v);
+          } else {
+            el('path', attrs, entry.ink);
+          }
+          ci++; count++;
         }
+      }
+      if (!entry.ink) continue;
+      if (!ci) {
+        entry.node.removeChild(entry.ink);
+        entry.ink = null;
+      } else {
+        const cells = entry.ink.childNodes;
+        for (let i = cells.length - 1; i >= ci; i--) entry.ink.removeChild(cells[i]);
       }
     }
     return count;
@@ -4988,7 +5008,7 @@ return (function mountPanoramaRenderer(root, data, TURN, makeRig) {
             'data-lens': build.values.lens, 'data-transport': build.q, 'data-solids': build.packet.parts.length,
             'data-order-forced': build.stats.forced || 0, 'data-order-unseparated': build.stats.unseparated || 0,
             'data-film-cells': filmCells })) viewAttr(k, v);
-          readout.textContent = `t ${fmt(snapshot.time, 3)} s · kính ${fmt(snapshot.swing, 2)}° · khe mở ${fmt(snapshot.open * snapshot.slit.width * Math.PI / 180 * data.model.radius, 2)} mm · mức tích năng lò xo ${fmt(snapshot.spring * 100, 1)}% · kéo phim ${fmt(build.q, 2)} mm · khung ${snapshot.exposureFrame}→${snapshot.frame} · phơi lớn nhất ${fmt(Math.max(...snapshot.exposure), 3)} — liều tiềm ẩn quy ước trên phim cong, chưa tráng; không ghép ảnh số`;
+          readout.textContent = `t ${fmt(snapshot.time, 3)} s · kính ${fmt(snapshot.swing, 2)}° · khe mở ${fmt(snapshot.open * snapshot.slit.width * Math.PI / 180 * data.model.radius, 2)} mm · mức tích năng lò xo ${fmt(snapshot.spring * 100, 1)}% · tổng kéo phim ${fmt(build.q, 2)} mm · khung ${snapshot.exposureFrame}→${snapshot.frame} · phơi lớn nhất theo cột ${fmt(Math.max(...snapshot.exposure), 3)} · liều tiềm ẩn lớn nhất trên khung ${snapshot.exposureFrame}: ${fmt(Math.max(...snapshot.dose), 3)} — màu biểu thị liều trên phim cong, chưa tráng; không ghép ảnh số`;
           latest = build; previous = snapshot;
         }
         viewAttr('data-pan-focus', options.focus || 'all');
