@@ -2,7 +2,7 @@ How Things Work playground: MOSFET: Vì sao cổng cách điện vẫn bật đ�
 Topic: mosfet
 Generated file: built by the MOSFET topic exporter from checked sources. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 11e359250393b41c97941ab12b678a13e7a194aef8bc84e4206c5e117049f032
+Source digest: a2f3f28cce7999345edd4f99dfd82953531b4a1755005db0d105dd1648c7bc30
 Checks recorded in the build receipt:
 - nmos-model.test.mjs: 9/9 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/mosfet/tests/nmos-model.test.mjs)
 - Mode invariance: passed, 1 scripts

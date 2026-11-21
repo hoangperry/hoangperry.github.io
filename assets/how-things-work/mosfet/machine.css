@@ -291,6 +291,10 @@
 
 /* ---------- Console ---------- */
 
+/* A host theme's fixed button height must not clip wrapped labels; the base controls keep the 44px minimum. */
+.htw-machine[data-htw-figure="mosfet"] .htw-machine-chip,
+.htw-machine[data-htw-figure="mosfet"] .htw-machine-button { height: auto; }
+.htw-machine[data-htw-figure="mosfet"] .htw-machine-theme { flex: none; }
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-console { gap: 1.1rem; }
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-console .htw-machine-controls {
   display: grid;
@@ -298,6 +302,13 @@
   gap: .5rem;
 }
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-console .htw-machine-controls .htw-machine-button { padding: 0 .6rem; }
+.htw-machine[data-htw-figure="mosfet"] .htw-machine-reset-icon {
+  width: .7rem;
+  height: .8rem;
+  flex: none;
+  background: currentColor;
+  clip-path: polygon(0 0, 22% 0, 22% 100%, 0 100%, 0 0, 100% 0, 100% 100%, 30% 50%, 100% 0);
+}
 
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-group {
   display: grid;
@@ -338,7 +349,12 @@
 }
 
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-options { display: flex; flex-wrap: wrap; gap: .375rem; min-width: 0; }
-.htw-machine[data-htw-figure="mosfet"] .htw-playground-options .htw-machine-chip { flex: 1 1 auto; padding: 0 .7rem; }
+.htw-machine[data-htw-figure="mosfet"] .htw-playground-options .htw-machine-chip {
+  flex: 1 1 auto;
+  padding: .45rem .7rem;
+  line-height: 1.35;
+  white-space: normal;
+}
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-toggle3 { grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr); }
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-toggle3 .htw-playground-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-toggle3 .htw-machine-chip { font-size: .8rem; }
@@ -411,7 +427,12 @@
 
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-presets { display: flex; flex-wrap: wrap; gap: .375rem; min-width: 0; }
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-presets .htw-playground-group-label { margin-bottom: .45rem; }
-.htw-machine[data-htw-figure="mosfet"] .htw-playground-presets .htw-machine-chip { flex: 1 1 auto; padding: 0 .7rem; }
+.htw-machine[data-htw-figure="mosfet"] .htw-playground-presets .htw-machine-chip {
+  flex: 1 1 auto;
+  padding: .45rem .7rem;
+  line-height: 1.35;
+  white-space: normal;
+}
 
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-challenges { min-width: 0; }
 .htw-machine[data-htw-figure="mosfet"] .htw-playground-challenge-list { display: grid; gap: 0; margin: .45rem 0 0; padding: 0; list-style: none; }
@@ -521,13 +542,12 @@
 .htw-machine[data-htw-figure="mosfet"] [data-nmos-focus="gate"] .nmos-oxide { stroke: var(--nmos-amber); stroke-width: 3; }
 .htw-machine[data-htw-figure="mosfet"] [data-nmos-focus="channel"] .nmos-doped { stroke: var(--nmos-ink-accent); stroke-width: 2; }
 .htw-machine[data-htw-figure="mosfet"] [data-nmos-focus="saturation"] .nmos-curve { stroke-width: 3.4; }
-.htw-machine[data-htw-figure="mosfet"] .htw-playground-presets .htw-machine-chip { white-space: normal; min-height: 44px; }
 .htw-machine[data-htw-figure="mosfet"] .nmos-mobile-reading { display: none; }
 @media (max-width: 1099px) {
   .htw-machine[data-htw-figure="mosfet"] .nmos-mobile-reading {
     display: block;
     position: sticky;
-    top: var(--htw-header);
+    top: var(--htw-header, 3.25rem);
     z-index: 1;
     margin: 0 0 .75rem;
     padding: .55rem .75rem;
@@ -540,5 +560,5 @@
 @media (max-width: 980px) {
   .htw-machine[data-htw-figure="mosfet"][data-mode="reader"] .htw-reader-slot { position: static; margin: 0; padding: 0; border: 0; box-shadow: none; background: transparent; }
   .htw-machine[data-htw-figure="mosfet"][data-mode="reader"] .htw-reader-slot [data-machine-view] { max-height: none; }
-  .htw-machine[data-htw-figure="mosfet"][data-mode="reader"] .htw-step { min-height: 0; scroll-margin-top: calc(var(--htw-header) + 1rem); }
+  .htw-machine[data-htw-figure="mosfet"][data-mode="reader"] .htw-step { min-height: 0; scroll-margin-top: calc(var(--htw-header, 3.25rem) + 1rem); }
 }
