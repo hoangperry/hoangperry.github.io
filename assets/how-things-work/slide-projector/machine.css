@@ -396,7 +396,34 @@
 .htw-machine[data-htw-figure="slide-projector"] .htw-projector-cone { fill: oklch(92% 0.06 95); stroke: none; }
 .htw-machine[data-htw-figure="slide-projector"] .htw-projector-frame { fill: oklch(12% 0.01 160); stroke: currentColor; stroke-width: 1; stroke-dasharray: 6 3; }
 .htw-machine[data-htw-figure="slide-projector"][data-theme="light"] .htw-projector-frame { fill: oklch(22% 0.01 160); }
-.htw-machine[data-htw-figure="slide-projector"] .htw-projector-label { fill: currentColor; font: 13px/1.2 ui-monospace, monospace; opacity: .8; }
-.htw-machine[data-htw-figure="slide-projector"] .htw-projector-readout { margin: .35rem 0 0; font: .78rem/1.5 ui-monospace, monospace; opacity: .85; overflow-wrap: anywhere; }
+.htw-machine[data-htw-figure="slide-projector"] .htw-projector-label { fill: currentColor; font: 26px/1.2 var(--htw-machine-mono, ui-monospace, monospace); opacity: .88; }
+.htw-machine[data-htw-figure="slide-projector"] .htw-projector-readout { flex: 1 0 100%; margin: .35rem 0 0; font: .78rem/1.5 var(--htw-machine-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; opacity: .88; overflow-wrap: anywhere; }
 
 .htw-machine[data-htw-figure="slide-projector"] .htw-machine-caption { background:var(--htw-machine-card); color:var(--htw-machine-text); padding:.65rem; }
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="close"] [data-name^="shutter-drive"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="close"] [data-name^="left-"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="close"] [data-name^="right-"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="enter"] [data-name^="lifter"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="release"] [data-name^="finger-drive"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="return"] [data-name^="lifter"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="index"] [data-name^="tray"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="position"] [data-name^="tray-index"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="lower"] [data-name^="lifter"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="clamp"] [data-name^="finger-drive"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="clamp"] [data-name^="gate"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="open"] [data-name^="shutter-drive"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="open"] [data-name^="left-"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="open"] [data-name^="right-"] .iso-line,
+.htw-machine[data-htw-figure="slide-projector"] [data-projector-focus="ready"] .htw-projector-frame { stroke: var(--htw-machine-accent, #e4b762); stroke-opacity: 1; }
+
+/* On a phone the SVG is too small for its legend. Keep the same explanation
+   with the plate, at text size, even when JavaScript is disabled. */
+@media (max-width: 600px) {
+  .htw-machine[data-htw-figure="slide-projector"] .htw-projector-label { display: none; }
+  .htw-machine[data-htw-figure="slide-projector"] .htw-machine-caption::before {
+    content: "Màn chiếu: mặt phẳng ảnh (chú thích).";
+    flex: 1 0 100%;
+    color: var(--htw-machine-strong);
+    font-size: .85rem;
+  }
+}

@@ -321,7 +321,7 @@
 .htw-machine[data-htw-figure="drum-scanner"] .ds-trace dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; color: var(--htw-machine-strong); }
 .htw-machine[data-htw-figure="drum-scanner"] .ds-note { margin: 0; font-size: .7rem; color: var(--htw-machine-muted); }
 @media (max-width: 420px) {
-  .htw-machine[data-htw-figure="drum-scanner"] .ds-images { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .htw-machine[data-htw-figure="drum-scanner"] .ds-images { grid-template-columns: minmax(0, 1fr); }
   .htw-machine[data-htw-figure="drum-scanner"] .ds-trace dl { grid-template-columns: minmax(0, 1fr); }
   .htw-machine[data-htw-figure="drum-scanner"] .ds-trace dd { text-align: left; }
 }

@@ -11670,9 +11670,13 @@ return (function mountSlrRenderer(root, data, createProducer, createFactory) {
   let disposed = false, committed = false, previous = null, lastBuild = null, latest = null, filmGroups = [];
   const cleanupErrors = [];
   const attempt = fn => { try { fn(); } catch (error) { cleanupErrors.push(error); } };
+  const setIf = (node, key, value) => {
+    if (value === null) { if (node.hasAttribute(key)) node.removeAttribute(key); }
+    else if (node.getAttribute(key) !== String(value)) node.setAttribute(key, String(value));
+  };
   const viewAttr = (key, value) => {
     if (!priorAttrs.has(key)) priorAttrs.set(key, view.getAttribute(key));
-    view.setAttribute(key, String(value));
+    setIf(view, key, value);
   };
   function dispose() {
     if (disposed) return;
@@ -11709,55 +11713,85 @@ return (function mountSlrRenderer(root, data, createProducer, createFactory) {
       run.roles.forEach((role, i) => {
         const n = entry.roles[i];
         if (role.type === 'dot') {
-          for (const [key, value] of Object.entries({ cx: Math.round(frame.cx[i] * 100) / 100, cy: Math.round(frame.cy[i] * 100) / 100, r: role.size, 'fill-opacity': frame.o[i] })) n.setAttribute(key, String(value));
+          for (const [key, value] of Object.entries({ cx: Math.round(frame.cx[i] * 100) / 100, cy: Math.round(frame.cy[i] * 100) / 100, r: role.size, 'fill-opacity': frame.o[i] })) setIf(n, key, value);
         } else {
-          n.setAttribute('d', role.type === 'xform' ? source.planPath : frame.d[i]);
+          setIf(n, 'd', role.type === 'xform' ? source.planPath : frame.d[i]);
           if (role.type === 'face') {
-            n.setAttribute('class', 'iso-tn');
+            setIf(n, 'class', 'iso-tn');
             const q = frame.q[i], band = Math.min(3, Math.floor(q / TURN.q)), mix = (q - TURN.q * band) / TURN.q;
-            n.setAttribute('data-b', String(band));
+            setIf(n, 'data-b', band);
             const style = [mix ? `--f:${mix}` : '', frame.w[i] >= 0 ? `stroke-width:${frame.w[i]}` : ''].filter(Boolean).join(';');
-            if (style) n.setAttribute('style', style); else n.removeAttribute('style');
+            setIf(n, 'style', style || null);
           } else {
-            n.setAttribute('class', role.cls || '');
-            if (role.shade !== undefined) n.setAttribute('data-shade', String(role.shade));
-            if (role.tone !== undefined) n.setAttribute('data-tone', String(role.tone));
-            if (role.type === 'slot') n.setAttribute('opacity', String(Math.round(frame.o[i] * 1000) / 1000));
-            if (role.type === 'xform') n.setAttribute('transform', frame.t[i]);
+            setIf(n, 'class', role.cls || '');
+            if (role.shade !== undefined) setIf(n, 'data-shade', role.shade);
+            if (role.tone !== undefined) setIf(n, 'data-tone', role.tone);
+            if (role.type === 'slot') setIf(n, 'opacity', Math.round(frame.o[i] * 1000) / 1000);
+            if (role.type === 'xform') setIf(n, 'transform', frame.t[i]);
           }
         }
       });
     }
     for (const [name, entry] of groups) if (!seen.has(name)) { if (entry.node.parentNode) entry.node.parentNode.removeChild(entry.node); groups.delete(name); }
     // This is exactly TURN.order on the same TURN.emit commands, not a second painter or caller-supplied order.
-    for (const index of build.orders.flat()) sceneLayer.appendChild(groups.get(build.scene.runs[index].name).node);
+    const flatOrder = build.orders.flat();
+    const children = sceneLayer.childNodes;
+    if (children.length !== flatOrder.length || flatOrder.some((index, i) => children[i] !== groups.get(build.scene.runs[index].name).node)) {
+      for (const index of flatOrder) sceneLayer.appendChild(groups.get(build.scene.runs[index].name).node);
+    }
   }
-  const FILM = JSON.parse(data.worldText).transport;
+  const FILM = geo.WORLD.transport;
   function paintFilm(snapshot, build) {
-    for (const g of filmGroups) if (g.parentNode) g.parentNode.removeChild(g);
-    filmGroups = [];
     const host = groups.get('film.strip');
     if (!host) fail('actual film.strip native item required');
     const V = build.cams.world.V, faceY = V[1] > 0 ? 0 : -FILM.filmThickness;
-    const frames = [{ dose: snapshot.dose, offset: snapshot.advance, frame: snapshot.exposureFrame, role: 'exposing' }];
+    const frames = [{ dose: snapshot.dose, offset: snapshot.advance, frame: snapshot.exposureFrame, role: snapshot.transported ? 'held' : 'exposing' }];
     if (snapshot.held && snapshot.held.frame !== snapshot.exposureFrame) frames.push({ dose: snapshot.held.dose, offset: data.model.pitch * (1 + snapshot.wind), frame: snapshot.held.frame, role: 'held' });
-    let max = 0, drawn = 0;
-    for (const f of frames) for (const d of f.dose) max = Math.max(max, d);
-    for (const f of frames) {
-      const g = el('g', { 'data-slr-film': '', 'data-frame': f.frame, 'data-frame-role': f.role, 'data-offset-mm': f.offset }, host.node);
-      filmGroups.push(g);
+    let drawn = 0;
+    while (filmGroups.length > frames.length) {
+      const extra = filmGroups.pop();
+      if (extra.parentNode) extra.parentNode.removeChild(extra);
+    }
+    for (let fi = 0; fi < frames.length; fi++) {
+      const f = frames[fi];
+      let g = filmGroups[fi];
+      if (!g || g.parentNode !== host.node) {
+        if (g && g.parentNode) g.parentNode.removeChild(g);
+        g = el('g', { 'data-slr-film': '', 'data-frame': f.frame, 'data-frame-role': f.role, 'data-offset-mm': f.offset }, host.node);
+        filmGroups[fi] = g;
+      } else {
+        setIf(g, 'data-frame', f.frame);
+        setIf(g, 'data-frame-role', f.role);
+        setIf(g, 'data-offset-mm', f.offset);
+      }
+      const children = g.childNodes;
+      let ci = 0;
       for (let r = 0; r < data.model.rows; r++) for (let c = 0; c < data.model.columns; c++) {
         const a = geo.filmPointOfUV(c / data.model.columns, r / data.model.rows), b = geo.filmPointOfUV((c + 1) / data.model.columns, (r + 1) / data.model.rows);
         const x0 = Math.max(FILM.cassette[0], a[0] + f.offset), x1 = Math.min(FILM.takeup[0], b[0] + f.offset);
         if (!(x1 > x0)) continue;
-        const d = f.dose[r * data.model.columns + c], tone = Math.round(40 + 190 * (max > 0 ? d / max : 0));
+        const d = f.dose[r * data.model.columns + c], level = Math.min(1, Math.max(0, d / data.model.irradiance)), tone = Math.round(40 + 190 * level);
         const points = [[x0, faceY, a[2]], [x1, faceY, a[2]], [x1, faceY, b[2]], [x0, faceY, b[2]]];
-        el('path', { class: 'slr-cell', 'data-dose': d, fill: `rgb(${tone},${Math.round(tone * .72)},${Math.round(tone * .38)})`, d: k.pathOf(points.map(p => k.iso(p, geo.P)), true) }, g); drawn++;
+        const fill = `rgb(${tone},${Math.round(tone * .72)},${Math.round(tone * .38)})`;
+        const pathD = k.pathOf(points.map(p => k.iso(p, geo.P)), true);
+        const existing = children[ci];
+        if (existing) {
+          setIf(existing, 'data-dose', d);
+          setIf(existing, 'fill', fill);
+          setIf(existing, 'd', pathD);
+        } else {
+          el('path', { class: 'slr-cell', 'data-dose': d, fill, d: pathD }, g);
+        }
+        ci++; drawn++;
       }
+      for (let i = children.length - 1; i >= ci; i--) g.removeChild(children[i]);
     }
     return drawn;
   }
-  const fixed = (v, d) => (Object.is(v, -0) ? 0 : v).toFixed(d);
+  const fixed = (v, d) => {
+    const r = (Object.is(v, -0) ? 0 : v).toFixed(d);
+    return (Number(r) === 0 ? (0).toFixed(d) : r).replace('.', ',');
+  };
   return {
     render(snapshot, options = {}) {
       if (disposed) fail('disposed');
@@ -11772,7 +11806,7 @@ return (function mountSlrRenderer(root, data, createProducer, createFactory) {
             'data-advance': snapshot.advance, 'data-mirror': snapshot.mirror, 'data-aperture': snapshot.aperture, 'data-first': snapshot.curtains.first, 'data-second': snapshot.curtains.second,
             'data-gate-width': snapshot.gate.width, 'data-lever': snapshot.lever, 'data-film-cells': cells, 'data-changed-solids': build.changed };
           for (const [key, value] of Object.entries(attrs)) viewAttr(key, value);
-          readout.textContent = `t ${fixed(snapshot.time, 3)} s · gương ${fixed(snapshot.mirror, 1)}° · f/${fixed(snapshot.aperture, 2)} · rèm 1 ${fixed(snapshot.curtains.first, 2)} mm · rèm 2 ${fixed(snapshot.curtains.second, 2)} mm · khe ${fixed(snapshot.gate.width, 2)} mm · phơi trung bình theo cột ${fixed(exposureSum / snapshot.exposure.length, 3)} (lớn nhất ${fixed(exposureMax, 3)}) · kéo phim ${fixed(snapshot.advance, 2)} mm · cần ${fixed(snapshot.lever, 1)}° · khung ${snapshot.exposureFrame}→${snapshot.frame} — liều tiềm ẩn, phim chưa tráng`;
+          readout.textContent = `t ${fixed(snapshot.time, 3)} s (mô phỏng; màn trập chậm ${data.model.displayScale}×) · gương nâng ${fixed(build.geometry.pose.mirrorLiftDegrees, 1)}° · f/${fixed(snapshot.aperture, 2)} · rèm 1 ${fixed(snapshot.curtains.first, 2)} mm · rèm 2 ${fixed(snapshot.curtains.second, 2)} mm · khe ${fixed(snapshot.gate.width, 2)} mm · phơi trung bình theo cột ${fixed(exposureSum / snapshot.exposure.length, 3)} (lớn nhất ${fixed(exposureMax, 3)}) · kéo phim ${fixed(snapshot.advance, 2)} mm · cần ${fixed(snapshot.lever, 1)}° · khung ${snapshot.exposureFrame}→${snapshot.frame} — liều tiềm ẩn, phim chưa tráng`;
           lastBuild = { time: snapshot.time, solids: build.packet.parts.length, changed: build.changed, rebuilt: build.rebuilt, cells, ms: build.ms, prepares: build.prepares, emissions: build.emissions };
           latest = build; previous = snapshot;
         }

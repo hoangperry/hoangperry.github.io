@@ -820,7 +820,7 @@ var createModel = (function createModel(data) {
     const s = sample;
     if (stageIndex === 0) return `${point()} đã tới cửa đọc: ánh sáng đi qua đúng điểm phim này.`;
     if (stageIndex === 1) return `${point()}: bộ tách chia ánh sáng thành ba kênh R, G, B.`;
-    if (stageIndex === 2) return `${point()}: ba PMT cho tín hiệu tương tự ${s.light.map((v) => v.toFixed(3)).join(' / ')} (mức tương đối).`;
+    if (stageIndex === 2) return `${point()}: ba PMT cho tín hiệu tương tự ${s.light.map((v) => v.toFixed(3).replace('.', ',')).join(' / ')} (mức tương đối).`;
     if (stageIndex === 3) return `${point()}: ADC 12 bit lượng hóa thành ${s.adc.join(' / ')}.`;
     const tail = s.row === H - 1 && next < N ? ' Tiếp theo, phần trống ngoài ảnh đi qua cửa đọc và vít me dịch bàn trống sang cột kế tiếp.' : '';
     return `Đã ghi ${point().toLowerCase()} vào ảnh · ${filled}/${N}.${tail}`;
@@ -1124,6 +1124,7 @@ var mountRenderer = (function mountRenderer(root, data, kit) {
         canvas.height = ROWS;
       }
       const context = canvas.getContext('2d');
+      if (!context) throw new Error('Canvas 2D unavailable for drum film texture');
       const pixels = context.createImageData(COLS, ROWS);
       pixels.data.set(rgba);
       context.putImageData(pixels, 0, 0);
@@ -1241,17 +1242,21 @@ var mountRenderer = (function mountRenderer(root, data, kit) {
       gloss.setAttribute('d', shadeD);
 
       // Rim ticks stay disabled in production: they would sit outside the audited swept bounds.
-      let rimD = '';
-      for (const [end, dir] of (config.rimMarks === false ? [] : [[drum.s0, 1], [drum.s1, -1]])) {
-        for (let i = 0; i < 72; i++) {
-          const psi = (i * TAU) / 72;
-          const len = i % 6 === 0 ? 5.5 : 3.2;
-          const xa = end + dir * 1;
-          const xb = end + dir * (1 + len);
-          rimD += patchPath(Math.min(xa, xb), Math.max(xa, xb), psi - 0.007, psi + 0.007, theta, carriage);
+      if (config.rimMarks !== false) {
+        let rimD = '';
+        for (const [end, dir] of [[drum.s0, 1], [drum.s1, -1]]) {
+          for (let i = 0; i < 72; i++) {
+            const psi = (i * TAU) / 72;
+            const len = i % 6 === 0 ? 5.5 : 3.2;
+            const xa = end + dir * 1;
+            const xb = end + dir * (1 + len);
+            rimD += patchPath(Math.min(xa, xb), Math.max(xa, xb), psi - 0.007, psi + 0.007, theta, carriage);
+          }
         }
+        rimTicks.setAttribute('d', rimD);
+      } else if (rimTicks.getAttribute('d') !== '') {
+        rimTicks.setAttribute('d', '');
       }
-      rimTicks.setAttribute('d', rimD);
 
       // Witness marks on the real cap face. The cap slot sits inside the translated cap, so its own translation
       // is cancelled here: the marks are already projected in world coordinates (no double translation).
@@ -1393,9 +1398,11 @@ var mountRenderer = (function mountRenderer(root, data, kit) {
   }
   const setText = (node, text) => { if (node.textContent !== text) node.textContent = text; };
 
+  const priorStage = view.getAttribute('data-stage');
   let lastKey = '';
   let lastImages = null;
   let lastSource = '';
+  const fmt3 = (v) => v.toFixed(3).replace('.', ',');
   return {
     render(snapshot, options) {
       const focus = options && options.focus ? options.focus : 'all';
@@ -1423,15 +1430,16 @@ var mountRenderer = (function mountRenderer(root, data, kit) {
       }
       const s = snapshot.sample;
       setText(trace.head, s ? 'Điểm đã lấy (' + s.column + ', ' + s.row + ') · ' + (snapshot.film === 'negative' ? 'âm bản màu' : 'dương bản') : 'Chưa lấy mẫu');
-      setText(trace.light, s ? s.light.map((v) => v.toFixed(3)).join(' / ') : '—');
-      setText(trace.pmt, s && snapshot.stageIndex >= 2 ? s.light.map((v) => v.toFixed(3)).join(' / ') : '—');
+      setText(trace.light, s ? s.light.map(fmt3).join(' / ') : '—');
+      setText(trace.pmt, s && snapshot.stageIndex >= 2 ? s.light.map(fmt3).join(' / ') : '—');
       setText(trace.adc, s && snapshot.stageIndex >= 3 ? s.adc.join(' / ') : '—');
       setText(trace.count, snapshot.filled + ' / ' + snapshot.total);
     },
     dispose() {
       surface.dispose();
       for (const node of moving) node.removeAttribute('transform');
-      view.removeAttribute('data-stage');
+      if (priorStage === null) view.removeAttribute('data-stage');
+      else view.setAttribute('data-stage', priorStage);
       view.removeAttribute('data-carriage-x');
       for (const node of outputNodes) node.remove();
       outputNodes.length = 0;

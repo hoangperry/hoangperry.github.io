@@ -17365,22 +17365,32 @@ return (function mountInstantRenderer(root,data,kit,createFactory,convert,builde
   if(!view||!caption||fallback.length!==1||!live)fail('view, caption, static fallback and live layer required');
   if(live.childNodes.length)fail('live layer must start empty (no ghost material)');
   const factory=createFactory(data,kit),runtime=createInstantTurnRuntime(TURN),doc=root.ownerDocument,P=data.native.renderProjection;
-  const hidden=fallback[0].getAttribute('display'),readout=doc.createElement('p');readout.setAttribute('data-instant-readout','');readout.setAttribute('class','ins-readout');
+  const hidden=fallback[0].getAttribute('display'),priorViewAttrs=new Map(),readout=doc.createElement('p');readout.setAttribute('data-instant-readout','');readout.setAttribute('class','ins-readout');
   const el=(tag,attrs={},parent=null)=>{const n=doc.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,String(v));if(parent)parent.appendChild(n);return n;};
-  let previous=null,latest=null,stage=null,controller=null,disposed=false,cells=[];
-  const fixed=(v,n=1)=>(Object.is(v,-0)?0:v).toFixed(n).replace('.', ',');
+  const viewAttr=(key,value)=>{
+    const old=view.getAttribute(key),text=String(value);
+    if(old===text)return;
+    if(!priorViewAttrs.has(key))priorViewAttrs.set(key,old);
+    view.setAttribute(key,text);
+  };
+  let previous=null,latest=null,stage=null,disposed=false,cells=[];
+  const fixed=(v,n=1)=>v.toFixed(n).replace(/^-0(?=\.0+$|$)/,'0').replace('.',',');
   function dispose() {
     if(disposed)return;disposed=true;
-    try{if(controller)controller.destroy();}finally{
-      if(stage&&stage.parentNode)stage.parentNode.removeChild(stage);
-      if(readout.parentNode)readout.parentNode.removeChild(readout);
-      if(hidden===null)fallback[0].removeAttribute('display');else fallback[0].setAttribute('display',hidden);
-      runtime.dispose();latest=null;controller=null;cells=[];
+    if(stage&&stage.parentNode)stage.parentNode.removeChild(stage);
+    if(readout.parentNode)readout.parentNode.removeChild(readout);
+    if(hidden===null)fallback[0].removeAttribute('display');else fallback[0].setAttribute('display',hidden);
+    for(const [k,v] of priorViewAttrs){
+      if(view.getAttribute(k)===v)continue;
+      if(v===null)view.removeAttribute(k);else view.setAttribute(k,v);
     }
+    runtime.dispose();stage=null;latest=null;previous=null;cells=[];
   }
-  function paintImage(snapshot,build,groups) {
+  const to255=v=>Math.round(255*Math.max(0,Math.min(1,v)));
+  const fillAt=(rgb,i)=>`rgb(${to255(rgb[3*i])},${to255(rgb[3*i+1])},${to255(rgb[3*i+2])})`;
+  function paintImage(snapshot,byName,groups) {
     const M=data.model,rows=M.rows,columns=M.columns,rowLength=(M.roiTo-M.roiFrom)/rows,cellWidth=M.roiWidth/columns;
-    const byName=new Map(build.geometry.slabs.map(s=>[s.name,s]));cells=[];
+    const nextCells=[];
     for(const [name,g] of groups) {
       const b=byName.get(name);if(!b)continue;
       const f=x=>b.f0+(b.f1-b.f0)*(x-b.x0)/(b.x1-b.x0);
@@ -17389,68 +17399,99 @@ return (function mountInstantRenderer(root,data,kit,createFactory,convert,builde
         if(!(x1>x0))continue;
         for(let c=0;c<columns;c++) {
           const y0=Math.max(b.y[0],-M.roiWidth/2+c*cellWidth),y1=Math.min(b.y[1],-M.roiWidth/2+(c+1)*cellWidth);if(!(y1>y0))continue;
-          const i=r*columns+c,to255=v=>Math.round(255*Math.max(0,Math.min(1,v))),rgb=snapshot.active.rgb;
+          const i=r*columns+c,rgb=snapshot.active.rgb;
           const node=el('path',{class:'ins-cell','data-row':r,'data-column':c,'data-slab':name,'data-spread':snapshot.active.spread[r],
-            fill:`rgb(${to255(rgb[3*i])},${to255(rgb[3*i+1])},${to255(rgb[3*i+2])})`,
+            fill:fillAt(rgb,i),
             d:kit.pathOf([[x0,y0,f(x0)],[x1,y0,f(x1)],[x1,y1,f(x1)],[x0,y1,f(x0)]].map(p=>kit.iso(p,P)),true)},g);
-          cells.push(node);
+          nextCells.push({node,index:i});
         }
       }
     }
+    return nextCells;
   }
   return {
     render(snapshot,options={}) {
-      if(disposed)fail('disposed');view.setAttribute('data-instant-focus',options.focus||'all');if(snapshot===previous)return;
-      const started=performance.now(),geometry=factory.build(snapshot),built=performance.now();
-      const build=runtime.build(convert(geometry,P,builders.turning)),packet=build.packet;
-      build.metrics.rawMs=built-started;build.metrics.convertAndNativeMs=performance.now()-built;
-      const domStarted=performance.now();
-      const pending=el('g',{'data-instant-scene':''});
-      const svg=el('svg',{'data-live':'instant',viewBox:`0 0 ${data.world.width} 620`,width:data.world.width,height:620},pending);
-      // The same public prepared roles and emitted frames used by TURN.order.
-      // Keep epoch construction detached so all existing rollback contracts hold.
-      const groups=new Map();
-      for(const run of build.scene.runs) {
-        const s=build.sourceByName.get(run.name),g=el('g',{'data-p':run.index,'data-solid':run.name,'data-owner':s.owner,'data-source-solid':s.name,
-          'data-role':factory.roleOf(s.owner),'data-kind':packet.parts[run.index].kind,class:'ins-solid'},svg);groups.set(run.name,g);
-        const frame=build.frames[run.index];
-        run.roles.forEach((role,i)=>{
-          if(!['path','face','slot'].includes(role.type))fail('unsupported public role '+role.type);
-          const node=el('path',{'data-r':role.name,class:'ins-f','data-shade':role.shade===undefined?3:Math.min(4,role.shade),d:frame.d[i]},g);
-          if(role.type==='face') {
-            const q=frame.q[i],band=Math.min(3,Math.floor(q/TURN.q)),mix=(q-TURN.q*band)/TURN.q;
-            node.setAttribute('data-b',String(band));
-            const style=[mix?`--f:${mix}`:'',frame.w[i]>=0?`stroke-width:${frame.w[i]}`:''].filter(Boolean).join(';');
-            if(style)node.setAttribute('style',style);
-          } else if(role.type==='slot')node.setAttribute('opacity',String(Math.round(frame.o[i]*1000)/1000));
-        });
+      if(disposed)fail('disposed');
+      const focus=options.focus||'all';
+      if(snapshot===previous){
+        try{if(view.getAttribute('data-instant-focus')!==focus)viewAttr('data-instant-focus',focus);}
+        catch(error){dispose();throw error;}
+        return;
       }
-      let next=null;
-      const displayBefore=fallback[0].getAttribute('display');
-      try {
-        // Exact public native order; no caller-authored paint rank or overlay.
-        for(const index of build.orders.flat())svg.appendChild(groups.get(build.scene.runs[index].name));
-        build.groups=groups;paintImage(snapshot,build,groups);
-        live.appendChild(pending);if(!readout.parentNode)caption.appendChild(readout);fallback[0].setAttribute('display','none');
-      } catch(error) {
-        if(next)next.destroy();if(pending.parentNode)pending.parentNode.removeChild(pending);
-        if(!stage&&readout.parentNode)readout.parentNode.removeChild(readout);
-        if(fallback[0].getAttribute('display')!==displayBefore) {
-          if(displayBefore===null)fallback[0].removeAttribute('display');else fallback[0].setAttribute('display',displayBefore);
+      const started=performance.now();
+      // Equal q is not proof of a stationary shutter, latch, or rewinding shade.
+      // After the sheet clears the exit and the shade has reached its home stop,
+      // only chemistry can change until replay. Don't reuse before that settled pose.
+      let build=latest;
+      const chemistryOnly=latest?.geometry.hero?.shade.rewind?.home===true &&
+        latest.geometry.snapshot.sheet.fullyClearedExit && snapshot.sheet.fullyClearedExit &&
+        snapshot.sheet.sheetId===latest.geometry.pose.sheetId && snapshot.time>=latest.geometry.pose.time;
+      if(!chemistryOnly) {
+        const geometry=factory.build(snapshot),built=performance.now();
+        build=runtime.build(convert(geometry,P,builders.turning));const packet=build.packet;
+        build.metrics.rawMs=built-started;build.metrics.convertAndNativeMs=performance.now()-built;
+        const domStarted=performance.now();
+        const pending=el('g',{'data-instant-scene':''});
+        const svg=el('svg',{'data-live':'instant',viewBox:`0 0 ${data.world.width} 620`,width:data.world.width,height:620},pending);
+        // The same public prepared roles and emitted frames used by TURN.order.
+        // Keep epoch construction detached so all existing rollback contracts hold.
+        const slabByName=new Map(geometry.slabs.map(sl=>[sl.name,sl]));
+        const groups=new Map();
+        for(const run of build.scene.runs) {
+          const s=build.sourceByName.get(run.name),slab=slabByName.get(run.name);
+          const tone=slab?(slab.compressed?'compressed':slab.dosed?'dosed':null):null;
+          const attrs={'data-p':run.index,'data-solid':run.name,'data-owner':s.owner,'data-source-solid':s.name,
+            'data-role':factory.roleOf(s.owner),'data-kind':packet.parts[run.index].kind,class:'ins-solid'};
+          if(tone)attrs['data-tone']=tone;
+          const g=el('g',attrs,svg);groups.set(run.name,g);
+          const frame=build.frames[run.index];
+          run.roles.forEach((role,i)=>{
+            if(!['path','face','slot'].includes(role.type))fail('unsupported public role '+role.type);
+            const node=el('path',{'data-r':role.name,class:'ins-f','data-shade':role.shade===undefined?3:Math.min(4,role.shade),d:frame.d[i]},g);
+            if(role.type==='face') {
+              const q=frame.q[i],band=Math.min(3,Math.floor(q/TURN.q)),mix=(q-TURN.q*band)/TURN.q;
+              node.setAttribute('data-b',String(band));
+              const style=[mix?`--f:${mix}`:'',frame.w[i]>=0?`stroke-width:${frame.w[i]}`:''].filter(Boolean).join(';');
+              if(style)node.setAttribute('style',style);
+            } else if(role.type==='slot')node.setAttribute('opacity',String(Math.round(frame.o[i]*1000)/1000));
+          });
         }
-        throw error;
+        let nextCells;
+        const displayBefore=fallback[0].getAttribute('display');
+        try {
+          // Exact public native order; no caller-authored paint rank or overlay.
+          for(const index of build.orders.flat())svg.appendChild(groups.get(build.scene.runs[index].name));
+          build.groups=groups;nextCells=paintImage(snapshot,slabByName,groups);
+          live.appendChild(pending);if(!readout.parentNode)caption.appendChild(readout);fallback[0].setAttribute('display','none');
+        } catch(error) {
+          if(pending.parentNode)pending.parentNode.removeChild(pending);
+          if(!stage&&readout.parentNode)readout.parentNode.removeChild(readout);
+          if(fallback[0].getAttribute('display')!==displayBefore) {
+            if(displayBefore===null)fallback[0].removeAttribute('display');else fallback[0].setAttribute('display',displayBefore);
+          }
+          throw error;
+        }
+        if(stage&&stage.parentNode)stage.parentNode.removeChild(stage);
+        build.metrics.domMs=performance.now()-domStarted;build.metrics.renderMs=performance.now()-started;
+        stage=pending;latest=build;cells=nextCells;
       }
-      if(controller)controller.destroy();if(stage&&stage.parentNode)stage.parentNode.removeChild(stage);
-      build.metrics.domMs=performance.now()-domStarted;build.metrics.renderMs=performance.now()-started;
-      stage=pending;controller=next;latest=build;previous=snapshot;
       try {
-      const pose=geometry.pose,maturity=snapshot.active.maturity.reduce((a,b)=>a+b,0)/snapshot.active.maturity.length;
-      for(const [key,value] of Object.entries({'snapshot-time':snapshot.time,q:pose.q,'sheet-id':snapshot.sheet.sheetId,stage:snapshot.stageKey,
-        solids:build.solids.length,'render-ms':build.metrics.renderMs,'native-ms':build.metrics.totalMs,'dom-ms':build.metrics.domMs,'order-ms':build.metrics.orderMs,'emitted':build.emissions,sectors:geometry.solids.filter(s=>s.kind==='annular-sector').length,'sheet-slabs':geometry.slabs.length,'order-cycles':build.stats.forced,'top-angle':pose.topAngle}))view.setAttribute('data-'+key,String(value));
-      readout.textContent=`Thời gian: ${fixed(snapshot.time)} s · Quãng kéo: ${fixed(pose.q)} mm · Góc con lăn dưới: ${fixed(pose.bottomAngle*180/Math.PI)}° · Túi thuốc hiện: ${snapshot.pod.ruptured?'đã vỡ':'còn kín'} · Mức hiện trung bình: ${fixed(maturity*100,1)} %`;
+        if(chemistryOnly && snapshot.active.rgb!==previous.active.rgb) {
+          for(const {node,index} of cells) {
+            const fill=fillAt(snapshot.active.rgb,index);
+            if(node.getAttribute('fill')!==fill)node.setAttribute('fill',fill);
+          }
+        }
+        const geometry=build.geometry,pose=geometry.pose,maturity=snapshot.active.maturity.reduce((a,b)=>a+b,0)/snapshot.active.maturity.length;
+        const cellMs=chemistryOnly?performance.now()-started:0;
+        viewAttr('data-instant-focus',focus);
+        for(const [key,value] of Object.entries({'snapshot-time':snapshot.time,q:pose.q,'sheet-id':snapshot.sheet.sheetId,stage:snapshot.stageKey,
+          solids:build.solids.length,'render-ms':chemistryOnly?cellMs:build.metrics.renderMs,'native-ms':chemistryOnly?0:build.metrics.totalMs,'dom-ms':chemistryOnly?cellMs:build.metrics.domMs,'order-ms':chemistryOnly?0:build.metrics.orderMs,'emitted':chemistryOnly?0:build.emissions,sectors:geometry.solids.filter(s=>s.kind==='annular-sector').length,'sheet-slabs':geometry.slabs.length,'order-cycles':build.stats.forced,'top-angle':pose.topAngle}))viewAttr('data-'+key,value);
+        readout.textContent=`Thời gian: ${fixed(snapshot.time)} s · Quãng kéo: ${fixed(pose.q)} mm · Góc con lăn dưới: ${fixed(pose.bottomAngle*180/Math.PI)}° · Túi thuốc hiện: ${snapshot.pod.ruptured?'đã vỡ':'còn kín'} · Mức hiện trung bình: ${fixed(maturity*100,1)} %`;
+        previous=snapshot;
       } catch(error) { dispose(); throw error; }
     },
-    inspect(){return {latest,sceneLayer:stage,controller,lastBuild:latest?{time:previous.time,solids:latest.solids.length}:null,
+    inspect(){return {latest,sceneLayer:stage,controller:null,lastBuild:latest?{time:latest.geometry.pose.time,solids:latest.solids.length}:null,
       cycles:latest?.stats.forced||0,groups:latest?.packet.parts.length||0,filmCells:cells.length};},
     dispose,
   };
