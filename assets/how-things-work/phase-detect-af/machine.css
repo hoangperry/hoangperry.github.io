@@ -582,7 +582,7 @@
   --af-b: #88511a;
 }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg { display: block; width: 100%; height: auto; max-width: 29rem; margin-inline: auto; background: var(--af-page); }
-.htw-machine[data-htw-figure="phase-detect-af"] .af-svg text { fill: var(--af-ink); font: 570 18px system-ui, sans-serif; }
+.htw-machine[data-htw-figure="phase-detect-af"] .af-svg text { fill: var(--af-ink); font: 570 18px system-ui, sans-serif; font-variant-numeric: tabular-nums; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg .af-heading { font-size: 22px; font-weight: 720; }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg .af-muted { fill: var(--af-muted); }
 .htw-machine[data-htw-figure="phase-detect-af"] .af-svg .af-result { font-size: 20px; font-weight: 740; }
@@ -651,16 +651,21 @@
 .htw-machine[data-htw-figure="phase-detect-af"] [data-af-focus="planes"] .af-bench-plane { stroke-width: 2.6; }
 .htw-machine[data-htw-figure="phase-detect-af"] [data-af-plate-contrast="true"] .af-bench-flat { display: none; }
 .htw-machine[data-htw-figure="phase-detect-af"] .htw-playground-console .htw-machine-button { min-height: 44px; padding-block: .45rem; line-height: 1.35; white-space: normal; }
-.htw-machine[data-htw-figure="phase-detect-af"] .af-control-reading {
-  margin: 0 0 .75rem;
-  padding: .55rem .75rem;
-  border: 1px solid var(--af-line);
-  border-radius: .35rem;
-  background: var(--af-page);
-  color: var(--af-ink);
-  font: 650 .94rem/1.4 system-ui, sans-serif;
-  font-variant-numeric: tabular-nums;
-}
+.htw-machine[data-htw-figure="phase-detect-af"] .af-control-reading { display: none; }
 @media (max-width: 1099px) {
-  .htw-machine[data-htw-figure="phase-detect-af"] .af-control-reading { position: sticky; top: var(--htw-header, 3.25rem); z-index: 1; }
+  .htw-machine[data-htw-figure="phase-detect-af"] .af-control-reading {
+    display: block;
+    position: sticky;
+    top: var(--htw-header, 3.25rem);
+    z-index: 1;
+    margin: 0 0 .75rem;
+    padding: .55rem .75rem;
+    border: 1px solid var(--af-line);
+    border-radius: .35rem;
+    background: var(--af-page);
+    color: var(--af-ink);
+    font: 650 .94rem/1.4 system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
 }

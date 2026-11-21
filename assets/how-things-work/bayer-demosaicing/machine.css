@@ -671,6 +671,12 @@
 .htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-motion [data-bayer-channel="R"] { --bayer-lens-ink: #ffc3b9; }
 .htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-motion [data-bayer-channel="G"] { --bayer-lens-ink: #b1ffcc; }
 .htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-motion [data-bayer-channel="B"] { --bayer-lens-ink: #c8deff; }
+.htw-machine[data-htw-figure="bayer-demosaicing"][data-theme="light"] .bayer-anatomy-motion [data-bayer-channel="R"] { --bayer-lens-ink: #9c2b29; }
+.htw-machine[data-htw-figure="bayer-demosaicing"][data-theme="light"] .bayer-anatomy-motion [data-bayer-channel="G"] { --bayer-lens-ink: #126143; }
+.htw-machine[data-htw-figure="bayer-demosaicing"][data-theme="light"] .bayer-anatomy-motion [data-bayer-channel="B"] { --bayer-lens-ink: #244f8c; }
+.htw-machine[data-htw-figure="bayer-demosaicing"][data-theme="light"] .bayer-anatomy-input { stroke: #183338; }
+.htw-machine[data-htw-figure="bayer-demosaicing"][data-theme="light"] .bayer-anatomy-source { fill: #eaf0ee; fill-opacity: .72; }
+.htw-machine[data-htw-figure="bayer-demosaicing"][data-theme="light"] .bayer-anatomy-link-shadow { stroke: #eaf0ee; }
 .htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-measured { stroke: var(--bayer-lens-ink); stroke-width: .12; }
 .htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-source { fill: #132126; fill-opacity: .55; stroke: var(--bayer-lens-ink); stroke-width: .075; }
 .htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-link-shadow,
@@ -687,7 +693,7 @@
   stroke: var(--bayer-sample-ink);
   stroke-width: 1.4;
 }
-.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-svg .bayer-sample-label { fill: var(--bayer-sample-ink); font-weight: 660; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-svg .bayer-sample-label { fill: var(--bayer-sample-ink); font-size: 14px; font-weight: 660; }
 .htw-machine[data-htw-figure="bayer-demosaicing"] [data-bayer-neighbor="diagonal"] .bayer-sample-tile { stroke-dasharray: 4 3; }
 .htw-machine[data-htw-figure="bayer-demosaicing"] [data-bayer-neighbor="measured"] .bayer-sample-tile { stroke: var(--bayer-amber); stroke-width: 3.2; }
 .htw-machine[data-htw-figure="bayer-demosaicing"] [data-bayer-neighbor="unused"] .bayer-sample-tile { fill: var(--bayer-page); stroke: none; }

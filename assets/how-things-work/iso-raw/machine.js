@@ -97,6 +97,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -219,6 +220,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -234,6 +236,7 @@ var runtime = (function createPlaygroundRuntime() {
       if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -244,7 +247,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -310,6 +313,10 @@ var runtime = (function createPlaygroundRuntime() {
         const before = current;
         if (key === 'run' || key === 'step') {
           if (before.running) return false;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
           const refused = model.command({ key }) === false;
           const after = read(refused);
           if (refused || (key === 'run' && !after.running)) return false;
@@ -575,7 +582,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -586,7 +593,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -695,6 +703,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -850,9 +859,11 @@ var createModel = (function createModel(data) {
     const raw = `RAW ${code}`;
     const adcState = adcOverrange ? 'ADC quá dải' : atFullScale ? 'ADC đúng biên' : 'ADC trong dải';
     const wellState = wellFull ? 'Giếng đầy' : 'Giếng chưa đầy';
+    const summary = `${charge} · ${analog} dải · ${raw} · ${adcState} · ${wellState}`;
     labels = Object.freeze({
       generated, charge, beforeGain, analog, gain: gainLabel, raw, adcState, wellState,
-      summary: `${charge} · ${analog} dải · ${raw} · ${adcState} · ${wellState}`,
+      summary,
+      description: `Chấm sáng chỉ thứ tự đọc, không biểu diễn thời gian xử lý. Gain ${gainLabel} khuếch đại điện áp, không tăng điện tích. ${summary}.`,
     });
     readout = Object.freeze([
       row('generated', 'Electron sinh ra', generated),
@@ -930,6 +941,7 @@ var createModel = (function createModel(data) {
       } else if (!gains.has(value)) return false;
       if (controls[key] === value) return false;
       controls = Object.freeze({ ...controls, [key]: value || 0 });
+      announcement = null;
       project();
       return true;
     }
@@ -971,30 +983,42 @@ var mountRenderer = (function mountRenderer(root, data) {
   const mirror = root.querySelector('[data-camera-reading]');
   const values = new Map(Array.from(svg.querySelectorAll('[data-iso-value]'), (node) => [node.getAttribute('data-iso-value'), node]));
   const marks = new Map(Array.from(svg.querySelectorAll('[data-iso-mark]'), (node) => [node.getAttribute('data-iso-mark'), node]));
-  const bits = Array.from(svg.querySelectorAll('[data-iso-bit]'));
+  const bitCells = attr => Array.from(svg.querySelectorAll(`[${attr}]`), node => [node, Number(node.getAttribute(attr))]);
+  const bits = bitCells('data-iso-bit');
   const board = svg.querySelector('.iso-board-motion');
-  const boardBits = board?.querySelectorAll('[data-iso-board-bit]');
+  const boardBits = bitCells('data-iso-board-bit');
   const boardSample = marks.get('board-sample');
   const boardChargeWidth = Number(marks.get('board-charge-fill')?.getAttribute('data-iso-full-width'));
   const boardAdcWidth = Number(marks.get('board-gain-fill')?.getAttribute('data-iso-full-width'));
   const routeData = boardSample?.getAttribute('data-iso-journey');
-  const journey = routeData && JSON.parse(routeData).map((points) => {
-    let length = 0;
-    const segments = points.slice(1).map(([x, y], i) => {
-      const [x0, y0] = points[i];
-      const dx = x - x0, dy = y - y0;
-      const start = length;
-      const span = Math.hypot(dx, dy);
-      length += span;
-      return { x0, y0, dx, dy, start, span, end: length };
-    });
-    return { points, segments, length };
-  });
+  let journey = null;
+  if (routeData) {
+    try {
+      const parsed = JSON.parse(routeData);
+      const validLeg = points => Array.isArray(points) && points.length > 0 && points.every(
+        point => Array.isArray(point) && point.length === 2 && point.every(Number.isFinite)
+      );
+      if (Array.isArray(parsed) && parsed.length === 2 && parsed.every(validLeg)) {
+        journey = parsed.map((points) => {
+          let length = 0;
+          const segments = points.slice(1).map(([x, y], i) => {
+            const [x0, y0] = points[i];
+            const dx = x - x0, dy = y - y0;
+            const start = length;
+            const span = Math.hypot(dx, dy);
+            length += span;
+            return { x0, y0, dx, dy, start, span, end: length };
+          });
+          return { points, segments, length };
+        });
+      }
+    } catch { journey = null; }
+  }
   const stageTime = { charge: 0, analog: 1, adc: 2 };
   const wellTrack = marks.get('well-track');
-  const wellHeight = Number(wellTrack.getAttribute('height'));
-  const wellBase = Number(wellTrack.getAttribute('y')) + wellHeight;
-  const inRangeWidth = Number(marks.get('adc-track').getAttribute('width'));
+  const wellHeight = Number(wellTrack?.getAttribute('height'));
+  const wellBase = Number(wellTrack?.getAttribute('y')) + wellHeight;
+  const inRangeWidth = Number(marks.get('adc-track')?.getAttribute('width'));
   const attrs = new Map();
   const texts = new Map();
   let drawnSample, drawnTime;
@@ -1024,12 +1048,14 @@ var mountRenderer = (function mountRenderer(root, data) {
     const { points, segments, length } = journey[leg];
     const progress = time - leg;
     let [x, y] = progress >= 1 ? points.at(-1) : points[0];
-    if (progress > 0 && progress < 1) {
+    if (progress > 0 && progress < 1 && length > 0) {
       const distance = progress * length;
       const segment = segments.find(({ end }) => end >= distance);
-      const fraction = (distance - segment.start) / segment.span;
-      x = segment.x0 + segment.dx * fraction;
-      y = segment.y0 + segment.dy * fraction;
+      if (segment && segment.span > 0) {
+        const fraction = (distance - segment.start) / segment.span;
+        x = segment.x0 + segment.dx * fraction;
+        y = segment.y0 + segment.dy * fraction;
+      }
     }
     setAttr(boardSample, 'transform', `translate(${Math.round(x * 10) / 10} ${Math.round(y * 10) / 10})`);
   }
@@ -1043,30 +1069,36 @@ var mountRenderer = (function mountRenderer(root, data) {
       drawnSample = sample;
       setAttr(svg, 'data-iso-well-full', sample.wellFull);
       setAttr(svg, 'data-iso-overrange', sample.adcOverrange);
-      const fillHeight = sample.sensorSignal * wellHeight;
-      setAttr(marks.get('charge-fill'), 'height', fillHeight);
-      setAttr(marks.get('charge-fill'), 'y', wellBase - fillHeight);
-      setAttr(marks.get('range-fill'), 'width', Math.min(1, sample.adcInput) * inRangeWidth);
-      setAttr(marks.get('over-fill'), 'width', Math.max(0, sample.adcInput - 1) * inRangeWidth);
+      if (wellHeight > 0) {
+        const fillHeight = sample.sensorSignal * wellHeight;
+        setAttr(marks.get('charge-fill'), 'height', fillHeight);
+        setAttr(marks.get('charge-fill'), 'y', wellBase - fillHeight);
+      }
+      if (inRangeWidth > 0) {
+        setAttr(marks.get('range-fill'), 'width', Math.min(1, sample.adcInput) * inRangeWidth);
+        setAttr(marks.get('over-fill'), 'width', Math.max(0, sample.adcInput - 1) * inRangeWidth);
+      }
       for (const key of ['charge', 'gain', 'raw', 'adcState', 'wellState']) setText(values.get(key), labels[key]);
       setText(values.get('generated'), `Sinh ra ${labels.generated}`);
       setText(values.get('analog'), `${labels.beforeGain} → ${labels.analog} dải ADC`);
-      setText(values.get('description'), `${labels.summary}.`);
-      bits.forEach((node, index) => {
+      setText(values.get('description'), labels.description);
+      bits.forEach(([node, index]) => {
         setText(node, sample.bits[index]);
         setAttr(node, 'data-iso-bit-value', sample.bits[index]);
       });
       if (board) {
         const adcState = sample.adcOverrange ? 'overrange' : sample.atFullScale ? 'full-scale' : 'in-range';
         setAttr(board, 'data-iso-board-adc', adcState);
-        setAttr(marks.get('board-charge-fill'), 'width', sample.sensorSignal * boardChargeWidth);
-        setAttr(marks.get('board-gain-fill'), 'width', Math.min(1, sample.adcInput) * boardAdcWidth);
-        setAttr(marks.get('board-gain-over'), 'width', Math.max(0, sample.adcInput - 1) * boardAdcWidth);
+        if (boardChargeWidth > 0) setAttr(marks.get('board-charge-fill'), 'width', sample.sensorSignal * boardChargeWidth);
+        if (boardAdcWidth > 0) {
+          setAttr(marks.get('board-gain-fill'), 'width', Math.min(1, sample.adcInput) * boardAdcWidth);
+          setAttr(marks.get('board-gain-over'), 'width', Math.max(0, sample.adcInput - 1) * boardAdcWidth);
+        }
         setText(values.get('board-charge'), labels.charge);
         setText(values.get('board-gain'), `${labels.gain} · ${labels.analog}`);
         setText(values.get('board-raw'), labels.raw);
         setText(values.get('board-adc-state'), labels.adcState);
-        boardBits.forEach((node, index) => setAttr(node, 'data-iso-bit-value', sample.bits[index]));
+        boardBits.forEach(([node, index]) => setAttr(node, 'data-iso-bit-value', sample.bits[index]));
       }
       if (mirror) setText(mirror, labels.summary);
     },
