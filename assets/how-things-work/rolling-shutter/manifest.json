@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "rolling-shutter",
   "kind": "playground",
-  "sourceDigest": "bab63eafab68fbfa30e981839ced6dc0157a83096ba1eeb9773dfb790fafd4da",
+  "sourceDigest": "75ec5c2955f153b8f554e1d3d7d0445028907adc366bd127dcffaddfbb6620b6",
   "files": {
-    "_includes/how-things-work/rolling-shutter-scene.html": "9430ad9536bde86700e6e84d356d374ee130e96f7c74b0a7c495f4e149cdbe1f",
+    "_includes/how-things-work/rolling-shutter-scene.html": "ebf9e932ef09a0e986e6a991235f65dd8e9d4a9054175a14b2e0b4d34517b8b8",
     "_includes/how-things-work/rolling-shutter-console.html": "b70e42e16a01beae8bdfba6b686537d638952489a81b56d320f5e6c7de1098be",
-    "assets/how-things-work/rolling-shutter/machine.js": "b26f8e1e14e8130614b4bfc4d05ed467d9b5024976aa37d805e1d0cb57862cb0",
-    "assets/how-things-work/rolling-shutter/machine.css": "831b8c0384117b625e49180676ad1bfa990a51d6304c4107415f3881af812afa",
+    "assets/how-things-work/rolling-shutter/machine.js": "eb12329b5cf88b99633878c8e5cb4ed90040c187b4f902a07fa0b2b86226d70a",
+    "assets/how-things-work/rolling-shutter/machine.css": "33171a1b11b99d15c731f567fd5f5735a794a10011d4438b95218078b311d461",
     "assets/how-things-work/rolling-shutter/thumbnail.webp": "c365eb62e7494e4e59ddfe6c62ef14560014714ee89b20616306aaf940743d07",
-    "assets/how-things-work/rolling-shutter/NOTICE.txt": "c4a816ee858647c7bf9a97edd3cf84452ec863503e2395c80dfd0ed4f85a5161"
+    "assets/how-things-work/rolling-shutter/NOTICE.txt": "33ae5e5b57e85c417a51b136982a1884f7a262a2ee793668594e55f6e92b2b55"
   }
 }

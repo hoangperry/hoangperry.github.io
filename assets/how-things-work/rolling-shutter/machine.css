@@ -522,6 +522,14 @@
 .htw-machine[data-htw-figure="rolling-shutter"] .camera-anatomy .iso-face-text { fill: var(--anatomy-hi); font-family: var(--anatomy-mono); }
 .htw-machine[data-htw-figure="rolling-shutter"] .camera-anatomy-ground { fill: var(--anatomy-paper); }
 .htw-machine[data-htw-figure="rolling-shutter"] .camera-anatomy-divider { fill: none; stroke: var(--htw-machine-line); }
+.htw-machine[data-htw-figure="rolling-shutter"] .camera-cover-view .camera-motion { display: none; }
+.htw-machine[data-htw-figure="rolling-shutter"] .camera-open-motion { align-self: start; margin-bottom: var(--space-xs); }
+.htw-machine[data-htw-figure="rolling-shutter"] .camera-open-motion[disabled],
+.htw-machine[data-htw-figure="rolling-shutter"][data-mode="reader"] .camera-transport { display: none; }
+.htw-machine[data-htw-figure="rolling-shutter"] .camera-transport { margin: .35rem 0 .55rem; }
+.htw-machine[data-htw-figure="rolling-shutter"] .camera-transport .htw-machine-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr)); gap: .45rem; margin: 0; }
+.htw-machine[data-htw-figure="rolling-shutter"] .camera-transport .htw-machine-button { min-height: 44px; padding-inline: .45rem; white-space: normal; }
+.htw-machine[data-htw-figure="rolling-shutter"] .camera-settings-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; }
 
 /* A short or narrow viewport cannot fit both the bench and a legible plot in the sticky reader. */
 @media (max-width: 980px), (max-height: 899px) {
@@ -592,6 +600,19 @@
   stroke: var(--rs-amber);
   stroke-width: 1.2;
 }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-rig { transform: translate(4px, 37px) scale(.71); }
+.htw-machine[data-htw-figure="rolling-shutter"] .camera-cover-view .rs-anatomy-rig { transform: none; }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-sensor text { font-weight: 720; }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-sensor .rs-anatomy-subtitle { fill: var(--rs-muted); font-weight: 560; }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-casing { fill: var(--rs-page); stroke: var(--rs-rule); }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-track { fill: var(--rs-field); stroke: var(--rs-rule); }
+.htw-machine[data-htw-figure="rolling-shutter"] [data-rs-anatomy-row] { color: var(--rs-rule); }
+.htw-machine[data-htw-figure="rolling-shutter"] [data-rs-anatomy-row][data-state="open"] { color: var(--rs-amber); }
+.htw-machine[data-htw-figure="rolling-shutter"] [data-rs-anatomy-row][data-state="closed"] { color: var(--rs-teal); }
+.htw-machine[data-htw-figure="rolling-shutter"] [data-rs-anatomy-row] circle,
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-extent { fill: currentColor; }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-sensor .rs-anatomy-opening { fill: var(--rs-amber); }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-sensor .rs-anatomy-closed { fill: var(--rs-teal); }
 .htw-machine[data-htw-figure="rolling-shutter"] .htw-playground-console .htw-machine-chip { white-space: normal; min-height: 44px; }
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-mobile-reading { display: none; }
 @media (max-width: 1099px) {

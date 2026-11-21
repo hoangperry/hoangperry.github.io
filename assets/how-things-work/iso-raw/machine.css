@@ -522,6 +522,14 @@
 .htw-machine[data-htw-figure="iso-raw"] .camera-anatomy .iso-face-text { fill: var(--anatomy-hi); font-family: var(--anatomy-mono); }
 .htw-machine[data-htw-figure="iso-raw"] .camera-anatomy-ground { fill: var(--anatomy-paper); }
 .htw-machine[data-htw-figure="iso-raw"] .camera-anatomy-divider { fill: none; stroke: var(--htw-machine-line); }
+.htw-machine[data-htw-figure="iso-raw"] .camera-cover-view .camera-motion { display: none; }
+.htw-machine[data-htw-figure="iso-raw"] .camera-open-motion { align-self: start; margin-bottom: var(--space-xs); }
+.htw-machine[data-htw-figure="iso-raw"] .camera-open-motion[disabled],
+.htw-machine[data-htw-figure="iso-raw"][data-mode="reader"] .camera-transport { display: none; }
+.htw-machine[data-htw-figure="iso-raw"] .camera-transport { margin: .35rem 0 .55rem; }
+.htw-machine[data-htw-figure="iso-raw"] .camera-transport .htw-machine-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr)); gap: .45rem; margin: 0; }
+.htw-machine[data-htw-figure="iso-raw"] .camera-transport .htw-machine-button { min-height: 44px; padding-inline: .45rem; white-space: normal; }
+.htw-machine[data-htw-figure="iso-raw"] .camera-settings-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; }
 
 /* A short or narrow viewport cannot fit both the bench and a legible plot in the sticky reader. */
 @media (max-width: 980px), (max-height: 899px) {
@@ -644,6 +652,35 @@
   stroke: var(--iso-accent);
   stroke-width: 1.35;
 }
+
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-motion {
+  --iso-board-output: var(--iso-accent);
+  pointer-events: none;
+}
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-motion[data-iso-board-adc="overrange"] { --iso-board-output: var(--iso-amber); }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-tag { fill: var(--iso-panel); stroke: var(--iso-rule); }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-track,
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-bit { fill: var(--iso-track); stroke: var(--iso-rule); }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-level { fill: var(--iso-accent); }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-excess { fill: var(--iso-amber); }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-limit { stroke: var(--iso-ink); stroke-width: 1.5; }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-motion [data-iso-board-bit][data-iso-bit-value="1"] { fill: var(--iso-board-output); stroke: var(--iso-board-output); }
+.htw-machine[data-htw-figure="iso-raw"] .iso-svg .iso-board-label { font-size: 16px; font-weight: 650; }
+.htw-machine[data-htw-figure="iso-raw"] .iso-svg .iso-board-value { font-size: 19px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.htw-machine[data-htw-figure="iso-raw"] .iso-svg .iso-board-adc-state { fill: var(--iso-board-output); }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-leader { fill: none; stroke: var(--iso-rule); stroke-width: 1.5; }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-lane { fill: none; stroke: var(--iso-accent); stroke-width: 2.8; opacity: 0; }
+.htw-machine[data-htw-figure="iso-raw"] [data-iso-board-lane="adc"] { stroke: var(--iso-board-output); stroke-width: 2; }
+.htw-machine[data-htw-figure="iso-raw"] [data-camera-stage="charge"] [data-iso-board-lane="charge"],
+.htw-machine[data-htw-figure="iso-raw"] [data-camera-stage="analog"] [data-iso-board-lane="analog"],
+.htw-machine[data-htw-figure="iso-raw"] [data-camera-stage="adc"] [data-iso-board-lane="adc"] { opacity: 1; }
+.htw-machine[data-htw-figure="iso-raw"] [data-iso-highlight="charge"] [data-iso-board-stage="charge"] .iso-board-tag,
+.htw-machine[data-htw-figure="iso-raw"] [data-iso-highlight="analog"] [data-iso-board-stage="analog"] .iso-board-tag,
+.htw-machine[data-htw-figure="iso-raw"] [data-iso-highlight="adc"] [data-iso-board-stage="adc"] .iso-board-tag { fill: var(--iso-selected); stroke: var(--iso-accent); stroke-width: 1.65; }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-sample-ring { fill: var(--iso-page); fill-opacity: .72; stroke: var(--iso-accent); stroke-width: 1.6; }
+.htw-machine[data-htw-figure="iso-raw"] .iso-board-sample-dot { fill: var(--iso-accent); }
+.htw-machine[data-htw-figure="iso-raw"] [data-camera-stage="adc"] .iso-board-sample-ring { stroke: var(--iso-board-output); }
+.htw-machine[data-htw-figure="iso-raw"] [data-camera-stage="adc"] .iso-board-sample-dot { fill: var(--iso-board-output); }
 
 .htw-machine[data-htw-figure="iso-raw"] .htw-playground-presets .htw-machine-chip { white-space: normal; min-height: 44px; }
 .htw-machine[data-htw-figure="iso-raw"] .iso-mobile-reading { display: none; }

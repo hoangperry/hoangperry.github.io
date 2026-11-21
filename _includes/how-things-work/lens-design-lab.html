@@ -11,7 +11,7 @@
     <section class="htw-machine lens-bench" id="ban-thu" aria-labelledby="bench-title">
       <header class="lens-bench-head">
         <div><p class="lens-kicker">01 / THIẾT KẾ QUANG HỌC</p><h2 id="bench-title">Một cảm biến cho ba màu</h2></div>
-        <button type="button" id="theme" hidden>Nền sáng</button>
+        <button type="button" id="theme" aria-pressed="false" hidden>Nền sáng</button>
       </header>
       <noscript><p>Bật JavaScript để truy vết tia và chạy motor. Phần giải thích, cách thử và nguồn bên dưới vẫn đọc được.</p></noscript>
       <p id="load-error" class="lens-warning" role="alert" hidden></p>
@@ -86,13 +86,13 @@
             <fieldset>
               <legend>Điều kiện đo</legend>
               <label>Khoảng cách vật tính từ mốc trước<select id="distance"><option value="inf">Vô cực</option><option value="2000">2 m</option><option value="800">0,8 m</option><option value="500">0,5 m</option></select></label>
-              <label>Góc trường <output id="field-value" for="field">0°</output><input type="range" id="field" min="0" max="12" step="1" value="0"></label>
-              <label>Mở bán kính lá khẩu <output id="iris-value" for="iris">100%</output><input type="range" id="iris" min="20" max="100" step="any" value="100"></label>
+              <div class="lens-range"><div class="lens-scale-head"><label for="field">Góc trường</label><output id="field-value" for="field" aria-live="off">0°</output></div><input type="range" id="field" min="0" max="12" step="1" value="0" aria-valuetext="0 độ"></div>
+              <div class="lens-range"><div class="lens-scale-head"><label for="iris">Mở bán kính lá khẩu</label><output id="iris-value" for="iris" aria-live="off">100%</output></div><input type="range" id="iris" min="20" max="100" step="any" value="100" aria-valuetext="100 phần trăm"></div>
               <button type="button" id="set-f4">Đưa về f/4</button>
             </fieldset>
             <fieldset>
               <legend>Cảm biến · cố định khi motor chạy</legend>
-              <label>Vị trí trên trục (mm)<input type="number" id="sensor" step="0.01"></label>
+              <label>Vị trí trên trục (mm)<input type="number" id="sensor" step="any" required></label>
               <button type="button" id="fit-sensor">Đặt tại vệt RMS nhỏ nhất</button>
             </fieldset>
             <p class="lens-note">Ghim một thiết kế để giữ nguyên kính, khẩu và vị trí cảm biến của nó. Khoảng cách vật và góc trường luôn áp dụng cho cả hai.</p>
@@ -140,7 +140,7 @@
                 <legend>Truyền động</legend>
                 <label>Motor<select id="motor"><option value="vcm">Voice coil · tuyến tính</option><option value="nano">Siêu âm trượt</option><option value="ring">Siêu âm vòng + cam</option></select></label>
                 <label>Nhóm di động<select id="focus-group"></select></label>
-                <label>Vị trí nhóm (mm)<output id="focus-position" for="focus-shift">0,00 mm</output><input id="focus-shift" type="range" min="-12" max="12" step="0.01" value="0"></label>
+                <div class="lens-range"><div class="lens-scale-head"><label for="focus-shift">Vị trí nhóm (mm)</label><output id="focus-position" for="focus-shift" aria-live="off">0,00 mm</output></div><input id="focus-shift" type="range" min="-12" max="12" step="0.01" value="0" aria-valuetext="0,00 milimét"></div>
               </fieldset>
               <div class="lens-options">
                 <button type="button" id="auto-focus" class="lens-primary">Tìm nét và chạy</button>

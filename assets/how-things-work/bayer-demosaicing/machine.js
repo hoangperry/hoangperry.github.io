@@ -999,7 +999,8 @@ var createModel = (function createModel(data) {
 
   return { command, advance, snapshot, reset };
 });
-var mountRenderer = (function mountRenderer(root) {
+var mountRenderer = (function mountRenderer(root, data) {
+    const renderer = (function mountRenderer(root) {
   const svg = root.querySelector('[data-machine-id="bayer-svg"]');
   if (!svg) throw new Error('Cannot find the Bayer illustration');
   const panels = Array.from(svg.querySelectorAll('[data-bayer-panel]'), (node) => ({
@@ -1009,6 +1010,17 @@ var mountRenderer = (function mountRenderer(root) {
   }));
   const pitch = Number(panels[0].pixels[0].getAttribute('width'));
   const anatomyCursor = svg.querySelector('[data-bayer-anatomy-cursor]');
+  const anatomyStage = svg.querySelector('[data-bayer-anatomy-stage]');
+  const anatomyNote = svg.querySelector('[data-bayer-anatomy-note]');
+  const anatomyIncident = svg.querySelector('[data-bayer-anatomy-rise]');
+  const anatomyRise = Number(anatomyIncident?.getAttribute('data-bayer-anatomy-rise'));
+  const anatomyInput = svg.querySelector('[data-bayer-anatomy-input]');
+  const anatomySwatch = anatomyInput?.querySelector('rect');
+  const anatomyMeasured = svg.querySelector('[data-bayer-anatomy-measured]');
+  const anatomyRaw = svg.querySelector('[data-bayer-anatomy-raw]');
+  const anatomyNeighbors = Array.from(svg.querySelectorAll('[data-bayer-anatomy-neighbor]'), (node) => ({
+    node, index: Number(node.getAttribute('data-bayer-anatomy-neighbor')),
+  }));
   const stencil = Array.from(svg.querySelectorAll('[data-bayer-stencil]'), (node) => ({ node, label: node.querySelector('text') }));
   const equations = Array.from(svg.querySelectorAll('[data-bayer-equation]'), (node) => ({
     label: node.querySelector('[data-bayer-result]'), detail: node.querySelector('[data-bayer-detail]'),
@@ -1038,6 +1050,8 @@ var mountRenderer = (function mountRenderer(root) {
     node.textContent = value;
   }
 
+  const color = (rgb) => `rgb(${rgb.map((part) => `${part * 100}%`).join(',')})`;
+
   function paintGrid(grid) {
     for (const { key, pixels } of panels) {
       for (let index = 0; index < pixels.length; index++) {
@@ -1045,16 +1059,32 @@ var mountRenderer = (function mountRenderer(root) {
         const rgb = key === 'scene' ? grid.original[index] : key === 'sampled'
           ? Array.from('RGB', (target) => target === channel ? value : 0) : grid.reconstructed[index];
         // The uncomputed border uses the authored SVG hatch. Its id is namespaced by the runtime.
-        if (rgb) attr(pixels[index], 'fill', `rgb(${rgb.map((part) => `${part * 100}%`).join(',')})`);
+        if (rgb) attr(pixels[index], 'fill', color(rgb));
       }
     }
   }
 
   function paintInspection(view) {
     attr(svg, 'data-bayer-site', `${view.x},${view.y}`);
+    const translation = `translate(${view.x} ${view.y})`;
     if (anatomyCursor) {
-      attr(anatomyCursor, 'transform', `translate(${view.x} ${view.y})`);
+      attr(anatomyCursor, 'transform', translation);
       attr(anatomyCursor, 'visibility', 'visible');
+    }
+    if (anatomyInput) {
+      attr(anatomyInput, 'transform', translation);
+      attr(anatomyInput, 'visibility', 'visible');
+    }
+    if (anatomySwatch) attr(anatomySwatch, 'fill', color(view.original));
+    if (anatomyMeasured) attr(anatomyMeasured, 'data-bayer-channel', view.measured);
+    if (anatomyRaw) {
+      const { value } = view.channels.find(({ direction }) => direction === 'measured');
+      attr(anatomyRaw, 'fill', color(Array.from('RGB', (channel) => channel === view.measured ? value : 0)));
+    }
+    for (const { node, index } of anatomyNeighbors) {
+      const { channel, role } = view.stencil[index];
+      attr(node, 'data-bayer-channel', channel);
+      attr(node, 'data-bayer-neighbor', role);
     }
     for (const { selection } of panels) {
       attr(selection, 'transform', `translate(${view.x * pitch} ${view.y * pitch})`);
@@ -1076,8 +1106,22 @@ var mountRenderer = (function mountRenderer(root) {
     if (mobile) text(mobile, view.mobileText);
   }
 
+  function paintAnatomyStage(stage, view) {
+    if (!anatomyStage || !anatomyNote) return;
+    if (stage === 'sampled') {
+      text(anatomyStage, '2 · Mẫu Bayer');
+      text(anatomyNote, `Chỉ đo ${view.stencil[4].label.replace(' ', ' = ')}`);
+    } else if (stage === 'reconstructed') {
+      text(anatomyStage, '3 · Tính RGB');
+      text(anatomyNote, 'Sau khi đọc cảm biến');
+    } else {
+      text(anatomyStage, '1 · Cảnh RGB');
+      text(anatomyNote, `Tới bộ lọc ${view.measured}`);
+    }
+  }
+
   return {
-    render({ stage, stageLabel, controls, inspection, grid }, { focus = 'all' } = {}) {
+    render({ stage, stageLabel, time, controls, inspection, grid }, { focus = 'all', reducedMotion = false } = {}) {
       const stageChanged = svg.getAttribute('data-camera-stage') !== stage;
       attr(svg, 'data-camera-stage', stage);
       attr(svg, 'data-bayer-focus', focus);
@@ -1086,9 +1130,16 @@ var mountRenderer = (function mountRenderer(root) {
         paintGrid(grid);
         previousGrid = grid;
       }
+      if (anatomyIncident && stage === 'scene') {
+        // Only the projected swatch approaches the filter during the scene beat.
+        // The sampled RGB data itself does not vary with presentation time.
+        const remaining = reducedMotion ? 1 : 1 - Math.max(0, Math.min(1, time));
+        attr(anatomyIncident, 'transform', `translate(0 -${(anatomyRise * remaining).toFixed(2)})`);
+      }
       if (stageChanged || inspection !== previousInspection) {
         text(desc, `${stageLabel}. ${inspection.mobileText} Vùng tái tạo chỉ gồm 6 × 6 ô trong.`);
         if (mobilePhase) text(mobilePhase, stageLabel);
+        paintAnatomyStage(stage, inspection);
       }
       if (inspection !== previousInspection) {
         paintInspection(inspection);
@@ -1105,7 +1156,32 @@ var mountRenderer = (function mountRenderer(root) {
       for (const [node, value] of authoredText) node.textContent = value;
     },
   };
-});
+})(root, data);
+    const dock = root.querySelector('[data-camera-transport]');
+    const transport = root.querySelector('[data-machine-console-panel] .htw-machine-controls');
+    const run = transport?.querySelector('[data-machine-run]');
+    if (!dock || !run) return renderer;
+    const scene = dock.closest('[data-machine-scene]');
+    const focusPlayback = () => {
+      if (root.getAttribute('data-mode') !== 'explore') return;
+      run.focus({ preventScroll: true });
+      dock.scrollIntoView({ block: 'center', behavior: 'instant' });
+    };
+    scene.addEventListener('focus', focusPlayback);
+    const home = transport.parentNode;
+    const next = transport.nextSibling;
+    dock.prepend(transport);
+    return {
+      render: renderer.render,
+      dispose() {
+        try { renderer.dispose(); }
+        finally {
+          scene.removeEventListener('focus', focusPlayback);
+          home.insertBefore(transport, next);
+        }
+      },
+    };
+  });
 runtime.boot({
   slug: "bayer-demosaicing",
   descriptor: {"title":"Bộ lọc Bayer thiếu hai màu ở mỗi điểm, ảnh RGB đến từ đâu?","controls":{"groups":[{"key":"image","label":"Đầu vào RGB","controls":[{"type":"segmented","key":"image","label":"Cảnh tổng hợp","options":[{"value":"edge","label":"Cạnh đen–trắng"},{"value":"flat","label":"Mảng màu đều"}]}]},{"key":"coordinate","label":"Ô trong lưới · (x, y)","controls":[{"type":"range","key":"x","label":"x · Cột từ trái","min":1,"max":6,"step":1,"unit":"cột"},{"type":"range","key":"y","label":"y · Hàng từ trên","min":1,"max":6,"step":1,"unit":"hàng"}]}],"presets":[{"key":"neutral-edge","label":"Cạnh trung tính · R (2, 2)"},{"key":"flat-color","label":"Mảng đều · R (2, 2)"}],"challenges":[]}},
