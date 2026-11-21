@@ -61,9 +61,16 @@ var runtime = (function createPlaygroundRuntime() {
     const text = String(step);
     const exponent = /e-(\d+)$/.exec(text);
     const decimals = Math.min(20, exponent ? Number(exponent[1]) : (text.split('.')[1] || '').length);
-    let fixed = value.toFixed(decimals);
-    if (Number(fixed) === 0) fixed = (0).toFixed(decimals);
-    return fixed.replace('.', ',');
+    const fixed = Math.abs(value).toFixed(decimals);
+    const sign = value < 0 && Number(fixed) !== 0 ? '−' : '';
+    let number = fixed.replace('.', ',');
+    if (Math.abs(value) < 1e21) { // toFixed uses scientific notation beyond this point.
+      const comma = number.indexOf(',');
+      for (let i = (comma < 0 ? number.length : comma) - 3; i > 0; i -= 3) {
+        number = number.slice(0, i) + '.' + number.slice(i);
+      }
+    }
+    return sign + number;
   }
 
   function indexControls(controls) {
@@ -97,6 +104,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -219,6 +227,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -234,6 +243,7 @@ var runtime = (function createPlaygroundRuntime() {
       if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -244,7 +254,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -310,6 +320,10 @@ var runtime = (function createPlaygroundRuntime() {
         const before = current;
         if (key === 'run' || key === 'step') {
           if (before.running) return false;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
           const refused = model.command({ key }) === false;
           const after = read(refused);
           if (refused || (key === 'run' && !after.running)) return false;
@@ -575,7 +589,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -586,7 +600,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -695,6 +710,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -1587,7 +1603,7 @@ var mountRenderer = (function mountRenderer(root, data) {
 runtime.boot({
   slug: "stepper-motor",
   descriptor: {"title":"Động cơ bước quay từng nấc thế nào?","controls":{"groups":[{"key":"manual","label":"Tự cấp điện","controls":[{"type":"toggle3","key":"phaseA","label":"Cuộn A","options":[{"value":-1,"label":"−"},{"value":0,"label":"Tắt"},{"value":1,"label":"+"}]},{"type":"toggle3","key":"phaseB","label":"Cuộn B","options":[{"value":-1,"label":"−"},{"value":0,"label":"Tắt"},{"value":1,"label":"+"}]}]},{"key":"auto","label":"Chạy tự động","controls":[{"type":"segmented","key":"drive","label":"Kiểu kích","options":[{"value":"manual","label":"Tự cấp điện"},{"value":"wave","label":"Một cuộn"},{"value":"full","label":"Hai cuộn"},{"value":"half","label":"Nửa bước"},{"value":"micro","label":"Vi bước"}]},{"type":"segmented","key":"direction","label":"Chiều quay","options":[{"value":1,"label":"Thuận"},{"value":-1,"label":"Ngược"}]},{"type":"range","key":"rate","label":"Tốc độ","min":1,"max":100,"step":1,"unit":"bước đủ/giây"}]},{"key":"strength","label":"Thử sức động cơ","controls":[{"type":"range","key":"load","label":"Tải","min":0,"max":0.3,"step":0.01,"unit":"N·m"},{"type":"range","key":"voltage","label":"Điện áp nguồn","min":3,"max":24,"step":1,"unit":"V"}]}],"presets":[{"key":"default","label":"Mặc định"},{"key":"manual","label":"Tự cấp điện"},{"key":"half","label":"Nửa bước"},{"key":"micro","label":"Vi bước"},{"key":"tooFast","label":"Bước quá nhanh"},{"key":"highVoltage","label":"Điện áp cao"}],"challenges":[{"key":"oneTurn","label":"Quay đúng một vòng bằng 4 bước đủ, không trượt"},{"key":"halfStepStop","label":"Dừng rotor ở 45° bằng nửa bước hoặc vi bước"},{"key":"makeItSlip","label":"Làm động cơ trượt bước"},{"key":"fastNoSlip","label":"Chạy 40 bước/giây trong 2 giây mà không trượt"}]}},
-  data: {"version":1,"params":{"substepHz":4000,"polePairs":1,"microstepsPerFullStep":8,"resistance":2,"inductance":0.05,"torqueConstant":0.2,"inertia":0.0002,"viscousDamping":0.0002,"bearingFriction":0.005,"stepSettleSeconds":0.3,"historySeconds":2,"historyEverySubsteps":20,"restOmega":0.5,"stickOmega":0.001,"staticFrictionRatio":1.1,"slipStatusSeconds":0.5,"unstableOffsetDeg":5,"fastNoSlipRate":40,"fastNoSlipSeconds":2,"oneTurnToleranceDeg":5,"halfStepToleranceDeg":3},"controls":{"groups":[{"key":"manual","label":"Tự cấp điện","controls":[{"type":"toggle3","key":"phaseA","label":"Cuộn A","options":[{"value":-1,"label":"−"},{"value":0,"label":"Tắt"},{"value":1,"label":"+"}]},{"type":"toggle3","key":"phaseB","label":"Cuộn B","options":[{"value":-1,"label":"−"},{"value":0,"label":"Tắt"},{"value":1,"label":"+"}]}]},{"key":"auto","label":"Chạy tự động","controls":[{"type":"segmented","key":"drive","label":"Kiểu kích","options":[{"value":"manual","label":"Tự cấp điện"},{"value":"wave","label":"Một cuộn"},{"value":"full","label":"Hai cuộn"},{"value":"half","label":"Nửa bước"},{"value":"micro","label":"Vi bước"}]},{"type":"segmented","key":"direction","label":"Chiều quay","options":[{"value":1,"label":"Thuận"},{"value":-1,"label":"Ngược"}]},{"type":"range","key":"rate","label":"Tốc độ","min":1,"max":100,"step":1,"unit":"bước đủ/giây"}]},{"key":"strength","label":"Thử sức động cơ","controls":[{"type":"range","key":"load","label":"Tải","min":0,"max":0.3,"step":0.01,"unit":"N·m"},{"type":"range","key":"voltage","label":"Điện áp nguồn","min":3,"max":24,"step":1,"unit":"V"}]}],"presets":[{"key":"default","label":"Mặc định","startDeg":45,"values":{"drive":"full","direction":1,"rate":8,"load":0.01,"voltage":6,"phaseA":1,"phaseB":1}},{"key":"manual","label":"Tự cấp điện","startDeg":30,"values":{"drive":"manual","direction":1,"rate":8,"load":0.01,"voltage":6,"phaseA":0,"phaseB":0}},{"key":"half","label":"Nửa bước","startDeg":0,"values":{"drive":"half","direction":1,"rate":4,"load":0.01,"voltage":6,"phaseA":1,"phaseB":0}},{"key":"micro","label":"Vi bước","startDeg":0,"values":{"drive":"micro","direction":1,"rate":4,"load":0.01,"voltage":6,"phaseA":1,"phaseB":0}},{"key":"tooFast","label":"Bước quá nhanh","startDeg":45,"values":{"drive":"full","direction":1,"rate":40,"load":0.01,"voltage":6,"phaseA":1,"phaseB":1}},{"key":"highVoltage","label":"Điện áp cao","startDeg":45,"values":{"drive":"full","direction":1,"rate":40,"load":0.01,"voltage":24,"phaseA":1,"phaseB":1}}],"challenges":[{"key":"oneTurn","label":"Quay đúng một vòng bằng 4 bước đủ, không trượt"},{"key":"halfStepStop","label":"Dừng rotor ở 45° bằng nửa bước hoặc vi bước"},{"key":"makeItSlip","label":"Làm động cơ trượt bước"},{"key":"fastNoSlip","label":"Chạy 40 bước/giây trong 2 giây mà không trượt"}]},"scene":{"width":480,"height":630,"cx":240,"cy":192,"rotorRadius":50,"rotorLabelRadius":37,"shaftRadius":8,"boreRadius":56,"yokeInner":106,"yokeOuter":128,"scaleRadius":138,"labelRadius":163,"pointerTip":149,"fieldMin":15,"fieldMax":28,"plotX0":58,"plotX1":466,"current":{"top":404,"bottom":484},"error":{"top":516,"bottom":604},"currentHeadroom":1.25,"windowSeconds":2}},
+  data: {"version":1,"params":{"substepHz":4000,"polePairs":1,"microstepsPerFullStep":8,"resistance":2,"inductance":0.05,"torqueConstant":0.2,"inertia":0.0002,"viscousDamping":0.0002,"bearingFriction":0.005,"stepSettleSeconds":0.3,"historySeconds":2,"historyEverySubsteps":20,"restOmega":0.5,"stickOmega":0.001,"staticFrictionRatio":1.1,"slipStatusSeconds":0.5,"unstableOffsetDeg":5,"fastNoSlipRate":40,"fastNoSlipSeconds":2,"oneTurnToleranceDeg":5,"halfStepToleranceDeg":3},"controls":{"groups":[{"key":"manual","label":"Tự cấp điện","controls":[{"type":"toggle3","key":"phaseA","label":"Cuộn A","options":[{"value":-1,"label":"−"},{"value":0,"label":"Tắt"},{"value":1,"label":"+"}]},{"type":"toggle3","key":"phaseB","label":"Cuộn B","options":[{"value":-1,"label":"−"},{"value":0,"label":"Tắt"},{"value":1,"label":"+"}]}]},{"key":"auto","label":"Chạy tự động","controls":[{"type":"segmented","key":"drive","label":"Kiểu kích","options":[{"value":"manual","label":"Tự cấp điện"},{"value":"wave","label":"Một cuộn"},{"value":"full","label":"Hai cuộn"},{"value":"half","label":"Nửa bước"},{"value":"micro","label":"Vi bước"}]},{"type":"segmented","key":"direction","label":"Chiều quay","options":[{"value":1,"label":"Thuận"},{"value":-1,"label":"Ngược"}]},{"type":"range","key":"rate","label":"Tốc độ","min":1,"max":100,"step":1,"unit":"bước đủ/giây"}]},{"key":"strength","label":"Thử sức động cơ","controls":[{"type":"range","key":"load","label":"Tải","min":0,"max":0.3,"step":0.01,"unit":"N·m"},{"type":"range","key":"voltage","label":"Điện áp nguồn","min":3,"max":24,"step":1,"unit":"V"}]}],"presets":[{"key":"default","label":"Mặc định","startDeg":45,"values":{"drive":"full","direction":1,"rate":8,"load":0.01,"voltage":6,"phaseA":1,"phaseB":1}},{"key":"manual","label":"Tự cấp điện","startDeg":30,"values":{"drive":"manual","direction":1,"rate":8,"load":0.01,"voltage":6,"phaseA":0,"phaseB":0}},{"key":"half","label":"Nửa bước","startDeg":0,"values":{"drive":"half","direction":1,"rate":4,"load":0.01,"voltage":6,"phaseA":1,"phaseB":0}},{"key":"micro","label":"Vi bước","startDeg":0,"values":{"drive":"micro","direction":1,"rate":4,"load":0.01,"voltage":6,"phaseA":1,"phaseB":0}},{"key":"tooFast","label":"Bước quá nhanh","startDeg":45,"values":{"drive":"full","direction":1,"rate":40,"load":0.01,"voltage":6,"phaseA":1,"phaseB":1}},{"key":"highVoltage","label":"Điện áp cao","startDeg":45,"values":{"drive":"full","direction":1,"rate":40,"load":0.01,"voltage":24,"phaseA":1,"phaseB":1}}],"challenges":[{"key":"oneTurn","label":"Quay đúng một vòng bằng 4 bước đủ, không trượt"},{"key":"halfStepStop","label":"Dừng rotor ở 45° bằng nửa bước hoặc vi bước"},{"key":"makeItSlip","label":"Làm động cơ trượt bước"},{"key":"fastNoSlip","label":"Chạy 40 bước/giây trong 2 giây mà không trượt"}]},"scene":{"width":480,"height":630,"cx":240,"cy":192,"rotorRadius":50,"rotorLabelRadius":37,"shaftRadius":8,"boreRadius":56,"yokeInner":106,"yokeOuter":128,"scaleRadius":138,"labelRadius":163,"pointerTip":149,"fieldMin":15,"fieldMax":28,"plotX0":88,"plotX1":466,"current":{"top":404,"bottom":484},"error":{"top":516,"bottom":604},"currentHeadroom":1.25,"windowSeconds":2}},
   createModel: createModel,
   mountRenderer: mountRenderer
 }, document);

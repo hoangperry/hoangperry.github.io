@@ -61,9 +61,16 @@ var runtime = (function createPlaygroundRuntime() {
     const text = String(step);
     const exponent = /e-(\d+)$/.exec(text);
     const decimals = Math.min(20, exponent ? Number(exponent[1]) : (text.split('.')[1] || '').length);
-    let fixed = value.toFixed(decimals);
-    if (Number(fixed) === 0) fixed = (0).toFixed(decimals);
-    return fixed.replace('.', ',');
+    const fixed = Math.abs(value).toFixed(decimals);
+    const sign = value < 0 && Number(fixed) !== 0 ? '−' : '';
+    let number = fixed.replace('.', ',');
+    if (Math.abs(value) < 1e21) { // toFixed uses scientific notation beyond this point.
+      const comma = number.indexOf(',');
+      for (let i = (comma < 0 ? number.length : comma) - 3; i > 0; i -= 3) {
+        number = number.slice(0, i) + '.' + number.slice(i);
+      }
+    }
+    return sign + number;
   }
 
   function indexControls(controls) {
@@ -1138,10 +1145,14 @@ var mountRenderer = (function mountRenderer(root, data) {
       previous = sample.time;
     }
   }
+  let lastSnapshot = null;
   return {
     render(s, view = {}) {
       if (disposed) return;
       check(s); // No partial writes for invalid snapshots.
+      set(svg, 'data-ac-focus', keys.includes(view.focus) ? view.focus : 'all');
+      set(svg, 'data-ac-reduced-motion', Boolean(view.reducedMotion));
+      if (s === lastSnapshot) return;
       const degrees = s.angleRad * 180 / Math.PI;
       const theta = s.angleRad % (2 * Math.PI);
       const nx = S.rotor.x + S.rotor.normalLabelRadius * Math.cos(theta);
@@ -1165,20 +1176,19 @@ var mountRenderer = (function mountRenderer(root, data) {
       for (const [key, value] of [
         ['data-ac-angle-rad', s.angleRad], ['data-ac-flux-wb', s.fluxWb], ['data-ac-emf-v', s.emfV],
         ['data-ac-phase', s.phase], ['data-ac-elapsed', s.elapsed], ['data-ac-history-count', s.samples.length],
-        ['data-ac-shaft-stopped', s.shaftStopped], ['data-ac-focus', keys.includes(view.focus) ? view.focus : 'all'],
-        ['data-ac-reduced-motion', Boolean(view.reducedMotion)],
+        ['data-ac-shaft-stopped', s.shaftStopped],
       ]) set(svg, key, value);
       set(parts.get('rotor'), 'transform', `rotate(${-degrees} 150 153)`);
       set(parts.get('normal-label'), 'x', nx);
       set(parts.get('normal-label'), 'y', ny + 5);
       set(parts.get('theta-arc'), 'd', arc);
-      write(parts.get('angle-label'), `θ = ${Math.round(degrees)}°`);
+      write(parts.get('angle-label'), `θ = ${String(Math.round(degrees)).replace('-', '−')}°`);
       write(parts.get('shaft-label'), `${s.controls['shaft-rpm']} RPM`);
       write(parts.get('direction-label'), s.controls.direction === 1 ? 'Chiều + ↶' : 'Chiều − ↷');
       write(parts.get('voltmeter-value'), `${format(s.emfV)} V`);
       write(parts.get('flux-value'), `${format(s.fluxWb * 1000)} mWb`);
       write(parts.get('emf-value'), `${format(s.emfV)} V`);
-      const phase = s.phase === 'running' ? (s.shaftStopped ? '0 RPM · thời gian chạy' : 'Đang chạy') : s.phase === 'paused' ? 'Pause (giữ RPM)' : 'Hoàn tất lượt';
+      const phase = s.phase === 'running' ? (s.shaftStopped ? '0 RPM · thời gian chạy' : 'Đang chạy') : s.phase === 'paused' ? 'Tạm dừng (giữ RPM)' : 'Hoàn tất lượt';
       write(parts.get('history-label'), hasHistory ? `${phase} · t = ${s.elapsed.toFixed(2).replace('.', ',')} s` : 'Xem trước cấu hình · chưa có lịch sử.');
       for (const { key, path, dotY } of projected) {
         set(parts.get(`${key}-trace`), 'd', path);
@@ -1193,9 +1203,11 @@ var mountRenderer = (function mountRenderer(root, data) {
       write(paragraphs.get('boundary'), s.boundary.label);
       write(paragraphs.get('stopped'), data.text.stoppedNote);
       lock(s.busy);
+      lastSnapshot = s;
     },
     dispose() {
       if (disposed) return;
+      lastSnapshot = null;
       disposed = true;
       if (root.getAttribute('data-machine-runtime') !== 'failed') lock(false);
       locked.clear();

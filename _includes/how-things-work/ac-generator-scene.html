@@ -6,7 +6,7 @@
 <button type="button" class="htw-machine-chip htw-machine-theme" data-machine-theme aria-pressed="false" disabled>
 <span class="htw-machine-theme-icon" aria-hidden="true"></span><span>Nền sáng</span></button>
 </div>
-<div class="htw-machine-view"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 924" role="img" aria-label="Máy phát điện AC hở mạch: cuộn quay, từ thông và điện áp" aria-labelledby="ac-generator-svg-title ac-generator-svg-desc" class="ac-svg" data-machine-id="ac-svg" data-ac-focus="all" data-ac-reduced-motion="false" data-ac-phase="idle" data-ac-angle-rad="1.5707963267948966" data-ac-flux-wb="1.2246467991473531e-19" data-ac-emf-v="1.2566370614359172" data-ac-elapsed="0" data-ac-history-count="0" data-ac-shaft-stopped="false" data-machine-view="" focusable="false">
+<div class="htw-machine-view"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 924" role="img" aria-label="Cuộn quay, từ thông và điện áp trên cùng thời gian mô phỏng" aria-describedby="ac-generator-svg-desc" class="ac-svg" data-machine-id="ac-svg" data-ac-focus="all" data-ac-reduced-motion="false" data-ac-phase="idle" data-ac-angle-rad="1.5707963267948966" data-ac-flux-wb="1.2246467991473531e-19" data-ac-emf-v="1.2566370614359172" data-ac-elapsed="0" data-ac-history-count="0" data-ac-shaft-stopped="false" data-machine-view="" focusable="false">
     <title id="ac-generator-svg-title">Cuộn quay, từ thông và điện áp trên cùng thời gian mô phỏng</title>
     <desc id="ac-generator-svg-desc">B hướng +x; +z ra người xem, góc θ từ B đến pháp tuyến n tăng ngược kim đồng hồ. Cuộn nhìn cạnh; hình phụ nhìn từ +n định nghĩa chiều quấn từ − tới + ngược kim đồng hồ. Hai vành trượt nguyên vòng nối vôn kế lý tưởng; e = V(+) − V(−). Chuyển động quay được áp đặt; mạch hở với vôn kế lý tưởng. Không mô phỏng dòng điện, tải hoặc công suất. Dừng cơ học ở 0 RPM: thời gian vẫn chạy, từ thông giữ nguyên và điện áp bằng 0. Tạm dừng mô phỏng chỉ đóng băng thời gian, không đổi tốc độ trục.</desc>
     <text x="18" y="27" font-size="15" class="ac-label ac-heading">01 / Cuộn quay trong B đều</text>
@@ -61,7 +61,7 @@
       <path class="ac-trace ac-flux" data-machine-id="ac-flux-trace" d=""/>
       <line class="ac-cursor" data-machine-id="ac-flux-cursor" x1="62" x2="62" y1="520" y2="626" data-hidden="true"/>
       <circle class="ac-sample ac-flux" data-machine-id="ac-flux-dot" cx="62" cy="573" r="3.5" data-hidden="true"/>
-      <text x="242" y="578" font-size="15" data-machine-id="ac-flux-empty" text-anchor="middle" data-hidden="false">Chưa có mẫu · nhấn Run</text>
+      <text x="242" y="578" font-size="15" data-machine-id="ac-flux-empty" text-anchor="middle" data-hidden="false">Chưa có mẫu · nhấn Chạy</text>
     <text x="420" y="502" font-size="15" data-machine-id="ac-flux-value" text-anchor="end">0,000 mWb</text>
     <text x="18" y="680" font-size="15" class="ac-label ac-heading">03 / e (V)</text>
       <path class="ac-grid" d="M62 698 V804"/><text x="62" y="824" font-size="15" text-anchor="middle">0</text><path class="ac-grid" d="M151.5 698 V804"/><text x="151.5" y="824" font-size="15" text-anchor="middle">2</text><path class="ac-grid" d="M241 698 V804"/><text x="241" y="824" font-size="15" text-anchor="middle">4</text><path class="ac-grid" d="M330.5 698 V804"/><text x="330.5" y="824" font-size="15" text-anchor="middle">6</text><path class="ac-grid" d="M420 698 V804"/><text x="420" y="824" font-size="15" text-anchor="middle">8</text>
@@ -70,13 +70,13 @@
       <path class="ac-trace ac-emf" data-machine-id="ac-emf-trace" d=""/>
       <line class="ac-cursor" data-machine-id="ac-emf-cursor" x1="62" x2="62" y1="698" y2="804" data-hidden="true"/>
       <circle class="ac-sample ac-emf" data-machine-id="ac-emf-dot" cx="62" cy="751" r="3.5" data-hidden="true"/>
-      <text x="242" y="756" font-size="15" data-machine-id="ac-emf-empty" text-anchor="middle" data-hidden="false">Chưa có mẫu · nhấn Run</text>
+      <text x="242" y="756" font-size="15" data-machine-id="ac-emf-empty" text-anchor="middle" data-hidden="false">Chưa có mẫu · nhấn Chạy</text>
     <text x="420" y="680" font-size="15" data-machine-id="ac-emf-value" text-anchor="end">+1,257 V</text>
     <path class="ac-axis" data-ac-axis="time" data-min="0" data-max="8" d="M62 804 H420"/>
     <text x="420" y="850" font-size="15" text-anchor="end">t mô phỏng (s) · 0 → 8</text>
     <text x="18" y="878" font-size="15" >Hở mạch · tốc độ áp đặt</text>
     <text x="18" y="899" font-size="15" >Không mô phỏng dòng điện, công suất</text>
-    <text x="18" y="920" font-size="15" >0 RPM: e = 0; Pause: chỉ đông thời gian.</text>
+    <text x="18" y="920" font-size="15" >0 RPM: e = 0; Dừng: chỉ đóng băng thời gian.</text>
   </svg></div>
 </div>
 <figcaption class="htw-machine-caption">

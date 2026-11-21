@@ -554,7 +554,9 @@
     border: 1px solid var(--nmos-rule);
     background: var(--nmos-page);
     color: var(--nmos-ink);
-    font: 600 .875rem/1.4 var(--htw-machine-mono);
+    font: 600 .875rem/1.4 var(--htw-machine-mono, var(--htw-mono, ui-monospace, monospace));
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
   }
 }
 @media (max-width: 980px) {

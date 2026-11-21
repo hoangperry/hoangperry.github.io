@@ -61,9 +61,16 @@ var runtime = (function createPlaygroundRuntime() {
     const text = String(step);
     const exponent = /e-(\d+)$/.exec(text);
     const decimals = Math.min(20, exponent ? Number(exponent[1]) : (text.split('.')[1] || '').length);
-    let fixed = value.toFixed(decimals);
-    if (Number(fixed) === 0) fixed = (0).toFixed(decimals);
-    return fixed.replace('.', ',');
+    const fixed = Math.abs(value).toFixed(decimals);
+    const sign = value < 0 && Number(fixed) !== 0 ? '−' : '';
+    let number = fixed.replace('.', ',');
+    if (Math.abs(value) < 1e21) { // toFixed uses scientific notation beyond this point.
+      const comma = number.indexOf(',');
+      for (let i = (comma < 0 ? number.length : comma) - 3; i > 0; i -= 3) {
+        number = number.slice(0, i) + '.' + number.slice(i);
+      }
+    }
+    return sign + number;
   }
 
   function indexControls(controls) {
@@ -1133,7 +1140,7 @@ var mountRenderer = (function mountRenderer(root, data) {
     mark('slit-cursor', 'transform', `translate(${coord(center)} 0)`);
     label('reticle-mm', `${viet(scan.reticleMm, 1, true)} mm`);
     label('wafer-mm', `${viet(scan.waferMm, 1, true)} mm`);
-    label('ratio', `Tỷ lệ ${viet(scan.ratio, 6)}`);
+    label('ratio', `Tỷ lệ ${viet(scan.ratio, 7)}`);
     label('scan-progress', `Tiến độ lượt: ${Math.round(scan.progress * 100)}%`);
   }
 
@@ -1252,10 +1259,11 @@ var mountRenderer = (function mountRenderer(root, data) {
         ['second-harmonic', s.optics.secondHarmonic], ['threshold', s.threshold],
       ]) attr(svg, `data-euv-${key}`, value);
       for (const [key, node] of orders) attr(node, 'data-euv-admitted', s.optics.admittedOrders.includes(Number(key)));
-      for (const [key, node] of sourcePoses) show(node, Number(key) === s.scan.sourceFrame);
-      show(marks.get('source-laser'), s.scan.sourceFrame === 1 || s.scan.sourceFrame === 2);
-      for (const [key, node] of sourceSteps) attr(node, 'data-euv-active', Number(key) === s.scan.sourceFrame);
-      label('source-phase', sourcePhases[s.scan.sourceFrame]);
+      const sourceFrame = view.reducedMotion && s.phase === 'running' ? 2 : s.scan.sourceFrame;
+      for (const [key, node] of sourcePoses) show(node, Number(key) === sourceFrame);
+      show(marks.get('source-laser'), sourceFrame === 1 || sourceFrame === 2);
+      for (const [key, node] of sourceSteps) attr(node, 'data-euv-active', Number(key) === sourceFrame);
+      label('source-phase', sourcePhases[sourceFrame]);
       s.sites.forEach((site, i) => {
         const row = siteRows.get(String(i)), marker = fieldSites.get(String(i));
         for (const node of [row, marker]) {

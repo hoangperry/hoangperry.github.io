@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "phase-detect-af",
   "kind": "playground",
-  "sourceDigest": "25ca0b18ca6351ad2b89783f55932cf3aeaa3d185978428a11eabfc450e4c841",
+  "sourceDigest": "57bb101e9a75a8d1103f3683cda3e1e06ba444923a0b9c998bea7e623b589a19",
   "files": {
     "_includes/how-things-work/phase-detect-af-scene.html": "a498a0e252749b27b1e0e0a6dfa24c56b731f0fb0f8abd98c514fe76018c0e84",
     "_includes/how-things-work/phase-detect-af-console.html": "8b5bdda85724218bc7571a01095e00804928cd48a03b0c24488bab8ffa393d44",
-    "assets/how-things-work/phase-detect-af/machine.js": "7324a541b5dce06fa02dc2325d5e1778df6d9a7d1ff713b55dd4f64241a198d4",
+    "assets/how-things-work/phase-detect-af/machine.js": "9b3c433c8e04260c40dea89b681d777e6c8e57158fae1870a8ee948f5460f56a",
     "assets/how-things-work/phase-detect-af/machine.css": "2999cb2e2a87ef4374e43ea89b779ee0c41afefe4e0918d74ff450b95d83e775",
     "assets/how-things-work/phase-detect-af/thumbnail.webp": "93a9376a155c11df95fc6cdb65aa217bac1e00ee92c99fb154f0e5d60a66dca6",
-    "assets/how-things-work/phase-detect-af/NOTICE.txt": "7763a083c2ea7b3f151cabc2407d708ee1791c5f8ac7b649f6d80ff258d2716e"
+    "assets/how-things-work/phase-detect-af/NOTICE.txt": "0f49e698478d287e5d0f07d6c053b01b0d34547c6c89a6ed19051cab78e060dc"
   }
 }

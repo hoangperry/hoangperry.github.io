@@ -2,7 +2,7 @@ How Things Work playground: Bên trong máy quang khắc EUV: từ giọt thiế
 Topic: euv-lithography
 Generated file: built by the EUV topic exporter from a checked artifact and its receipt. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: fb06bcce44e64abacb8487c19b64caf3350746ac65f364b5f77a71b0fc089dc1
+Source digest: e2e24be0e5bd6e7f658ba944c801f7d12bd09cb8d9661a6a6a5edba0656f574b
 Checks recorded in the build receipt:
 - euv-model.test.mjs: 15/15 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/euv-lithography/tests/euv-model.test.mjs)
 - euv-grid.test.mjs: 720/720 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/euv-lithography/tests/euv-grid.test.mjs)
