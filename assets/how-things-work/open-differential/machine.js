@@ -14,10 +14,9 @@ var runtime = (function createPlaygroundRuntime() {
   const TEXT = {
     ready: 'Sẵn sàng',
     running: 'Đang chạy',
-    paused: 'Đã dừng',
+    paused: 'Không chạy',
     failed: 'Không chạy được phần tương tác. Hình vẫn ở dạng tĩnh và bài viết vẫn đọc được.',
     run: 'Đang chạy mô phỏng.',
-    resume: 'Tiếp tục chạy từ trạng thái đã dừng.',
     pause: 'Đã dừng. Trạng thái được giữ nguyên.',
     step: (status) => (status ? `Từng bước: ${status}` : 'Đã đi một bước.'),
     reset: 'Đã đặt lại về trạng thái ban đầu.',
@@ -98,6 +97,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -158,16 +158,19 @@ var runtime = (function createPlaygroundRuntime() {
         map.set(element.id, `${instanceId}--${original}`);
       }
     }
-    for (const subtree of subtrees) {
-      for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
-        if (map.has(element.id)) set(element, 'id', map.get(element.id));
+    if (map.size > 0) {
+      for (const subtree of subtrees) {
+        for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
+          if (map.has(element.id)) set(element, 'id', map.get(element.id));
+        }
       }
-    }
-    for (const element of [root, ...root.querySelectorAll('*')]) {
-      for (const attribute of Array.from(element.attributes)) {
-        if (attribute.name === 'id' || attribute.name === 'data-machine-id') continue;
-        const next = rewriteAttribute(attribute.name, attribute.value, map);
-        if (next !== attribute.value) set(element, attribute.name, next);
+      for (const element of [root, ...root.querySelectorAll('*')]) {
+        for (const attribute of Array.from(element.attributes)) {
+          const name = attribute.name;
+          if (name === 'id' || name === 'data-machine-id') continue;
+          const next = rewriteAttribute(name, attribute.value, map);
+          if (next !== attribute.value) set(element, name, next);
+        }
       }
     }
     return {
@@ -217,6 +220,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -227,11 +231,12 @@ var runtime = (function createPlaygroundRuntime() {
       throw new Error('createModel must return { snapshot, advance, command, reset }');
     }
 
-    function read() {
+    function read(repeatAnnouncement = false) {
       const next = validateSnapshot(model.snapshot(), index);
-      if (next.announcement && next.announcement !== lastModelNote) modelNotes.push(next.announcement);
+      if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -242,7 +247,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -306,20 +311,21 @@ var runtime = (function createPlaygroundRuntime() {
       return act(() => {
         if (mode !== 'explore') return false; // the reader never operates the playground
         const before = current;
-        if (key === 'run') {
+        if (key === 'run' || key === 'step') {
           if (before.running) return false;
-          model.command({ key: 'run' });
-          runtimeNote = before.time > 0 ? TEXT.resume : TEXT.run;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
+          const refused = model.command({ key }) === false;
+          const after = read(refused);
+          if (refused || (key === 'run' && !after.running)) return false;
+          runtimeNote = key === 'run' ? TEXT.run : TEXT.step(after.status);
           clock.reset();
         } else if (key === 'pause') {
           if (!before.running) return false;
           model.command({ key: 'pause' });
           runtimeNote = TEXT.pause;
-          clock.reset();
-        } else if (key === 'step') {
-          if (before.running) return false;
-          model.command({ key: 'step' });
-          runtimeNote = TEXT.step(read().status); // the achieved state, never a guess from the previous one
           clock.reset();
         } else if (key === 'reset') {
           model.command({ key: 'reset' });
@@ -576,7 +582,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -587,7 +593,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -635,8 +642,10 @@ var runtime = (function createPlaygroundRuntime() {
       place(next);
       readingDirty = true;
       if (fromUser) {
-        if (next === 'explore') scene.focus({ preventScroll: false });
-        else {
+        if (next === 'explore') {
+          if (typeof renderer.focusExplore === 'function') renderer.focusExplore();
+          else scene.focus({ preventScroll: false });
+        } else {
           const opener = $('[data-machine-mode="explore"]');
           if (opener) opener.focus();
         }
@@ -694,6 +703,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -1345,7 +1355,7 @@ var mountRenderer = (function mountRenderer(root, data) {
 runtime.boot({
   slug: "open-differential",
   descriptor: {"title":"Bộ vi sai giúp hai bánh xe quay khác tốc độ thế nào?","controls":{"groups":[{"key":"experiment","label":"Thí nghiệm (vỏ vi sai được áp tốc độ)","controls":[{"type":"segmented","key":"scenario","label":"Tình huống","options":[{"value":"straight","label":"Đi thẳng"},{"value":"corner","label":"Vào cua"},{"value":"stuck","label":"Bàn thử: một trục bị giữ"}]},{"type":"range","key":"carrier-rpm","label":"Tốc độ vỏ vi sai áp đặt (cả ba tình huống)","min":6,"max":30,"step":6,"unit":"RPM"}]},{"key":"corner","label":"Vào cua (chỉ tác động khi chọn Vào cua)","controls":[{"type":"segmented","key":"turn-side","label":"Hướng cua (chỉ tác động khi chọn Vào cua)","options":[{"value":"left","label":"Cua trái"},{"value":"right","label":"Cua phải"}]},{"type":"range","key":"turn-radius","label":"Bán kính tới trung điểm cầu sau (chỉ tác động khi chọn Vào cua)","min":2,"max":10,"step":1,"unit":"m"}]},{"key":"grip","label":"Độ bám (chỉ tác động ở bàn thử một trục bị giữ)","controls":[{"type":"segmented","key":"low-grip-side","label":"Bánh ít bám (chỉ tác động ở bàn thử; bánh còn lại bị giữ đứng yên)","options":[{"value":"left","label":"Bánh trái"},{"value":"right","label":"Bánh phải"}]},{"type":"range","key":"low-grip-mu","label":"Hệ số bám của bánh ít bám (chỉ tác động ở bàn thử; chỉ đổi trần mô-men, không đổi tốc độ)","min":0,"max":0.2,"step":0.02,"unit":"µ"}]},{"key":"view","label":"Cách trình bày (không đổi vật lý)","controls":[{"type":"segmented","key":"reference-frame","label":"Hệ quy chiếu hiển thị (chỉ là cách nhìn, đổi được cả khi đang chạy)","options":[{"value":"world","label":"Nhìn từ thân xe"},{"value":"carrier","label":"Đứng trên vỏ vi sai"}]}]}],"presets":[{"key":"straight","label":"Đi thẳng 12 RPM"},{"key":"left-corner","label":"Cua trái, bán kính 3 m"},{"key":"right-corner","label":"Cua phải, bán kính 3 m"},{"key":"low-grip-left","label":"Bàn thử: bánh trái ít bám, trục phải bị giữ"},{"key":"low-grip-right","label":"Bàn thử: bánh phải ít bám, trục trái bị giữ"}],"challenges":[{"key":"straight","label":"Hoàn tất trọn 8 s đi thẳng: hai trục bằng tốc độ vỏ, bánh răng hành tinh không tự quay."},{"key":"corner","label":"Hoàn tất trọn 8 s vào cua: bánh vòng ngoài nhanh hơn, tổng hai tốc độ vẫn bằng hai lần tốc độ vỏ."},{"key":"stuck","label":"Hoàn tất trọn 8 s ở bàn thử có một trục bị giữ đứng yên."},{"key":"both-grip-sides","label":"Hoàn tất bàn thử với bánh ít bám ở bên trái và ở bên phải (hai lượt riêng)."}]}},
-  data: {"schemaVersion":1,"parameters":{"wheelRadiusM":0.3,"trackWidthM":1.5,"normalLoadN":3000,"highGripMu":0.8,"sideTeeth":24,"spiderTeeth":12,"durationSeconds":8,"stepSeconds":0.1},"defaults":{"scenario":"corner","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06,"reference-frame":"world"},"controls":{"groups":[{"key":"experiment","label":"Thí nghiệm (vỏ vi sai được áp tốc độ)","controls":[{"type":"segmented","key":"scenario","label":"Tình huống","options":[{"value":"straight","label":"Đi thẳng"},{"value":"corner","label":"Vào cua"},{"value":"stuck","label":"Bàn thử: một trục bị giữ"}]},{"type":"range","key":"carrier-rpm","label":"Tốc độ vỏ vi sai áp đặt (cả ba tình huống)","min":6,"max":30,"step":6,"unit":"RPM"}]},{"key":"corner","label":"Vào cua (chỉ tác động khi chọn Vào cua)","controls":[{"type":"segmented","key":"turn-side","label":"Hướng cua (chỉ tác động khi chọn Vào cua)","options":[{"value":"left","label":"Cua trái"},{"value":"right","label":"Cua phải"}]},{"type":"range","key":"turn-radius","label":"Bán kính tới trung điểm cầu sau (chỉ tác động khi chọn Vào cua)","min":2,"max":10,"step":1,"unit":"m"}]},{"key":"grip","label":"Độ bám (chỉ tác động ở bàn thử một trục bị giữ)","controls":[{"type":"segmented","key":"low-grip-side","label":"Bánh ít bám (chỉ tác động ở bàn thử; bánh còn lại bị giữ đứng yên)","options":[{"value":"left","label":"Bánh trái"},{"value":"right","label":"Bánh phải"}]},{"type":"range","key":"low-grip-mu","label":"Hệ số bám của bánh ít bám (chỉ tác động ở bàn thử; chỉ đổi trần mô-men, không đổi tốc độ)","min":0,"max":0.2,"step":0.02,"unit":"µ"}]},{"key":"view","label":"Cách trình bày (không đổi vật lý)","controls":[{"type":"segmented","key":"reference-frame","label":"Hệ quy chiếu hiển thị (chỉ là cách nhìn, đổi được cả khi đang chạy)","options":[{"value":"world","label":"Nhìn từ thân xe"},{"value":"carrier","label":"Đứng trên vỏ vi sai"}]}]}],"presets":[{"key":"straight","label":"Đi thẳng 12 RPM","values":{"scenario":"straight","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06}},{"key":"left-corner","label":"Cua trái, bán kính 3 m","values":{"scenario":"corner","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06}},{"key":"right-corner","label":"Cua phải, bán kính 3 m","values":{"scenario":"corner","carrier-rpm":12,"turn-side":"right","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06}},{"key":"low-grip-left","label":"Bàn thử: bánh trái ít bám, trục phải bị giữ","values":{"scenario":"stuck","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06}},{"key":"low-grip-right","label":"Bàn thử: bánh phải ít bám, trục trái bị giữ","values":{"scenario":"stuck","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"right","low-grip-mu":0.06}}],"challenges":[{"key":"straight","label":"Hoàn tất trọn 8 s đi thẳng: hai trục bằng tốc độ vỏ, bánh răng hành tinh không tự quay."},{"key":"corner","label":"Hoàn tất trọn 8 s vào cua: bánh vòng ngoài nhanh hơn, tổng hai tốc độ vẫn bằng hai lần tốc độ vỏ."},{"key":"stuck","label":"Hoàn tất trọn 8 s ở bàn thử có một trục bị giữ đứng yên."},{"key":"both-grip-sides","label":"Hoàn tất bàn thử với bánh ít bám ở bên trái và ở bên phải (hai lượt riêng)."}]},"text":{"boundary":{"straight":"Vỏ vi sai được áp tốc độ; hai bánh lăn không trượt trên đường thẳng. Đây là động học, không phải mô hình lốp hay động cơ.","corner":"Vỏ vi sai được áp tốc độ; hai bánh cầu sau lăn không trượt trên hai cung tròn đồng tâm. Không mô phỏng hệ lái, bánh trước hay lực bên của lốp.","stuck":"Trục bên bám bị giữ đứng yên bởi điều kiện thí nghiệm bên ngoài. Vi sai không khóa bánh này; theo giả thiết lý tưởng mô-men hai phía bằng nhau, trần bị giới hạn bởi bánh ít bám."},"zeroGripNote":"Tốc độ là động học được áp đặt; không khối lượng, bỏ qua khởi động. Trần mô-men 0 Nm, không suy ra công suất hay năng lượng."},"scene":{"width":440,"height":660,"fontSize":15,"charEm":0.6,"margin":10,"description":"Sơ đồ nguyên lý tách lớp của bộ vi sai mở đối xứng, không theo tỷ lệ và không phải bản vẽ răng thật. Phía trên: cầu sau nhìn từ sau xe với bánh trái, bán trục và bánh răng bán trục 24 răng, vỏ vi sai và một bánh răng hành tinh (spider) 12 răng đại diện ở phía trên; spider đối diện được lược bỏ. Trục riêng dương của spider hướng từ spider vào tâm vỏ. Giữa: ba mặt số cùng nhìn từ bên phải xe, chiều kim đồng hồ là chiều lăn tiến, cho bánh trái, vỏ vi sai mang spider đi quỹ đạo quanh trục cầu, và bánh phải; một mặt số riêng cho spider tự quay quanh chốt, nhìn dọc trục riêng từ ngoài vào tâm. Dưới: thước tốc độ so với thân xe, vỏ luôn nằm giữa hai bánh; thanh trần bám là giới hạn, không phải mô-men thực, và không dự đoán xe tự do sẽ chạy hay đứng.","band":{"x0":10,"x1":430,"ruleY":176,"firstBaseline":196,"linePitch":20,"lines":2},"dialHeadingY":240,"dialNoteY":260,"dials":{"left":{"x":66,"y":316,"r":36},"carrier":{"x":220,"y":316,"r":36},"right":{"x":374,"y":316,"r":36}},"dialTextY":374,"orbitTextY":394,"spiderOrbitRadius":30,"spiderDial":{"x":220,"y":440,"r":20},"spiderTextY":[434,454],"ruler":{"x0":56,"x1":384,"y":540,"maxRpm":60,"headingY":484,"equationY":504,"labelY":528,"carrierLabelY":566,"gap":6},"capacity":{"x0":56,"x1":330,"headingY":588,"leftY":598,"rightY":618,"height":12,"maxNm":720,"valueX":338,"commonTop":592,"commonBottom":634,"limitY":652}}},
+  data: {"schemaVersion":1,"stepUnavailableByPhase":{"idle":"Chưa bắt đầu thí nghiệm. Nhấn Chạy rồi Dừng để tiến từng bước.","done":"Đã kết thúc thí nghiệm. Nhấn Chạy để bắt đầu lượt mới."},"parameters":{"wheelRadiusM":0.3,"trackWidthM":1.5,"normalLoadN":3000,"highGripMu":0.8,"sideTeeth":24,"spiderTeeth":12,"durationSeconds":8,"stepSeconds":0.1},"defaults":{"scenario":"corner","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06,"reference-frame":"world"},"controls":{"groups":[{"key":"experiment","label":"Thí nghiệm (vỏ vi sai được áp tốc độ)","controls":[{"type":"segmented","key":"scenario","label":"Tình huống","options":[{"value":"straight","label":"Đi thẳng"},{"value":"corner","label":"Vào cua"},{"value":"stuck","label":"Bàn thử: một trục bị giữ"}]},{"type":"range","key":"carrier-rpm","label":"Tốc độ vỏ vi sai áp đặt (cả ba tình huống)","min":6,"max":30,"step":6,"unit":"RPM"}]},{"key":"corner","label":"Vào cua (chỉ tác động khi chọn Vào cua)","controls":[{"type":"segmented","key":"turn-side","label":"Hướng cua (chỉ tác động khi chọn Vào cua)","options":[{"value":"left","label":"Cua trái"},{"value":"right","label":"Cua phải"}]},{"type":"range","key":"turn-radius","label":"Bán kính tới trung điểm cầu sau (chỉ tác động khi chọn Vào cua)","min":2,"max":10,"step":1,"unit":"m"}]},{"key":"grip","label":"Độ bám (chỉ tác động ở bàn thử một trục bị giữ)","controls":[{"type":"segmented","key":"low-grip-side","label":"Bánh ít bám (chỉ tác động ở bàn thử; bánh còn lại bị giữ đứng yên)","options":[{"value":"left","label":"Bánh trái"},{"value":"right","label":"Bánh phải"}]},{"type":"range","key":"low-grip-mu","label":"Hệ số bám của bánh ít bám (chỉ tác động ở bàn thử; chỉ đổi trần mô-men, không đổi tốc độ)","min":0,"max":0.2,"step":0.02,"unit":"µ"}]},{"key":"view","label":"Cách trình bày (không đổi vật lý)","controls":[{"type":"segmented","key":"reference-frame","label":"Hệ quy chiếu hiển thị (chỉ là cách nhìn, đổi được cả khi đang chạy)","options":[{"value":"world","label":"Nhìn từ thân xe"},{"value":"carrier","label":"Đứng trên vỏ vi sai"}]}]}],"presets":[{"key":"straight","label":"Đi thẳng 12 RPM","values":{"scenario":"straight","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06}},{"key":"left-corner","label":"Cua trái, bán kính 3 m","values":{"scenario":"corner","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06}},{"key":"right-corner","label":"Cua phải, bán kính 3 m","values":{"scenario":"corner","carrier-rpm":12,"turn-side":"right","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06}},{"key":"low-grip-left","label":"Bàn thử: bánh trái ít bám, trục phải bị giữ","values":{"scenario":"stuck","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"left","low-grip-mu":0.06}},{"key":"low-grip-right","label":"Bàn thử: bánh phải ít bám, trục trái bị giữ","values":{"scenario":"stuck","carrier-rpm":12,"turn-side":"left","turn-radius":3,"low-grip-side":"right","low-grip-mu":0.06}}],"challenges":[{"key":"straight","label":"Hoàn tất trọn 8 s đi thẳng: hai trục bằng tốc độ vỏ, bánh răng hành tinh không tự quay."},{"key":"corner","label":"Hoàn tất trọn 8 s vào cua: bánh vòng ngoài nhanh hơn, tổng hai tốc độ vẫn bằng hai lần tốc độ vỏ."},{"key":"stuck","label":"Hoàn tất trọn 8 s ở bàn thử có một trục bị giữ đứng yên."},{"key":"both-grip-sides","label":"Hoàn tất bàn thử với bánh ít bám ở bên trái và ở bên phải (hai lượt riêng)."}]},"text":{"boundary":{"straight":"Vỏ vi sai được áp tốc độ; hai bánh lăn không trượt trên đường thẳng. Đây là động học, không phải mô hình lốp hay động cơ.","corner":"Vỏ vi sai được áp tốc độ; hai bánh cầu sau lăn không trượt trên hai cung tròn đồng tâm. Không mô phỏng hệ lái, bánh trước hay lực bên của lốp.","stuck":"Trục bên bám bị giữ đứng yên bởi điều kiện thí nghiệm bên ngoài. Vi sai không khóa bánh này; theo giả thiết lý tưởng mô-men hai phía bằng nhau, trần bị giới hạn bởi bánh ít bám."},"zeroGripNote":"Tốc độ là động học được áp đặt; không khối lượng, bỏ qua khởi động. Trần mô-men 0 Nm, không suy ra công suất hay năng lượng."},"scene":{"width":440,"height":660,"fontSize":15,"charEm":0.6,"margin":10,"description":"Sơ đồ nguyên lý tách lớp của bộ vi sai mở đối xứng, không theo tỷ lệ và không phải bản vẽ răng thật. Phía trên: cầu sau nhìn từ sau xe với bánh trái, bán trục và bánh răng bán trục 24 răng, vỏ vi sai và một bánh răng hành tinh (spider) 12 răng đại diện ở phía trên; spider đối diện được lược bỏ. Trục riêng dương của spider hướng từ spider vào tâm vỏ. Giữa: ba mặt số cùng nhìn từ bên phải xe, chiều kim đồng hồ là chiều lăn tiến, cho bánh trái, vỏ vi sai mang spider đi quỹ đạo quanh trục cầu, và bánh phải; một mặt số riêng cho spider tự quay quanh chốt, nhìn dọc trục riêng từ ngoài vào tâm. Dưới: thước tốc độ so với thân xe, vỏ luôn nằm giữa hai bánh; thanh trần bám là giới hạn, không phải mô-men thực, và không dự đoán xe tự do sẽ chạy hay đứng.","band":{"x0":10,"x1":430,"ruleY":176,"firstBaseline":196,"linePitch":20,"lines":2},"dialHeadingY":240,"dialNoteY":260,"dials":{"left":{"x":66,"y":316,"r":36},"carrier":{"x":220,"y":316,"r":36},"right":{"x":374,"y":316,"r":36}},"dialTextY":374,"orbitTextY":394,"spiderOrbitRadius":30,"spiderDial":{"x":220,"y":440,"r":20},"spiderTextY":[434,454],"ruler":{"x0":56,"x1":384,"y":540,"maxRpm":60,"headingY":484,"equationY":504,"labelY":528,"carrierLabelY":566,"gap":6},"capacity":{"x0":56,"x1":330,"headingY":588,"leftY":598,"rightY":618,"height":12,"maxNm":720,"valueX":338,"commonTop":592,"commonBottom":634,"limitY":652}}},
   createModel: createModel,
   mountRenderer: mountRenderer
 }, document);
