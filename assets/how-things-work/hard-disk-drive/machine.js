@@ -14,10 +14,9 @@ var runtime = (function createPlaygroundRuntime() {
   const TEXT = {
     ready: 'Sẵn sàng',
     running: 'Đang chạy',
-    paused: 'Đã dừng',
+    paused: 'Không chạy',
     failed: 'Không chạy được phần tương tác. Hình vẫn ở dạng tĩnh và bài viết vẫn đọc được.',
     run: 'Đang chạy mô phỏng.',
-    resume: 'Tiếp tục chạy từ trạng thái đã dừng.',
     pause: 'Đã dừng. Trạng thái được giữ nguyên.',
     step: (status) => (status ? `Từng bước: ${status}` : 'Đã đi một bước.'),
     reset: 'Đã đặt lại về trạng thái ban đầu.',
@@ -98,6 +97,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -158,16 +158,19 @@ var runtime = (function createPlaygroundRuntime() {
         map.set(element.id, `${instanceId}--${original}`);
       }
     }
-    for (const subtree of subtrees) {
-      for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
-        if (map.has(element.id)) set(element, 'id', map.get(element.id));
+    if (map.size > 0) {
+      for (const subtree of subtrees) {
+        for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
+          if (map.has(element.id)) set(element, 'id', map.get(element.id));
+        }
       }
-    }
-    for (const element of [root, ...root.querySelectorAll('*')]) {
-      for (const attribute of Array.from(element.attributes)) {
-        if (attribute.name === 'id' || attribute.name === 'data-machine-id') continue;
-        const next = rewriteAttribute(attribute.name, attribute.value, map);
-        if (next !== attribute.value) set(element, attribute.name, next);
+      for (const element of [root, ...root.querySelectorAll('*')]) {
+        for (const attribute of Array.from(element.attributes)) {
+          const name = attribute.name;
+          if (name === 'id' || name === 'data-machine-id') continue;
+          const next = rewriteAttribute(name, attribute.value, map);
+          if (next !== attribute.value) set(element, name, next);
+        }
       }
     }
     return {
@@ -217,6 +220,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -227,11 +231,12 @@ var runtime = (function createPlaygroundRuntime() {
       throw new Error('createModel must return { snapshot, advance, command, reset }');
     }
 
-    function read() {
+    function read(repeatAnnouncement = false) {
       const next = validateSnapshot(model.snapshot(), index);
-      if (next.announcement && next.announcement !== lastModelNote) modelNotes.push(next.announcement);
+      if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -242,7 +247,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -306,20 +311,21 @@ var runtime = (function createPlaygroundRuntime() {
       return act(() => {
         if (mode !== 'explore') return false; // the reader never operates the playground
         const before = current;
-        if (key === 'run') {
+        if (key === 'run' || key === 'step') {
           if (before.running) return false;
-          model.command({ key: 'run' });
-          runtimeNote = before.time > 0 ? TEXT.resume : TEXT.run;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
+          const refused = model.command({ key }) === false;
+          const after = read(refused);
+          if (refused || (key === 'run' && !after.running)) return false;
+          runtimeNote = key === 'run' ? TEXT.run : TEXT.step(after.status);
           clock.reset();
         } else if (key === 'pause') {
           if (!before.running) return false;
           model.command({ key: 'pause' });
           runtimeNote = TEXT.pause;
-          clock.reset();
-        } else if (key === 'step') {
-          if (before.running) return false;
-          model.command({ key: 'step' });
-          runtimeNote = TEXT.step(read().status); // the achieved state, never a guess from the previous one
           clock.reset();
         } else if (key === 'reset') {
           model.command({ key: 'reset' });
@@ -576,7 +582,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -587,7 +593,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -635,8 +642,10 @@ var runtime = (function createPlaygroundRuntime() {
       place(next);
       readingDirty = true;
       if (fromUser) {
-        if (next === 'explore') scene.focus({ preventScroll: false });
-        else {
+        if (next === 'explore') {
+          if (typeof renderer.focusExplore === 'function') renderer.focusExplore();
+          else scene.focus({ preventScroll: false });
+        } else {
           const opener = $('[data-machine-mode="explore"]');
           if (opener) opener.focus();
         }
@@ -694,6 +703,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -1178,7 +1188,7 @@ var mountRenderer = (function mountRenderer(root, data) {
 runtime.boot({
   slug: "hard-disk-drive",
   descriptor: {"title":"Ổ cứng HDD tìm và đọc một sector bằng cách nào?","controls":{"groups":[{"key":"request","label":"Yêu cầu đọc độc lập","controls":[{"type":"range","key":"head-track","label":"Track đầu đọc trước yêu cầu (0 ở ngoài)","min":0,"max":7,"step":1,"unit":"track"},{"type":"range","key":"target-track","label":"Track cần đọc","min":0,"max":7,"step":1,"unit":"track"},{"type":"range","key":"target-sector","label":"Ô sector cần đọc","min":0,"max":11,"step":1,"unit":"ô"}]},{"key":"spindle","label":"Platter và pha đầu","controls":[{"type":"segmented","key":"rpm","label":"Tốc độ quay","options":[{"value":5400,"label":"5400 RPM"},{"value":7200,"label":"7200 RPM"},{"value":10000,"label":"10000 RPM"}]},{"type":"range","key":"start-angle","label":"Góc đầu mỗi thí nghiệm","min":0,"max":359,"step":1,"unit":"°"}]}],"presets":[{"key":"same-track","label":"Cùng track: chỉ chờ và đọc"},{"key":"far-seek","label":"Tìm từ track ngoài vào trong"},{"key":"just-missed","label":"Vừa lỡ biên vào: chờ gần một vòng"},{"key":"fast-spindle","label":"Đổi chu kỳ quay: 10000 RPM"}],"challenges":[{"key":"same-track","label":"Hoàn tất một lần đọc cùng track."},{"key":"cross-track","label":"Hoàn tất một lần đọc cách ít nhất 3 track."},{"key":"almost-full-turn","label":"Hoàn tất lần đọc có thời gian chờ ít nhất 0,8 vòng."},{"key":"two-rpms","label":"Hoàn tất yêu cầu ở hai RPM khác nhau; so chu kỳ quay, không suy tổng I/O luôn nhanh hơn."}]}},
-  data: {"version":1,"constants":{"trackCount":8,"sectorsPerTrack":12,"rpms":[5400,7200,10000],"wrapEpsilonRadians":1e-9},"geometry":{"spindle":{"x":158,"y":168},"pivot":{"x":272,"y":212},"armLength":138,"outerRadius":110,"innerRadius":48},"timing":{"seekBaseMs":0.8,"seekPerTrackMs":0.65,"settleMs":0.5,"simulationMsPerSecond":10,"stepMs":0.25},"defaults":{"head-track":0,"target-track":5,"target-sector":3,"rpm":7200,"start-angle":0},"controls":{"groups":[{"key":"request","label":"Yêu cầu đọc độc lập","controls":[{"type":"range","key":"head-track","label":"Track đầu đọc trước yêu cầu (0 ở ngoài)","min":0,"max":7,"step":1,"unit":"track"},{"type":"range","key":"target-track","label":"Track cần đọc","min":0,"max":7,"step":1,"unit":"track"},{"type":"range","key":"target-sector","label":"Ô sector cần đọc","min":0,"max":11,"step":1,"unit":"ô"}]},{"key":"spindle","label":"Platter và pha đầu","controls":[{"type":"segmented","key":"rpm","label":"Tốc độ quay","options":[{"value":5400,"label":"5400 RPM"},{"value":7200,"label":"7200 RPM"},{"value":10000,"label":"10000 RPM"}]},{"type":"range","key":"start-angle","label":"Góc đầu mỗi thí nghiệm","min":0,"max":359,"step":1,"unit":"°"}]}],"presets":[{"key":"same-track","label":"Cùng track: chỉ chờ và đọc","values":{"head-track":3,"target-track":3,"target-sector":7,"rpm":7200,"start-angle":0}},{"key":"far-seek","label":"Tìm từ track ngoài vào trong","values":{"head-track":0,"target-track":7,"target-sector":3,"rpm":7200,"start-angle":0}},{"key":"just-missed","label":"Vừa lỡ biên vào: chờ gần một vòng","values":{"head-track":3,"target-track":3,"target-sector":7,"rpm":7200,"start-angle":150}},{"key":"fast-spindle","label":"Đổi chu kỳ quay: 10000 RPM","values":{"head-track":0,"target-track":5,"target-sector":3,"rpm":10000,"start-angle":0}}],"challenges":[{"key":"same-track","label":"Hoàn tất một lần đọc cùng track."},{"key":"cross-track","label":"Hoàn tất một lần đọc cách ít nhất 3 track."},{"key":"almost-full-turn","label":"Hoàn tất lần đọc có thời gian chờ ít nhất 0,8 vòng."},{"key":"two-rpms","label":"Hoàn tất yêu cầu ở hai RPM khác nhau; so chu kỳ quay, không suy tổng I/O luôn nhanh hơn."}]},"scene":{"width":420,"height":356,"platterRadius":116,"hubRadius":26,"arrowRadius":35,"labelRadius":128,"labelBaseline":5.5,"pivotClearance":20,"edgeOverhang":3,"timeline":{"x":306,"y":150,"width":104,"height":8}}},
+  data: {"version":1,"stepUnavailableByPhase":{"idle":"Chưa có yêu cầu đọc. Nhấn Chạy rồi Dừng để tiến từng bước.","done":"Đã đọc xong. Nhấn Chạy để mở yêu cầu đọc mới."},"constants":{"trackCount":8,"sectorsPerTrack":12,"rpms":[5400,7200,10000],"wrapEpsilonRadians":1e-9},"geometry":{"spindle":{"x":158,"y":168},"pivot":{"x":272,"y":212},"armLength":138,"outerRadius":110,"innerRadius":48},"timing":{"seekBaseMs":0.8,"seekPerTrackMs":0.65,"settleMs":0.5,"simulationMsPerSecond":10,"stepMs":0.25},"defaults":{"head-track":0,"target-track":5,"target-sector":3,"rpm":7200,"start-angle":0},"controls":{"groups":[{"key":"request","label":"Yêu cầu đọc độc lập","controls":[{"type":"range","key":"head-track","label":"Track đầu đọc trước yêu cầu (0 ở ngoài)","min":0,"max":7,"step":1,"unit":"track"},{"type":"range","key":"target-track","label":"Track cần đọc","min":0,"max":7,"step":1,"unit":"track"},{"type":"range","key":"target-sector","label":"Ô sector cần đọc","min":0,"max":11,"step":1,"unit":"ô"}]},{"key":"spindle","label":"Platter và pha đầu","controls":[{"type":"segmented","key":"rpm","label":"Tốc độ quay","options":[{"value":5400,"label":"5400 RPM"},{"value":7200,"label":"7200 RPM"},{"value":10000,"label":"10000 RPM"}]},{"type":"range","key":"start-angle","label":"Góc đầu mỗi thí nghiệm","min":0,"max":359,"step":1,"unit":"°"}]}],"presets":[{"key":"same-track","label":"Cùng track: chỉ chờ và đọc","values":{"head-track":3,"target-track":3,"target-sector":7,"rpm":7200,"start-angle":0}},{"key":"far-seek","label":"Tìm từ track ngoài vào trong","values":{"head-track":0,"target-track":7,"target-sector":3,"rpm":7200,"start-angle":0}},{"key":"just-missed","label":"Vừa lỡ biên vào: chờ gần một vòng","values":{"head-track":3,"target-track":3,"target-sector":7,"rpm":7200,"start-angle":150}},{"key":"fast-spindle","label":"Đổi chu kỳ quay: 10000 RPM","values":{"head-track":0,"target-track":5,"target-sector":3,"rpm":10000,"start-angle":0}}],"challenges":[{"key":"same-track","label":"Hoàn tất một lần đọc cùng track."},{"key":"cross-track","label":"Hoàn tất một lần đọc cách ít nhất 3 track."},{"key":"almost-full-turn","label":"Hoàn tất lần đọc có thời gian chờ ít nhất 0,8 vòng."},{"key":"two-rpms","label":"Hoàn tất yêu cầu ở hai RPM khác nhau; so chu kỳ quay, không suy tổng I/O luôn nhanh hơn."}]},"scene":{"width":420,"height":356,"platterRadius":116,"hubRadius":26,"arrowRadius":35,"labelRadius":128,"labelBaseline":5.5,"pivotClearance":20,"edgeOverhang":3,"timeline":{"x":306,"y":150,"width":104,"height":8}}},
   createModel: createModel,
   mountRenderer: mountRenderer
 }, document);

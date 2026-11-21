@@ -291,6 +291,10 @@
 
 /* ---------- Console ---------- */
 
+/* A host theme's fixed button height must not clip wrapped labels; the base controls keep the 44px minimum. */
+.htw-machine[data-htw-figure="hard-disk-drive"] .htw-machine-chip,
+.htw-machine[data-htw-figure="hard-disk-drive"] .htw-machine-button { height: auto; }
+.htw-machine[data-htw-figure="hard-disk-drive"] .htw-machine-theme { flex: none; }
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-console { gap: 1.1rem; }
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-console .htw-machine-controls {
   display: grid;
@@ -298,6 +302,13 @@
   gap: .5rem;
 }
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-console .htw-machine-controls .htw-machine-button { padding: 0 .6rem; }
+.htw-machine[data-htw-figure="hard-disk-drive"] .htw-machine-reset-icon {
+  width: .7rem;
+  height: .8rem;
+  flex: none;
+  background: currentColor;
+  clip-path: polygon(0 0, 22% 0, 22% 100%, 0 100%, 0 0, 100% 0, 100% 100%, 30% 50%, 100% 0);
+}
 
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-group {
   display: grid;
@@ -338,7 +349,12 @@
 }
 
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-options { display: flex; flex-wrap: wrap; gap: .375rem; min-width: 0; }
-.htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-options .htw-machine-chip { flex: 1 1 auto; padding: 0 .7rem; }
+.htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-options .htw-machine-chip {
+  flex: 1 1 auto;
+  padding: .45rem .7rem;
+  line-height: 1.35;
+  white-space: normal;
+}
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-toggle3 { grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr); }
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-toggle3 .htw-playground-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-toggle3 .htw-machine-chip { font-size: .8rem; }
@@ -411,7 +427,12 @@
 
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-presets { display: flex; flex-wrap: wrap; gap: .375rem; min-width: 0; }
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-presets .htw-playground-group-label { margin-bottom: .45rem; }
-.htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-presets .htw-machine-chip { flex: 1 1 auto; padding: 0 .7rem; }
+.htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-presets .htw-machine-chip {
+  flex: 1 1 auto;
+  padding: .45rem .7rem;
+  line-height: 1.35;
+  white-space: normal;
+}
 
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-challenges { min-width: 0; }
 .htw-machine[data-htw-figure="hard-disk-drive"] .htw-playground-challenge-list { display: grid; gap: 0; margin: .45rem 0 0; padding: 0; list-style: none; }
@@ -565,7 +586,7 @@
   }
   .htw-machine[data-htw-figure="hard-disk-drive"][data-mode="reader"] .htw-step {
     min-height: 0;
-    scroll-margin-top: calc(var(--htw-header) + 1.25rem);
+    scroll-margin-top: calc(var(--htw-header, 3.25rem) + 1.25rem);
   }
   .htw-machine[data-htw-figure="hard-disk-drive"][data-mode="reader"] .htw-reader-bar { order: -1; }
   .htw-machine[data-htw-figure="hard-disk-drive"][data-mode="reader"] .htw-reader-slot .htw-playground-scene .htw-machine-caption { display: grid; }

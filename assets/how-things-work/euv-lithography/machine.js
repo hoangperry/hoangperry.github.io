@@ -14,10 +14,9 @@ var runtime = (function createPlaygroundRuntime() {
   const TEXT = {
     ready: 'Sẵn sàng',
     running: 'Đang chạy',
-    paused: 'Đã dừng',
+    paused: 'Không chạy',
     failed: 'Không chạy được phần tương tác. Hình vẫn ở dạng tĩnh và bài viết vẫn đọc được.',
     run: 'Đang chạy mô phỏng.',
-    resume: 'Tiếp tục chạy từ trạng thái đã dừng.',
     pause: 'Đã dừng. Trạng thái được giữ nguyên.',
     step: (status) => (status ? `Từng bước: ${status}` : 'Đã đi một bước.'),
     reset: 'Đã đặt lại về trạng thái ban đầu.',
@@ -98,6 +97,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -158,16 +158,19 @@ var runtime = (function createPlaygroundRuntime() {
         map.set(element.id, `${instanceId}--${original}`);
       }
     }
-    for (const subtree of subtrees) {
-      for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
-        if (map.has(element.id)) set(element, 'id', map.get(element.id));
+    if (map.size > 0) {
+      for (const subtree of subtrees) {
+        for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
+          if (map.has(element.id)) set(element, 'id', map.get(element.id));
+        }
       }
-    }
-    for (const element of [root, ...root.querySelectorAll('*')]) {
-      for (const attribute of Array.from(element.attributes)) {
-        if (attribute.name === 'id' || attribute.name === 'data-machine-id') continue;
-        const next = rewriteAttribute(attribute.name, attribute.value, map);
-        if (next !== attribute.value) set(element, attribute.name, next);
+      for (const element of [root, ...root.querySelectorAll('*')]) {
+        for (const attribute of Array.from(element.attributes)) {
+          const name = attribute.name;
+          if (name === 'id' || name === 'data-machine-id') continue;
+          const next = rewriteAttribute(name, attribute.value, map);
+          if (next !== attribute.value) set(element, name, next);
+        }
       }
     }
     return {
@@ -217,6 +220,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -227,11 +231,12 @@ var runtime = (function createPlaygroundRuntime() {
       throw new Error('createModel must return { snapshot, advance, command, reset }');
     }
 
-    function read() {
+    function read(repeatAnnouncement = false) {
       const next = validateSnapshot(model.snapshot(), index);
-      if (next.announcement && next.announcement !== lastModelNote) modelNotes.push(next.announcement);
+      if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -242,7 +247,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -306,20 +311,21 @@ var runtime = (function createPlaygroundRuntime() {
       return act(() => {
         if (mode !== 'explore') return false; // the reader never operates the playground
         const before = current;
-        if (key === 'run') {
+        if (key === 'run' || key === 'step') {
           if (before.running) return false;
-          model.command({ key: 'run' });
-          runtimeNote = before.time > 0 ? TEXT.resume : TEXT.run;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
+          const refused = model.command({ key }) === false;
+          const after = read(refused);
+          if (refused || (key === 'run' && !after.running)) return false;
+          runtimeNote = key === 'run' ? TEXT.run : TEXT.step(after.status);
           clock.reset();
         } else if (key === 'pause') {
           if (!before.running) return false;
           model.command({ key: 'pause' });
           runtimeNote = TEXT.pause;
-          clock.reset();
-        } else if (key === 'step') {
-          if (before.running) return false;
-          model.command({ key: 'step' });
-          runtimeNote = TEXT.step(read().status); // the achieved state, never a guess from the previous one
           clock.reset();
         } else if (key === 'reset') {
           model.command({ key: 'reset' });
@@ -576,7 +582,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -587,7 +593,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -635,8 +642,10 @@ var runtime = (function createPlaygroundRuntime() {
       place(next);
       readingDirty = true;
       if (fromUser) {
-        if (next === 'explore') scene.focus({ preventScroll: false });
-        else {
+        if (next === 'explore') {
+          if (typeof renderer.focusExplore === 'function') renderer.focusExplore();
+          else scene.focus({ preventScroll: false });
+        } else {
           const opener = $('[data-machine-mode="explore"]');
           if (opener) opener.focus();
         }
@@ -694,6 +703,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -1295,7 +1305,7 @@ var mountRenderer = (function mountRenderer(root, data) {
 runtime.boot({
   slug: "euv-lithography",
   descriptor: {"title":"Bên trong máy quang khắc EUV: từ giọt thiếc đến một lớp mạch","controls":{"groups":[{"key":"scale","label":"Mức quan sát","controls":[{"type":"segmented","key":"view","label":"Bản cắt và cận cảnh","options":[{"value":"machine","label":"Toàn máy"},{"value":"module","label":"Các cụm"},{"value":"wafer","label":"Mẫu trên wafer"},{"value":"pupil","label":"Soi khẩu độ"},{"value":"section","label":"Soi cản quang"}]},{"type":"segmented","key":"site","label":"Điểm soi cản quang","options":[{"value":"start","label":"Đầu · 0 mm"},{"value":"middle","label":"Giữa · 16,5 mm"},{"value":"end","label":"Cuối · 33 mm"}]}]},{"key":"imaging","label":"Ảnh trên wafer","controls":[{"type":"range","key":"pitch","label":"Chu kỳ vạch tại wafer","min":32,"max":76,"step":1,"unit":"nm"},{"type":"range","key":"focus","label":"Lệch tiêu","min":-250,"max":250,"step":1,"unit":"nm"}]},{"key":"exposure","label":"Quét và phơi","controls":[{"type":"range","key":"sync","label":"Sai lệch tỷ lệ tốc độ","min":-1,"max":1,"step":0.05,"unit":"ppm"},{"type":"range","key":"dose","label":"Hệ số liều","min":0.25,"max":1.5,"step":0.05,"unit":"×"}]}],"presets":[{"key":"baseline","label":"Đúng tiêu, đúng nhịp"},{"key":"blocked","label":"Pitch dưới ngưỡng"},{"key":"defocus","label":"Lệch tiêu"},{"key":"sync-error","label":"Lệch đồng bộ"},{"key":"under-dose","label":"Thiếu liều"}],"challenges":[{"key":"printed","label":"Mở vạch đúng chỗ ở cả ba dấu"},{"key":"lost","label":"Hoàn tất lượt mà không mở vạch nào"},{"key":"shifted","label":"Cuối trường: dấu cũ còn phủ, tâm rãnh gần nhất cách ít nhất 8 nm"}]}},
-  data: {"parameters":{"wavelengthNm":13.5,"na":0.33,"reduction":4,"fieldMm":33,"slitHalfFraction":0.08,"duration":8,"stepSeconds":0.1,"threshold":0.75,"sampleHalfWidthNm":96,"sampleStepNm":2},"defaults":{"view":"machine","site":"end","pitch":48,"focus":0,"sync":0,"dose":1},"recipes":{"baseline":{},"blocked":{"pitch":36},"defocus":{"focus":85},"sync-error":{"sync":0.5},"under-dose":{"dose":0.4}},"controls":{"groups":[{"key":"scale","label":"Mức quan sát","controls":[{"type":"segmented","key":"view","label":"Bản cắt và cận cảnh","options":[{"value":"machine","label":"Toàn máy"},{"value":"module","label":"Các cụm"},{"value":"wafer","label":"Mẫu trên wafer"},{"value":"pupil","label":"Soi khẩu độ"},{"value":"section","label":"Soi cản quang"}]},{"type":"segmented","key":"site","label":"Điểm soi cản quang","options":[{"value":"start","label":"Đầu · 0 mm"},{"value":"middle","label":"Giữa · 16,5 mm"},{"value":"end","label":"Cuối · 33 mm"}]}]},{"key":"imaging","label":"Ảnh trên wafer","controls":[{"type":"range","key":"pitch","label":"Chu kỳ vạch tại wafer","min":32,"max":76,"step":1,"unit":"nm"},{"type":"range","key":"focus","label":"Lệch tiêu","min":-250,"max":250,"step":1,"unit":"nm"}]},{"key":"exposure","label":"Quét và phơi","controls":[{"type":"range","key":"sync","label":"Sai lệch tỷ lệ tốc độ","min":-1,"max":1,"step":0.05,"unit":"ppm"},{"type":"range","key":"dose","label":"Hệ số liều","min":0.25,"max":1.5,"step":0.05,"unit":"×"}]}],"presets":[{"key":"baseline","label":"Đúng tiêu, đúng nhịp"},{"key":"blocked","label":"Pitch dưới ngưỡng"},{"key":"defocus","label":"Lệch tiêu"},{"key":"sync-error","label":"Lệch đồng bộ"},{"key":"under-dose","label":"Thiếu liều"}],"challenges":[{"key":"printed","label":"Mở vạch đúng chỗ ở cả ba dấu"},{"key":"lost","label":"Hoàn tất lượt mà không mở vạch nào"},{"key":"shifted","label":"Cuối trường: dấu cũ còn phủ, tâm rãnh gần nhất cách ít nhất 8 nm"}]}},
+  data: {"stepUnavailableByPhase":{"done":"Đã phơi xong. Nhấn Chạy để bắt đầu lượt quét mới."},"parameters":{"wavelengthNm":13.5,"na":0.33,"reduction":4,"fieldMm":33,"slitHalfFraction":0.08,"duration":8,"stepSeconds":0.1,"threshold":0.75,"sampleHalfWidthNm":96,"sampleStepNm":2},"defaults":{"view":"machine","site":"end","pitch":48,"focus":0,"sync":0,"dose":1},"recipes":{"baseline":{},"blocked":{"pitch":36},"defocus":{"focus":85},"sync-error":{"sync":0.5},"under-dose":{"dose":0.4}},"controls":{"groups":[{"key":"scale","label":"Mức quan sát","controls":[{"type":"segmented","key":"view","label":"Bản cắt và cận cảnh","options":[{"value":"machine","label":"Toàn máy"},{"value":"module","label":"Các cụm"},{"value":"wafer","label":"Mẫu trên wafer"},{"value":"pupil","label":"Soi khẩu độ"},{"value":"section","label":"Soi cản quang"}]},{"type":"segmented","key":"site","label":"Điểm soi cản quang","options":[{"value":"start","label":"Đầu · 0 mm"},{"value":"middle","label":"Giữa · 16,5 mm"},{"value":"end","label":"Cuối · 33 mm"}]}]},{"key":"imaging","label":"Ảnh trên wafer","controls":[{"type":"range","key":"pitch","label":"Chu kỳ vạch tại wafer","min":32,"max":76,"step":1,"unit":"nm"},{"type":"range","key":"focus","label":"Lệch tiêu","min":-250,"max":250,"step":1,"unit":"nm"}]},{"key":"exposure","label":"Quét và phơi","controls":[{"type":"range","key":"sync","label":"Sai lệch tỷ lệ tốc độ","min":-1,"max":1,"step":0.05,"unit":"ppm"},{"type":"range","key":"dose","label":"Hệ số liều","min":0.25,"max":1.5,"step":0.05,"unit":"×"}]}],"presets":[{"key":"baseline","label":"Đúng tiêu, đúng nhịp"},{"key":"blocked","label":"Pitch dưới ngưỡng"},{"key":"defocus","label":"Lệch tiêu"},{"key":"sync-error","label":"Lệch đồng bộ"},{"key":"under-dose","label":"Thiếu liều"}],"challenges":[{"key":"printed","label":"Mở vạch đúng chỗ ở cả ba dấu"},{"key":"lost","label":"Hoàn tất lượt mà không mở vạch nào"},{"key":"shifted","label":"Cuối trường: dấu cũ còn phủ, tâm rãnh gần nhất cách ít nhất 8 nm"}]}},
   createModel: createModel,
   mountRenderer: mountRenderer
 }, document);
