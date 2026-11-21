@@ -1040,7 +1040,7 @@ var createModel = (function createModel(data) {
     const peakEmfV = clean(linkageScale * Math.abs(angularSpeedRadPerSec));
     const frequencyHz = clean(controls['shaft-rpm'] / 60);
     const periodSeconds = shaftStopped ? null : 1 / frequencyHz;
-    const format = (number, places, unit) => `${(Math.abs(number) < 0.5 * 10 ** -places ? 0 : number).toFixed(places).replace('-', '−')} ${unit}`;
+    const format = (number, places, unit) => `${(Math.abs(number) < 0.5 * 10 ** -places ? 0 : number).toFixed(places).replace('-', '−').replace('.', ',')} ${unit}`;
     const statuses = { idle: 'Sẵn sàng — chưa có lịch sử thí nghiệm.', running: 'Đang chạy thí nghiệm.', paused: 'Tạm dừng mô phỏng — tốc độ trục không thay đổi.', done: 'Đã hoàn tất thí nghiệm 8 giây.' };
     cached = freeze({
       time: elapsed, controls: { ...controls }, running: phase === 'running', status: statuses[phase], announcement,

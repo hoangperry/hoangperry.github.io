@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "bayer-demosaicing",
   "kind": "playground",
-  "sourceDigest": "267212083227a254f1f8d27e9fd6b9816d37e01cda26d3684eeed9d2d2337979",
+  "sourceDigest": "f63f1f46908c0fa20cb7225a292036278c3fa4c6b2a0253a2c41a387dacd31ee",
   "files": {
     "_includes/how-things-work/bayer-demosaicing-scene.html": "8cafda634f2624b0b0f8ae964194d177062a54017f40ad4d4b86b61cc4077150",
     "_includes/how-things-work/bayer-demosaicing-console.html": "21ce914310c7ba222d837d3185e0a56c590b68d08edced1611c489d869094b2f",
-    "assets/how-things-work/bayer-demosaicing/machine.js": "cbfea7e3cdbf8f391520e1ea548620f7b3026e7a3cf0f85b93f258d041665208",
+    "assets/how-things-work/bayer-demosaicing/machine.js": "3d288f6cb2e94dd108070f941e7137842496ae0e4da462ea4d49b286b9df5147",
     "assets/how-things-work/bayer-demosaicing/machine.css": "cb944e6abb8d91f80b3a8cf1d6af2f94d798979d0688ca657881f313830fdb19",
     "assets/how-things-work/bayer-demosaicing/thumbnail.webp": "bbe88e200133c9c201907fa761197f3e975b48c0e589e525b3caae513105404b",
-    "assets/how-things-work/bayer-demosaicing/NOTICE.txt": "0149e349be4012e4b327d8c87ee6caf4d5e6a011d982758da1760157ea03d18d"
+    "assets/how-things-work/bayer-demosaicing/NOTICE.txt": "168f30ecd7c634408e9aa09606d44d36717a46efcc6ef11e9f4c7d5799af26d4"
   }
 }

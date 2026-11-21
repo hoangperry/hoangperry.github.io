@@ -1046,6 +1046,34 @@ var mountRenderer = (function mountRenderer(root, data) {
   const siteRows = bind('data-euv-site');
   const fieldSites = bind('data-euv-field-site');
   const description = svg.querySelector('desc');
+  if (!description) throw new Error('euv-lithography renderer: missing desc');
+  for (const key of ['machine', 'source', 'mirrors', 'scan', 'optics', 'sites', 'pupil', 'section']) {
+    if (!panels.get(key)) throw new Error(`euv-lithography renderer: missing panel ${key}`);
+  }
+  for (const key of [
+    'source-laser', 'machine-reticle', 'machine-wafer', 'scan-reticle', 'scan-wafer',
+    'field-scanned', 'field-slit', 'slit-cursor', 'intensity', 'intensity-area', 'mask-bars',
+    'dose-0', 'dose-1', 'dose-2', 'threshold-0', 'threshold-1', 'threshold-2',
+    'shift-0', 'shift-1', 'shift-2', 'undeveloped-0', 'undeveloped-1', 'undeveloped-2',
+    'remaining-0', 'remaining-1', 'remaining-2', 'removed-0', 'removed-1', 'removed-2',
+    'pupil-tip', 'pupil-result', 'pupil-vector',
+    'section-dose', 'section-threshold', 'section-shift', 'section-resist',
+  ]) {
+    if (!marks.get(key)) throw new Error(`euv-lithography renderer: missing bind ${key}`);
+  }
+  for (const key of [
+    'source-phase', 'reticle-mm', 'wafer-mm', 'ratio', 'scan-progress',
+    'mask-pitch', 'wafer-pitch', 'contrast', 'defocus', 'harmonics', 'threshold',
+    'site-0-phase', 'site-1-phase', 'site-2-phase', 'site-0-overlay', 'site-1-overlay', 'site-2-overlay',
+    'pupil-first', 'pupil-admitted', 'pupil-phase', 'pupil-center', 'pupil-half',
+    'section-location', 'section-state', 'section-drift',
+  ]) {
+    if (!labels.get(key)) throw new Error(`euv-lithography renderer: missing text ${key}`);
+  }
+  for (const key of ['0', '1', '2']) {
+    if (!siteRows.get(key)) throw new Error(`euv-lithography renderer: missing site ${key}`);
+    if (!fieldSites.get(key)) throw new Error(`euv-lithography renderer: missing field-site ${key}`);
+  }
   const originals = new Map();
   const originalText = new Map();
   let disposed = false;

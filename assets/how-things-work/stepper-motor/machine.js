@@ -1569,8 +1569,10 @@ var mountRenderer = (function mountRenderer(root, data) {
 
   let lastSnapshot = null;
   let lastFocus = null;
+  let disposed = false;
   return {
     render(snapshot, options) {
+      if (disposed) return;
       const focus = options && typeof options.focus === 'string' ? options.focus : 'all';
       if (snapshot === lastSnapshot && focus === lastFocus) return;
       set(view, 'data-sm-focus', focus);
@@ -1585,6 +1587,8 @@ var mountRenderer = (function mountRenderer(root, data) {
       drawGraph(snapshot, iMax);
     },
     dispose() {
+      if (disposed) return;
+      disposed = true;
       for (const [node, saved] of authoredAttrs) {
         for (const [name, value] of saved) {
           if (value === null) node.removeAttribute(name);

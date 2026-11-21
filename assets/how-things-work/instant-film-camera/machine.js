@@ -17412,7 +17412,7 @@ return (function mountInstantRenderer(root,data,kit,createFactory,convert,builde
   return {
     render(snapshot,options={}) {
       if(disposed)fail('disposed');
-      const focus=options.focus||'all';
+      const focus=options.mode==='explore'?snapshot.stageKey:options.focus||'all';
       if(snapshot===previous){
         try{if(view.getAttribute('data-instant-focus')!==focus)viewAttr('data-instant-focus',focus);}
         catch(error){dispose();throw error;}

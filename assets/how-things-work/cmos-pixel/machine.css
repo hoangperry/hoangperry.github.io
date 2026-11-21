@@ -686,7 +686,8 @@
     border: 1px solid var(--cmos-rule);
     background: var(--cmos-page);
     color: var(--cmos-ink);
-    font: 650 .9rem/1.45 var(--htw-machine-mono);
+    font: 650 .9rem/1.45 var(--htw-machine-mono, var(--htw-mono, ui-monospace, monospace));
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 }

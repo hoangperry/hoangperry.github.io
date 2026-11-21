@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "cmos-pixel",
   "kind": "playground",
-  "sourceDigest": "28a1f6697d00278e9f99385ff746e6a34b2c4da5af9099772d5a9563249e6641",
+  "sourceDigest": "9fe27e6fdc5c955b06ede5a61597077c632a76ba12b05f1a3ec4b826a385d432",
   "files": {
     "_includes/how-things-work/cmos-pixel-scene.html": "f284aee5e174a77dc8e83930f9d919ad3aa0dc15f9d4f630099b21e52ee2e915",
     "_includes/how-things-work/cmos-pixel-console.html": "b03871f6b27c90a7b3b432212a4235b2f48e3289d77ddf368e3192520a49bf52",
     "assets/how-things-work/cmos-pixel/machine.js": "021d45f7e29b5d9ffe050159973d45205a1b21bc1683c20b1b982e2503b90ec1",
-    "assets/how-things-work/cmos-pixel/machine.css": "9f87f2690d5134122e0eea56842c882c2424c17f392e1229009c047e43a8488d",
+    "assets/how-things-work/cmos-pixel/machine.css": "115be17e0d220a4a49ca42b5ef4b9ce912fdcfaa0d3f5d35b97ee6ec319c2ce7",
     "assets/how-things-work/cmos-pixel/thumbnail.webp": "8b3c0accfc8ac24848fae24b280420414d0289f1d17a857a93c7d4a31a13be64",
-    "assets/how-things-work/cmos-pixel/NOTICE.txt": "a4ddf9564b79ce0067229e2a47e2e15c59530d45f938fd5c7d2060c199315234"
+    "assets/how-things-work/cmos-pixel/NOTICE.txt": "6305a9b148c4704b0b3bccc2ae2928271fce5c9e77224d97e74457d079878b08"
   }
 }

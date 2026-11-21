@@ -2,7 +2,7 @@ How Things Work playground: Tăng ISO có làm cảm biến thu thêm ánh sáng
 Topic: iso-raw
 Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 595eda77fac12ec40a00463238dd8db6400b79cf336556d5ba9042d40f717de0
+Source digest: 7d9cceb32bf190c625e17d359e682a760730b053aed1f5da23edb3b6ef9e9e6f
 Checks recorded in the build receipt:
 - iso-raw/model.test.mjs: 11/11 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/iso-raw/tests/model.test.mjs)
 - Mode invariance: passed, 8 scripts

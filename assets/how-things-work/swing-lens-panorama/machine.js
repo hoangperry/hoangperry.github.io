@@ -5011,7 +5011,7 @@ return (function mountPanoramaRenderer(root, data, TURN, makeRig) {
           readout.textContent = `t ${fmt(snapshot.time, 3)} s · kính ${fmt(snapshot.swing, 2)}° · khe mở ${fmt(snapshot.open * snapshot.slit.width * Math.PI / 180 * data.model.radius, 2)} mm · mức tích năng lò xo ${fmt(snapshot.spring * 100, 1)}% · tổng kéo phim ${fmt(build.q, 2)} mm · khung ${snapshot.exposureFrame}→${snapshot.frame} · phơi lớn nhất theo cột ${fmt(Math.max(...snapshot.exposure), 3)} · liều tiềm ẩn lớn nhất trên khung ${snapshot.exposureFrame}: ${fmt(Math.max(...snapshot.dose), 3)} — màu biểu thị liều trên phim cong, chưa tráng; không ghép ảnh số`;
           latest = build; previous = snapshot;
         }
-        viewAttr('data-pan-focus', options.focus || 'all');
+        viewAttr('data-pan-focus', options.mode === 'explore' ? snapshot.stageKey : options.focus || 'all');
         if (!committed) {
           if (live.childNodes.length) fail('live layer became busy before commit');
           live.appendChild(sceneLayer); caption.appendChild(readout); fallback.forEach(n => set(n, 'display', 'none')); committed = true;

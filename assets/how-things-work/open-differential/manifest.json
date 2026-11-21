@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "open-differential",
   "kind": "playground",
-  "sourceDigest": "0ecbbe54f8a17b552fb54aaa984bb30a6cd696f349f493503acfd2b21282ebd6",
+  "sourceDigest": "9f28d8e54dfc035e5a1cada2fd285b32b2ca7c952359a21225a065d25d139e65",
   "files": {
-    "_includes/how-things-work/open-differential-scene.html": "42e5a4cc25c1f148c3145c21157a99a034e762d000ca4f35eefbcd77912ed2e2",
+    "_includes/how-things-work/open-differential-scene.html": "1ccd5ee09e1713f1216bc378f82394438ff66f6eaf682cb6e92dcfd4a2f42eab",
     "_includes/how-things-work/open-differential-console.html": "b27cfee800c52d83128f011f722078044b59b82385db8e4297adcc4146584402",
     "assets/how-things-work/open-differential/machine.js": "ddf31e6b71f90c701a1f1a48cab6d615327acca39c938043250d3c22c38e956c",
     "assets/how-things-work/open-differential/machine.css": "3a2045a1f0aa3b2cd679fce74797c9102a2e4b3b46083b822a8f4063c34b9bec",
-    "assets/how-things-work/open-differential/thumbnail.webp": "2f2ed51ad589dfb75a8073600e9b820d28e511908dbbbae607a5a89c9ed77d5e",
-    "assets/how-things-work/open-differential/NOTICE.txt": "7482a1311b562eb9cd99556aa0f380174eb0a3e864f07dc9058af36e621777ad"
+    "assets/how-things-work/open-differential/thumbnail.webp": "2bed30ce17ea1adf186d0e8d91b047149fae38b0715648aad63379c77ad913e2",
+    "assets/how-things-work/open-differential/NOTICE.txt": "0ded13baa527f122a2ba9b4d2d30703e9a833d1f611d452384c99a9ef4668263"
   }
 }
