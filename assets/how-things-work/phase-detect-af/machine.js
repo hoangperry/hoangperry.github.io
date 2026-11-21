@@ -975,11 +975,17 @@ var createModel = (function createModel(data) {
   return { command, advance, snapshot, reset };
 });
 var mountRenderer = (function mountRenderer(root, data) {
+    const renderer = (function mountRenderer(root, data) {
   const svg = root.querySelector('[data-machine-id="af-svg"]');
   const reading = root.querySelector('[data-camera-reading]');
   if (!svg) throw new Error('Cannot find the phase-difference illustration');
   const marks = new Map(Array.from(svg.querySelectorAll('[data-af-mark]'), (node) => [node.getAttribute('data-af-mark'), node]));
   const labels = new Map(Array.from(svg.querySelectorAll('[data-af-text]'), (node) => [node.getAttribute('data-af-text'), node]));
+  const bench = svg.querySelector('.af-bench-motion');
+  const benchPlane = marks.get('plate-plane');
+  const benchTravel = benchPlane?.getAttribute('data-af-plate-travel')?.split(' ').map(Number);
+  const benchIntercept = benchPlane?.getAttribute('data-af-plate-intercept')?.split(' ').map(Number);
+  const translation = (vector, amount) => `translate(${vector.map((n) => Math.round(n * amount * 100) / 100).join(' ')})`;
   const originalAttrs = new Map();
   const originalTexts = new Map();
   const { pupilZ, focusZ, axisY, rayScale, plotCenterX, plotScale, plotBottomY, plotHeight } = data.geometry;
@@ -989,6 +995,7 @@ var mountRenderer = (function mountRenderer(root, data) {
   let previousOptics;
 
   function attr(node, key, value) {
+    if (!node) return;
     const old = node.getAttribute(key);
     const next = String(value);
     if (old === next) return;
@@ -1000,7 +1007,7 @@ var mountRenderer = (function mountRenderer(root, data) {
   const mark = (key, property, value) => attr(marks.get(key), property, value);
 
   function text(node, value) {
-    if (node.textContent === value) return;
+    if (!node || node.textContent === value) return;
     if (!originalTexts.has(node)) originalTexts.set(node, node.textContent);
     node.textContent = value;
   }
@@ -1026,6 +1033,14 @@ var mountRenderer = (function mountRenderer(root, data) {
       mark('signal-a', 'd', trace(optics.signalA));
       mark('signal-b', 'd', trace(optics.signalB));
       const hasEdges = optics.shift !== null;
+      if (benchTravel && benchIntercept) {
+        attr(bench, 'data-af-plate-contrast', hasEdges);
+        attr(benchPlane, 'transform', translation(benchTravel, controls.defocus));
+        mark('plate-hit-left', 'transform', translation(benchIntercept, optics.leftRayX));
+        mark('plate-hit-right', 'transform', translation(benchIntercept, optics.rightRayX));
+        text(labels.get('plate-pupil-left'), left);
+        text(labels.get('plate-pupil-right'), right);
+      }
       mark('edges', 'display', hasEdges ? 'inline' : 'none');
       if (hasEdges) {
         const midY = yAt(0.5);
@@ -1047,7 +1062,32 @@ var mountRenderer = (function mountRenderer(root, data) {
       for (const [node, value] of originalTexts) node.textContent = value;
     },
   };
-});
+})(root, data);
+    const dock = root.querySelector('[data-camera-transport]');
+    const transport = root.querySelector('[data-machine-console-panel] .htw-machine-controls');
+    const run = transport?.querySelector('[data-machine-run]');
+    if (!dock || !run) return renderer;
+    const scene = dock.closest('[data-machine-scene]');
+    const focusPlayback = () => {
+      if (root.getAttribute('data-mode') !== 'explore') return;
+      run.focus({ preventScroll: true });
+      dock.scrollIntoView({ block: 'center', behavior: 'instant' });
+    };
+    scene.addEventListener('focus', focusPlayback);
+    const home = transport.parentNode;
+    const next = transport.nextSibling;
+    dock.prepend(transport);
+    return {
+      render: renderer.render,
+      dispose() {
+        try { renderer.dispose(); }
+        finally {
+          scene.removeEventListener('focus', focusPlayback);
+          home.insertBefore(transport, next);
+        }
+      },
+    };
+  });
 runtime.boot({
   slug: "phase-detect-af",
   descriptor: {"title":"Máy ảnh biết phải lấy nét về hướng nào bằng cách nào?","controls":{"groups":[{"key":"measurement","label":"Mặt đo và mẫu sáng","controls":[{"type":"range","key":"defocus","label":"δ · Lệch mặt hội tụ","min":-0.25,"max":0.25,"step":0.05,"unit":"(tỷ lệ)"},{"type":"segmented","key":"scene","label":"Mẫu sáng","options":[{"value":"edge","label":"Cạnh tương phản"},{"value":"flat","label":"Mảng phẳng"}]},{"type":"segmented","key":"pupil-order","label":"Gán nhãn hai nửa khẩu độ","options":[{"value":"normal","label":"A = Trái"},{"value":"swapped","label":"A = Phải"}]}]}],"presets":[{"key":"near-plane","label":"Trước mặt hội tụ"},{"key":"aligned","label":"Đúng mặt hội tụ"},{"key":"far-plane","label":"Sau mặt hội tụ"},{"key":"flat-tone","label":"Mảng phẳng"}],"challenges":[]}},
