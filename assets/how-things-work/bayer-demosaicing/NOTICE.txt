@@ -2,7 +2,7 @@ How Things Work playground: Bộ lọc Bayer thiếu hai màu ở mỗi điểm,
 Topic: bayer-demosaicing
 Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 655e23f6e734e1683b4388248b8459fad28f301c29398121b1323625d8212d91
+Source digest: 4696a49be7c33754f0a7ce048d19d18af4b790ffcd0737943b93ce36f2a56016
 Checks recorded in the build receipt:
 - bayer-demosaicing/model.test.mjs: 10/10 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/bayer-demosaicing/tests/model.test.mjs)
 - Mode invariance: passed, 3 scripts
