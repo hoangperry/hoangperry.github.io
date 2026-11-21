@@ -538,10 +538,10 @@
 .htw-machine[data-htw-figure="mosfet"] .nmos-pinch,
 .htw-machine[data-htw-figure="mosfet"] .nmos-knee { fill: none; stroke: var(--nmos-amber); stroke-width: 1.5; stroke-dasharray: 5 3; }
 .htw-machine[data-htw-figure="mosfet"] .nmos-point { fill: var(--nmos-ink-accent); stroke: var(--nmos-page); stroke-width: 2; }
-.htw-machine[data-htw-figure="mosfet"] [data-nmos-focus="gate"] .nmos-gate,
-.htw-machine[data-htw-figure="mosfet"] [data-nmos-focus="gate"] .nmos-oxide { stroke: var(--nmos-amber); stroke-width: 3; }
-.htw-machine[data-htw-figure="mosfet"] [data-nmos-focus="channel"] .nmos-doped { stroke: var(--nmos-ink-accent); stroke-width: 2; }
-.htw-machine[data-htw-figure="mosfet"] [data-nmos-focus="saturation"] .nmos-curve { stroke-width: 3.4; }
+.htw-machine[data-htw-figure="mosfet"][data-mode="reader"] [data-nmos-focus="gate"] .nmos-gate,
+.htw-machine[data-htw-figure="mosfet"][data-mode="reader"] [data-nmos-focus="gate"] .nmos-oxide { stroke: var(--nmos-amber); stroke-width: 3; }
+.htw-machine[data-htw-figure="mosfet"][data-mode="reader"] [data-nmos-focus="channel"] .nmos-doped { stroke: var(--nmos-ink-accent); stroke-width: 2; }
+.htw-machine[data-htw-figure="mosfet"][data-mode="reader"] [data-nmos-focus="saturation"] .nmos-curve { stroke-width: 3.4; }
 .htw-machine[data-htw-figure="mosfet"] .nmos-mobile-reading { display: none; }
 @media (max-width: 1099px) {
   .htw-machine[data-htw-figure="mosfet"] .nmos-mobile-reading {

@@ -2,7 +2,7 @@ How Things Work playground: Một pixel CMOS biến ánh sáng thành điện á
 Topic: cmos-pixel
 Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 28a1f6697d00278e9f99385ff746e6a34b2c4da5af9099772d5a9563249e6641
+Source digest: 9fe27e6fdc5c955b06ede5a61597077c632a76ba12b05f1a3ec4b826a385d432
 Checks recorded in the build receipt:
 - cmos-pixel/model.test.mjs: 8/8 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/cmos-pixel/tests/model.test.mjs)
 - Mode invariance: passed, 3 scripts

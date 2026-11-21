@@ -2,9 +2,9 @@ How Things Work playground: Động cơ bước quay từng nấc thế nào?
 Topic: stepper-motor
 Generated file: built by publish-playground.mjs from a checked artifact and its receipt. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: bf4c281f07d43b976dc04bfd10f1b5da980481f982cf37c7fe78912f00126eec
+Source digest: ede6b7f6bf4c30ac1a5f2b9f5bbea5276aa9c0b8ba5380dd7fa82b79f8a5bc37
 Checks recorded in the build receipt:
-- stepper-motor model, parameter grid and renderer: 39/39 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/stepper-motor/tests/model.test.mjs playgrounds/stepper-motor/tests/model-grid.test.mjs playgrounds/stepper-motor/tests/renderer.test.mjs)
+- stepper-motor model, parameter grid and renderer: 41/41 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/stepper-motor/tests/model.test.mjs playgrounds/stepper-motor/tests/model-grid.test.mjs playgrounds/stepper-motor/tests/renderer.test.mjs)
 - shared playground runtime, markup, bundle, harness, artifact and publisher (non-browser): 93/93 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs tests/publish-playground.test.mjs)
 - Mode invariance: passed, 3 scripts
 - Parameter grid: passed, 135 cases

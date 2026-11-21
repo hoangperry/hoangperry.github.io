@@ -980,6 +980,10 @@ var mountRenderer = (function mountRenderer(root) {
   const marks = new Map(Array.from(svg.querySelectorAll('[data-nmos-mark]'), (node) => [node.getAttribute('data-nmos-mark'), node]));
   const channel = svg.querySelector('[data-nmos-label="channel"]');
   const gate = svg.querySelector('[data-nmos-label="gate"]');
+  if (!channel || !gate) throw new Error('NMOS illustration is missing required labels');
+  for (const key of ['directions', 'pinch', 'charge', 'curve', 'knee', 'cursor', 'point']) {
+    if (!marks.get(key)) throw new Error(`NMOS illustration is missing mark ${key}`);
+  }
   const measured = root.querySelector('[data-nmos-measured]');
   const originals = new Map();
   const oldChannel = channel.textContent;
@@ -991,6 +995,7 @@ var mountRenderer = (function mountRenderer(root) {
   let previousCurve;
   let previousCharge;
   let previousHasChannel;
+  let disposed = false;
 
   function attr(node, key, value) {
     const old = node.getAttribute(key);
@@ -1007,6 +1012,7 @@ var mountRenderer = (function mountRenderer(root) {
 
   return {
     render({ bias }, { focus = 'device' } = {}) {
+      if (disposed) return;
       const { vgsV, vdsV, idMa, region, saturationV, channelChargeV, curve } = bias;
       const hasChannel = region !== 'cutoff';
       attr(svg, 'data-nmos-focus', focus);
@@ -1051,10 +1057,14 @@ var mountRenderer = (function mountRenderer(root) {
       mark('point', 'cy', y);
     },
     dispose() {
+      if (disposed) return;
+      disposed = true;
       for (const [node, attrs] of originals) for (const [key, old] of attrs) {
         if (old === null) node.removeAttribute(key);
         else node.setAttribute(key, old);
       }
+      originals.clear();
+      previousCurve = previousCharge = previousHasChannel = undefined;
       channel.textContent = oldChannel;
       gate.textContent = oldGate;
       if (measured) measured.textContent = oldMeasured;
@@ -1064,7 +1074,7 @@ var mountRenderer = (function mountRenderer(root) {
 runtime.boot({
   slug: "mosfet",
   descriptor: {"title":"MOSFET: Vì sao cổng cách điện vẫn bật được dòng điện?","controls":{"groups":[{"key":"bias","label":"Điện áp phân cực","controls":[{"type":"range","key":"vgs","label":"VGS · Cổng–nguồn","min":0,"max":3.2,"step":0.1,"unit":"V"},{"type":"range","key":"vds","label":"VDS · Máng–nguồn","min":0,"max":3,"step":0.1,"unit":"V"}]}],"presets":[{"key":"cutoff","label":"Chưa có kênh"},{"key":"channel","label":"Có kênh, chưa có dòng"},{"key":"triode","label":"Có dòng, chưa bão hòa"},{"key":"saturation","label":"Bão hòa"}],"challenges":[]}},
-  data: {"parameters":{"thresholdV":0.8,"betaMaPerV2":0.4,"duration":4,"stepSeconds":0.25,"curveSamples":61},"presets":{"cutoff":{"vgs":0.4,"vds":2.4},"channel":{"vgs":2,"vds":0},"triode":{"vgs":2,"vds":0.5},"saturation":{"vgs":2,"vds":2.4}},"controls":{"groups":[{"key":"bias","label":"Điện áp phân cực","controls":[{"type":"range","key":"vgs","label":"VGS · Cổng–nguồn","min":0,"max":3.2,"step":0.1,"unit":"V"},{"type":"range","key":"vds","label":"VDS · Máng–nguồn","min":0,"max":3,"step":0.1,"unit":"V"}]}],"presets":[{"key":"cutoff","label":"Chưa có kênh"},{"key":"channel","label":"Có kênh, chưa có dòng"},{"key":"triode","label":"Có dòng, chưa bão hòa"},{"key":"saturation","label":"Bão hòa"}],"challenges":[]}},
+  data: {"parameters":{"thresholdV":0.8,"betaMaPerV2":0.4,"duration":4,"stepSeconds":0.25,"curveSamples":61},"stepUnavailableByPhase":{"done":"Đã quét xong đến VDS đã chọn. Nhấn Chạy để quét lại."},"presets":{"cutoff":{"vgs":0.4,"vds":2.4},"channel":{"vgs":2,"vds":0},"triode":{"vgs":2,"vds":0.5},"saturation":{"vgs":2,"vds":2.4}},"controls":{"groups":[{"key":"bias","label":"Điện áp phân cực","controls":[{"type":"range","key":"vgs","label":"VGS · Cổng–nguồn","min":0,"max":3.2,"step":0.1,"unit":"V"},{"type":"range","key":"vds","label":"VDS · Máng–nguồn","min":0,"max":3,"step":0.1,"unit":"V"}]}],"presets":[{"key":"cutoff","label":"Chưa có kênh"},{"key":"channel","label":"Có kênh, chưa có dòng"},{"key":"triode","label":"Có dòng, chưa bão hòa"},{"key":"saturation","label":"Bão hòa"}],"challenges":[]}},
   createModel: createModel,
   mountRenderer: mountRenderer
 }, document);

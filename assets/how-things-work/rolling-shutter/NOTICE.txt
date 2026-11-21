@@ -2,9 +2,9 @@ How Things Work playground: Vì sao cột thẳng có thể bị nghiêng trong 
 Topic: rolling-shutter
 Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 9449a14432efc8edd0c3ce714dc78cd15a3205f3ea3b3016f7d7ea1094d33b66
+Source digest: f4f15b4cfd1ed8dd3cd66a28ee5490e3c4c84dadaaa9d92b882f25f916d7a823
 Checks recorded in the build receipt:
-- rolling-shutter/model.test.mjs: 10/10 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/rolling-shutter/tests/model.test.mjs)
+- rolling-shutter/model.test.mjs: 12/12 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/rolling-shutter/tests/model.test.mjs)
 - Mode invariance: passed, 6 scripts
 - Parameter grid: passed, 6 cases
 Limitations:

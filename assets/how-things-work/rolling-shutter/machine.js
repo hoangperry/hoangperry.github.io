@@ -1003,11 +1003,16 @@ var mountRenderer = (function mountRenderer(root, data) {
   if (!svg) throw new Error('Cannot find the rolling shutter plate');
   const find = (key) => svg.querySelector(`[data-rs-mark="${key}"]`);
   const bar = find('bar'), cursor = find('cursor'), clock = find('clock'), moment = find('moment'), velocity = find('velocity');
+  const parseFinite = (raw) => {
+    if (typeof raw !== 'string' || raw.trim() === '') return NaN;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : NaN;
+  };
   // The article and bundle have separate cache lifetimes; older SVGs have no bench.
   const target = svg.querySelector('[data-rs-anatomy-target]');
-  const targetDx = Number.parseFloat(target?.getAttribute('data-rs-anatomy-dx'));
-  const targetDy = Number.parseFloat(target?.getAttribute('data-rs-anatomy-dy'));
-  if (target && (!Number.isFinite(targetDx) || !Number.isFinite(targetDy))) throw new Error('Invalid rolling shutter target projection');
+  const targetDx = parseFinite(target?.getAttribute('data-rs-anatomy-dx'));
+  const targetDy = parseFinite(target?.getAttribute('data-rs-anatomy-dy'));
+  const canMoveTarget = Boolean(target) && Number.isFinite(targetDx) && Number.isFinite(targetDy);
   const readingNode = root.querySelector('[data-camera-reading]');
   const { scene, image, timing, rows } = data.plate;
   const { rowCount, rowDelayMs, exposureMs, frameWidthPx, barWidthPx } = data.parameters;
@@ -1015,17 +1020,22 @@ var mountRenderer = (function mountRenderer(root, data) {
   const chartBottom = rows.y + (rowCount - 1) * rows.step + rows.height;
   const xAt = (px) => image.x + px * image.width / frameWidthPx;
   const tAt = (ms) => timing.x + ms * timing.width / maxMs;
-  const sensorRows = Array.from(svg.querySelectorAll('[data-rs-anatomy-row]'), (node) => {
+  const sensorRows = new Map();
+  for (const node of svg.querySelectorAll('[data-rs-anatomy-row]')) {
+    const idx = parseFinite(node.getAttribute('data-rs-anatomy-row'));
     const track = node.querySelector('.rs-anatomy-track');
     const extent = node.querySelector('.rs-anatomy-extent');
-    if (!track || !extent) return null;
-    return { node, extent, x: Number(track.getAttribute('x')), scale: Number(track.getAttribute('width')) / frameWidthPx };
-  });
+    if (!Number.isInteger(idx) || idx < 0 || idx >= rowCount || !track || !extent) continue;
+    const x = parseFinite(track.getAttribute('x'));
+    const width = parseFinite(track.getAttribute('width'));
+    if (!Number.isFinite(x) || !Number.isFinite(width) || width <= 0) continue;
+    sensorRows.set(idx, { node, extent, x, scale: width / frameWidthPx });
+  }
   const opening = svg.querySelector('[data-rs-anatomy-open]');
   const closed = svg.querySelector('[data-rs-anatomy-closed]');
   const sensorClock = svg.querySelector('[data-rs-anatomy-clock]');
   const desc = svg.querySelector('[data-rs-desc]');
-  const legend = desc?.textContent;
+  const legend = desc?.getAttribute('data-rs-legend') ?? desc?.textContent;
   const round = (n) => Number(n.toFixed(4));
   const rowNodes = Array.from({ length: rowCount }, (_, y) => {
     const group = svg.querySelector(`[data-rs-row="${y}"]`);
@@ -1071,7 +1081,7 @@ var mountRenderer = (function mountRenderer(root, data) {
       attr(svg, 'data-camera-shutter', controls.shutter);
       attr(svg, 'data-camera-milestone', frame.moment.timeMs);
       attr(bar, 'x', round(scene.x + (frame.sceneCenterPx - barWidthPx / 2) * scene.width / frameWidthPx));
-      if (target) {
+      if (canMoveTarget) {
         const centre = frame.sceneCenterPx - frameWidthPx / 2;
         attr(target, 'transform', `translate(${round(centre * targetDx)} ${round(centre * targetDy)})`);
       }
@@ -1088,7 +1098,7 @@ var mountRenderer = (function mountRenderer(root, data) {
         const { group, coverage, window, progress, open, close, stops, cy } = rowNodes[y];
         const { startMs, endMs, elapsedMs, state, profile } = row;
         attr(group, 'data-rs-row-state', state);
-        const sensor = sensorRows[y];
+        const sensor = sensorRows.get(y);
         if (sensor) {
           const first = profile[0]?.x ?? 0;
           attr(sensor.node, 'data-state', state);

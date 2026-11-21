@@ -11810,7 +11810,7 @@ return (function mountSlrRenderer(root, data, createProducer, createFactory) {
           lastBuild = { time: snapshot.time, solids: build.packet.parts.length, changed: build.changed, rebuilt: build.rebuilt, cells, ms: build.ms, prepares: build.prepares, emissions: build.emissions };
           latest = build; previous = snapshot;
         }
-        viewAttr('data-slr-focus', options.focus || 'all');
+        viewAttr('data-slr-focus', options.mode === 'explore' ? snapshot.stageKey : options.focus || 'all');
         if (!committed) {
           // All native emission and item DOM creation succeeded while detached. Fallback stays until commit ends.
           if (live.childNodes.length) fail('live layer became busy before commit');

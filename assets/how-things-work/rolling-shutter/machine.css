@@ -620,11 +620,11 @@
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-key-stop,
 .htw-machine[data-htw-figure="rolling-shutter"] [data-rs-row-state="closed"] .rs-close { fill: var(--rs-teal); stroke: var(--rs-teal); }
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-cursor { stroke: var(--rs-ink); stroke-dasharray: 5 4; stroke-width: 1.2; }
-.htw-machine[data-htw-figure="rolling-shutter"] [data-rs-focus="scene"] .rs-scene .rs-heading,
-.htw-machine[data-htw-figure="rolling-shutter"] [data-rs-focus="windows"] .rs-timing-heading { fill: var(--rs-amber); }
-.htw-machine[data-htw-figure="rolling-shutter"] [data-rs-focus="coverage"] .rs-image-heading { fill: var(--rs-teal); }
+.htw-machine[data-htw-figure="rolling-shutter"][data-mode="reader"] [data-rs-focus="scene"] .rs-scene .rs-heading,
+.htw-machine[data-htw-figure="rolling-shutter"][data-mode="reader"] [data-rs-focus="windows"] .rs-timing-heading { fill: var(--rs-amber); }
+.htw-machine[data-htw-figure="rolling-shutter"][data-mode="reader"] [data-rs-focus="coverage"] .rs-image-heading { fill: var(--rs-teal); }
 .htw-machine[data-htw-figure="rolling-shutter"] .camera-anatomy .rs-anatomy-bezel > .iso-fill { fill-rule: evenodd; }
-.htw-machine[data-htw-figure="rolling-shutter"] .rs-svg[data-rs-focus="scene"] .rs-anatomy-target-face > .iso-edge {
+.htw-machine[data-htw-figure="rolling-shutter"][data-mode="reader"] .rs-svg[data-rs-focus="scene"] .rs-anatomy-target-face > .iso-edge {
   stroke: var(--rs-amber);
   stroke-width: 1.2;
 }

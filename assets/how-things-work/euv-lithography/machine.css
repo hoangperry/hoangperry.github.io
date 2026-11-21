@@ -651,8 +651,8 @@
 .htw-machine[data-htw-figure="euv-lithography"] .euv-step-tile { fill: var(--euv-matte); stroke: var(--euv-rule); stroke-width: .8; }
 .htw-machine[data-htw-figure="euv-lithography"] [data-euv-source-step][data-euv-active="true"] .euv-step-tile { stroke: var(--euv-euv); stroke-width: 2; }
 .htw-machine[data-htw-figure="euv-lithography"] [data-euv-source-step][data-euv-active="true"] .euv-step-number { fill: var(--euv-euv); font-weight: 700; }
-.htw-machine[data-htw-figure="euv-lithography"] [data-euv-focus="reticle"] [data-euv-callout="mask-detail"] .euv-callout,
-.htw-machine[data-htw-figure="euv-lithography"] [data-euv-focus="overlay"] [data-euv-text$="-overlay"] { fill: var(--euv-euv); font-weight: 700; }
+.htw-machine[data-htw-figure="euv-lithography"][data-mode="reader"] [data-euv-focus="reticle"] [data-euv-callout="mask-detail"] .euv-callout,
+.htw-machine[data-htw-figure="euv-lithography"][data-mode="reader"] [data-euv-focus="overlay"] [data-euv-text$="-overlay"] { fill: var(--euv-euv); font-weight: 700; }
 .htw-machine[data-htw-figure="euv-lithography"] .euv-field { fill: var(--euv-matte); stroke: var(--euv-sub); stroke-width: .85; }
 .htw-machine[data-htw-figure="euv-lithography"] .euv-field-grid { fill: none; stroke: var(--euv-rule); stroke-width: .85; }
 .htw-machine[data-htw-figure="euv-lithography"] .euv-track-arrow { fill: none; stroke: #f4f0ff; stroke-width: 1; }

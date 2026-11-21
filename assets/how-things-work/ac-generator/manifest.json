@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "ac-generator",
   "kind": "playground",
-  "sourceDigest": "55af1f787a932b5c47a13e800b663b2e8ea7458b0e12a765d5402b08503fd508",
+  "sourceDigest": "388bd5833ecd710ba6ce7f0ac0e1e9bc7f23f1d0ffddd7a3eb57408f667f590c",
   "files": {
     "_includes/how-things-work/ac-generator-scene.html": "17ed9ec0a1f23fe7304e061305c91b6ef1c0224adff9e408ef7899b538e8854d",
     "_includes/how-things-work/ac-generator-console.html": "f551f8e3cdfd0f554078b5f0de726b79c788e73f2c35ffa55462160fd9e8379d",
-    "assets/how-things-work/ac-generator/machine.js": "59991e84872998444e7c176fb151e40e6cd7caa14f13c502dd4c344a245232b8",
-    "assets/how-things-work/ac-generator/machine.css": "9db934c1af23fcf016b9e959455c65b7631c2a721d8c57af1641b9bca67a35d8",
-    "assets/how-things-work/ac-generator/thumbnail.webp": "3360e859dcd24057d984a83d9e8f9a1272374dace794c5cee2687c7c2647313e",
-    "assets/how-things-work/ac-generator/NOTICE.txt": "6f8745a6eedc2120717e8cb1b9c47ed5139991bc4863cadc5d65e8268692b39c"
+    "assets/how-things-work/ac-generator/machine.js": "0b20eca880dae0040c8b43b2aae418b0c90cc4439b2b053039c4c62959bc8b05",
+    "assets/how-things-work/ac-generator/machine.css": "509a30b6a6de684c0240743c4b5d53e81910fe07c5710fdc7d2a0deeb9027027",
+    "assets/how-things-work/ac-generator/thumbnail.webp": "ebf546b282780915fe6c5f63a36bb1edd30bdbcd64cfa7ba80c265a02d78ef93",
+    "assets/how-things-work/ac-generator/NOTICE.txt": "3e3a30f543735569b00b136ecdb18a74b8862faf41949a773f6951c7f8a8b25c"
   }
 }

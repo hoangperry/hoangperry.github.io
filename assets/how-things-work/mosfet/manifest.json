@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "mosfet",
   "kind": "playground",
-  "sourceDigest": "e897e5969547c1d37e75c82b36217afdcf55b3db3833caffe09a59bf4fe259b5",
+  "sourceDigest": "99fa2645d354368d6e70da4f26680152f9580fa882bfe6374e85354381d37456",
   "files": {
-    "_includes/how-things-work/mosfet-scene.html": "5f978dc542c25bce2aafc3ca203c878676981c90e1b9e686ba2452a10cce1ad8",
+    "_includes/how-things-work/mosfet-scene.html": "f265f113380c5316917ba66c2c68cb38d2fa27407abc9d1b3fd1129f4978c544",
     "_includes/how-things-work/mosfet-console.html": "7fb92e17ce396d017ebec6a8518005a8298b57087beb7b4a8baf45a16ebf67ce",
-    "assets/how-things-work/mosfet/machine.js": "de725c9a2b4555afbf34258a62a9967fe601907e36b89c25796bf276f19bfeca",
-    "assets/how-things-work/mosfet/machine.css": "be49c8888e26e78067a339670fec1d7454a900782c307e01537ffdb2e8cd05b2",
+    "assets/how-things-work/mosfet/machine.js": "fa369853a6ce907fb3ae3ad30b8c892a6349f8d2a6424bdac6a48d938dc8bb6d",
+    "assets/how-things-work/mosfet/machine.css": "8ffc6222911768ad56d97437b58ecf0a59ae74c9f7cbc085cee027ca9868cea6",
     "assets/how-things-work/mosfet/thumbnail.webp": "3d523c0e281c56f7866e02ed6e1461bd9144cbb5ef9e12cebd62eb69542cdbba",
-    "assets/how-things-work/mosfet/NOTICE.txt": "46c906224b87b124dd7b6e4d10ff7071260fc23758a6987d45b5a004fbbbc00b"
+    "assets/how-things-work/mosfet/NOTICE.txt": "2b1f4ea3be9454684aed04c58cc7ceb129703d0eb08450766e7bb7dfd5f0d517"
   }
 }

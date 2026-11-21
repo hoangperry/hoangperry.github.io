@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "hard-disk-drive",
   "kind": "playground",
-  "sourceDigest": "4cfc739f73049839f4ac555264e08d45d58b8f582c0fb7a23e979e1325c5b3fe",
+  "sourceDigest": "9c41e379744f6997837f3687ca58d7c3c02c567399e665dffe45cd9001def870",
   "files": {
     "_includes/how-things-work/hard-disk-drive-scene.html": "b7e6122f07e180695291ccb83406b33f32b18730932e241e917516ba1bb21669",
-    "_includes/how-things-work/hard-disk-drive-console.html": "5e079f1fac05f7a0c197a90a18cee472339f32d99577f36889688fc37af1637a",
-    "assets/how-things-work/hard-disk-drive/machine.js": "cd30680686e7d90840e8c13db47db49dd8c732b7a519a3486b562128e5e7715e",
+    "_includes/how-things-work/hard-disk-drive-console.html": "141ea029c056cdacaa1e4afdfc6aab0f623e5b5aa8e1189bf037a341a2daecd6",
+    "assets/how-things-work/hard-disk-drive/machine.js": "ffdb2d557a5c9ece6fcc08cf96409f457e3e10f0894369359753c72743d5abe8",
     "assets/how-things-work/hard-disk-drive/machine.css": "02b7fd0d5adb9665a4532734b5209372f6535f42769dad17c106cb81831f6af4",
     "assets/how-things-work/hard-disk-drive/thumbnail.webp": "d18572f9bfc03b6dd6221abfaa0ee532b8dc21740c14b5e4e14407400cc0f003",
-    "assets/how-things-work/hard-disk-drive/NOTICE.txt": "51e52897623238d8ad975234031d8ca69e78ed86f52d01ae2961ef1bc0e11dcc"
+    "assets/how-things-work/hard-disk-drive/NOTICE.txt": "d3cade34eb0fb40d2650023c0eebc9d2e230b4ea4e6d1d44b95845503739fa1b"
   }
 }

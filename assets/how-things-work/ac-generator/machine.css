@@ -525,11 +525,11 @@
 .htw-machine[data-htw-figure="ac-generator"] .ac-sample.ac-emf { fill: var(--ac-ink); }
 .htw-machine[data-htw-figure="ac-generator"] .ac-svg [data-hidden="true"] { display: none; }
 /* Focus emphasizes existing shapes; labels, zero axes and the other graph never disappear or lose contrast. */
-.htw-machine[data-htw-figure="ac-generator"] [data-ac-focus="field"] .ac-field { stroke: var(--ac-accent); stroke-width: 2.5; }
-.htw-machine[data-htw-figure="ac-generator"] [data-ac-focus="coil"] .ac-coil,
-.htw-machine[data-htw-figure="ac-generator"] [data-ac-focus="reverse"] .ac-coil { stroke: var(--ac-accent); }
-.htw-machine[data-htw-figure="ac-generator"] [data-ac-focus="flux"] .ac-trace.ac-flux,
-.htw-machine[data-htw-figure="ac-generator"] [data-ac-focus="emf"] .ac-trace.ac-emf { stroke-width: 3.5; }
+.htw-machine[data-htw-figure="ac-generator"][data-mode="reader"] [data-ac-focus="field"] .ac-field { stroke: var(--ac-accent); stroke-width: 2.5; }
+.htw-machine[data-htw-figure="ac-generator"][data-mode="reader"] [data-ac-focus="coil"] .ac-coil,
+.htw-machine[data-htw-figure="ac-generator"][data-mode="reader"] [data-ac-focus="reverse"] .ac-coil { stroke: var(--ac-accent); }
+.htw-machine[data-htw-figure="ac-generator"][data-mode="reader"] [data-ac-focus="flux"] .ac-trace.ac-flux,
+.htw-machine[data-htw-figure="ac-generator"][data-mode="reader"] [data-ac-focus="emf"] .ac-trace.ac-emf { stroke-width: 3.5; }
 /* Native wrapping belongs to the same movable figure, not an SVG foreignObject or a hidden article footnote. */
 .htw-machine[data-htw-figure="ac-generator"] .ac-caption {
   margin: 0;

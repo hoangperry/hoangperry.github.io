@@ -1040,9 +1040,13 @@ var mountRenderer = (function mountRenderer(root, data) {
   const anatomySwatch = anatomyInput?.querySelector('rect');
   const anatomyMeasured = svg.querySelector('[data-bayer-anatomy-measured]');
   const anatomyRaw = svg.querySelector('[data-bayer-anatomy-raw]');
-  const anatomyNeighbors = Array.from(svg.querySelectorAll('[data-bayer-anatomy-neighbor]'), (node) => ({
-    node, index: Number(node.getAttribute('data-bayer-anatomy-neighbor')),
-  }));
+  const anatomyNeighbors = [];
+  for (const node of svg.querySelectorAll('[data-bayer-anatomy-neighbor]')) {
+    const raw = node.getAttribute('data-bayer-anatomy-neighbor');
+    if (typeof raw !== 'string' || raw.trim() === '') continue;
+    const index = Number(raw);
+    if (Number.isInteger(index) && index >= 0 && index < 9 && index !== 4) anatomyNeighbors.push({ node, index });
+  }
   const stencil = Array.from(svg.querySelectorAll('[data-bayer-stencil]'), (node) => ({ node, label: node.querySelector('text') }));
   const equations = Array.from(svg.querySelectorAll('[data-bayer-equation]'), (node) => ({
     label: node.querySelector('[data-bayer-result]'), detail: node.querySelector('[data-bayer-detail]'),

@@ -990,13 +990,25 @@ var mountRenderer = (function mountRenderer(root, data) {
   const mirror = root.querySelector('[data-camera-reading]');
   const values = new Map(Array.from(svg.querySelectorAll('[data-iso-value]'), (node) => [node.getAttribute('data-iso-value'), node]));
   const marks = new Map(Array.from(svg.querySelectorAll('[data-iso-mark]'), (node) => [node.getAttribute('data-iso-mark'), node]));
-  const bitCells = attr => Array.from(svg.querySelectorAll(`[${attr}]`), node => [node, Number(node.getAttribute(attr))]);
+  const parseFinite = (raw) => {
+    if (typeof raw !== 'string' || raw.trim() === '') return NaN;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : NaN;
+  };
+  const bitCells = (attr) => {
+    const list = [];
+    for (const node of svg.querySelectorAll(`[${attr}]`)) {
+      const index = parseFinite(node.getAttribute(attr));
+      if (Number.isInteger(index) && index >= 0) list.push([node, index]);
+    }
+    return list;
+  };
   const bits = bitCells('data-iso-bit');
   const board = svg.querySelector('.iso-board-motion');
   const boardBits = bitCells('data-iso-board-bit');
   const boardSample = marks.get('board-sample');
-  const boardChargeWidth = Number(marks.get('board-charge-fill')?.getAttribute('data-iso-full-width'));
-  const boardAdcWidth = Number(marks.get('board-gain-fill')?.getAttribute('data-iso-full-width'));
+  const boardChargeWidth = parseFinite(marks.get('board-charge-fill')?.getAttribute('data-iso-full-width'));
+  const boardAdcWidth = parseFinite(marks.get('board-gain-fill')?.getAttribute('data-iso-full-width'));
   const routeData = boardSample?.getAttribute('data-iso-journey');
   let journey = null;
   if (routeData) {
@@ -1023,9 +1035,9 @@ var mountRenderer = (function mountRenderer(root, data) {
   }
   const stageTime = { charge: 0, analog: 1, adc: 2 };
   const wellTrack = marks.get('well-track');
-  const wellHeight = Number(wellTrack?.getAttribute('height'));
-  const wellBase = Number(wellTrack?.getAttribute('y')) + wellHeight;
-  const inRangeWidth = Number(marks.get('adc-track')?.getAttribute('width'));
+  const wellHeight = parseFinite(wellTrack?.getAttribute('height'));
+  const wellBase = parseFinite(wellTrack?.getAttribute('y')) + wellHeight;
+  const inRangeWidth = parseFinite(marks.get('adc-track')?.getAttribute('width'));
   const attrs = new Map();
   const texts = new Map();
   let drawnSample, drawnTime;
@@ -1076,12 +1088,12 @@ var mountRenderer = (function mountRenderer(root, data) {
       drawnSample = sample;
       setAttr(svg, 'data-iso-well-full', sample.wellFull);
       setAttr(svg, 'data-iso-overrange', sample.adcOverrange);
-      if (wellHeight > 0) {
+      if (Number.isFinite(wellHeight) && wellHeight > 0 && Number.isFinite(wellBase)) {
         const fillHeight = sample.sensorSignal * wellHeight;
         setAttr(marks.get('charge-fill'), 'height', fillHeight);
         setAttr(marks.get('charge-fill'), 'y', wellBase - fillHeight);
       }
-      if (inRangeWidth > 0) {
+      if (Number.isFinite(inRangeWidth) && inRangeWidth > 0) {
         setAttr(marks.get('range-fill'), 'width', Math.min(1, sample.adcInput) * inRangeWidth);
         setAttr(marks.get('over-fill'), 'width', Math.max(0, sample.adcInput - 1) * inRangeWidth);
       }
@@ -1090,14 +1102,15 @@ var mountRenderer = (function mountRenderer(root, data) {
       setText(values.get('analog'), `${labels.beforeGain} → ${labels.analog} dải ADC`);
       setText(values.get('description'), labels.description);
       bits.forEach(([node, index]) => {
+        if (index >= sample.bits.length) return;
         setText(node, sample.bits[index]);
         setAttr(node, 'data-iso-bit-value', sample.bits[index]);
       });
       if (board) {
         const adcState = sample.adcOverrange ? 'overrange' : sample.atFullScale ? 'full-scale' : 'in-range';
         setAttr(board, 'data-iso-board-adc', adcState);
-        if (boardChargeWidth > 0) setAttr(marks.get('board-charge-fill'), 'width', sample.sensorSignal * boardChargeWidth);
-        if (boardAdcWidth > 0) {
+        if (Number.isFinite(boardChargeWidth) && boardChargeWidth > 0) setAttr(marks.get('board-charge-fill'), 'width', sample.sensorSignal * boardChargeWidth);
+        if (Number.isFinite(boardAdcWidth) && boardAdcWidth > 0) {
           setAttr(marks.get('board-gain-fill'), 'width', Math.min(1, sample.adcInput) * boardAdcWidth);
           setAttr(marks.get('board-gain-over'), 'width', Math.max(0, sample.adcInput - 1) * boardAdcWidth);
         }
@@ -1105,7 +1118,7 @@ var mountRenderer = (function mountRenderer(root, data) {
         setText(values.get('board-gain'), `${labels.gain} · ${labels.analog}`);
         setText(values.get('board-raw'), labels.raw);
         setText(values.get('board-adc-state'), labels.adcState);
-        boardBits.forEach(([node, index]) => setAttr(node, 'data-iso-bit-value', sample.bits[index]));
+        boardBits.forEach(([node, index]) => { if (index < sample.bits.length) setAttr(node, 'data-iso-bit-value', sample.bits[index]); });
       }
       if (mirror) setText(mirror, labels.summary);
     },
