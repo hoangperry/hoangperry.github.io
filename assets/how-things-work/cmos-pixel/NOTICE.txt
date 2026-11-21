@@ -2,14 +2,14 @@ How Things Work playground: Một pixel CMOS biến ánh sáng thành điện á
 Topic: cmos-pixel
 Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: e6afb5e86930a6cecd7d18ab528af831c9b94f60658e4b5be17f795be4cd3981
+Source digest: f44db5ee6bc277e0176b7be8a32884181b148d12437945dbef81051746fd71af
 Checks recorded in the build receipt:
-- cmos-pixel/model.test.mjs: 7/7 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/cmos-pixel/tests/model.test.mjs)
+- cmos-pixel/model.test.mjs: 8/8 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/cmos-pixel/tests/model.test.mjs)
 - Mode invariance: passed, 3 scripts
 - Parameter grid: passed, 90 cases
 Limitations:
 - Ánh sáng không đổi trong một lượt; tốc độ thu là kỳ vọng electron đã thu, không phải tốc độ photon tới. Giếng 20.000 e⁻, điện dung 10 fF và mức reset 1,2 V là các thông số minh họa.
 - FD đủ dung lượng; chuyển hết electron trong một sự kiện. Không mô phỏng động học, điện thế bên trong silicon, mất điện tích, dòng tối, nhiễu, màu, mạch khuếch đại, ADC hoặc trình tự đọc theo hàng.
-- Hình không theo tỷ lệ. Chấm chỉ gợi mật độ; thời gian chạy là lịch trình diễn, không phải tốc độ đóng cắt của pixel.
+- Hình không theo tỷ lệ. Chấm chỉ gợi mật độ; vệt dưới TG chỉ hướng chuyển tức thời trong mô hình, không biểu diễn thời gian electron di chuyển hay cổng chuyển động.
 
 Geometry generated with the repository-pinned Anatomy kit (MIT).

@@ -6,20 +6,20 @@
   <meta name="description" content="Tự chế tạo một ống kính: mài hai mặt phôi, thử lớp phủ rồi lắp kính và chỉnh nét trên bàn quang học.">
   <title>Tự chế tạo ống kính · How Things Work</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="studio-8d9e71e119833a6e.css">
-  <script type="module" src="studio-840304eb04074e55.js"></script>
+  <link rel="stylesheet" href="studio-7d67cadb3f7f0cf7.css">
+  <script type="module" src="studio-3965911f64439000.js"></script>
 </head>
 <body data-mode="maker"><main class="studio">
-  <nav class="studio-nav" aria-label="Lối vào xưởng"><a href="../">← Bàn học 50 mm</a><a class="maker-only" href="#ban-thiet-ke">Bàn chuyên sâu →</a><a class="advanced-only" href="#tu-che-tao">← Về bàn chế tạo</a></nav>
+  <nav class="studio-nav" aria-label="Lối vào xưởng"><a href="../">← Bàn học 50 mm</a><div class="studio-nav-actions"><a class="maker-only" href="#ban-thiet-ke">Bàn chuyên sâu →</a><a class="advanced-only" href="#tu-che-tao">← Về bàn chế tạo</a><button type="button" id="studio-theme" class="studio-theme" aria-pressed="true">Nền sáng</button></div></nav>
   <header class="studio-header advanced-only"><div><p class="lens-kicker">BÀN CHUYÊN SÂU</p><h1>Thiết kế và kiểm tra</h1><p>Sửa bản vẽ, đo đường tia, lập phiếu chế tạo và thử sai số.</p></div></header>
   <noscript><p>Cần bật JavaScript để thao tác với phôi kính. Phần giải thích về mặt kính ở cuối trang vẫn đọc được.</p></noscript>
   <p id="boot-status" role="status">Đang chuẩn bị phôi kính…</p>
   <div id="workspace" hidden>
     <section id="tu-che-tao" data-room="maker" aria-labelledby="maker-title">
-      <header class="maker-intro"><p class="maker-overline">XƯỞNG QUANG HỌC <span>/</span> BÀI THỰC HÀNH</p><h1 id="maker-title">Tự làm một ống kính</h1><p>Mài chiếc kính đầu tiên. Sau khi lấy nét, bạn có thể mài thêm kính để ghép vào cùng ống.</p></header>
-      <ol id="mk-progress" aria-label="Các công đoạn"><li>Mặt trước</li><li>Mặt sau</li><li>Lớp phủ</li><li>Lắp ống</li><li>Thành phẩm</li></ol>
+      <header class="maker-intro"><p class="maker-overline">XƯỞNG QUANG HỌC <span>/</span> BÀI THỰC HÀNH</p><h1 id="maker-title" tabindex="-1">Tự làm một ống kính</h1><p>Mài chiếc kính đầu tiên. Sau khi lấy nét, bạn có thể mài thêm kính để ghép vào cùng ống.</p></header>
+      <ol id="mk-progress" aria-label="Các công đoạn"><li><span>Mặt trước</span></li><li><span>Mặt sau</span></li><li><span>Lớp phủ</span></li><li><span>Lắp ống</span></li><li><span>Thành phẩm</span></li></ol>
       <div class="maker-bench">
-        <figure class="maker-figure"><div id="mk-art"></div><figcaption>Minh họa phóng đại, không theo tỷ lệ.</figcaption></figure>
+        <figure class="maker-figure"><div id="mk-art"></div><figcaption id="mk-caption">Minh họa phóng đại, không theo tỷ lệ.</figcaption></figure>
         <section class="maker-controls" aria-labelledby="mk-title">
           <p id="mk-station" class="maker-overline"></p>
           <h2 id="mk-title" tabindex="-1"></h2>
@@ -35,6 +35,7 @@
             <label><input type="radio" name="mk-coat" value="SiC">SiC · silic cacbua</label>
           </fieldset>
           <p id="mk-reading" role="status"></p><p id="mk-result" hidden></p>
+          <div id="mk-assembly" hidden><p>Cụm kính đã ghép (từ vật đến cảm biến)</p><ol id="mk-assembly-list"></ol></div>
           <section id="mk-compare" hidden aria-labelledby="mk-compare-title">
             <h3 id="mk-compare-title">Kính vừa thêm đã đổi ảnh thế nào?</h3>
             <p id="mk-finding"></p>
@@ -46,7 +47,8 @@
             <button type="button" id="mk-negative">+ Kính phân kỳ <small>Thử bù sắc sai</small></button>
             <button type="button" id="mk-positive">+ Kính hội tụ <small>Gom tia mạnh hơn</small></button>
           </fieldset>
-          <div class="mk-actions"><button type="button" class="lens-primary" id="mk-next">Chốt mặt trước</button><button type="button" id="mk-back" hidden>Quay lại</button><button type="button" id="mk-download" hidden>Tải bản vẽ (.json)</button><button type="button" id="mk-undo" hidden>Tháo kính cuối</button><button type="button" id="mk-restart" hidden>Làm ống mới</button></div>
+          <div class="mk-actions"><button type="button" class="lens-primary" id="mk-next">Chốt mặt trước</button><button type="button" id="mk-back" hidden>Quay lại</button><button type="button" id="mk-download" hidden>Tải bản vẽ (.json)</button></div>
+          <div class="mk-actions-danger" id="mk-danger-actions" hidden><button type="button" id="mk-undo" hidden>Tháo kính cuối</button><button type="button" id="mk-restart" hidden>Làm ống mới</button></div>
         </section>
       </div>
     </section>
@@ -58,12 +60,12 @@
       <label>Tên thiết kế<input type="text" id="project-name" maxlength="80" required></label>
       <div class="studio-file-tools"><button type="button" id="save" class="lens-primary">Lưu bản nháp</button><button type="button" id="export">Tải JSON</button><label class="file-button">Mở JSON<input type="file" id="import" accept=".json,application/json"></label></div>
       <div class="project-start"><label for="starter">Điểm xuất phát</label><select id="starter"><option value="blank">Phôi kính phẳng</option><option value="singlet">Thấu kính đơn</option><option value="doublet">Cặp tiêu sắc</option><option value="triplet">Cooke ba kính</option><option value="tessar">Tessar bốn kính</option><option value="gauss">Gauss kép</option><option value="canon">Canon phi cầu</option><option value="sigma">Sigma · đầu rộng</option></select><button type="button" id="new-design">Tạo bản mới</button></div>
-      <p id="project-status" class="studio-status" role="status"></p>
     </section>
     </details>
+    <p id="project-status" class="studio-status advanced-only" role="status"></p>
     <section id="ban-thiet-ke" class="studio-panel" data-room="design" aria-labelledby="measurement-title">
       <div class="lesson-board"><div>
-        <div class="plot-header"><h2 id="measurement-title">Đường đi của ánh sáng</h2><label>Góc nhìn <select id="view-field"><option value="0">0° · tâm</option><option value="6">6°</option><option value="12">12° · rìa</option></select></label></div>
+        <div class="plot-header"><h2 id="measurement-title" tabindex="-1">Đường đi của ánh sáng</h2><label>Góc nhìn <select id="view-field"><option value="0">0° · tâm</option><option value="6">6°</option><option value="12">12° · rìa</option></select></label></div>
         <svg id="section-view" viewBox="0 0 740 260" role="img" aria-label="Mặt cắt ống kính và đường truyền ba màu tới cảm biến"><defs><clipPath id="studio-clip"><rect x="16" y="18" width="708" height="209"/></clipPath></defs><g id="section-drawing" clip-path="url(#studio-clip)"></g><g id="section-labels"></g></svg>
         <p class="plot-key"><span class="lens-key red" title="Vạch C">Đỏ</span><span class="lens-key d" title="Vạch d">Vàng-lục</span><span class="lens-key blue" title="Vạch F">Lam</span><span class="lens-key sensor">Cảm biến</span></p>
       </div><div class="lesson-step">
@@ -72,7 +74,7 @@
         <button type="button" id="guide-action" class="lens-primary"></button><a id="guide-edit" class="lens-jump" href="#editor-title" hidden>Chỉnh thông số kính →</a>
       </div></div>
         <p id="optical-error" role="status" class="instrument-note"></p>
-      <details class="work-drawer"><summary>Số đo quang học và vết tia trên cảm biến</summary>
+      <details id="measurement-drawer" class="work-drawer"><summary>Số đo quang học và vết tia trên cảm biến</summary>
         <div class="goals"><label>Tiêu cự đích (mm)<input id="target-efl" type="number" min="0.01" step="any" required></label><label>Số khẩu đích<input id="target-fno" type="number" min="0.01" step="any" required></label></div>
         <div class="readings"><div><small>Tiêu cự đo được</small><strong id="efl">—</strong><span id="efl-delta"></span></div><div><small>Khẩu độ ở vô cực</small><strong id="fno">—</strong><span id="fno-delta"></span></div></div>
         <div class="plot-header"><h3>Vết tia trên cảm biến</h3><button type="button" id="pin">Ghim đối chiếu</button></div>
@@ -82,7 +84,7 @@
         <div class="reference-info"><span id="reference-caption">Chưa ghim mốc.</span><button type="button" id="clear-reference" hidden>Bỏ ghim</button></div>
       </details>
       <details class="work-drawer"><summary>Tự chỉnh mặt kính, lá khẩu và cảm biến</summary>
-      <div class="studio-columns"><section aria-labelledby="editor-title"><div class="panel-title"><h2 id="editor-title">Các thấu kính</h2></div><p class="studio-note">Chọn một kính để chỉnh. Để trống bán kính nếu muốn giữ mặt phẳng.</p><div id="prescription-editor"></div></section>
+      <div class="studio-columns"><section aria-labelledby="editor-title"><div class="panel-title"><h2 id="editor-title" tabindex="-1">Các thấu kính</h2></div><p class="studio-note">Chọn một kính để chỉnh. Để trống bán kính nếu muốn giữ mặt phẳng.</p><div id="prescription-editor"></div></section>
       <section aria-labelledby="planes-title"><div class="panel-title"><h2 id="planes-title">Lá khẩu &amp; mặt ảnh</h2></div>
         <div class="control-pairs"><label>Khẩu sau kính số<input id="stop-after" type="number" min="0" step="1" required></label><label>Lệch khỏi mốc (mm)<input id="stop-offset" type="number" step="any" required></label><label>Bán kính lá khẩu (mm)<input id="stop-radius" type="number" min="0.001" step="any" required></label><label>Vị trí cảm biến (mm)<input id="sensor" type="number" step="any" required></label></div>
         <p class="studio-note">Mốc 0 là đỉnh mặt đầu, mốc khác là đỉnh mặt sau kính đã chọn. Cảm biến tính từ đỉnh mặt đầu.</p><button type="button" id="fit">Đặt cảm biến nét ở tâm</button>
@@ -93,7 +95,7 @@
       </details>
     </section>
     <section id="coating-studio" class="studio-panel" data-room="coating" aria-labelledby="coating-title">
-      <div class="panel-title"><h2 id="coating-title">Thử lớp phủ trên mặt kính</h2></div>
+      <div class="panel-title"><h2 id="coating-title" tabindex="-1">Thử lớp phủ trên mặt kính</h2></div>
       <p>Chọn một mặt kính rồi bấm <strong>Dùng mẫu</strong>. So đường phản xạ mới với mặt trần: đường càng thấp, ánh sáng dội lại càng ít ở bước sóng đó.</p>
       <div class="film-layout">
         <div class="film-recipe">
@@ -111,7 +113,7 @@
         </div>
         <div class="film-measure">
           <h3>Phổ phản xạ của một mặt</h3>
-          <div class="control-pairs"><label for="film-wave">Bước sóng đo <output id="film-wave-out" for="film-wave"></output><input type="range" id="film-wave" min="490" max="650" value="550" step="1"></label><label for="film-angle">Góc tới từ không khí <output id="film-angle-out" for="film-angle"></output><input type="range" id="film-angle" min="0" max="60" value="0" step="1"></label></div>
+          <div class="control-pairs"><div class="lens-range"><div class="lens-scale-head"><label for="film-wave">Bước sóng đo</label><output id="film-wave-out" for="film-wave" aria-live="off"></output></div><input type="range" id="film-wave" min="490" max="650" value="550" step="1"></div><div class="lens-range"><div class="lens-scale-head"><label for="film-angle">Góc tới từ không khí</label><output id="film-angle-out" for="film-angle" aria-live="off"></output></div><input type="range" id="film-angle" min="0" max="60" value="0" step="1"></div></div>
           <svg id="film-spectrum" viewBox="0 0 400 170" role="img" aria-labelledby="film-plot-title film-plot-desc"><title id="film-plot-title">Phản xạ theo bước sóng</title><desc id="film-plot-desc">Tỷ lệ công suất phản xạ của ánh sáng không phân cực, so với mặt trần cùng vật liệu. Trục ngang là nanomét, trục đứng là phần trăm.</desc><g id="film-curves"></g><path id="film-cursor" class="film-cursor"/></svg>
           <p class="film-legend"><span>Đang thiết kế</span><span>Mặt trần</span><span id="film-pin-key" hidden>Mốc ghim</span></p>
           <p id="film-readout" class="film-readout"></p><p id="film-polar" class="studio-note"></p>
@@ -127,7 +129,7 @@
       </details>
     </section>
     <section id="san-xuat" class="studio-panel factory" data-room="factory" aria-labelledby="factory-title">
-      <div class="panel-title"><h2 id="factory-title">Chế tạo một ống kính</h2></div>
+      <div class="panel-title"><h2 id="factory-title" tabindex="-1">Chế tạo một ống kính</h2></div>
       <p class="factory-intro">Bắt đầu ở trạm đang làm: đọc yêu cầu, ghi kết quả kiểm rồi chuyển trạm. Nếu chỉ muốn khám phá, chọn một trạm để xem trước.</p>
       <div class="factory-toolbar"><button type="button" id="factory-start" class="lens-primary">Lập phiếu từ thiết kế đang mở</button><button type="button" id="factory-demo">Thử mẫu cặp tiêu sắc có phủ</button><button type="button" id="factory-download">Tải phiếu (.txt)</button></div>
       <p id="factory-change" class="instrument-note" role="status"></p>
@@ -157,13 +159,13 @@
     </section>
     <section class="studio-panel" data-room="tolerance" aria-labelledby="sensitivity-title">
       <div id="quet-dung-sai">
-        <div class="panel-title"><h2 id="sensitivity-title">Nên kiểm kích thước nào trước?</h2></div>
+        <div class="panel-title"><h2 id="sensitivity-title" tabindex="-1">Nên kiểm kích thước nào trước?</h2></div>
         <p>Thử làm từng miếng kính dày hoặc mỏng hơn, rồi làm tương tự với từng khe khí. Xem thay đổi nào ảnh hưởng đến ảnh nhiều nhất.</p>
         <p class="studio-note"><span id="sensitivity-ticket"></span> · <a href="#san-xuat">Đổi hoặc tải phiếu</a></p>
         <div id="factory-other-ticket" hidden><p class="studio-note">Phiếu này không theo bản thiết kế hiện tại.</p><button type="button" id="factory-use-current">Lập phiếu từ bản đang mở</button></div>
-        <form id="sensitivity-form">
+        <form id="sensitivity-form" novalidate>
           <details class="scan-settings"><summary>Chỉnh mức sai lệch và đại lượng cần so</summary><div class="factory-toolbar">
-            <label>Lệch mỗi phía (µm)<input id="sensitivity-step" type="number" min="1" max="1000" step="any" value="50" required></label>
+            <label>Lệch mỗi phía (µm)<input id="sensitivity-step" type="number" min="1" max="1000" step="any" value="50" aria-describedby="sensitivity-status" required></label>
             <label>So sánh theo<select id="sensitivity-metric"><option value="rmsEdge">Độ nhòe ở rìa (RMS, µm)</option><option value="rmsCenter">Độ nhòe ở tâm (RMS, µm)</option><option value="efl">Tiêu cự (mm)</option></select></label>
           </div></details>
           <button type="submit" class="lens-primary">Thử sai lệch ±50 µm</button>
@@ -171,6 +173,7 @@
         <p id="sensitivity-status" class="studio-note" role="status"></p>
         <table id="sensitivity-table" class="data-table" hidden>
           <caption id="sensitivity-caption"></caption>
+          <colgroup><col class="sensitivity-col-dim"><col><col></colgroup>
           <thead><tr><th scope="col">Kích thước</th><th scope="col" id="sensitivity-minus"></th><th scope="col" id="sensitivity-plus"></th></tr></thead><tbody></tbody>
         </table>
         <details class="film-notes"><summary>Bảng này cho biết điều gì?</summary><p>Mỗi lần chỉ đổi một kích thước, không lấy nét lại. Bảng xếp theo mức thay đổi lớn hơn ở hai đầu thử, không phải trường hợp xấu nhất trong cả khoảng. Với độ nhòe, chỉ so khi cùng tập tia tới cảm biến. Bấm một giá trị để mở ca đó trên bàn thử; bản thiết kế không đổi.</p></details>

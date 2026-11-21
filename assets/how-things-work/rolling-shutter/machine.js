@@ -977,6 +977,7 @@ var createModel = (function createModel(data) {
   return { command, advance, snapshot, reset };
 });
 var mountRenderer = (function mountRenderer(root, data) {
+    const renderer = (function mountRenderer(root, data) {
   const svg = root.querySelector('[data-machine-id="rolling-shutter-svg"]');
   if (!svg) throw new Error('Cannot find the rolling shutter plate');
   const find = (key) => svg.querySelector(`[data-rs-mark="${key}"]`);
@@ -993,6 +994,13 @@ var mountRenderer = (function mountRenderer(root, data) {
   const chartBottom = rows.y + (rowCount - 1) * rows.step + rows.height;
   const xAt = (px) => image.x + px * image.width / frameWidthPx;
   const tAt = (ms) => timing.x + ms * timing.width / maxMs;
+  const sensorRows = Array.from(svg.querySelectorAll('[data-rs-anatomy-row]'), (node) => {
+    const track = node.querySelector('.rs-anatomy-track');
+    return { node, extent: node.querySelector('.rs-anatomy-extent'), x: Number(track.getAttribute('x')), scale: Number(track.getAttribute('width')) / frameWidthPx };
+  });
+  const opening = svg.querySelector('[data-rs-anatomy-open]');
+  const closed = svg.querySelector('[data-rs-anatomy-closed]');
+  const sensorClock = svg.querySelector('[data-rs-anatomy-clock]');
   const round = (n) => Number(n.toFixed(4));
   const rowNodes = Array.from({ length: rowCount }, (_, y) => {
     const group = svg.querySelector(`[data-rs-row="${y}"]`);
@@ -1036,15 +1044,25 @@ var mountRenderer = (function mountRenderer(root, data) {
       }
       attr(cursor, 'd', `M${round(tAt(frame.timeMs))} ${rows.y}V${chartBottom}`);
       text(clock, frame.clockLabel);
+      text(sensorClock, frame.clockLabel);
       text(moment, frame.momentLabel);
       text(velocity, frame.velocityLabel);
       text(readingNode, reading);
+      if (frame.openCount !== previousFrame?.openCount) text(opening, `Đang phơi: ${frame.openCount}`);
+      if (frame.closedCount !== previousFrame?.closedCount) text(closed, `Đã chốt: ${frame.closedCount}`);
       frame.rows.forEach((row, y) => {
         const prev = previousFrame?.rows[y];
         if (row === prev) return;
         const { group, coverage, window, progress, open, close, stops, cy } = rowNodes[y];
         const { startMs, endMs, elapsedMs, state, profile } = row;
         attr(group, 'data-rs-row-state', state);
+        const sensor = sensorRows[y];
+        if (sensor) {
+          const first = profile[0]?.x ?? 0;
+          attr(sensor.node, 'data-state', state);
+          attr(sensor.extent, 'x', round(sensor.x + first * sensor.scale));
+          attr(sensor.extent, 'width', profile.length ? round((profile.at(-1).x - first) * sensor.scale) : 0);
+        }
         const xStart = round(tAt(startMs)), xEnd = round(tAt(endMs));
         if (!prev || prev.startMs !== startMs || prev.endMs !== endMs) {
           attr(window, 'd', `M${xStart} ${cy}H${xEnd}`);
@@ -1075,7 +1093,32 @@ var mountRenderer = (function mountRenderer(root, data) {
       for (const [node, value] of originalTexts) node.textContent = value;
     },
   };
-});
+})(root, data);
+    const dock = root.querySelector('[data-camera-transport]');
+    const transport = root.querySelector('[data-machine-console-panel] .htw-machine-controls');
+    const run = transport?.querySelector('[data-machine-run]');
+    if (!dock || !run) return renderer;
+    const scene = dock.closest('[data-machine-scene]');
+    const focusPlayback = () => {
+      if (root.getAttribute('data-mode') !== 'explore') return;
+      run.focus({ preventScroll: true });
+      dock.scrollIntoView({ block: 'center', behavior: 'instant' });
+    };
+    scene.addEventListener('focus', focusPlayback);
+    const home = transport.parentNode;
+    const next = transport.nextSibling;
+    dock.prepend(transport);
+    return {
+      render: renderer.render,
+      dispose() {
+        try { renderer.dispose(); }
+        finally {
+          scene.removeEventListener('focus', focusPlayback);
+          home.insertBefore(transport, next);
+        }
+      },
+    };
+  });
 runtime.boot({
   slug: "rolling-shutter",
   descriptor: {"title":"Vì sao cột thẳng có thể bị nghiêng trong ảnh?","controls":{"groups":[{"key":"capture","label":"Phơi sáng điện tử","controls":[{"key":"shutter","type":"segmented","label":"Kiểu màn trập","options":[{"value":"rolling","label":"Rolling · lệch hàng"},{"value":"global","label":"Global · đồng thời"}]},{"key":"velocity","type":"toggle3","label":"Vận tốc ngang","options":[{"value":-0.5,"label":"Trái · −0,5 px/ms"},{"value":0,"label":"Đứng yên · 0 px/ms"},{"value":0.5,"label":"Phải · +0,5 px/ms"}]}]}],"presets":[{"key":"rolling-right","label":"Rolling · sang phải"},{"key":"global-right","label":"Global · vẫn sang phải"},{"key":"rolling-left","label":"Rolling · đảo chiều"},{"key":"rolling-still","label":"Rolling · đứng yên"}],"challenges":[]}},

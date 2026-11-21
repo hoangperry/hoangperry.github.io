@@ -814,6 +814,12 @@ var createModel = (function createModel(data) {
     transfer: ['Đã chuyển', 'Xung TG đã chuyển gói electron sang FD; chưa lấy mẫu tín hiệu.'],
     signal: ['Mẫu tín hiệu', 'TG đã đóng; lấy mẫu tín hiệu và trừ khỏi mẫu reset.'],
   };
+  const darkStages = {
+    ...stages,
+    exposure: ['Đang phơi', 'TG đóng: PPD không thu electron, chưa có điện tích quang ở FD.'],
+    reset: ['Mẫu reset', 'Đã đặt lại FD và lấy mẫu reset; PPD trống.'],
+    transfer: ['Xung TG', 'TG mở nhưng không có electron để chuyển sang FD; chưa lấy mẫu tín hiệu.'],
+  };
   const reading = (key, label, text) => Object.freeze({ key, label, text });
   const volts = (n) => `${n.toFixed(3).replace('.', ',')} V`;
   const electrons = (n) => `${String(Math.round(n + 1e-8)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')} e⁻`;
@@ -857,7 +863,7 @@ var createModel = (function createModel(data) {
   function snapshot() {
     if (cached) return cached;
     const stage = stageAtTime();
-    const [stageLabel, stageStatus] = stages[stage];
+    const [stageLabel, stageStatus] = (controls.rate === 0 ? darkStages : stages)[stage];
     const { predictedElectrons, predictedDeltaV } = settings;
     const exposureElapsedMs = stage === 'ready' ? 0
       : stage === 'exposure' ? time / secondsPerExposureMs : controls.exposureMs;
@@ -957,6 +963,7 @@ var createModel = (function createModel(data) {
   return { command, advance, snapshot, reset };
 });
 var mountRenderer = (function mountRenderer(root, data) {
+    const renderer = (function mountRenderer(root, data) {
   const svg = root.querySelector('[data-machine-id="cmos-svg"]');
   if (!svg) throw new Error('Cannot find the CMOS pixel illustration');
   function part(selector) {
@@ -973,8 +980,18 @@ var mountRenderer = (function mountRenderer(root, data) {
   const signalMark = part('[data-cmos-signal-mark]');
   const ppdDots = svg.querySelectorAll('[data-cmos-packet="ppd"]');
   const fdDots = svg.querySelectorAll('[data-cmos-packet="fd"]');
+  const anatomyPpd = svg.querySelectorAll('[data-cmos-anatomy-packet="ppd"]');
+  const anatomyFd = svg.querySelectorAll('[data-cmos-anatomy-packet="fd"]');
+  const anatomyText = (key) => svg.querySelector(`[data-cmos-anatomy-text="${key}"]`);
+  const anatomyPpdLabel = anatomyText('ppd');
+  const anatomyFdLabel = anatomyText('fd');
+  const anatomyGate = anatomyText('gate');
+  const anatomyStage = anatomyText('stage');
+  const anatomyNote = anatomyText('note');
+  const anatomyRoute = svg.querySelector('[data-cmos-anatomy-route]');
+  const anatomyGlint = svg.querySelector('[data-cmos-anatomy-glint]');
   const mobile = root.querySelector('[data-camera-reading]');
-  const { resetV, fullWellElectrons } = data.parameters;
+  const { resetV, fullWellElectrons, secondsPerExposureMs, readoutBeatSeconds } = data.parameters;
   const attributes = new Map();
   const texts = new Map();
 
@@ -999,15 +1016,42 @@ var mountRenderer = (function mountRenderer(root, data) {
     for (let index = 0; index < dots.length; index++) attr(dots[index], 'display', index < count ? 'inline' : 'none');
   }
   const volts = (value) => `${value.toFixed(3).replace('.', ',')} V`;
+  const charge = (value) => `${value > 0 && value < 0.5 ? '<1' : String(Math.round(value)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')} e⁻`;
+
+  function paintAnatomy(pixel, stage, label, time, reducedMotion) {
+    if (!anatomyRoute) return;
+    const { ppdElectrons, fdElectrons, gateOpen, wellFull, exposureElapsedMs } = pixel;
+    const transferred = gateOpen && fdElectrons > 0;
+    packet(anatomyPpd, ppdElectrons);
+    packet(anatomyFd, fdElectrons);
+    attr(svg, 'data-cmos-gate-open', gateOpen);
+    attr(svg, 'data-cmos-anatomy-active', ppdElectrons > 0 ? 'ppd' : fdElectrons > 0 ? 'fd' : 'empty');
+    attr(anatomyRoute, 'display', transferred ? 'inline' : 'none');
+    text(anatomyPpdLabel, charge(ppdElectrons));
+    text(anatomyFdLabel, charge(fdElectrons));
+    text(anatomyGate, gateOpen ? 'Mở' : 'Đóng');
+    text(anatomyStage, label);
+    text(anatomyNote, transferred ? 'Vệt minh họa'
+      : gateOpen ? 'Không có e⁻' : wellFull ? 'PPD đã đầy'
+        : stage === 'ready' ? 'PPD → FD dưới TG' : 'Chấm gợi mật độ');
+    if (anatomyGlint) {
+      // This is the fraction of the existing display beat, not a transfer duration.
+      const progress = (time - exposureElapsedMs * secondsPerExposureMs - readoutBeatSeconds) / readoutBeatSeconds;
+      const sweep = transferred && !reducedMotion && progress > 1e-6 && progress < 1;
+      attr(anatomyGlint, 'display', sweep ? 'inline' : 'none');
+      if (sweep) attr(anatomyGlint, 'stroke-dashoffset', (0.22 - 1.22 * progress).toFixed(3));
+    }
+  }
 
   return {
-    render({ stage, stageLabel: label, pixel, cameraReading }, { focus = 'device' } = {}) {
+    render({ stage, stageLabel: label, pixel, time, cameraReading }, { focus = 'device', reducedMotion = false } = {}) {
       const { ppdElectrons, fdElectrons, fdV, predictedDeltaV, resetSampleV, signalSampleV, gateOpen, wellFull } = pixel;
       attr(svg, 'data-camera-stage', stage);
       attr(svg, 'data-cmos-focus', focus);
       attr(svg, 'data-cmos-transferring', gateOpen && fdElectrons > 0);
       packet(ppdDots, ppdElectrons);
       packet(fdDots, fdElectrons);
+      paintAnatomy(pixel, stage, label, time, reducedMotion);
       text(stageLabel, wellFull ? `${label} · đầy giếng` : label);
       text(gateLabel, gateOpen ? 'TG mở' : 'TG đóng');
       text(fdLabel, `FD ${volts(fdV)}`);
@@ -1028,7 +1072,32 @@ var mountRenderer = (function mountRenderer(root, data) {
       for (const [node, value] of texts) node.textContent = value;
     },
   };
-});
+})(root, data);
+    const dock = root.querySelector('[data-camera-transport]');
+    const transport = root.querySelector('[data-machine-console-panel] .htw-machine-controls');
+    const run = transport?.querySelector('[data-machine-run]');
+    if (!dock || !run) return renderer;
+    const scene = dock.closest('[data-machine-scene]');
+    const focusPlayback = () => {
+      if (root.getAttribute('data-mode') !== 'explore') return;
+      run.focus({ preventScroll: true });
+      dock.scrollIntoView({ block: 'center', behavior: 'instant' });
+    };
+    scene.addEventListener('focus', focusPlayback);
+    const home = transport.parentNode;
+    const next = transport.nextSibling;
+    dock.prepend(transport);
+    return {
+      render: renderer.render,
+      dispose() {
+        try { renderer.dispose(); }
+        finally {
+          scene.removeEventListener('focus', focusPlayback);
+          home.insertBefore(transport, next);
+        }
+      },
+    };
+  });
 runtime.boot({
   slug: "cmos-pixel",
   descriptor: {"title":"Một pixel CMOS biến ánh sáng thành điện áp thế nào?","controls":{"groups":[{"key":"exposure","label":"Lượt phơi","controls":[{"type":"range","key":"rate","label":"Tốc độ thu electron","min":0,"max":4000,"step":500,"unit":"e⁻/ms"},{"type":"range","key":"exposureMs","label":"Thời gian phơi","min":1,"max":10,"step":1,"unit":"ms"}]}],"presets":[{"key":"dark","label":"Tối"},{"key":"bright","label":"Đủ sáng"},{"key":"full-well","label":"Đầy giếng"}],"challenges":[]}},

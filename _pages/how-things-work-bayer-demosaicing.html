@@ -8,14 +8,15 @@ excerpt: "Một ô cảm biến dưới lưới Bayer chỉ cho một số. Hai 
 style-includes:
   - /css/how-things-work.css
   - /css/photography-machines.css
-  - /assets/how-things-work/bayer-demosaicing/machine.css?v=386c3c04c6e6969f
+  - /assets/how-things-work/bayer-demosaicing/machine.css?v=655e23f6e734e168
 script-includes:
-  - /assets/how-things-work/bayer-demosaicing/machine.js?v=386c3c04c6e6969f
+  - /assets/how-things-work/bayer-demosaicing/machine.js?v=655e23f6e734e168
 ---
 
 <div class="htw-machine" data-htw-figure="bayer-demosaicing" data-theme="dark" data-mode="reader">
   <div class="htw-reading">
     <div class="htw-reader-slot" data-machine-reader-slot>
+      <button type="button" class="button special htw-mode-button camera-open-motion" data-machine-mode="explore" aria-controls="bayer-demosaicing-scene bayer-demosaicing-console" disabled>Xem cách một ô nhận màu</button>
       {% include how-things-work/bayer-demosaicing-scene.html %}
       <div class="htw-reader-bar">
         <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh vẫn cho xem phép tính ở ô B (3, 3); xem thêm <a href="#bayer-ket-qua">bảng đối chiếu</a> để đọc các vị trí khác.</p></noscript>
@@ -42,7 +43,7 @@ script-includes:
         <h2 id="bayer-canh-h" tabindex="-1">Cạnh đen–trắng, nhưng xuất hiện màu</h2>
         <p>Trong ví dụ mặc định, ô B (3, 3) nằm ngay bên trắng của cạnh. Cảnh gốc đặt cả ba kênh của ô này bằng 1. Ở ảnh tái tạo, B vẫn bằng 1 nhưng R chỉ còn 0,50 và G còn 0,75. Không có màu nào ở cảnh gốc để máy ảnh “nhặt” vào ô này. Màu xuất hiện vì hai kênh còn lại mượn số từ những ô ở hai bên cạnh. Nếu bạn đã đổi cấu hình, hình vẫn giữ lựa chọn của bạn. Bấm <strong>Đặt lại</strong> trong chế độ tự thử để khôi phục hình mặc định, hoặc xem <a href="#bayer-ket-qua">bảng đối chiếu</a>.</p>
         <p>Ta có sẵn cảnh gốc vì chính mô hình dựng nó: một lưới 8 × 8, gốc (0, 0) ở trên trái; <em>x</em> là cột tăng sang phải, <em>y</em> là hàng tăng xuống dưới. Trong cảnh đen–trắng, cột 0–2 là (0; 0; 0), cột 3–7 là (1; 1; 1). Bộ ba luôn viết theo thứ tự R, G, B và dùng giá trị tuyến tính chuẩn hóa từ 0 đến 1. Máy ảnh thật không có bản RGB gốc để nhìn trước như ta.</p>
-        <p>Trên đế cảm biến ở đầu hình là dãy lọc RGGB. Các ô ở đó biểu diễn <em>loại bộ lọc</em>, không phải màu thật của cảnh. Ba lưới bên dưới mới so giá trị gốc, số đo và màu tái tạo.</p>
+        <p>Mở <strong>Xem cách một ô nhận màu</strong> và bấm <strong>Từng bước</strong>. Chip RGGB chỉ cho một số đo ở ô được chọn; hai giá trị còn lại lấy từ các ô sáng lên cạnh nó. Các đường nối biểu diễn phép nội suy sau khi đã đọc cảm biến, không phải ánh sáng hay điện tích chạy giữa các ô.</p>
       </section>
 
       <section id="bayer-mau" class="htw-step" data-machine-focus="sampled" aria-labelledby="bayer-mau-h">

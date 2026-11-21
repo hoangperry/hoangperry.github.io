@@ -8,14 +8,15 @@ excerpt: "Cùng 5.000 electron, mạch đọc có thể cho mã RAW 1024, 2048 h
 style-includes:
   - /css/how-things-work.css
   - /css/photography-machines.css
-  - /assets/how-things-work/iso-raw/machine.css?v=81ff73afc72a2884
+  - /assets/how-things-work/iso-raw/machine.css?v=73948ef6af9cca01
 script-includes:
-  - /assets/how-things-work/iso-raw/machine.js?v=81ff73afc72a2884
+  - /assets/how-things-work/iso-raw/machine.js?v=73948ef6af9cca01
 ---
 
 <div class="htw-machine" data-htw-figure="iso-raw" data-theme="dark" data-mode="reader">
   <div class="htw-reading">
     <div class="htw-reader-slot" data-machine-reader-slot>
+      <button type="button" class="button special htw-mode-button camera-open-motion" data-machine-mode="explore" aria-controls="iso-raw-scene iso-raw-console" disabled>Lần theo tín hiệu đến mã RAW</button>
       {% include how-things-work/iso-raw-scene.html %}
       <div class="htw-reader-bar">
         <noscript><p class="htw-noscript">JavaScript đang tắt. Hình tĩnh cho thấy 5.000 e⁻ ở gain 1×; <a href="#iso-raw-doi-chieu">bảng đối chiếu</a> có cả các cấu hình còn lại.</p></noscript>
@@ -42,7 +43,7 @@ script-includes:
         <p class="htw-step-label">01 · Thu điện tích</p>
         <h2 id="iso-raw-gieng-h" tabindex="-1">Tăng ISO không tự đưa thêm ánh sáng vào máy</h2>
         <p>Đặt máy trên chân, chụp cùng một cảnh, giữ nguyên khẩu độ và tốc độ chụp. Nếu ảnh trông sáng hơn khi tăng ISO, có phải cảm biến vừa nhận thêm ánh sáng? <strong>Không.</strong> Với cùng mức phơi, việc đổi cách đọc tín hiệu không đưa thêm photon tới cảm biến. Trong hình, giếng giữ 5.000 electron. Ta có thể đổi mã đầu ra mà không đổi con số 5.000 ấy.</p>
-        <p>Bo mạch cắt mở ở đầu hình cho thấy đường tín hiệu từ cảm biến qua khâu khuếch đại đến bộ số hóa. Hình tách các khâu để dễ lần theo; trong máy thật, mạch đọc và ADC có thể nằm ngay trên cảm biến, không nhất thiết là các chip rời như ở đây.</p>
+        <p>Bấm <strong>Lần theo tín hiệu đến mã RAW</strong> rồi <strong>Chạy</strong> để xem mẫu đi từ cảm biến qua gain đến ADC. Chuyển động chỉ cho thấy thứ tự đọc: tăng gain làm tín hiệu sau gain lớn hơn, không tăng số electron trong giếng. Mạch đọc và ADC ở máy thật có thể nằm ngay trên cảm biến.</p>
         <p>Ở mỗi điểm ảnh, photodiode biến một phần photon tới thành electron và tích chúng trong lúc phơi. Giếng điện tích của mô hình giữ tối đa <strong>20.000 e⁻</strong>. Nếu mức phơi sinh 25.000 e⁻, giếng vẫn chỉ giữ 20.000 e⁻. Con số “sinh ra” có thể tăng tiếp, nhưng con số “giữ trong giếng” thì không. Đây là giới hạn ở cảm biến, trước khi khuếch đại hay số hóa.</p>
       </section>
 

@@ -2,7 +2,7 @@ How Things Work playground: Bộ lọc Bayer thiếu hai màu ở mỗi điểm,
 Topic: bayer-demosaicing
 Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 386c3c04c6e6969fe06b17036d83b29a4a94c0d67f53c5e42926d65dd264f75c
+Source digest: 655e23f6e734e1683b4388248b8459fad28f301c29398121b1323625d8212d91
 Checks recorded in the build receipt:
 - bayer-demosaicing/model.test.mjs: 10/10 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/bayer-demosaicing/tests/model.test.mjs)
 - Mode invariance: passed, 3 scripts
@@ -11,6 +11,6 @@ Limitations:
 - Cảnh RGB tuyến tính tổng hợp 8 × 8, giá trị từ 0 đến 1. CFA RGGB lý tưởng giữ đúng một kênh mỗi ô; đáp ứng phổ của bộ lọc thật chồng lấn.
 - Nội suy bilinear theo từng kênh, chỉ tính vùng 6 × 6 có đủ láng giềng. Không điền biên, không áp dụng hiệu chỉnh Malvar–He–Cutler.
 - Không mô phỏng cân bằng trắng, ma trận màu, gamma máy ảnh, dữ liệu RAW thật hay thuật toán ISP thương mại. Ô màu chỉ để đối chiếu; dùng số để đọc kết quả.
-- Ba pha cách nhau một giây trình diễn. Thời gian này không phản ánh tốc độ đọc hay xử lý của cảm biến.
+- Các đường nối trên hình cảm biến chỉ minh họa dữ liệu láng giềng dùng để tính RGB sau khi đọc, không phải ánh sáng di chuyển giữa các ô. Nhịp trình diễn không phản ánh tốc độ đọc hay xử lý của cảm biến.
 
 Geometry generated with the repository-pinned Anatomy kit (MIT).

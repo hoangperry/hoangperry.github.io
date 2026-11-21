@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "topic": "iso-raw",
   "kind": "playground",
-  "sourceDigest": "81ff73afc72a288472e0e29ae915f20151d4fb817f4545587fb123d6c36a559e",
+  "sourceDigest": "73948ef6af9cca017717cd642d40733697b9687e3478a8a2b2fb398bd4644168",
   "files": {
-    "_includes/how-things-work/iso-raw-scene.html": "9fdc54e02edd2564fdb6d5ee430da9318721c4721c9c6a202ebf8086361cf576",
+    "_includes/how-things-work/iso-raw-scene.html": "e03a352331e908212bc02d075e1a6ccda41b13818833c0ff51dcfc1d9da0ed9f",
     "_includes/how-things-work/iso-raw-console.html": "202a55c58bae85722f5c246d6286af31a1ed586ef3214f27d9867849b2387393",
-    "assets/how-things-work/iso-raw/machine.js": "f571e8dd09da13764ab9be7039ea5de8d26aa016bc3790654c1f769255b2fc33",
-    "assets/how-things-work/iso-raw/machine.css": "c6ed05dbd12530509b3a7b0611d41baaa31a05f0cec6bf78c25a8e7075b73e63",
+    "assets/how-things-work/iso-raw/machine.js": "d82fc98a21b4174e18a534b9ea8976a67e3035fdfa76af8e467203f57a6663b4",
+    "assets/how-things-work/iso-raw/machine.css": "8f41e893ced79167039d53d01d2f303a8f24a9b759ad01324fcc350345d84269",
     "assets/how-things-work/iso-raw/thumbnail.webp": "4754eb69bb2d5686a0f5628848ed62540acea37ed295f6de9ba6ef28958a533c",
-    "assets/how-things-work/iso-raw/NOTICE.txt": "2cc830f9cef74ad3ee7ed188222cfc7b04af3c6033a3793d50fdb22dfb65fcfe"
+    "assets/how-things-work/iso-raw/NOTICE.txt": "0f494104e8545b19f222394b42ad81650e07542230133cf38ebe8c3f500ecc7d"
   }
 }

@@ -522,6 +522,14 @@
 .htw-machine[data-htw-figure="cmos-pixel"] .camera-anatomy .iso-face-text { fill: var(--anatomy-hi); font-family: var(--anatomy-mono); }
 .htw-machine[data-htw-figure="cmos-pixel"] .camera-anatomy-ground { fill: var(--anatomy-paper); }
 .htw-machine[data-htw-figure="cmos-pixel"] .camera-anatomy-divider { fill: none; stroke: var(--htw-machine-line); }
+.htw-machine[data-htw-figure="cmos-pixel"] .camera-cover-view .camera-motion { display: none; }
+.htw-machine[data-htw-figure="cmos-pixel"] .camera-open-motion { align-self: start; margin-bottom: var(--space-xs); }
+.htw-machine[data-htw-figure="cmos-pixel"] .camera-open-motion[disabled],
+.htw-machine[data-htw-figure="cmos-pixel"][data-mode="reader"] .camera-transport { display: none; }
+.htw-machine[data-htw-figure="cmos-pixel"] .camera-transport { margin: .35rem 0 .55rem; }
+.htw-machine[data-htw-figure="cmos-pixel"] .camera-transport .htw-machine-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr)); gap: .45rem; margin: 0; }
+.htw-machine[data-htw-figure="cmos-pixel"] .camera-transport .htw-machine-button { min-height: 44px; padding-inline: .45rem; white-space: normal; }
+.htw-machine[data-htw-figure="cmos-pixel"] .camera-settings-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; }
 
 /* A short or narrow viewport cannot fit both the bench and a legible plot in the sticky reader. */
 @media (max-width: 980px), (max-height: 899px) {
@@ -614,6 +622,25 @@
 .htw-machine[data-htw-figure="cmos-pixel"] [data-camera-stage="transfer"] .cmos-anatomy-gate > .iso-edge,
 .htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-focus="readout"] .cmos-anatomy-fd > .iso-edge,
 .htw-machine[data-htw-figure="cmos-pixel"] [data-camera-stage="signal"] .cmos-anatomy-fd > .iso-edge { stroke: var(--htw-machine-accent); stroke-width: 1.6; }
+
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-plate { fill: var(--cmos-page); stroke: var(--cmos-rule); }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-svg .cmos-anatomy-heading { font-size: 18px; font-weight: 740; }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-svg .cmos-anatomy-value { fill: var(--cmos-muted); font-variant-numeric: tabular-nums; }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-motion { pointer-events: none; }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-leader,
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-barrier,
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-route path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-leader { stroke: var(--cmos-muted); stroke-width: 1.4; }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-barrier { stroke: #ffe0a4; stroke-width: 2.2; stroke-dasharray: 1.6 2.4; }
+.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-gate-open="true"] .cmos-anatomy-barrier { display: none; }
+.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-anatomy-active="ppd"] .cmos-cut-ppd,
+.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-anatomy-active="fd"] .cmos-cut-fd {
+  fill: color-mix(in oklab, var(--camera-accent) 52%, #142d35); stroke: #acffeb; stroke-width: .85;
+}
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-packets { fill: #acffeb; stroke: #152c32; stroke-width: 1; }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-trail { stroke: #ddfff3; stroke-width: 1.7; stroke-dasharray: 2 3; }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-arrow { stroke: #ddfff3; stroke-width: 1.7; }
+.htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-glint { stroke: #acffeb; stroke-width: 3.4; }
 .htw-machine[data-htw-figure="cmos-pixel"] .htw-playground-presets .htw-machine-chip { white-space: normal; min-height: 44px; }
 .htw-machine[data-htw-figure="cmos-pixel"] .cmos-mobile-reading { display: none; }
 @media (max-width: 1099px) {

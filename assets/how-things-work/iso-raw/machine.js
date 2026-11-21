@@ -959,22 +959,43 @@ var createModel = (function createModel(data) {
   project();
   return { command, advance, snapshot, reset };
 });
-var mountRenderer = (function mountRenderer(root) {
+var mountRenderer = (function mountRenderer(root, data) {
+    const renderer = (function mountRenderer(root) {
   const svg = root.querySelector('[data-machine-id="iso-raw-svg"]');
   if (!svg) throw new Error('Cannot find the ISO signal plate');
   const mirror = root.querySelector('[data-camera-reading]');
   const values = new Map(Array.from(svg.querySelectorAll('[data-iso-value]'), (node) => [node.getAttribute('data-iso-value'), node]));
   const marks = new Map(Array.from(svg.querySelectorAll('[data-iso-mark]'), (node) => [node.getAttribute('data-iso-mark'), node]));
   const bits = Array.from(svg.querySelectorAll('[data-iso-bit]'));
+  const board = svg.querySelector('.iso-board-motion');
+  const boardBits = board?.querySelectorAll('[data-iso-board-bit]');
+  const boardSample = marks.get('board-sample');
+  const boardChargeWidth = Number(marks.get('board-charge-fill')?.getAttribute('data-iso-full-width'));
+  const boardAdcWidth = Number(marks.get('board-gain-fill')?.getAttribute('data-iso-full-width'));
+  const routeData = boardSample?.getAttribute('data-iso-journey');
+  const journey = routeData && JSON.parse(routeData).map((points) => {
+    let length = 0;
+    const segments = points.slice(1).map(([x, y], i) => {
+      const [x0, y0] = points[i];
+      const dx = x - x0, dy = y - y0;
+      const start = length;
+      const span = Math.hypot(dx, dy);
+      length += span;
+      return { x0, y0, dx, dy, start, span, end: length };
+    });
+    return { points, segments, length };
+  });
+  const stageTime = { charge: 0, analog: 1, adc: 2 };
   const wellTrack = marks.get('well-track');
   const wellHeight = Number(wellTrack.getAttribute('height'));
   const wellBase = Number(wellTrack.getAttribute('y')) + wellHeight;
   const inRangeWidth = Number(marks.get('adc-track').getAttribute('width'));
   const attrs = new Map();
   const texts = new Map();
-  let drawnSample;
+  let drawnSample, drawnTime;
 
   function setAttr(node, key, value) {
+    if (!node) return;
     const next = String(value);
     const prior = node.getAttribute(key);
     if (prior === next) return;
@@ -985,15 +1006,34 @@ var mountRenderer = (function mountRenderer(root) {
   }
 
   function setText(node, value) {
-    if (node.textContent === value) return;
+    if (!node || node.textContent === value) return;
     if (!texts.has(node)) texts.set(node, node.textContent);
     node.textContent = value;
   }
 
+  function moveSample(time) {
+    if (!journey || time === drawnTime) return;
+    drawnTime = time;
+    // Each second is a teaching beat between package stops, not an electrical delay.
+    const leg = time < 1 ? 0 : 1;
+    const { points, segments, length } = journey[leg];
+    const progress = time - leg;
+    let [x, y] = progress >= 1 ? points.at(-1) : points[0];
+    if (progress > 0 && progress < 1) {
+      const distance = progress * length;
+      const segment = segments.find(({ end }) => end >= distance);
+      const fraction = (distance - segment.start) / segment.span;
+      x = segment.x0 + segment.dx * fraction;
+      y = segment.y0 + segment.dy * fraction;
+    }
+    setAttr(boardSample, 'transform', `translate(${Math.round(x * 10) / 10} ${Math.round(y * 10) / 10})`);
+  }
+
   return {
-    render({ stage, sample, labels }, { focus = 'all' } = {}) {
+    render({ stage, time, sample, labels }, { focus = 'all', reducedMotion = false } = {}) {
       setAttr(svg, 'data-camera-stage', stage);
       setAttr(svg, 'data-iso-highlight', root.getAttribute('data-mode') === 'reader' && focus !== 'all' ? focus : stage);
+      moveSample(reducedMotion ? stageTime[stage] : time);
       if (sample === drawnSample) return;
       drawnSample = sample;
       setAttr(svg, 'data-iso-well-full', sample.wellFull);
@@ -1011,6 +1051,18 @@ var mountRenderer = (function mountRenderer(root) {
         setText(node, sample.bits[index]);
         setAttr(node, 'data-iso-bit-value', sample.bits[index]);
       });
+      if (board) {
+        const adcState = sample.adcOverrange ? 'overrange' : sample.atFullScale ? 'full-scale' : 'in-range';
+        setAttr(board, 'data-iso-board-adc', adcState);
+        setAttr(marks.get('board-charge-fill'), 'width', sample.sensorSignal * boardChargeWidth);
+        setAttr(marks.get('board-gain-fill'), 'width', Math.min(1, sample.adcInput) * boardAdcWidth);
+        setAttr(marks.get('board-gain-over'), 'width', Math.max(0, sample.adcInput - 1) * boardAdcWidth);
+        setText(values.get('board-charge'), labels.charge);
+        setText(values.get('board-gain'), `${labels.gain} · ${labels.analog}`);
+        setText(values.get('board-raw'), labels.raw);
+        setText(values.get('board-adc-state'), labels.adcState);
+        boardBits.forEach((node, index) => setAttr(node, 'data-iso-bit-value', sample.bits[index]));
+      }
       if (mirror) setText(mirror, labels.summary);
     },
     dispose() {
@@ -1021,7 +1073,32 @@ var mountRenderer = (function mountRenderer(root) {
       for (const [node, prior] of texts) node.textContent = prior;
     },
   };
-});
+})(root, data);
+    const dock = root.querySelector('[data-camera-transport]');
+    const transport = root.querySelector('[data-machine-console-panel] .htw-machine-controls');
+    const run = transport?.querySelector('[data-machine-run]');
+    if (!dock || !run) return renderer;
+    const scene = dock.closest('[data-machine-scene]');
+    const focusPlayback = () => {
+      if (root.getAttribute('data-mode') !== 'explore') return;
+      run.focus({ preventScroll: true });
+      dock.scrollIntoView({ block: 'center', behavior: 'instant' });
+    };
+    scene.addEventListener('focus', focusPlayback);
+    const home = transport.parentNode;
+    const next = transport.nextSibling;
+    dock.prepend(transport);
+    return {
+      render: renderer.render,
+      dispose() {
+        try { renderer.dispose(); }
+        finally {
+          scene.removeEventListener('focus', focusPlayback);
+          home.insertBefore(transport, next);
+        }
+      },
+    };
+  });
 runtime.boot({
   slug: "iso-raw",
   descriptor: {"title":"Tăng ISO có làm cảm biến thu thêm ánh sáng không?","controls":{"groups":[{"key":"signal","label":"Phơi sáng và khuếch đại","controls":[{"type":"range","key":"exposure","label":"Mức phơi · Electron sinh ra","min":0,"max":25000,"step":500,"unit":"e⁻"},{"type":"toggle3","key":"gain","label":"Gain analog","options":[{"value":1,"label":"1×"},{"value":2,"label":"2×"},{"value":4,"label":"4×"}]}]}],"presets":[{"key":"same-charge","label":"5.000 e⁻ · Gain 1×"},{"key":"exact-full-scale","label":"Đúng biên ADC · Giếng chưa đầy"},{"key":"clipped-not-full","label":"Quá dải ADC · Giếng chưa đầy"},{"key":"full-well","label":"Giếng đầy · ADC đúng biên"}],"challenges":[]}},

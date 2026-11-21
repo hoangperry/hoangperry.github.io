@@ -522,6 +522,14 @@
 .htw-machine[data-htw-figure="bayer-demosaicing"] .camera-anatomy .iso-face-text { fill: var(--anatomy-hi); font-family: var(--anatomy-mono); }
 .htw-machine[data-htw-figure="bayer-demosaicing"] .camera-anatomy-ground { fill: var(--anatomy-paper); }
 .htw-machine[data-htw-figure="bayer-demosaicing"] .camera-anatomy-divider { fill: none; stroke: var(--htw-machine-line); }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .camera-cover-view .camera-motion { display: none; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .camera-open-motion { align-self: start; margin-bottom: var(--space-xs); }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .camera-open-motion[disabled],
+.htw-machine[data-htw-figure="bayer-demosaicing"][data-mode="reader"] .camera-transport { display: none; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .camera-transport { margin: .35rem 0 .55rem; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .camera-transport .htw-machine-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr)); gap: .45rem; margin: 0; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .camera-transport .htw-machine-button { min-height: 44px; padding-inline: .45rem; white-space: normal; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .camera-settings-link { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; }
 
 /* A short or narrow viewport cannot fit both the bench and a legible plot in the sticky reader. */
 @media (max-width: 980px), (max-height: 899px) {
@@ -626,6 +634,29 @@
 .htw-machine[data-htw-figure="bayer-demosaicing"] [data-camera-stage="reconstructed"] .bayer-anatomy [data-bayer-anatomy-cursor],
 .htw-machine[data-htw-figure="bayer-demosaicing"][data-mode="reader"] [data-bayer-focus="reconstructed"] .bayer-anatomy [data-bayer-anatomy-cursor] { opacity: .8; }
 .htw-machine[data-htw-figure="bayer-demosaicing"][data-mode="reader"] [data-bayer-focus="scene"] .bayer-anatomy [data-bayer-anatomy-cursor] { opacity: .36; }
+
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-motion { pointer-events: none; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-plate { fill: var(--bayer-page); stroke: var(--bayer-rule); }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-svg .bayer-anatomy-heading { font-size: 18px; font-weight: 740; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-svg .bayer-anatomy-note { fill: var(--bayer-muted); }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-input { stroke: #fff5dc; stroke-width: .11; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-sampled,
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-reconstruction,
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-reconstruction [data-bayer-neighbor="unused"],
+.htw-machine[data-htw-figure="bayer-demosaicing"] [data-camera-stage="sampled"] .bayer-anatomy-incident,
+.htw-machine[data-htw-figure="bayer-demosaicing"] [data-camera-stage="reconstructed"] .bayer-anatomy-incident { display: none; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] [data-camera-stage="sampled"] .bayer-anatomy-sampled,
+.htw-machine[data-htw-figure="bayer-demosaicing"] [data-camera-stage="reconstructed"] .bayer-anatomy-reconstruction { display: inline; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-motion [data-bayer-channel="R"] { --bayer-lens-ink: #ffc3b9; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-motion [data-bayer-channel="G"] { --bayer-lens-ink: #b1ffcc; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-motion [data-bayer-channel="B"] { --bayer-lens-ink: #c8deff; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-measured { stroke: var(--bayer-lens-ink); stroke-width: .12; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-source { fill: #132126; fill-opacity: .55; stroke: var(--bayer-lens-ink); stroke-width: .075; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-link-shadow,
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-link { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-link-shadow { stroke: #132126; stroke-width: .21; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-link { stroke: var(--bayer-lens-ink); stroke-width: .12; }
+.htw-machine[data-htw-figure="bayer-demosaicing"] .bayer-anatomy-reconstruction [data-bayer-neighbor="diagonal"] .bayer-anatomy-source { stroke-dasharray: .16 .10; }
 
 .htw-machine[data-htw-figure="bayer-demosaicing"] [data-bayer-channel="R"] { --bayer-tile: var(--bayer-red-tile); --bayer-sample-ink: var(--bayer-red); }
 .htw-machine[data-htw-figure="bayer-demosaicing"] [data-bayer-channel="G"] { --bayer-tile: var(--bayer-green-tile); --bayer-sample-ink: var(--bayer-green); }

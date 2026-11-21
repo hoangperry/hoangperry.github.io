@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "topic": "lens-design",
   "files": {
-    "_includes/how-things-work/lens-design-lab.html": "dbe789d101cba8bd19d26d8cd52e336e0cab3798fc3bdc196319631069f44003",
-    "assets/how-things-work/lens-design/lab.js": "add473270a6ba335c152531dc6e9db28963ea81372b01c644f2631bbc74bbf48",
-    "assets/how-things-work/lens-design/lab.css": "1fec82c9dacf40e6771b792829cf11a34562e4088acb45e59d1d8db43cade4ef",
+    "_includes/how-things-work/lens-design-lab.html": "18bbaae6fed1f6e53edd501c9a5e794314799e89089663ea734fe1594d767879",
+    "assets/how-things-work/lens-design/lab.js": "be826cc753d2c5c3bf85cd052fcb8262c8ed593d4d9f341bc03e50eb0232c079",
+    "assets/how-things-work/lens-design/lab.css": "4494aa702a69eba8ab41820ad37c4e800c09d73dd697f3abe82ed9235efea5f1",
     "assets/how-things-work/lens-design/thumbnail.webp": "f8e24d4797e99fa0047d98f8eeed4deac0d4fb5cfaa3a5aea19414c5ef0d6f64"
   }
 }

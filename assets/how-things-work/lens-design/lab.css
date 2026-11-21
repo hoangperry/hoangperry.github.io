@@ -84,6 +84,10 @@
 #lens-design-lab legend { padding: 0; margin-bottom: .4rem; color: var(--ink); font-size: .89rem; font-weight: 700; }
 #lens-design-lab label { display: block; min-width: 0; color: var(--muted); font-size: .85rem; line-height: 1.4; font-weight: 600; }
 #lens-design-lab label output { margin-inline-start: .28em; color: var(--ink); font: .78rem var(--mono); }
+#lens-design-lab .lens-range { display: block; min-width: 0; }
+#lens-design-lab .lens-scale-head { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
+#lens-design-lab .lens-scale-head output { color: var(--ink); font: .78rem var(--mono); font-variant-numeric: tabular-nums; }
+#lens-design-lab .lens-range input { display: block; width: 100%; }
 #lens-design-lab button, #lens-design-lab input[type='number'], #lens-design-lab select, #lens-design-lab summary {
   min-height: 44px; border: 1px solid var(--line); border-radius: 6px; padding: .45rem .65rem;
   background: var(--screen); color: var(--ink);
