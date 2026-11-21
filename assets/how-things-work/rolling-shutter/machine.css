@@ -583,7 +583,14 @@
   --rs-amber: #88511a;
   --rs-teal: #007060;
 }
-.htw-machine[data-htw-figure="rolling-shutter"] .rs-svg { max-width: 29rem; margin-inline: auto; }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 29rem;
+  margin-inline: auto;
+  background: var(--rs-page);
+}
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-svg text { fill: var(--rs-ink); font: 560 16px system-ui, sans-serif; }
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-svg .rs-heading { font-size: 18px; font-weight: 720; }
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-svg .rs-index { font-family: var(--htw-machine-mono); font-variant-numeric: tabular-nums; fill: var(--rs-muted); }
@@ -623,7 +630,7 @@
 }
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-rig { transform: translate(4px, 37px) scale(.71); }
 .htw-machine[data-htw-figure="rolling-shutter"] .camera-cover-view .rs-anatomy-rig { transform: none; }
-.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-sensor text { font-weight: 720; }
+.htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-sensor text { font-weight: 720; font-variant-numeric: tabular-nums; }
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-sensor .rs-anatomy-subtitle { fill: var(--rs-muted); font-weight: 560; }
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-casing { fill: var(--rs-page); stroke: var(--rs-rule); }
 .htw-machine[data-htw-figure="rolling-shutter"] .rs-anatomy-track { fill: var(--rs-field); stroke: var(--rs-rule); }

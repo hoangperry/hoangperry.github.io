@@ -97,6 +97,7 @@ var runtime = (function createPlaygroundRuntime() {
     if (!Object.isFrozen(snapshot)) fail('snapshot must be frozen');
     if (!(Number.isFinite(snapshot.time) && snapshot.time >= 0)) fail('time must be a finite number ≥ 0');
     if (typeof snapshot.running !== 'boolean') fail('running must be a boolean');
+    if (snapshot.stepUnavailableReason != null && typeof snapshot.stepUnavailableReason !== 'string') fail('stepUnavailableReason must be text');
     const controls = snapshot.controls;
     if (!controls || typeof controls !== 'object' || Array.isArray(controls) || !Object.isFrozen(controls)) fail('controls must be a frozen object');
     for (const key of index.valueKeys) {
@@ -219,6 +220,7 @@ var runtime = (function createPlaygroundRuntime() {
     let disposed = false;
     let pausedByHidden = false;
     let current = null;
+    let stepReason;
     // Announcements: one runtime event text (user action, mode, hidden tab) followed by the model's own texts.
     // snapshot.announcement is harvested only when it changes between reads, so idle re-reads never repeat it.
     let runtimeNote = null;
@@ -234,6 +236,7 @@ var runtime = (function createPlaygroundRuntime() {
       if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
+      stepReason = options.stepReasons ? (options.stepReasons[next.phase] ?? null) : next.stepUnavailableReason;
       return next;
     }
 
@@ -244,7 +247,7 @@ var runtime = (function createPlaygroundRuntime() {
       return parts.length ? parts.join(' ') : null;
     }
 
-    const view = () => ({ snapshot: current, mode, focus, theme, announcement: takeAnnouncement() });
+    const view = () => ({ snapshot: current, mode, focus, theme, stepReason, announcement: takeAnnouncement() });
     const canAdvance = () => !disposed && !failed && mode === 'explore' && !hidden && visible && Boolean(current && current.running);
 
     function fail(error) {
@@ -310,6 +313,10 @@ var runtime = (function createPlaygroundRuntime() {
         const before = current;
         if (key === 'run' || key === 'step') {
           if (before.running) return false;
+          if (key === 'step' && stepReason) {
+            runtimeNote = stepReason;
+            return false;
+          }
           const refused = model.command({ key }) === false;
           const after = read(refused);
           if (refused || (key === 'run' && !after.running)) return false;
@@ -575,7 +582,7 @@ var runtime = (function createPlaygroundRuntime() {
     }
 
     // The only DOM writer. Every control state is derived from the snapshot; nothing is kept in parallel.
-    function writeView({ snapshot, focus, theme, announcement }) {
+    function writeView({ snapshot, focus, theme, stepReason, announcement }) {
       const state = snapshot.running ? 'running' : snapshot.time > 0 ? 'paused' : 'ready';
       setAttr(root, 'data-machine-state', state);
       setAttr(root, 'data-theme', theme);
@@ -586,7 +593,8 @@ var runtime = (function createPlaygroundRuntime() {
       // During a session unavailable actions use aria-disabled, never `disabled`, so keyboard focus is not dropped.
       setAttr(ui.run, 'aria-disabled', String(snapshot.running));
       setAttr(ui.pause, 'aria-disabled', String(!snapshot.running));
-      setAttr(ui.step, 'aria-disabled', String(snapshot.running));
+      setAttr(ui.step, 'aria-disabled', String(snapshot.running || Boolean(stepReason)));
+      if (stepReason !== undefined) setAttr(ui.step, 'title', stepReason || '');
       for (const option of ui.options) setAttr(option.element, 'aria-pressed', String(sameValue(snapshot.controls[option.key], option.value)));
       for (const range of ui.ranges) {
         const value = snapshot.controls[range.key];
@@ -695,6 +703,7 @@ var runtime = (function createPlaygroundRuntime() {
       const still = win.matchMedia ? win.matchMedia('(prefers-reduced-motion: reduce)') : null;
       controller = createController({
         model, renderer, instanceId,
+        stepReasons: data.stepUnavailableByPhase,
         controls: spec.descriptor.controls,
         focusKeys: sections.map((section) => section.getAttribute('data-machine-focus')),
         theme: root.getAttribute('data-theme'),
@@ -1001,14 +1010,19 @@ var mountRenderer = (function mountRenderer(root, data) {
   const tAt = (ms) => timing.x + ms * timing.width / maxMs;
   const sensorRows = Array.from(svg.querySelectorAll('[data-rs-anatomy-row]'), (node) => {
     const track = node.querySelector('.rs-anatomy-track');
-    return { node, extent: node.querySelector('.rs-anatomy-extent'), x: Number(track.getAttribute('x')), scale: Number(track.getAttribute('width')) / frameWidthPx };
+    const extent = node.querySelector('.rs-anatomy-extent');
+    if (!track || !extent) return null;
+    return { node, extent, x: Number(track.getAttribute('x')), scale: Number(track.getAttribute('width')) / frameWidthPx };
   });
   const opening = svg.querySelector('[data-rs-anatomy-open]');
   const closed = svg.querySelector('[data-rs-anatomy-closed]');
   const sensorClock = svg.querySelector('[data-rs-anatomy-clock]');
+  const desc = svg.querySelector('[data-rs-desc]');
+  const legend = desc?.textContent;
   const round = (n) => Number(n.toFixed(4));
   const rowNodes = Array.from({ length: rowCount }, (_, y) => {
     const group = svg.querySelector(`[data-rs-row="${y}"]`);
+    if (!group) throw new Error(`Rolling shutter plate is missing [data-rs-row="${y}"]`);
     const part = (key) => group.querySelector(`[data-rs-part="${key}"]`);
     return {
       group, coverage: part('coverage'), window: part('window'), progress: part('progress'), open: part('open'), close: part('close'),
@@ -1019,8 +1033,10 @@ var mountRenderer = (function mountRenderer(root, data) {
   const originalAttrs = new Map();
   const originalTexts = new Map();
   let previousFrame;
+  let previousPhase;
 
   function attr(node, key, value) {
+    if (!node) return;
     const next = String(value), old = node.getAttribute(key);
     if (next === old) return;
     if (!originalAttrs.has(node)) originalAttrs.set(node, new Map());
@@ -1035,10 +1051,15 @@ var mountRenderer = (function mountRenderer(root, data) {
   }
 
   return {
-    render({ frame, phase, controls, reading }, { focus = 'all' } = {}) {
+    render({ frame, phase, controls, reading }, { focus = 'all', reducedMotion = false } = {}) {
       attr(svg, 'data-camera-stage', phase);
       attr(svg, 'data-rs-focus', focus);
+      attr(svg, 'data-rs-reduced-motion', reducedMotion);
       if (frame === previousFrame) return;
+      // Keep the textual model readings current even when motion is sampled only at row events.
+      text(readingNode, reading);
+      if (desc) text(desc, `${legend} ${reading}. ${frame.momentLabel}.`);
+      if (reducedMotion && phase === 'running' && previousPhase === 'running' && frame.moment === previousFrame.moment) return;
       attr(svg, 'data-camera-time-ms', frame.timeMs);
       attr(svg, 'data-camera-shutter', controls.shutter);
       attr(svg, 'data-camera-milestone', frame.moment.timeMs);
@@ -1052,7 +1073,6 @@ var mountRenderer = (function mountRenderer(root, data) {
       text(sensorClock, frame.clockLabel);
       text(moment, frame.momentLabel);
       text(velocity, frame.velocityLabel);
-      text(readingNode, reading);
       if (frame.openCount !== previousFrame?.openCount) text(opening, `Đang phơi: ${frame.openCount}`);
       if (frame.closedCount !== previousFrame?.closedCount) text(closed, `Đã chốt: ${frame.closedCount}`);
       frame.rows.forEach((row, y) => {
@@ -1089,6 +1109,7 @@ var mountRenderer = (function mountRenderer(root, data) {
         }
       });
       previousFrame = frame;
+      previousPhase = phase;
     },
     dispose() {
       for (const [node, attrs] of originalAttrs) for (const [key, value] of attrs) {
@@ -1122,8 +1143,8 @@ var mountRenderer = (function mountRenderer(root, data) {
   });
 runtime.boot({
   slug: "rolling-shutter",
-  descriptor: {"title":"Vì sao cột thẳng có thể bị nghiêng trong ảnh?","controls":{"groups":[{"key":"capture","label":"Phơi sáng điện tử","controls":[{"key":"shutter","type":"segmented","label":"Kiểu màn trập","options":[{"value":"rolling","label":"Rolling · lệch hàng"},{"value":"global","label":"Global · đồng thời"}]},{"key":"velocity","type":"toggle3","label":"Vận tốc ngang","options":[{"value":-0.5,"label":"Trái · −0,5 px/ms"},{"value":0,"label":"Đứng yên · 0 px/ms"},{"value":0.5,"label":"Phải · +0,5 px/ms"}]}]}],"presets":[{"key":"rolling-right","label":"Rolling · sang phải"},{"key":"global-right","label":"Global · vẫn sang phải"},{"key":"rolling-left","label":"Rolling · đảo chiều"},{"key":"rolling-still","label":"Rolling · đứng yên"}],"challenges":[]}},
-  data: {"parameters":{"rowCount":9,"frameWidthPx":28,"initialCenterPx":14,"barWidthPx":4,"exposureMs":4,"rowDelayMs":2,"msPerPlaybackSecond":5},"plate":{"scene":{"x":32,"y":54,"width":384,"height":55},"image":{"x":42,"width":182},"timing":{"x":247,"width":179},"rows":{"y":193,"step":24,"height":20}},"defaultPreset":"rolling-right","presets":{"rolling-right":{"shutter":"rolling","velocity":0.5},"global-right":{"shutter":"global","velocity":0.5},"rolling-left":{"shutter":"rolling","velocity":-0.5},"rolling-still":{"shutter":"rolling","velocity":0}},"controls":{"groups":[{"key":"capture","label":"Phơi sáng điện tử","controls":[{"key":"shutter","type":"segmented","label":"Kiểu màn trập","options":[{"value":"rolling","label":"Rolling · lệch hàng"},{"value":"global","label":"Global · đồng thời"}]},{"key":"velocity","type":"toggle3","label":"Vận tốc ngang","options":[{"value":-0.5,"label":"Trái · −0,5 px/ms"},{"value":0,"label":"Đứng yên · 0 px/ms"},{"value":0.5,"label":"Phải · +0,5 px/ms"}]}]}],"presets":[{"key":"rolling-right","label":"Rolling · sang phải"},{"key":"global-right","label":"Global · vẫn sang phải"},{"key":"rolling-left","label":"Rolling · đảo chiều"},{"key":"rolling-still","label":"Rolling · đứng yên"}],"challenges":[]}},
+  descriptor: {"title":"Vì sao cột thẳng có thể bị nghiêng trong ảnh?","controls":{"groups":[{"key":"capture","label":"Phơi sáng điện tử","controls":[{"key":"shutter","type":"segmented","label":"Kiểu màn trập","options":[{"value":"rolling","label":"Rolling · lệch hàng"},{"value":"global","label":"Global · đồng thời"}]},{"key":"velocity","type":"segmented","label":"Vận tốc ngang","options":[{"value":-0.5,"label":"Trái · −0,5 px/ms"},{"value":0,"label":"Đứng yên · 0 px/ms"},{"value":0.5,"label":"Phải · +0,5 px/ms"}]}]}],"presets":[{"key":"rolling-right","label":"Rolling · sang phải"},{"key":"global-right","label":"Global · vẫn sang phải"},{"key":"rolling-left","label":"Rolling · đảo chiều"},{"key":"rolling-still","label":"Rolling · đứng yên"}],"challenges":[]}},
+  data: {"parameters":{"rowCount":9,"frameWidthPx":28,"initialCenterPx":14,"barWidthPx":4,"exposureMs":4,"rowDelayMs":2,"msPerPlaybackSecond":5},"plate":{"scene":{"x":32,"y":54,"width":384,"height":55},"image":{"x":42,"width":182},"timing":{"x":247,"width":179},"rows":{"y":193,"step":24,"height":20}},"defaultPreset":"rolling-right","presets":{"rolling-right":{"shutter":"rolling","velocity":0.5},"global-right":{"shutter":"global","velocity":0.5},"rolling-left":{"shutter":"rolling","velocity":-0.5},"rolling-still":{"shutter":"rolling","velocity":0}},"controls":{"groups":[{"key":"capture","label":"Phơi sáng điện tử","controls":[{"key":"shutter","type":"segmented","label":"Kiểu màn trập","options":[{"value":"rolling","label":"Rolling · lệch hàng"},{"value":"global","label":"Global · đồng thời"}]},{"key":"velocity","type":"segmented","label":"Vận tốc ngang","options":[{"value":-0.5,"label":"Trái · −0,5 px/ms"},{"value":0,"label":"Đứng yên · 0 px/ms"},{"value":0.5,"label":"Phải · +0,5 px/ms"}]}]}],"presets":[{"key":"rolling-right","label":"Rolling · sang phải"},{"key":"global-right","label":"Global · vẫn sang phải"},{"key":"rolling-left","label":"Rolling · đảo chiều"},{"key":"rolling-still","label":"Rolling · đứng yên"}],"challenges":[]}},
   createModel: createModel,
   mountRenderer: mountRenderer
 }, document);
