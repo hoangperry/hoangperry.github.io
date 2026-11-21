@@ -2,10 +2,10 @@ How Things Work playground: Động cơ bước quay từng nấc thế nào?
 Topic: stepper-motor
 Generated file: built by publish-playground.mjs from a checked artifact and its receipt. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 5d01c6fc3e72148f6d5889e1a574743c5f593c2a02907bded3a6593f86eafd1f
+Source digest: b22fee8b38bc5b415c210d207023b369cd2d0c49f88a493dfa733ed29ca8ac9e
 Checks recorded in the build receipt:
 - stepper-motor model, parameter grid and renderer: 39/39 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/stepper-motor/tests/model.test.mjs playgrounds/stepper-motor/tests/model-grid.test.mjs playgrounds/stepper-motor/tests/renderer.test.mjs)
-- shared playground runtime, markup, bundle, harness, artifact and publisher (non-browser): 91/91 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs tests/publish-playground.test.mjs)
+- shared playground runtime, markup, bundle, harness, artifact and publisher (non-browser): 93/93 passed, 0 failed, 0 skipped (node --test --test-concurrency=1 --test-reporter=tap playgrounds/shared/tests/playground-artifact-payloads.test.mjs playgrounds/shared/tests/playground-artifact.test.mjs playgrounds/shared/tests/playground-bundle.test.mjs playgrounds/shared/tests/playground-markup.test.mjs playgrounds/shared/tests/playground-mode-invariance.test.mjs playgrounds/shared/tests/playground-runtime-dom.test.mjs playgrounds/shared/tests/playground-runtime.test.mjs tests/publish-playground.test.mjs)
 - Mode invariance: passed, 3 scripts
 - Parameter grid: passed, 135 cases
 Limitations:

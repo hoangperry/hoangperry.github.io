@@ -14,10 +14,9 @@ var runtime = (function createPlaygroundRuntime() {
   const TEXT = {
     ready: 'Sẵn sàng',
     running: 'Đang chạy',
-    paused: 'Đã dừng',
+    paused: 'Không chạy',
     failed: 'Không chạy được phần tương tác. Hình vẫn ở dạng tĩnh và bài viết vẫn đọc được.',
     run: 'Đang chạy mô phỏng.',
-    resume: 'Tiếp tục chạy từ trạng thái đã dừng.',
     pause: 'Đã dừng. Trạng thái được giữ nguyên.',
     step: (status) => (status ? `Từng bước: ${status}` : 'Đã đi một bước.'),
     reset: 'Đã đặt lại về trạng thái ban đầu.',
@@ -158,16 +157,19 @@ var runtime = (function createPlaygroundRuntime() {
         map.set(element.id, `${instanceId}--${original}`);
       }
     }
-    for (const subtree of subtrees) {
-      for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
-        if (map.has(element.id)) set(element, 'id', map.get(element.id));
+    if (map.size > 0) {
+      for (const subtree of subtrees) {
+        for (const element of [subtree, ...subtree.querySelectorAll('[id]')]) {
+          if (map.has(element.id)) set(element, 'id', map.get(element.id));
+        }
       }
-    }
-    for (const element of [root, ...root.querySelectorAll('*')]) {
-      for (const attribute of Array.from(element.attributes)) {
-        if (attribute.name === 'id' || attribute.name === 'data-machine-id') continue;
-        const next = rewriteAttribute(attribute.name, attribute.value, map);
-        if (next !== attribute.value) set(element, attribute.name, next);
+      for (const element of [root, ...root.querySelectorAll('*')]) {
+        for (const attribute of Array.from(element.attributes)) {
+          const name = attribute.name;
+          if (name === 'id' || name === 'data-machine-id') continue;
+          const next = rewriteAttribute(name, attribute.value, map);
+          if (next !== attribute.value) set(element, name, next);
+        }
       }
     }
     return {
@@ -227,9 +229,9 @@ var runtime = (function createPlaygroundRuntime() {
       throw new Error('createModel must return { snapshot, advance, command, reset }');
     }
 
-    function read() {
+    function read(repeatAnnouncement = false) {
       const next = validateSnapshot(model.snapshot(), index);
-      if (next.announcement && next.announcement !== lastModelNote) modelNotes.push(next.announcement);
+      if (next.announcement && (repeatAnnouncement || next.announcement !== lastModelNote)) modelNotes.push(next.announcement);
       lastModelNote = next.announcement;
       current = next;
       return next;
@@ -306,20 +308,17 @@ var runtime = (function createPlaygroundRuntime() {
       return act(() => {
         if (mode !== 'explore') return false; // the reader never operates the playground
         const before = current;
-        if (key === 'run') {
+        if (key === 'run' || key === 'step') {
           if (before.running) return false;
-          model.command({ key: 'run' });
-          runtimeNote = before.time > 0 ? TEXT.resume : TEXT.run;
+          const refused = model.command({ key }) === false;
+          const after = read(refused);
+          if (refused || (key === 'run' && !after.running)) return false;
+          runtimeNote = key === 'run' ? TEXT.run : TEXT.step(after.status);
           clock.reset();
         } else if (key === 'pause') {
           if (!before.running) return false;
           model.command({ key: 'pause' });
           runtimeNote = TEXT.pause;
-          clock.reset();
-        } else if (key === 'step') {
-          if (before.running) return false;
-          model.command({ key: 'step' });
-          runtimeNote = TEXT.step(read().status); // the achieved state, never a guess from the previous one
           clock.reset();
         } else if (key === 'reset') {
           model.command({ key: 'reset' });
@@ -635,8 +634,10 @@ var runtime = (function createPlaygroundRuntime() {
       place(next);
       readingDirty = true;
       if (fromUser) {
-        if (next === 'explore') scene.focus({ preventScroll: false });
-        else {
+        if (next === 'explore') {
+          if (typeof renderer.focusExplore === 'function') renderer.focusExplore();
+          else scene.focus({ preventScroll: false });
+        } else {
           const opener = $('[data-machine-mode="explore"]');
           if (opener) opener.focus();
         }
