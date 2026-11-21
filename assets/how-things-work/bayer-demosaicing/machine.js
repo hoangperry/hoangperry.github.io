@@ -831,7 +831,6 @@ var createModel = (function createModel(data) {
   const stageKeys = ['scene', 'sampled', 'reconstructed'];
   const stageLabels = ['Cảnh gốc', 'Mẫu Bayer', 'RGB nội suy'];
   const reached = stageKeys.map((_, index) => Object.freeze(stageKeys.slice(0, index + 1)));
-  const transport = { idle: 'Sẵn sàng', running: 'Đang chạy', paused: 'Đang dừng', done: 'Đã xem đủ ba pha' };
   const epsilon = 1e-12;
   const challenges = Object.freeze([]);
   const flat = Object.freeze([0.2, 0.5, 0.8]);
@@ -947,7 +946,9 @@ var createModel = (function createModel(data) {
     if (!cached) cached = Object.freeze({
       phase, time, running: phase === 'running', stage: stageKeys[stageIndex], stageLabel: stageLabels[stageIndex],
       reachedStages: reached[stageIndex], controls, grid, inspection, readout, announcement, challenges,
-      status: `${transport[phase]} · Pha ${stageIndex + 1}/3: ${stageLabels[stageIndex]}.`,
+      status: phase === 'done'
+        ? `Đã xem đủ ba pha · Pha ${stageIndex + 1}/3: ${stageLabels[stageIndex]}.`
+        : `Pha ${stageIndex + 1}/3: ${stageLabels[stageIndex]}.`,
     });
     return cached;
   }
@@ -1034,7 +1035,7 @@ var mountRenderer = (function mountRenderer(root, data) {
   const anatomyStage = svg.querySelector('[data-bayer-anatomy-stage]');
   const anatomyNote = svg.querySelector('[data-bayer-anatomy-note]');
   const anatomyIncident = svg.querySelector('[data-bayer-anatomy-rise]');
-  const anatomyRise = Number(anatomyIncident?.getAttribute('data-bayer-anatomy-rise'));
+  const anatomyRise = Number(anatomyIncident?.getAttribute('data-bayer-anatomy-rise').trim() || NaN);
   const anatomyInput = svg.querySelector('[data-bayer-anatomy-input]');
   const anatomySwatch = anatomyInput?.querySelector('rect');
   const anatomyMeasured = svg.querySelector('[data-bayer-anatomy-measured]');
@@ -1151,7 +1152,7 @@ var mountRenderer = (function mountRenderer(root, data) {
         paintGrid(grid);
         previousGrid = grid;
       }
-      if (anatomyIncident && stage === 'scene') {
+      if (anatomyIncident && Number.isFinite(anatomyRise) && anatomyRise >= 0 && stage === 'scene') {
         // Only the projected swatch approaches the filter during the scene beat.
         // The sampled RGB data itself does not vary with presentation time.
         const remaining = reducedMotion ? 1 : 1 - Math.max(0, Math.min(1, time));

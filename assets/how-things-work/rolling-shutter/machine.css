@@ -653,7 +653,8 @@
     border: 1px solid var(--rs-rule);
     background: var(--rs-page);
     color: var(--rs-ink);
-    font: 600 .875rem/1.45 var(--htw-machine-mono);
+    font: 600 .875rem/1.45 var(--htw-machine-mono, var(--htw-mono, ui-monospace, monospace));
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 }

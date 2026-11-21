@@ -2,9 +2,9 @@ How Things Work playground: Máy ảnh biết phải lấy nét về hướng n�
 Topic: phase-detect-af
 Generated file: built by build-camera.mjs after passing the topic checks. Do not edit by hand.
 Educational interactive illustration with illustrative parameters; not a calibrated device model, datasheet or engineering tool.
-Source digest: 57bb101e9a75a8d1103f3683cda3e1e06ba444923a0b9c998bea7e623b589a19
+Source digest: 9d8da57db203fb475ffa1fc39fbc6f0f2e843d28a634b164ae713ce266493c95
 Checks recorded in the build receipt:
-- phase-detect-af/model.test.mjs: 12/12 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/phase-detect-af/tests/model.test.mjs)
+- phase-detect-af/model.test.mjs: 14/14 passed, 0 failed, 0 skipped (node --test --test-reporter=tap playgrounds/phase-detect-af/tests/model.test.mjs)
 - Mode invariance: passed, 4 scripts
 - Parameter grid: passed, 44 cases
 Limitations:

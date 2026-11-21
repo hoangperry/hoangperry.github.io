@@ -891,11 +891,18 @@ var createModel = (function createModel(data) {
     return optics;
   }
 
+  function unavailableReason(correction) {
+    if (correction === null) return 'Không đủ chi tiết; không tiến hành hiệu chỉnh.';
+    if (correction === 'none') return 'Đã đúng nét; không cần hiệu chỉnh.';
+    return null;
+  }
+
   function snapshot() {
     if (!cached) {
       const measured = measure();
       cached = Object.freeze({
         running: phase === 'running', phase, time, controls, optics: measured, readout, challenges,
+        stepUnavailableReason: unavailableReason(measured.correction),
         status: `${phaseText[phase]} ${measured.direction}.`, announcement,
       });
     }
@@ -922,9 +929,8 @@ var createModel = (function createModel(data) {
   }
 
   function canCorrect() {
-    const { correction, direction } = measure();
-    if (correction === 'increase' || correction === 'decrease') return true;
-    const note = correction === null ? 'Không đủ chi tiết; không tiến hành hiệu chỉnh.' : `${direction}; không cần hiệu chỉnh.`;
+    const note = unavailableReason(measure().correction);
+    if (!note) return true;
     if (announcement !== note) {
       announcement = note;
       cached = null;
@@ -1004,8 +1010,14 @@ var mountRenderer = (function mountRenderer(root, data) {
   const labels = new Map(Array.from(svg.querySelectorAll('[data-af-text]'), (node) => [node.getAttribute('data-af-text'), node]));
   const bench = svg.querySelector('.af-bench-motion');
   const benchPlane = marks.get('plate-plane');
-  const benchTravel = benchPlane?.getAttribute('data-af-plate-travel')?.split(' ').map(Number);
-  const benchIntercept = benchPlane?.getAttribute('data-af-plate-intercept')?.split(' ').map(Number);
+  function plateVector(attribute) {
+    const fields = benchPlane?.getAttribute(attribute)?.trim().split(/\s+/);
+    if (fields?.length !== 2) return null;
+    const vector = fields.map(Number);
+    return vector.every(Number.isFinite) ? vector : null;
+  }
+  const benchTravel = plateVector('data-af-plate-travel');
+  const benchIntercept = plateVector('data-af-plate-intercept');
   const translation = (vector, amount) => `translate(${vector.map((n) => Math.round(n * amount * 100) / 100).join(' ')})`;
   const originalAttrs = new Map();
   const originalTexts = new Map();
@@ -1054,13 +1066,19 @@ var mountRenderer = (function mountRenderer(root, data) {
       mark('signal-a', 'd', trace(optics.signalA));
       mark('signal-b', 'd', trace(optics.signalB));
       const hasEdges = optics.shift !== null;
-      if (benchTravel && benchIntercept) {
-        attr(bench, 'data-af-plate-contrast', hasEdges);
-        attr(benchPlane, 'transform', translation(benchTravel, controls.defocus));
+      attr(bench, 'data-af-plate-contrast', hasEdges);
+      text(labels.get('plate-pupil-left'), left);
+      text(labels.get('plate-pupil-right'), right);
+      // An authored default transform is not a measurement of the new state. Omit only
+      // geometry we cannot position; the graph and the independent bench labels still update.
+      if (benchTravel) attr(benchPlane, 'transform', translation(benchTravel, controls.defocus));
+      else attr(benchPlane, 'display', 'none');
+      if (benchIntercept) {
         mark('plate-hit-left', 'transform', translation(benchIntercept, optics.leftRayX));
         mark('plate-hit-right', 'transform', translation(benchIntercept, optics.rightRayX));
-        text(labels.get('plate-pupil-left'), left);
-        text(labels.get('plate-pupil-right'), right);
+      } else {
+        mark('plate-hit-left', 'display', 'none');
+        mark('plate-hit-right', 'display', 'none');
       }
       mark('edges', 'display', hasEdges ? 'inline' : 'none');
       if (hasEdges) {

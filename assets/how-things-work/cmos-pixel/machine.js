@@ -846,7 +846,7 @@ var createModel = (function createModel(data) {
   const electrons = (n) => `${n > 0 && n < 0.5 ? '<1' : String(Math.round(n + 1e-8)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')} e⁻`;
   const voltageOrDash = (n) => n === null ? '—' : volts(n);
 
-  let controls, settings, cached;
+  let controls, settings, cached, lastPixel;
   let phase = 'idle', time = 0, announcement = '';
 
   function start(values, note = '') {
@@ -900,10 +900,23 @@ var createModel = (function createModel(data) {
     const signalSampleV = stage === 'signal' ? fdV : null;
     const deltaV = signalSampleV === null ? null : resetSampleV - signalSampleV;
     const wellFull = ppdElectrons === fullWellElectrons;
-    const pixel = Object.freeze({
+    const gateOpen = stage === 'transfer';
+    const samePixel = lastPixel
+      && lastPixel.exposureElapsedMs === exposureElapsedMs
+      && lastPixel.ppdElectrons === ppdElectrons
+      && lastPixel.fdElectrons === fdElectrons
+      && lastPixel.fdV === fdV
+      && lastPixel.resetSampleV === resetSampleV
+      && lastPixel.signalSampleV === signalSampleV
+      && lastPixel.deltaV === deltaV
+      && lastPixel.predictedElectrons === predictedElectrons
+      && lastPixel.predictedDeltaV === predictedDeltaV
+      && lastPixel.wellFull === wellFull
+      && lastPixel.gateOpen === gateOpen;
+    const pixel = samePixel ? lastPixel : (lastPixel = Object.freeze({
       exposureElapsedMs, ppdElectrons, fdElectrons, fdV, resetSampleV, signalSampleV, deltaV,
-      predictedElectrons, predictedDeltaV, wellFull, gateOpen: stage === 'transfer',
-    });
+      predictedElectrons, predictedDeltaV, wellFull, gateOpen,
+    }));
     const ppdText = electrons(ppdElectrons);
     const fdText = volts(fdV);
     let cameraReading;
@@ -1012,21 +1025,32 @@ var mountRenderer = (function mountRenderer(root, data) {
   const anatomyRoute = svg.querySelector('[data-cmos-anatomy-route]');
   const anatomyGlint = svg.querySelector('[data-cmos-anatomy-glint]');
   const desc = svg.querySelector('[data-cmos-desc]');
-  const legend = desc?.textContent;
+  const legend = desc?.getAttribute('data-cmos-legend') ?? desc?.textContent;
   const mobile = root.querySelector('[data-camera-reading]');
   const { resetV, fullWellElectrons, secondsPerExposureMs, readoutBeatSeconds } = data.parameters;
   const attributes = new Map();
+  const attrValues = new Map();
   const texts = new Map();
   let previousPixel, previousStage, previousLabel, previousReading, previousStatus;
 
   function attr(node, key, value) {
     if (!node) return;
-    const previous = node.getAttribute(key);
     const next = String(value);
-    if (previous === next) return;
+    let cached = attrValues.get(node);
+    if (!cached) { cached = new Map(); attrValues.set(node, cached); }
+    let previous;
+    if (cached.has(key)) {
+      previous = cached.get(key);
+      if (previous === next) return;
+    } else {
+      previous = node.getAttribute(key);
+      cached.set(key, previous);
+      if (previous === next) return;
+    }
     let original = attributes.get(node);
     if (!original) { original = new Map(); attributes.set(node, original); }
     if (!original.has(key)) original.set(key, previous);
+    cached.set(key, next);
     node.setAttribute(key, next);
   }
 
@@ -1107,6 +1131,7 @@ var mountRenderer = (function mountRenderer(root, data) {
         else node.setAttribute(key, value);
       }
       for (const [node, value] of texts) node.textContent = value;
+      attrValues.clear();
     },
   };
 })(root, data);

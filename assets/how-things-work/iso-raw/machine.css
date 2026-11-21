@@ -662,6 +662,14 @@
   fill: var(--anatomy-hi);
   font: 700 6px var(--htw-machine-mono);
 }
+/* Keep the printed legends legible after the top-face lighting and stage tint are mixed in. */
+.htw-machine[data-htw-figure="iso-raw"][data-theme="light"] [data-iso-package="analog"] .iso-raw-chip-face,
+.htw-machine[data-htw-figure="iso-raw"][data-theme="light"] [data-iso-package="adc"] .iso-raw-chip-face {
+  --camera-material: #45515e;
+}
+.htw-machine[data-htw-figure="iso-raw"][data-theme="light"] .iso-svg .iso-raw-anatomy .iso-face-text {
+  fill: #ffffff;
+}
 .htw-machine[data-htw-figure="iso-raw"] .iso-svg[data-iso-highlight="charge"] [data-iso-package="charge"] .iso-raw-chip-face,
 .htw-machine[data-htw-figure="iso-raw"] .iso-svg[data-iso-highlight="analog"] [data-iso-package="analog"] .iso-raw-chip-face,
 .htw-machine[data-htw-figure="iso-raw"] .iso-svg[data-iso-highlight="adc"] [data-iso-package="adc"] .iso-raw-chip-face {

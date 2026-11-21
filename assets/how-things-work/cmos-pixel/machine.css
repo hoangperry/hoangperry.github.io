@@ -644,16 +644,16 @@
 .htw-machine[data-htw-figure="cmos-pixel"] [data-camera-stage="signal"] .cmos-signal-mark { stroke-dasharray: none; }
 .htw-machine[data-htw-figure="cmos-pixel"] [data-camera-stage="transfer"] .cmos-barrier { display: none; }
 .htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-transferring="true"] .cmos-transfer { display: inline; }
-.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-focus="exposure"] .cmos-well { stroke: var(--cmos-accent); stroke-width: 2.5; }
-.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-focus="transfer"] .cmos-gate { stroke: var(--cmos-amber); stroke-width: 2.5; }
-.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-focus="readout"] .cmos-node { stroke: var(--cmos-accent); stroke-width: 2.5; }
+.htw-machine[data-htw-figure="cmos-pixel"][data-mode="reader"] [data-cmos-focus="exposure"] .cmos-well { stroke: var(--cmos-accent); stroke-width: 2.5; }
+.htw-machine[data-htw-figure="cmos-pixel"][data-mode="reader"] [data-cmos-focus="transfer"] .cmos-gate { stroke: var(--cmos-amber); stroke-width: 2.5; }
+.htw-machine[data-htw-figure="cmos-pixel"][data-mode="reader"] [data-cmos-focus="readout"] .cmos-node { stroke: var(--cmos-accent); stroke-width: 2.5; }
 .htw-machine[data-htw-figure="cmos-pixel"] .camera-anatomy .cmos-cut-ppd { fill: var(--camera-glass); }
 .htw-machine[data-htw-figure="cmos-pixel"] .camera-anatomy .cmos-cut-fd { fill: var(--camera-metal); }
 .htw-machine[data-htw-figure="cmos-pixel"] .camera-anatomy .cmos-board-traces { stroke: var(--camera-gold); }
-.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-focus="exposure"] .cmos-anatomy-well > .iso-edge,
-.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-focus="transfer"] .cmos-anatomy-gate > .iso-edge,
+.htw-machine[data-htw-figure="cmos-pixel"][data-mode="reader"] [data-cmos-focus="exposure"] .cmos-anatomy-well > .iso-edge,
+.htw-machine[data-htw-figure="cmos-pixel"][data-mode="reader"] [data-cmos-focus="transfer"] .cmos-anatomy-gate > .iso-edge,
 .htw-machine[data-htw-figure="cmos-pixel"] [data-camera-stage="transfer"] .cmos-anatomy-gate > .iso-edge,
-.htw-machine[data-htw-figure="cmos-pixel"] [data-cmos-focus="readout"] .cmos-anatomy-fd > .iso-edge,
+.htw-machine[data-htw-figure="cmos-pixel"][data-mode="reader"] [data-cmos-focus="readout"] .cmos-anatomy-fd > .iso-edge,
 .htw-machine[data-htw-figure="cmos-pixel"] [data-camera-stage="signal"] .cmos-anatomy-fd > .iso-edge { stroke: var(--htw-machine-accent); stroke-width: 1.6; }
 
 .htw-machine[data-htw-figure="cmos-pixel"] .cmos-anatomy-plate { fill: var(--cmos-page); stroke: var(--cmos-rule); }

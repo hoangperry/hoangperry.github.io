@@ -515,11 +515,12 @@ function advanceOperation(state, simulatedSeconds) {
 // the eased artwork and the film ribbon; the unified controller owns the frame loop, the camera and the
 // visibility/reduced-motion policy. Seeking here is a path preview, never proof that film was processed.
 function createProcessTour(ctx) {
-  const { data, root: stageRoot, region, still, isActive, wake } = ctx;
+  const { data, root: stageRoot, region, still, isActive, wake, signal } = ctx;
+  const on = (node, type, fn, opts) => node?.addEventListener(type, fn, signal ? { ...opts, signal } : opts);
   const $ = (selector) => ctx.uiRoot.querySelector(selector);
   const progressInput = $('#progress');
   const playButton = $('#play');
-  const playTextNode = playButton.querySelector('[data-play-text]');
+  const playTextNode = playButton?.querySelector('[data-play-text]') ?? null;
   const restartButton = $('#restart');
   const stageNav = $('.stage-nav');
   const stageButtons = [...ctx.uiRoot.querySelectorAll('[data-select-stage]')];
@@ -615,11 +616,14 @@ function createProcessTour(ctx) {
   function drawFilm(distance) {
     for (const chunk of previewChunks) drawChunk(chunk, distance, true);
     for (const roller of rollers) {
+      if (!roller.node) continue;
       const a = distance * roller.spin;
       const u = Math.cos(a) * roller.rho;
       const v = Math.sin(a) * roller.rho;
-      roller.node.setAttribute('cx', (roller.c[0] + roller.ex[0] * u + roller.ez[0] * v).toFixed(2));
-      roller.node.setAttribute('cy', (roller.c[1] + roller.ex[1] * u + roller.ez[1] * v).toFixed(2));
+      const cx = (roller.c[0] + roller.ex[0] * u + roller.ez[0] * v).toFixed(2);
+      const cy = (roller.c[1] + roller.ex[1] * u + roller.ez[1] * v).toFixed(2);
+      if (roller.cx !== cx) { roller.cx = cx; roller.node.setAttribute('cx', cx); }
+      if (roller.cy !== cy) { roller.cy = cy; roller.node.setAttribute('cy', cy); }
     }
     lastHoleOffset = distance;
   }
@@ -629,37 +633,44 @@ function createProcessTour(ctx) {
     announcementPending = false;
   }
   function describe() {
+    if (!progressInput) return;
     const sample = sampleProcess(target);
     progressInput.setAttribute('aria-valuetext', `${Math.round(target * 100)} phần trăm hành trình xem trước. ${sample.stage.title}. ${sample.stage.filmState}.`);
   }
   let lastPercent = '';
   let lastSlider = '';
   let lastProgressCss = '';
+  let lastProgressDataset = '';
+  let lastDistanceDataset = '';
   function draw() {
     const sample = sampleProcess(current);
     const distance = distanceAt(current);
     // The scene reports the displayed film, not the requested position on the native slider.
-    stageRoot.dataset.progress = current.toFixed(5);
-    stageRoot.dataset.distance = distance.toFixed(2);
+    const progressText = current.toFixed(5);
+    if (progressText !== lastProgressDataset) { lastProgressDataset = progressText; stageRoot.dataset.progress = progressText; }
+    const distanceText = distance.toFixed(2);
+    if (distanceText !== lastDistanceDataset) { lastDistanceDataset = distanceText; stageRoot.dataset.distance = distanceText; }
     const percentText = `${Math.round(target * 100)}%`;
-    if (percentText !== lastPercent) { lastPercent = percentText; text.percent.value = percentText; }
+    if (text.percent && percentText !== lastPercent) { lastPercent = percentText; text.percent.value = percentText; }
     // The native control stays at the requested position; only the artwork eases.
     const sliderVal = String(Math.round(target * 1000));
-    if (sliderVal !== lastSlider) { lastSlider = sliderVal; progressInput.value = sliderVal; }
+    if (progressInput && sliderVal !== lastSlider) { lastSlider = sliderVal; progressInput.value = sliderVal; }
     const progressCss = `${(target * 100).toFixed(2)}%`;
-    if (progressCss !== lastProgressCss) { lastProgressCss = progressCss; progressInput.style.setProperty('--progress', progressCss); }
-    if (Math.abs(distance - lastHoleOffset) > 0.04 || still.matches) drawFilm(distance);
+    if (progressInput && progressCss !== lastProgressCss) { lastProgressCss = progressCss; progressInput.style.setProperty('--progress', progressCss); }
+    if (Math.abs(distance - lastHoleOffset) > 0.04 || (still.matches && distance !== lastHoleOffset)) drawFilm(distance);
     if (sample.stageIndex !== lastPhase) {
       const stage = sample.stage;
       ctx.uiRoot.dataset.stage = stage.id;
-      text.readout.textContent = `Xem trước ${String(sample.stageIndex + 1).padStart(2, '0')} / 06 · ${stage.title}`;
-      for (const name of ['title', 'english', 'description', 'note']) text[name].textContent = stage[name];
-      text.film.textContent = stage.filmState;
-      text.metric.textContent = stage.metric.value;
-      text.metricLabel.textContent = stage.metric.label;
-      text.number.textContent = String(stage.index + 1).padStart(2, '0');
-      text.light.textContent = sample.safeForLight ? 'Xem trước: đã định hình · có thể ra sáng' : 'Xem trước: phải tiếp tục kín sáng';
-      text.light.dataset.safe = String(sample.safeForLight);
+      if (text.readout) text.readout.textContent = `Xem trước ${String(sample.stageIndex + 1).padStart(2, '0')} / 06 · ${stage.title}`;
+      for (const name of ['title', 'english', 'description', 'note']) if (text[name]) text[name].textContent = stage[name];
+      if (text.film) text.film.textContent = stage.filmState;
+      if (text.metric) text.metric.textContent = stage.metric.value;
+      if (text.metricLabel) text.metricLabel.textContent = stage.metric.label;
+      if (text.number) text.number.textContent = String(stage.index + 1).padStart(2, '0');
+      if (text.light) {
+        text.light.textContent = sample.safeForLight ? 'Xem trước: đã định hình · có thể ra sáng' : 'Xem trước: phải tiếp tục kín sáng';
+        text.light.dataset.safe = String(sample.safeForLight);
+      }
       stageButtons.forEach((button, index) => button.setAttribute('aria-pressed', String(index === sample.stageIndex)));
       lastPhase = sample.stageIndex;
     }
@@ -684,13 +695,15 @@ function createProcessTour(ctx) {
     if (key === lastPlayKey) return;
     lastPlayKey = key;
     // The accessible name stays "Tự phát xem trước"; aria-pressed says whether it is advancing.
-    playButton.setAttribute('aria-pressed', String(mode === 'running'));
-    playButton.disabled = still.matches;
-    if (playTextNode) playTextNode.textContent = PLAY_LABELS[mode];
-    playButton.dataset.playing = String(mode === 'running');
-    playButton.dataset.mode = mode;
+    if (playButton) {
+      playButton.setAttribute('aria-pressed', String(mode === 'running'));
+      playButton.disabled = still.matches;
+      if (playTextNode) playTextNode.textContent = PLAY_LABELS[mode];
+      playButton.dataset.playing = String(mode === 'running');
+      playButton.dataset.mode = mode;
+    }
     stageRoot.dataset.running = String(running);
-    text.tour.textContent = mode === 'still' ? 'Giảm chuyển động đang bật'
+    if (text.tour) text.tour.textContent = mode === 'still' ? 'Giảm chuyển động đang bật'
       : mode === 'stopped' ? 'Xem trước đã dừng'
         : mode === 'held' ? (whole ? 'Tour tạm giữ khi bạn xem hoặc chọn vị trí · bấm Tiếp tục để chạy ngay' : 'Đang xem cận cảnh · tour tạm giữ, Tiếp tục sẽ về toàn máy')
           : running ? 'Đang xem trước đường phim' : 'Tour chờ máy vào khung nhìn';
@@ -755,20 +768,20 @@ function createProcessTour(ctx) {
   }
   // The displayed (and announced) mode decides, not a policy change the reader has not seen yet.
   let pressedMode = null;
-  playButton.addEventListener('pointerdown', () => { pressedMode = playButton.dataset.mode; });
-  playButton.addEventListener('click', (event) => {
+  on(playButton, 'pointerdown', () => { pressedMode = playButton.dataset.mode; });
+  on(playButton, 'click', (event) => {
     const seen = event.detail > 0 && pressedMode ? pressedMode : playButton.dataset.mode;
     pressedMode = null;
     togglePlay(seen);
   });
-  restartButton.addEventListener('click', () => seek(0));
-  stageButtons.forEach((button, index) => button.addEventListener('click', () => seek(stageProgress(index))));
-  progressInput.addEventListener('input', () => seek(Number(progressInput.value) / 1000, { announceChange: false }));
-  progressInput.addEventListener('change', () => {
+  on(restartButton, 'click', () => seek(0));
+  stageButtons.forEach((button, index) => on(button, 'click', () => seek(stageProgress(index))));
+  on(progressInput, 'input', () => seek(Number(progressInput.value) / 1000, { announceChange: false }));
+  on(progressInput, 'change', () => {
     clearTimeout(announceTimer);
     announceTimer = setTimeout(() => { announcementPending = true; if (current === target) announce(); }, still.matches ? 0 : 250);
   });
-  progressInput.addEventListener('focus', describe);
+  on(progressInput, 'focus', describe);
   function keyboard(event) {
     if (event.target === progressInput || event.altKey || event.ctrlKey || event.metaKey) return;
     if (event.key === 'Escape' && event.target === stageRoot) { event.preventDefault(); ctx.onEscape(); return; }
@@ -783,14 +796,14 @@ function createProcessTour(ctx) {
     if (event.key === 'ArrowLeft' || (!inStageNav && event.key === 'ArrowDown')) { nextIndex = Math.max(0, here - 1); next = stageProgress(nextIndex); }
     if (event.key === 'Home') { nextIndex = 0; next = 0; }
     if (event.key === 'End') { nextIndex = 5; next = 1; }
-    if (event.key === ' ' && event.target === stageRoot) { event.preventDefault(); togglePlay(); return; }
+    if (event.key === ' ' && event.target === stageRoot) { event.preventDefault(); if (playButton) togglePlay(); return; }
     if (next === null) return;
     event.preventDefault();
     seek(next);
     if (inStageNav && nextIndex !== null) stageButtons[nextIndex]?.focus();
   }
-  stageRoot.addEventListener('keydown', keyboard);
-  if (stageNav) stageNav.addEventListener('keydown', keyboard);
+  on(stageRoot, 'keydown', keyboard);
+  on(stageNav, 'keydown', keyboard);
 
   // Dragging across the card previews the path under the pointer. When magnified, the same mapping runs
   // through the visible frame, so a drag moves through the region in view. It never moves the camera.
@@ -800,10 +813,10 @@ function createProcessTour(ctx) {
     const whole = ctx.pointerFraction((event.clientX - box.left) / box.width);
     seek((whole - 0.08) / 0.84, { announceChange: false, chosen: false });
   }
-  stageRoot.addEventListener('pointerenter', (event) => {
+  on(stageRoot, 'pointerenter', (event) => {
     if (event.pointerType === 'mouse') { hover = true; explicitResume = false; syncPlay(); }
   });
-  stageRoot.addEventListener('pointerleave', (event) => {
+  on(stageRoot, 'pointerleave', (event) => {
     if (event.pointerType === 'mouse') { hover = false; quietUntil = performance.now() + 3600; scheduleResume(); }
   });
   // Mouse: the press itself seeks, as before. Touch and pen: nothing changes until the finger clearly
@@ -841,13 +854,13 @@ function createProcessTour(ctx) {
     quietUntil = performance.now() + 3600;
     scheduleResume();
   }
-  stageRoot.addEventListener('pointerdown', (event) => {
+  on(stageRoot, 'pointerdown', (event) => {
     if (!ctx.interactive() || !event.isPrimary || event.button !== 0) return;
     if (gesture?.live) dragging = false; // a press never ended by the platform is superseded, not stuck
     gesture = { id: event.pointerId, x: event.clientX, y: event.clientY, live: false, saved: { target, explicitResume, quietUntil } };
     if (event.pointerType === 'mouse') beginDrag(event);
   });
-  stageRoot.addEventListener('pointermove', (event) => {
+  on(stageRoot, 'pointermove', (event) => {
     if (!gesture || event.pointerId !== gesture.id) return;
     if (gesture.live) { pointerSeek(event); return; }
     const dx = Math.abs(event.clientX - gesture.x);
@@ -855,13 +868,13 @@ function createProcessTour(ctx) {
     if (dy > GESTURE_SLOP && dy >= dx) gesture = null; // vertical: the page scrolls, the tour is untouched
     else if (dx > GESTURE_SLOP && dx > dy * 1.5) beginDrag(event);
   });
-  stageRoot.addEventListener('pointerup', (event) => endGesture(event, 'up'));
-  stageRoot.addEventListener('pointercancel', (event) => endGesture(event, 'cancel'));
+  on(stageRoot, 'pointerup', (event) => endGesture(event, 'up'));
+  on(stageRoot, 'pointercancel', (event) => endGesture(event, 'cancel'));
   // Touch starts with implicit capture on the SVG child. Its bubbled loss during transfer to this
   // root is not the end of our drag; only losing the root's own capture ends the gesture.
-  stageRoot.addEventListener('lostpointercapture', (event) => { if (event.target === stageRoot) endGesture(event, 'lost'); });
-  region.addEventListener('focusin', () => { focused = true; explicitResume = false; syncPlay(); });
-  region.addEventListener('focusout', (event) => {
+  on(stageRoot, 'lostpointercapture', (event) => { if (event.target === stageRoot) endGesture(event, 'lost'); });
+  on(region, 'focusin', () => { focused = true; explicitResume = false; syncPlay(); });
+  on(region, 'focusout', (event) => {
     if (!region.contains(event.relatedTarget)) {
       focused = false;
       quietUntil = performance.now() + 3600;
@@ -889,6 +902,11 @@ function createProcessTour(ctx) {
       describe();
       scheduleResume();
     },
+    dispose() {
+      clearTimeout(resumeTimer);
+      clearTimeout(announceTimer);
+      if (gesture?.live && stageRoot.hasPointerCapture(gesture.id)) stageRoot.releasePointerCapture(gesture.id);
+    },
   };
 }
 
@@ -914,7 +932,8 @@ const TOGGLES = Object.freeze({
 });
 
 function createOperationConsole(ctx) {
-  const { data, scene, panel, reduced, isTicking } = ctx;
+  const { data, scene, panel, reduced, isTicking, signal } = ctx;
+  const on = (node, type, fn, opts) => node?.addEventListener(type, fn, signal ? { ...opts, signal } : opts);
   const q = (selector) => panel.querySelector(selector);
   const qa = (selector) => [...panel.querySelectorAll(selector)];
   const sq = (selector) => scene.querySelector(selector);
@@ -944,7 +963,7 @@ function createOperationConsole(ctx) {
     bath.flow.append(dot);
     return dot;
   }) : [];
-  const windows = Object.fromEntries(Object.entries(data.windows).map(([id, w]) => [id, { ...w, fill: sq(`[data-fill="${id}"]`), text: sq(`[data-text="${id}"]`), cache: '' }]));
+  const windows = Object.fromEntries(Object.entries(data.windows).map(([id, w]) => [id, { ...w, fill: sq(`[data-fill="${id}"]`), text: sq(`[data-text="${id}"]`), cache: null }]));
   const parts = sqa('[data-op-part]');
   const lamps = sqa('[data-op-lamp]');
   const lids = sqa('[data-op-lid]');
@@ -962,18 +981,20 @@ function createOperationConsole(ctx) {
   const readout = ctx.root.querySelector('[data-op-readout]');
 
   function setText(key, node, value) {
-    if (readCache[key] === value) return;
+    if (!node || readCache[key] === value) return;
     readCache[key] = value;
     node.textContent = value;
   }
   function windowLevel(id, fraction) {
     const w = windows[id];
+    if (!w?.fill) return;
     const f = Math.max(0, Math.min(1, fraction));
     const d = f > 0 ? poly([w.o, [w.o[0] + w.ex[0] * w.w, w.o[1] + w.ex[1] * w.w], [w.o[0] + w.ex[0] * w.w + w.ez[0] * w.h * f, w.o[1] + w.ex[1] * w.w + w.ez[1] * w.h * f], [w.o[0] + w.ez[0] * w.h * f, w.o[1] + w.ez[1] * w.h * f]]) : '';
     if (w.cache !== d) { w.cache = d; w.fill.setAttribute('d', d); }
   }
   function windowText(id, value, alert = false) {
     const w = windows[id];
+    if (!w?.text) return;
     if (w.cache === value + alert) return;
     w.cache = value + alert;
     w.text.textContent = value;
@@ -981,7 +1002,7 @@ function createOperationConsole(ctx) {
     const size = Math.min(w.h * 0.66, (w.w * 0.86) / Math.max(1, value.length * 0.62));
     w.text.setAttribute('font-size', size.toFixed(2));
     w.text.setAttribute('y', (w.h / 2 + size * 0.36).toFixed(2));
-    w.text.parentNode.dataset.alert = String(alert);
+    if (w.text.parentNode?.dataset) w.text.parentNode.dataset.alert = String(alert);
   }
   let bathCache = '';
   function drawBath(s) {
@@ -990,25 +1011,29 @@ function createOperationConsole(ctx) {
     if (key === bathCache) return level;
     bathCache = key;
     if (s.tankMl <= 0) {
-      for (const node of [bath.frontFill, bath.frontEdge, bath.topFill, bath.topEdge]) node.setAttribute('d', '');
+      for (const node of [bath.frontFill, bath.frontEdge, bath.topFill, bath.topEdge]) node?.setAttribute('d', '');
       return level;
     }
     const front = poly([project(T.x0, T.y1, T.floor), project(T.x1, T.y1, T.floor), project(T.x1, T.y1, level), project(T.x0, T.y1, level)]);
-    bath.frontFill.setAttribute('d', front);
-    bath.frontEdge.setAttribute('d', front);
+    bath.frontFill?.setAttribute('d', front);
+    bath.frontEdge?.setAttribute('d', front);
     // The free surface is only drawn where it lies above every submerged part (geometry's surfaceMin).
     const top = level > T.surfaceMin ? poly([project(T.x0, T.y0, level), project(T.x1, T.y0, level), project(T.x1, T.y1, level), project(T.x0, T.y1, level)]) : '';
-    bath.topFill.setAttribute('d', top);
-    bath.topEdge.setAttribute('d', top);
+    bath.topFill?.setAttribute('d', top);
+    bath.topEdge?.setAttribute('d', top);
     return level;
   }
   let flowVisibleCache = '';
+  let lastPhase = NaN;
+  let lastLevel;
   function drawFlow(s, level) {
     if (!bath.flow) return;
     const show = s.pumpOn && s.tankMl > 0;
     const display = show ? 'inline' : 'none';
     if (flowVisibleCache !== display) { flowVisibleCache = display; bath.flow.setAttribute('display', display); }
-    if (!show) return;
+    if (!show || (flowPhase === lastPhase && level === lastLevel)) return;
+    lastPhase = flowPhase;
+    lastLevel = level;
     // Circulation in the section plane: up from the feed boss, across under the surface, down to the suction boss.
     const inset = Math.min(4, (level - T.floor) / 4);
     const zBottom = T.floor + inset;
@@ -1040,10 +1065,28 @@ function createOperationConsole(ctx) {
     const settled = Math.abs(s.tempC - OPERATION_SPEC.ambientC) < 0.005;
     return dosing || s.heaterOn || !(holding || settled);
   }
+  let lastRenderState = null;
+  let lastRenderStatus = null;
+  let lastRenderNeeded = false;
+  let lastRenderKey = '';
+  let lastBathLevel = T.floor;
   function render() {
     const s = state;
-    const status = operationStatus(s);
+    const stateChanged = s !== lastRenderState;
+    const status = stateChanged ? operationStatus(s) : lastRenderStatus;
+    const needed = stateChanged ? clockNeeded(s, status) : lastRenderNeeded;
+    const running = isTicking() && autoClock && needed && ctx.clockAllowed();
+    const renderKey = `${mode}|${autoClock}|${reduced.matches}|${running}`;
+    if (!stateChanged && renderKey === lastRenderKey) {
+      drawFlow(s, lastBathLevel);
+      return;
+    }
+    lastRenderState = s;
+    lastRenderStatus = status;
+    lastRenderNeeded = needed;
+    lastRenderKey = renderKey;
     const level = drawBath(s);
+    lastBathLevel = level;
     drawFlow(s, level);
     const target = OPERATION_SPEC.targetC;
     const inBand = Math.abs(s.tempC - target) <= OPERATION_SPEC.toleranceC + 1e-10;
@@ -1104,8 +1147,6 @@ function createOperationConsole(ctx) {
     setText('dose', read.dose, `Yêu cầu ${fmt(requested, 0)} mL · đã giao ${fmt(s.totalDosedMl, 1)} mL · chờ ${fmt(s.pendingDoseMl, 1)} mL`);
     setText('waste', read.waste, `${fmt(s.wasteMl, 1)} mL đã tràn (cửa sổ thang ${fmt(OPERATION_SPEC.stockCapacityMl)} mL)`);
     setText('sim', read.sim, `${clockTime(s.simSeconds)} · ×${OPERATION_SPEC.timeScale}`);
-    const needed = clockNeeded(s, status);
-    const running = isTicking() && autoClock && needed && ctx.clockAllowed();
     setText('clock', read.clock, reduced.matches ? 'Giảm chuyển động: đồng hồ không tự chạy. Dùng “Tiến 30 giây mô phỏng”.'
       : running ? `Thời gian mô phỏng ×${OPERATION_SPEC.timeScale} đang chạy`
         : needed ? (autoClock ? `Thời gian mô phỏng ×${OPERATION_SPEC.timeScale} · chờ máy hoặc bảng đo vào khung nhìn` : 'Đồng hồ tự chạy đang tắt')
@@ -1120,8 +1161,8 @@ function createOperationConsole(ctx) {
     if (formula) setText('formula', formula, `${fmt(CHEMISTRY_PROFILE.developerMlPerUnit)} mL × ${fmt(s.rollsRecorded)} cuộn = ${fmt(requested)} mL yêu cầu · đã giao ${fmt(s.totalDosedMl, 1)} mL`);
     if (readout) setText('readout', readout, s.tankMl > 0 ? `Bể hiện ${fmt(s.tempC, 1)} °C · ${fmt(s.tankMl, 0)} mL${status.ready ? ' · sẵn sàng' : ''}` : 'Bể hiện trống');
     const autoText = String(autoClock);
-    if (autoButton.getAttribute('aria-pressed') !== autoText) autoButton.setAttribute('aria-pressed', autoText);
-    if (autoButton.disabled !== reduced.matches) autoButton.disabled = reduced.matches;
+    if (autoButton && autoButton.getAttribute('aria-pressed') !== autoText) autoButton.setAttribute('aria-pressed', autoText);
+    if (autoButton && autoButton.disabled !== reduced.matches) autoButton.disabled = reduced.matches;
     ctx.onState(s, status);
   }
   function announce(message) {
@@ -1158,9 +1199,7 @@ function createOperationConsole(ctx) {
     render();
   }
 
-  function selectMode(next, { focusTab = false, user = false, announceMode = true } = {}) {
-    if (!ctx.interactive()) return;
-    mode = next;
+  function showTopic(next, focusTab) {
     tabs.forEach((tab) => {
       const on = tab.dataset.opMode === next;
       tab.setAttribute('aria-selected', String(on));
@@ -1168,13 +1207,20 @@ function createOperationConsole(ctx) {
       if (on && focusTab) tab.focus();
     });
     panels.forEach((node) => { node.hidden = node.id !== `op-panel-${next}`; });
+  }
+  // The same DOM may still show the tab selected before a prior controller was disposed.
+  showTopic(mode, false);
+  function selectMode(next, { focusTab = false, user = false, announceMode = true } = {}) {
+    if (!ctx.interactive()) return;
+    mode = next;
+    showTopic(next, focusTab);
     // A chosen topic magnifies its region of the same machine; the state itself never changes.
     if (user) ctx.onMode(next, { announceChange: announceMode });
     render();
   }
   tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => selectMode(tab.dataset.opMode, { user: true }));
-    tab.addEventListener('keydown', (event) => {
+    on(tab, 'click', () => selectMode(tab.dataset.opMode, { user: true }));
+    on(tab, 'keydown', (event) => {
       const moves = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: tabs.length - 1 };
       if (!(event.key in moves)) return;
       event.preventDefault();
@@ -1183,12 +1229,12 @@ function createOperationConsole(ctx) {
   });
   qa('[data-op-action]').forEach((button) => {
     const action = JSON.parse(button.dataset.opAction);
-    button.addEventListener('click', () => act(action));
+    on(button, 'click', () => act(action));
   });
-  q('#op-step').addEventListener('click', () => stepClock(STEP_SECONDS));
-  autoButton.addEventListener('click', () => { if (!ctx.interactive()) return; autoClock = !autoClock; ctx.wake(); render(); });
-  q('#op-reset').addEventListener('click', () => act({ type: 'reset' }));
-  q('#op-guided').addEventListener('click', () => {
+  on(q('#op-step'), 'click', () => stepClock(STEP_SECONDS));
+  on(autoButton, 'click', () => { if (!ctx.interactive()) return; autoClock = !autoClock; ctx.wake(); render(); });
+  on(q('#op-reset'), 'click', () => act({ type: 'reset' }));
+  on(q('#op-guided'), 'click', () => {
     if (!ctx.interactive()) return;
     // Teaching demonstration: the same reducer actions a user could press, in order. No temperature is set.
     let next = state;
@@ -1204,10 +1250,15 @@ function createOperationConsole(ctx) {
   return {
     snapshot: () => ({ topic: mode, autoClock, state: structuredClone(state) }),
     render,
+    dispose() {
+      for (const dot of particles) dot.remove();
+      if (live) live.textContent = '';
+    },
     // One step of the shared frame loop. Returns true while the clock or the circulation marks need frames.
     step(dt, allow) {
       if (reduced.matches) return false;
-      const runClock = allow.clock && autoClock && clockNeeded(state);
+      const needed = state === lastRenderState ? lastRenderNeeded : clockNeeded(state);
+      const runClock = allow.clock && autoClock && needed;
       const runFlow = allow.flow && state.pumpOn && state.tankMl > 0;
       if (!runClock && !runFlow) return false;
       const t = Math.min(dt, MAX_FRAME);
@@ -1288,25 +1339,29 @@ function startUnifiedFigure(DATA, options = {}) {
   const storageKey = options.storageKey ?? 'film-processor-theme';
   let mode = options.mode ?? 'explore';
   if (!['reader', 'explore'].includes(mode)) throw new Error('Invalid figure mode');
-  root.dataset.mode = mode;
   const $ = (selector) => root.querySelector(selector);
   const still = matchMedia('(prefers-reduced-motion: reduce)');
   const region = options.region ?? $('.experience') ?? root;
   const sceneRoot = $('#machine-scene');
   const consoleRoot = $('#operation');
-  if (!sceneRoot || !consoleRoot) return null;
+  const svg = sceneRoot?.querySelector('svg');
+  if (!sceneRoot || !consoleRoot || !svg) return null;
+  root.dataset.mode = mode;
   // The live readouts the clock text refers to; an unrelated console heading on screen does not run time.
   const readoutRoot = consoleRoot.querySelector('.op-side');
   const status = $('#status');
   const truth = { root: $('#machine-truth'), text: $('[data-truth-text]'), cache: '' };
   const cameraLabel = $('[data-camera-label]');
   const focusButtons = [...root.querySelectorAll('[data-focus-machine]')];
-  const camera = createSceneCamera({ svg: sceneRoot.querySelector('svg'), boxes: DATA.focus, still });
+  const listeners = new AbortController();
+  const { signal } = listeners;
+  const camera = createSceneCamera({ svg, boxes: DATA.focus, still });
 
   let sceneVisible = false;
   let consoleVisible = false;
   let frame = 0;
   let last = 0;
+  let disposed = false;
   let previewCaveat = '';
   let pendingUpdate = null;
   const interactive = () => mode === 'explore';
@@ -1320,7 +1375,7 @@ function startUnifiedFigure(DATA, options = {}) {
   };
 
   function wake() {
-    if (frame || document.hidden || (!sceneVisible && !consoleVisible)) return;
+    if (disposed || frame || document.hidden || (!sceneVisible && !consoleVisible)) return;
     last = 0;
     frame = requestAnimationFrame(tick);
   }
@@ -1330,6 +1385,7 @@ function startUnifiedFigure(DATA, options = {}) {
     const update = pendingUpdate;
     pendingUpdate = null;
     if (update) update();
+    if (disposed) return; // A host layout callback may have torn down this controller.
     frame = 0;
     const dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
     last = now;
@@ -1341,19 +1397,24 @@ function startUnifiedFigure(DATA, options = {}) {
     if (operating) operation.render();
   }
 
+  function announceStatus(message) {
+    if (!status || !message) return;
+    status.textContent = status.textContent === message ? `${message}\u00a0` : message;
+  }
   function labelOf(key) {
     const button = focusButtons.find((node) => node.dataset.focusMachine === key);
     return button ? button.dataset.focusLabel : key;
   }
   function focusMachine(key, { announceChange = true } = {}) {
+    if (disposed) return;
     const changed = camera.key() !== key;
     if (!camera.set(key)) return;
     sceneRoot.dataset.focus = key;
     focusButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.focusMachine === key)));
-    cameraLabel.textContent = key === 'all' ? 'Máy C‑41 · toàn máy' : `Cận cảnh · ${labelOf(key)}`;
+    if (cameraLabel) cameraLabel.textContent = key === 'all' ? 'Máy C‑41 · toàn máy' : `Cận cảnh · ${labelOf(key)}`;
     if (changed && interactive()) tour.cameraChanged();
     const stage = Object.hasOwn(FOCUS_STAGE, key) ? ` Xem trước công đoạn ${STAGES[FOCUS_STAGE[key]].title}.` : '';
-    if (announceChange) status.textContent = key === 'all' ? 'Khung nhìn toàn máy.' : `Cận cảnh ${labelOf(key)} trên cùng một máy. Chỉ khung nhìn thay đổi; trạng thái máy giữ nguyên.${stage}${previewCaveat}`;
+    if (announceChange) announceStatus(key === 'all' ? 'Khung nhìn toàn máy.' : `Cận cảnh ${labelOf(key)} trên cùng một máy. Chỉ khung nhìn thay đổi; trạng thái máy giữ nguyên.${stage}${previewCaveat}`);
     wake();
   }
   // A discrete stage choice while a stage region is magnified follows the film to that stage's region.
@@ -1392,8 +1453,8 @@ function startUnifiedFigure(DATA, options = {}) {
     const key = level + message;
     if (truth.cache === key) return;
     truth.cache = key;
-    truth.root.dataset.level = level;
-    truth.text.textContent = message;
+    if (truth.root) truth.root.dataset.level = level;
+    if (truth.text) truth.text.textContent = message;
   }
 
   const tour = createProcessTour({
@@ -1403,9 +1464,10 @@ function startUnifiedFigure(DATA, options = {}) {
     interactive,
     region,
     still,
+    signal,
     isActive: () => interactive() && policy.scene(),
     wake,
-    announce: (text) => { status.textContent = text + previewCaveat; },
+    announce: (text) => announceStatus(text + previewCaveat),
     cameraWhole: () => camera.key() === 'all',
     beforePlay: () => focusMachine('all', { announceChange: false }),
     onStageChosen: followStage,
@@ -1419,6 +1481,7 @@ function startUnifiedFigure(DATA, options = {}) {
     scene: sceneRoot,
     panel: consoleRoot,
     reduced: still,
+    signal,
     wake,
     isTicking: () => frame !== 0,
     clockAllowed: policy.clock,
@@ -1431,7 +1494,7 @@ function startUnifiedFigure(DATA, options = {}) {
     // A stage region also moves the path preview there; one announcement names both.
     if (interactive() && Object.hasOwn(FOCUS_STAGE, key)) tour.seek(stageProgress(FOCUS_STAGE[key]), { announceChange: false, chosen: false });
     focusMachine(key);
-  }));
+  }, { signal }));
 
   const themeButton = $('#theme');
   const docHead = !options.root ? root.ownerDocument?.head : null;
@@ -1454,7 +1517,7 @@ function startUnifiedFigure(DATA, options = {}) {
       syncThemeButton();
       try { localStorage.setItem(storageKey, themeRoot.dataset.theme); }
       catch (error) { themeRoot.dataset.storage = error.name; }
-    });
+    }, { signal });
   }
 
   function policyChanged() {
@@ -1464,6 +1527,7 @@ function startUnifiedFigure(DATA, options = {}) {
     operation.render();
   }
   const observer = typeof IntersectionObserver === 'function' ? new IntersectionObserver((entries) => {
+    if (disposed) return;
     // The newest entry per target wins: a fast leave-and-return delivers both, oldest first.
     for (const entry of entries) {
       if (entry.target === sceneRoot) sceneVisible = entry.isIntersecting;
@@ -1486,8 +1550,8 @@ function startUnifiedFigure(DATA, options = {}) {
       consoleVisible = inView(readoutRoot);
       policyChanged();
     };
-    window.addEventListener('scroll', measure, { passive: true });
-    window.addEventListener('resize', measure);
+    window.addEventListener('scroll', measure, { passive: true, signal });
+    window.addEventListener('resize', measure, { signal });
     measure();
   }
   const onReduced = () => {
@@ -1498,14 +1562,15 @@ function startUnifiedFigure(DATA, options = {}) {
     operation.render();
     wake();
   };
-  document.addEventListener('visibilitychange', policyChanged);
-  still.addEventListener('change', onReduced);
+  document.addEventListener('visibilitychange', policyChanged, { signal });
+  still.addEventListener('change', onReduced, { signal });
   focusMachine('all', { announceChange: false });
   tour.start();
   operation.render();
   const api = Object.freeze({
     focusMachine,
     setMode(next) {
+      if (disposed) return;
       if (!['reader', 'explore'].includes(next)) throw new Error('Invalid figure mode');
       if (mode === next) return;
       mode = next;
@@ -1521,14 +1586,28 @@ function startUnifiedFigure(DATA, options = {}) {
     },
     // Layout work requested by the embed shares this controller's frame, never another RAF loop.
     requestUpdate(update) {
+      if (disposed) return;
       pendingUpdate = update;
       wake();
       // No frame may run (scene and readouts off screen, or a hidden tab): apply the layout work at once.
       if (!frame && pendingUpdate) { pendingUpdate = null; update(); }
     },
+    dispose() {
+      if (disposed) return;
+      disposed = true;
+      listeners.abort();
+      if (observer) observer.disconnect();
+      if (frame) { cancelAnimationFrame(frame); frame = 0; }
+      pendingUpdate = null;
+      tour.dispose();
+      operation.dispose();
+      if (status) status.textContent = '';
+      delete root.htwC41;
+      if (options.onDispose) options.onDispose();
+    },
     snapshot: () => ({ mode, camera: camera.snapshot(), progress: tour.snapshot(), operation: operation.snapshot() }),
   });
-  Object.defineProperty(root, 'htwC41', { value: api });
+  Object.defineProperty(root, 'htwC41', { value: api, configurable: true });
   return api;
 }
 
@@ -1554,8 +1633,8 @@ function mountC41(DATA, doc = document) {
   const readerSlot = root.querySelector('[data-htw-reader-slot]');
   const exploreSlot = root.querySelector('[data-htw-explore-slot]');
   const controls = root.querySelector('[data-htw-explore-controls]');
-  if (!scene || !readerSlot || !exploreSlot || !controls) {
-    console.error('How Things Work C‑41: scene, reader slot, explore slot or console slot missing; not mounted.');
+  if (!scene?.querySelector('#machine-scene svg') || !controls?.querySelector('#operation') || !readerSlot || !exploreSlot) {
+    console.error('How Things Work C‑41: missing machine SVG, console, or article slot; not mounted.');
     return null;
   }
   const steps = [...root.querySelectorAll('[data-htw-story] [data-htw-step]')]
@@ -1581,12 +1660,27 @@ function mountC41(DATA, doc = document) {
   let mode = startMode;
   let chapter = null;
   let controller;
+  const embedListeners = new AbortController();
+  const { signal } = embedListeners;
+  let onHashChange = null;
   try {
     controller = startUnifiedFigure(DATA, {
       root, themeRoot: root, region: tryRegion, storageKey: EMBED_THEME_KEY, mode,
       onModeChange(next) { mode = next; place(next); chapter = null; },
+      onDispose() {
+        embedListeners.abort();
+        doc.defaultView.removeEventListener('scroll', readLater);
+        doc.defaultView.removeEventListener('resize', readLater);
+        if (onHashChange) doc.defaultView.removeEventListener('hashchange', onHashChange);
+        place('reader');
+        root.dataset.mode = 'reader';
+        home.remove();
+      },
     });
   } catch (error) {
+    place('reader');
+    root.dataset.mode = 'reader';
+    home.remove();
     console.error('How Things Work C‑41: mount failed; static scene kept.', error);
     return null;
   }
@@ -1614,6 +1708,10 @@ function mountC41(DATA, doc = document) {
   const readLater = () => controller.requestUpdate(chooseChapter);
 
   const statusNode = root.querySelector('#status');
+  function announceEmbedStatus(message) {
+    if (!statusNode || !message) return;
+    statusNode.textContent = statusNode.textContent === message ? `${message}\u00a0` : message;
+  }
   // Returning to the reader hides and inerts the console, not its mode announcement.
   if (statusNode && controls.contains(statusNode)) controls.after(statusNode);
   function setMode(next, { fromUser = false } = {}) {
@@ -1624,10 +1722,10 @@ function mountC41(DATA, doc = document) {
     if (fromUser) {
       if (next === 'explore') {
         root.querySelector('#machine-scene')?.focus({ preventScroll: false });
-        if (statusNode) statusNode.textContent = 'Đã mở chế độ tự thử. Đây vẫn là cùng một mô hình.';
+        announceEmbedStatus('Đã mở chế độ tự thử. Đây vẫn là cùng một mô hình.');
       } else {
         root.querySelector('[data-htw-mode="explore"]')?.focus();
-        if (statusNode) statusNode.textContent = 'Đã quay lại bài đọc. Mô hình dừng và giữ nguyên trạng thái.';
+        announceEmbedStatus('Đã quay lại bài đọc. Mô hình dừng và giữ nguyên trạng thái.');
       }
     }
   }
@@ -1635,14 +1733,14 @@ function mountC41(DATA, doc = document) {
   root.addEventListener('click', (event) => {
     const button = event.target.closest('[data-htw-mode]');
     if (button && root.contains(button)) setMode(button.dataset.htwMode, { fromUser: true });
-  });
+  }, { signal });
   if (collapse) {
     const setCollapsed = (collapsed) => {
       root.dataset.htwCollapsed = String(collapsed);
       collapse.setAttribute('aria-expanded', String(!collapsed));
     };
     setCollapsed(collapse.getAttribute('aria-expanded') === 'false');
-    collapse.addEventListener('click', () => setCollapsed(root.dataset.htwCollapsed !== 'true'));
+    collapse.addEventListener('click', () => setCollapsed(root.dataset.htwCollapsed !== 'true'), { signal });
   }
   // Keyboard reading: focus entering a chapter (a heading link or tab stop) chooses it like scrolling does.
   root.addEventListener('focusin', (event) => {
@@ -1650,10 +1748,11 @@ function mountC41(DATA, doc = document) {
     if (!step || !steps.includes(step) || mode !== 'reader') return;
     chapter = step;
     controller.focusMachine(step.dataset.htwStep, { announceChange: false });
-  });
+  }, { signal });
   doc.defaultView.addEventListener('scroll', readLater, { passive: true });
   doc.defaultView.addEventListener('resize', readLater, { passive: true });
-  doc.defaultView.addEventListener('hashchange', () => { if (hashOpensExplore(doc.defaultView.location.hash)) setMode('explore'); });
+  onHashChange = () => { if (hashOpensExplore(doc.defaultView.location.hash)) setMode('explore'); };
+  doc.defaultView.addEventListener('hashchange', onHashChange);
   readLater();
   return controller;
 }
