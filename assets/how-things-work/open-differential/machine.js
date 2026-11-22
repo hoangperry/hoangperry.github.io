@@ -1285,6 +1285,8 @@ var mountRenderer = (function mountRenderer(root, data) {
   const savedAttrs = new Map();
   const savedText = new Map();
   let disposed = false;
+  const UNSET = {};
+  let lastSnapshot = UNSET;
   function set(node, name, value) {
     const text = String(value);
     let authored = savedAttrs.get(node);
@@ -1321,6 +1323,11 @@ var mountRenderer = (function mountRenderer(root, data) {
   return {
     render(snapshot, view = {}) {
       if (disposed) return;
+      if (snapshot && typeof snapshot === 'object' && snapshot === lastSnapshot) {
+        set(svg, 'data-od-focus', focusKeys.includes(view.focus) ? view.focus : 'all');
+        set(svg, 'data-od-reduced-motion', view.reducedMotion ? 'true' : 'false');
+        return;
+      }
       check(snapshot);
       const vm = viewModel(snapshot, S, P.highGripMu); // may throw: still before any write
       const attrWrites = vm.attrs.map(([id, name, value]) => [part(id), name, value]);
@@ -1337,10 +1344,12 @@ var mountRenderer = (function mountRenderer(root, data) {
         if (p.getAttribute('data-od-scenario') !== snapshot.scenario) p.setAttribute('data-od-scenario', snapshot.scenario);
       }
       lock(snapshot.busy === true);
+      lastSnapshot = snapshot;
     },
     dispose() {
       if (disposed) return;
       disposed = true;
+      lastSnapshot = UNSET;
       // A failed runtime has already disabled its controls; never re-enable them from here.
       if (root.getAttribute('data-machine-runtime') !== 'failed') lock(false);
       locked.clear();
