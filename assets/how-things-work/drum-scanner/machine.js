@@ -821,7 +821,7 @@ var createModel = (function createModel(data) {
     if (stageIndex === 0) return `${point()} đã tới cửa đọc: ánh sáng đi qua đúng điểm phim này.`;
     if (stageIndex === 1) return `${point()}: bộ tách chia ánh sáng thành ba kênh R, G, B.`;
     if (stageIndex === 2) return `${point()}: ba PMT cho tín hiệu tương tự ${s.light.map((v) => v.toFixed(3).replace('.', ',')).join(' / ')} (mức tương đối).`;
-    if (stageIndex === 3) return `${point()}: ADC 12 bit lượng hóa thành ${s.adc.join(' / ')}.`;
+    if (stageIndex === 3) return `${point()}: ADC 12 bit lượng hóa thành ${s.adc.map((n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')).join(' / ')}.`;
     const tail = s.row === H - 1 && next < N ? ' Tiếp theo, phần trống ngoài ảnh đi qua cửa đọc và vít me dịch bàn trống sang cột kế tiếp.' : '';
     return `Đã ghi ${point().toLowerCase()} vào ảnh · ${filled}/${N}.${tail}`;
   }
@@ -1403,6 +1403,7 @@ var mountRenderer = (function mountRenderer(root, data, kit) {
   let lastImages = null;
   let lastSource = '';
   const fmt3 = (v) => v.toFixed(3).replace('.', ',');
+  const fmtInt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   return {
     render(snapshot, options) {
       const focus = options && options.focus ? options.focus : 'all';
@@ -1432,7 +1433,7 @@ var mountRenderer = (function mountRenderer(root, data, kit) {
       setText(trace.head, s ? 'Điểm đã lấy (' + s.column + ', ' + s.row + ') · ' + (snapshot.film === 'negative' ? 'âm bản màu' : 'dương bản') : 'Chưa lấy mẫu');
       setText(trace.light, s ? s.light.map(fmt3).join(' / ') : '—');
       setText(trace.pmt, s && snapshot.stageIndex >= 2 ? s.light.map(fmt3).join(' / ') : '—');
-      setText(trace.adc, s && snapshot.stageIndex >= 3 ? s.adc.join(' / ') : '—');
+      setText(trace.adc, s && snapshot.stageIndex >= 3 ? s.adc.map(fmtInt).join(' / ') : '—');
       setText(trace.count, snapshot.filled + ' / ' + snapshot.total);
     },
     dispose() {
@@ -1451,7 +1452,7 @@ var mountRenderer = (function mountRenderer(root, data, kit) {
 });
 runtime.boot({
   slug: "drum-scanner",
-  descriptor: {"title":"Máy scan trống PMT","steps":[{"key":"light","title":"Ánh sáng qua điểm phim","explanation":"Trống quay đưa đúng điểm phim tới cửa đọc đứng yên; ánh sáng từ đèn trục đi qua điểm đó. Chỉ lúc điểm thật tới cửa đọc mới lấy mẫu."},{"key":"rgb","title":"Tách RGB","explanation":"Bộ tách và lọc quang học chia ánh sáng của điểm vừa đọc thành ba kênh đỏ, lục, lam."},{"key":"pmt","title":"PMT tạo tín hiệu tương tự","explanation":"Ba ống nhân quang (PMT) biến ánh sáng mỗi kênh thành tín hiệu điện tương tự. Hình chỉ hiện mức tương đối, chưa phải số."},{"key":"adc","title":"ADC 12 bit","explanation":"Bộ chuyển đổi tương tự–số lượng hóa mỗi kênh thành một số từ 0 đến 4095. Đây là dữ liệu đọc thô, chưa diễn giải âm bản."},{"key":"write","title":"Ghi điểm ảnh","explanation":"Ba số được ghi vào đúng ô của điểm vừa đọc. Năm khâu mới ghi một điểm; 384 điểm tạo ảnh mẫu 24 × 16."}],"controls":{"runLabel":"Quét","replayLabel":"Quét lại","filmOptions":[{"value":"positive","label":"Dương bản slide"},{"value":"negative","label":"Âm bản màu C‑41"}]}},
+  descriptor: {"title":"Máy scan trống PMT","steps":[{"key":"light","title":"Ánh sáng qua điểm phim","explanation":"Trống quay đưa đúng điểm phim tới cửa đọc đứng yên; ánh sáng từ đèn trục đi qua điểm đó. Chỉ lúc điểm thật tới cửa đọc mới lấy mẫu."},{"key":"rgb","title":"Tách RGB","explanation":"Bộ tách và lọc quang học chia ánh sáng của điểm vừa đọc thành ba kênh đỏ, lục, lam."},{"key":"pmt","title":"PMT tạo tín hiệu tương tự","explanation":"Ba ống nhân quang (PMT) biến ánh sáng mỗi kênh thành tín hiệu điện tương tự. Hình chỉ hiện mức tương đối, chưa phải số."},{"key":"adc","title":"ADC 12 bit","explanation":"Bộ chuyển đổi tương tự–số lượng hóa mỗi kênh thành một số từ 0 đến 4.095. Đây là dữ liệu đọc thô, chưa diễn giải âm bản."},{"key":"write","title":"Ghi điểm ảnh","explanation":"Ba số được ghi vào đúng ô của điểm vừa đọc. Năm khâu mới ghi một điểm; 384 điểm tạo ảnh mẫu 24 × 16."}],"controls":{"runLabel":"Quét","replayLabel":"Quét lại","filmOptions":[{"value":"positive","label":"Dương bản slide"},{"value":"negative","label":"Âm bản màu C‑41"}]}},
   data: {"world":{"width":980,"height":640,"drum":{"centre":[0,-20,112],"radius":44,"innerRadius":42,"s0":-100,"s1":100},"film":{"x0":-76,"x1":76,"phiTop":1.15,"phiBottom":-1.15,"width":24,"height":16},"motion":{"firstCarriageX":72.83333333333333,"lastCarriageX":-72.83333333333333,"illustrativePeriodSeconds":6},"pickup":[0,24,112],"units":"Illustrative world units, not measured factory internals","reference":"Howtek ScanMaster 4500 User Guide HTM092 Revision D: figures 2-1/2-2, 3-1, chapter 4-8 drive belt, 4-10 leadscrew and drum carriage. Optical/ADC placement is explanatory, not verified factory layout."},"screen":{"origin":[514.9211908181151,401.830567640436],"axes":[[1.2774003317778124,0.3393263329650722],[-0.6230297704528311,0.6957220840273521],[0,-1.191950554364439]]},"view":[0.36764897864848245,0.7537921132756882,0.5446390350150271],"capFaceX":110,"rimMarks":false,"travel":72.83333333333333},
   createModel: createModel,
   mountRenderer: mountRenderer,

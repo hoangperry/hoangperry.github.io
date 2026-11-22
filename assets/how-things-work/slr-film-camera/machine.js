@@ -11790,7 +11790,7 @@ return (function mountSlrRenderer(root, data, createProducer, createFactory) {
   }
   const fixed = (v, d) => {
     const r = (Object.is(v, -0) ? 0 : v).toFixed(d);
-    return (Number(r) === 0 ? (0).toFixed(d) : r).replace('.', ',');
+    return (Number(r) === 0 ? (0).toFixed(d) : r).replace('-', '−').replace('.', ',');
   };
   return {
     render(snapshot, options = {}) {

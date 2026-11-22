@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "topic": "slide-projector",
-  "sourceDigest": "5405ed5c2e9a3221565b435361b46479170a19e308ea7a68cc2bb7397d6c4ea4",
+  "sourceDigest": "b447949e4c3eaea401fecccda76f10ca49a779181192256b66e3b4f64a1e0074",
   "files": {
     "_includes/how-things-work/slide-projector-scene.html": "508127b4a10a8d7297396ea0051b67745c3c9ca9266f37c0f7848bc4beb590d8",
     "_includes/how-things-work/slide-projector-console.html": "2872b0ff1f3a7c4c7488983243599e3629853a5f6781fee0305350b9fc354417",
-    "assets/how-things-work/slide-projector/machine.js": "e1d0adf02d43735650652c9c5bb14d7ffa1a8e1216b074ba440254ea2ddbdb6b",
+    "assets/how-things-work/slide-projector/machine.js": "588bc236dca508dbb2eede120f5dbfcd83436c62535f8871a1e262251f608dc5",
     "assets/how-things-work/slide-projector/machine.css": "28f7e32223129cf7acc2662ce71381d7c963d32c48042ba07345c6403cd6c0a4",
-    "assets/how-things-work/slide-projector/thumbnail.webp": "59765d44aa0e75302fd49d0e3086d24d9c850ba969def5c7c15782ab444c767e",
+    "assets/how-things-work/slide-projector/thumbnail.webp": "1ceb07542c982b659066bbaa959c2b16a8b442901e0546c1bf934e3ba6612ae1",
     "assets/how-things-work/slide-projector/NOTICE.txt": "bc643c276ff6aa43ac39c859895b32c64383e61e9b0f2dab7a3968e1798e1d99"
   }
 }
