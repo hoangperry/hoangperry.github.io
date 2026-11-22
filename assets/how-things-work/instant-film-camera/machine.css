@@ -294,3 +294,15 @@
 
 /* The full Instant readout already reports image maturity; avoid a second percent. */
 .htw-machine[data-htw-figure="instant-film-camera"] [data-machine-readout] { display: none; }
+
+/* On a phone the 15-unit SVG title shrinks below 6 CSS px. Keep the same disclaimer
+   with the plate caption at readable text size, even when JavaScript is disabled. */
+@media (max-width: 600px) {
+  .htw-machine[data-htw-figure="instant-film-camera"] .ins-partial { display: none; }
+  .htw-machine[data-htw-figure="instant-film-camera"] .htw-machine-caption::before {
+    content: "Máy ảnh lấy liền kiểu 636 · mặt cắt minh họa";
+    flex: 1 0 100%;
+    color: var(--ins-accent);
+    font: 600 0.82rem/1.4 var(--htw-machine-mono, ui-monospace, monospace);
+  }
+}

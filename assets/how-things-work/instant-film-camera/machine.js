@@ -17374,7 +17374,7 @@ return (function mountInstantRenderer(root,data,kit,createFactory,convert,builde
     view.setAttribute(key,text);
   };
   let previous=null,latest=null,stage=null,disposed=false,cells=[];
-  const fixed=(v,n=1)=>v.toFixed(n).replace(/^-0(?=\.0+$|$)/,'0').replace('.',',');
+  const fixed=(v,n=1)=>{const s=v.toFixed(n).replace(/^-0(?=\.0+$|$)/,'0'),neg=s.startsWith('-'),[i,f]=(neg?s.slice(1):s).split('.');return (neg?'−':'')+i.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(f!==undefined?','+f:'');};
   function dispose() {
     if(disposed)return;disposed=true;
     if(stage&&stage.parentNode)stage.parentNode.removeChild(stage);
