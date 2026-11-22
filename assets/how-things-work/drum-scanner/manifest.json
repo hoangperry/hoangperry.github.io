@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "topic": "drum-scanner",
-  "sourceDigest": "6163f0ea780636d0afcfdbd0bed1c7a0f357db5a45dc86b61c9c1bf6e09b093d",
+  "sourceDigest": "de5183c53deae1cc1d3a03f102c2cc5c52f83d15cface05302b8c78ad3355824",
   "files": {
     "_includes/how-things-work/drum-scanner-scene.html": "7eae91560d51d1eceffba2f869d426e052d3f73cde65db4292619e3e87358ee7",
-    "_includes/how-things-work/drum-scanner-console.html": "597d6526fde38aea9fec002044886b2c11c01a2792cf43c690738c1dfa0b4297",
-    "assets/how-things-work/drum-scanner/machine.js": "2aa07e58ef516790092eec9fd3f374b6949ebd598c99162c83ac1fccbefe0348",
+    "_includes/how-things-work/drum-scanner-console.html": "ea4da42e835efd7469eea664ff1b9839a146e7d7f381ec04b0b6739fdd16b156",
+    "assets/how-things-work/drum-scanner/machine.js": "23ca0820f3e013c300098da3d9ae2e3716b8a76b49a030e64de0235dbd993929",
     "assets/how-things-work/drum-scanner/machine.css": "d13148cde175ad894a97f930295a247a9f955c9a72de8d7acf27f460d7c348e0",
     "assets/how-things-work/drum-scanner/thumbnail.webp": "ce680921e960c7458a005acdfd95ec75cf941bee4ffd3a332c74167a2850b174",
     "assets/how-things-work/drum-scanner/NOTICE.txt": "a77b2f18c27f405ccbe8f0702135f40490765a88b7d63d302c308fae3d36786a"
