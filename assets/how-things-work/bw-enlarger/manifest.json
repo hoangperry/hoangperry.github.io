@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "topic": "bw-enlarger",
-  "sourceDigest": "7cdd3cd87869024e8588c941dbb9715d1f83692425bba42d2ec5a449c98378e0",
+  "sourceDigest": "c85161f74d17df38ae6f0dffa854b792d8424a08d6f2747a58a91c90c9b316db",
   "files": {
     "_includes/how-things-work/bw-enlarger-scene.html": "bb6cdd429d19007585b951a31040e5dadd29a6c6584478251b868bff9320e938",
     "_includes/how-things-work/bw-enlarger-console.html": "6e90dd6abd00035944782eadad5f204bb5f25731a74ffe3004ef2bd1b7b91a0e",
-    "assets/how-things-work/bw-enlarger/machine.js": "35cc5e71b0f58654de59f622817c02f51e5000f8d2fb4f83abe3593532572ced",
+    "assets/how-things-work/bw-enlarger/machine.js": "2fe35c44ffd90653ba2f2ab6e5d783a3bb30210b8b0299e3d1a649cd757dfd18",
     "assets/how-things-work/bw-enlarger/machine.css": "78ee44346c01380d3ee3b98a8b48e00447488a43e7477860df0abf3f91ae94d3",
     "assets/how-things-work/bw-enlarger/thumbnail.webp": "afb288a3cd5854533818d7c01ccc4ead4955d733a276bd4e3126b668fa8c1b2d",
     "assets/how-things-work/bw-enlarger/NOTICE.txt": "205f262c56ce9d012762f18155d416da9e3e3a199d146ae37317b63ff4e241f1"

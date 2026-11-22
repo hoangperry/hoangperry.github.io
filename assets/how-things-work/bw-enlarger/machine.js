@@ -4657,18 +4657,203 @@ function applyRigDeformation(packet, rig, snapshot) {
   const doses = Array.from(view.querySelectorAll('.bw-dose'));
   const latent = view.querySelector('.bw-latent');
   if (negatives.length !== 24 || doses.length !== 240 || !latent) throw new Error('BW plane/readout inventory mismatch');
+
+  // Lazy per-attribute journal for renderer-owned writes (cells, latent, focus); zero eager DOM copying at mount.
+  const attrJournal = new Map();
+  const recordAttr = (node, key, prev) => {
+    if (typeof node.removeAttribute !== 'function') return;
+    let saved = attrJournal.get(node);
+    if (!saved) {
+      saved = new Map();
+      attrJournal.set(node, saved);
+    }
+    if (!saved.has(key)) saved.set(key, prev);
+  };
+  const setIf = (node, key, value) => {
+    const next = String(value);
+    if (typeof node.getAttribute !== 'function') {
+      node.setAttribute(key, next);
+      return;
+    }
+    const prev = node.getAttribute(key);
+    if (prev !== next) {
+      recordAttr(node, key, prev);
+      node.setAttribute(key, next);
+    }
+  };
+  const restoreOrderedAttrs = (el, pairs) => {
+    const expected = new Map(pairs);
+    const current = el.attributes;
+    if (current) {
+      let ok = true;
+      let idx = 0;
+      for (let i = 0; i < current.length; i++) {
+        const attr = current[i];
+        if (!expected.has(attr.name)) continue;
+        const want = expected.get(attr.name);
+        if (want === null) { ok = false; break; }
+        while (idx < pairs.length && pairs[idx][1] === null) idx++;
+        if (idx >= pairs.length || pairs[idx][0] !== attr.name || attr.value !== want) { ok = false; break; }
+        idx++;
+      }
+      if (ok) {
+        while (idx < pairs.length && pairs[idx][1] === null) idx++;
+        if (idx === pairs.length) return;
+      }
+    }
+    for (let i = 0; i < pairs.length; i++) {
+      const k = pairs[i][0];
+      if (typeof el.hasAttribute === 'function' ? el.hasAttribute(k) : el.getAttribute(k) !== null) el.removeAttribute(k);
+    }
+    for (let i = 0; i < pairs.length; i++) {
+      const [k, v] = pairs[i];
+      if (v !== null) el.setAttribute(k, v);
+    }
+  };
+  // Reconstruct exact authored native SVG (rest order + unit=1 rest attributes) on demand during teardown/rollback.
+  const restoreAuthoredNative = (errors) => {
+    const T = kit && kit.TURN;
+    const source = data && data.turn;
+    if (!T || typeof T.prepare !== 'function' || typeof T.cams !== 'function' || typeof T.frame !== 'function' || typeof T.emit !== 'function') return;
+    if (!source || !Array.isArray(source.parts) || !Array.isArray(source.layers) || typeof view.querySelectorAll !== 'function') return;
+    let scene, cams;
+    try {
+      scene = T.prepare(source, { unit: 1 });
+      cams = T.cams(scene, source.values ? { ...source.values } : {});
+    } catch (err) {
+      errors.push(err);
+      return;
+    }
+    const Q = T.q || 64;
+    const containers = new Map();
+    const partNodes = new Map();
+    for (const svg of view.querySelectorAll('svg[data-live]')) {
+      if (!svg || svg.nodeType !== 1) continue;
+      const layerName = (svg.dataset && svg.dataset.live) || (typeof svg.getAttribute === 'function' && svg.getAttribute('data-live'));
+      if (!layerName) continue;
+      const container = (typeof svg.querySelector === 'function' && svg.querySelector('.iso-parts')) || svg;
+      containers.set(layerName, container);
+      const byPart = new Map();
+      if (container && container.childNodes) {
+        for (let i = 0; i < container.childNodes.length; i++) {
+          const child = container.childNodes[i];
+          if (child && child.nodeType === 1 && typeof child.getAttribute === 'function') {
+            const p = child.getAttribute('data-p');
+            if (p !== null) byPart.set(Number(p), child);
+          }
+        }
+      }
+      partNodes.set(layerName, byPart);
+    }
+    for (let l = 0; l < scene.layers.length; l++) {
+      try {
+        const layer = scene.layers[l];
+        const container = containers.get(layer.name);
+        const byPart = partNodes.get(layer.name);
+        if (!container || !byPart || typeof container.insertBefore !== 'function') continue;
+        let after = null;
+        for (let i = layer.rest.length - 1; i >= 0; i--) {
+          const node = byPart.get(layer.rest[i]);
+          if (node) {
+            if (node.parentNode !== container || node.nextSibling !== after) container.insertBefore(node, after);
+            after = node;
+          }
+        }
+      } catch (err) { errors.push(err); }
+    }
+    for (let i = 0; i < scene.runs.length; i++) {
+      const run = scene.runs[i];
+      const layer = source.layers[run.layer];
+      const byPart = layer && partNodes.get(layer.name);
+      const pNode = byPart && byPart.get(run.index);
+      if (!pNode) continue;
+      let f;
+      try {
+        const g = run.group;
+        f = T.emit(run, g >= 0 ? cams[g] : cams.world, T.frame(run));
+      } catch (err) { errors.push(err); continue; }
+      const roleMap = { move: pNode };
+      if (typeof pNode.querySelectorAll === 'function') {
+        for (const el of pNode.querySelectorAll('[data-r]')) {
+          if (el && typeof el.getAttribute === 'function') roleMap[el.getAttribute('data-r')] = el;
+        }
+      }
+      for (let r = 0; r < run.roles.length; r++) {
+        const role = run.roles[r];
+        const el = roleMap[role.name];
+        if (!el || typeof el.getAttribute !== 'function' || typeof el.setAttribute !== 'function' || typeof el.removeAttribute !== 'function') continue;
+        try {
+          const type = role.type;
+          if (type === 'path') {
+            const d = f.d[r];
+            if (el.getAttribute('d') !== d) el.setAttribute('d', d);
+          } else if (type === 'face') {
+            const d = f.d[r];
+            const q = f.q[r];
+            const band = Math.min(3, Math.floor(q / Q));
+            const mix = (q - Q * band) / Q;
+            const style = (mix ? '--f:' + mix : '') + (mix && f.w[r] >= 0 ? ';' : '') + (f.w[r] >= 0 ? 'stroke-width:' + f.w[r] : '');
+            restoreOrderedAttrs(el, [['data-b', band ? String(band) : null], ['style', style || null], ['d', d]]);
+          } else if (type === 'slot') {
+            restoreOrderedAttrs(el, [['opacity', String(Math.round(f.o[r] * 1000) / 1000)], ['d', f.d[r]]]);
+          } else if (type === 'xform') {
+            restoreOrderedAttrs(el, [['transform', f.t[r] || null], ['d', el.getAttribute('d')]]);
+          } else if (type === 'plane') {
+            restoreOrderedAttrs(el, [['transform', f.t[r] || null], ['opacity', String(f.o[r])]]);
+          } else if (type === 'self') {
+            const t = f.t[r] || null;
+            if (t === null) {
+              if (el.getAttribute('transform') !== null) el.removeAttribute('transform');
+            } else if (el.getAttribute('transform') !== t) el.setAttribute('transform', t);
+          } else if (type === 'dot') {
+            const cx = String(Math.round(f.cx[r] * 100) / 100);
+            const cy = String(Math.round(f.cy[r] * 100) / 100);
+            const fo = String(f.o[r]);
+            if (el.getAttribute('cx') !== cx) el.setAttribute('cx', cx);
+            if (el.getAttribute('cy') !== cy) el.setAttribute('cy', cy);
+            if (el.getAttribute('fill-opacity') !== fo) el.setAttribute('fill-opacity', fo);
+          }
+        } catch (err) { errors.push(err); }
+      }
+    }
+  };
+  const restoreJournal = (errors) => {
+    for (const [node, saved] of attrJournal) {
+      try {
+        for (const [key, prev] of saved) {
+          if (prev === null) {
+            if (node.getAttribute(key) !== null) node.removeAttribute(key);
+          } else if (node.getAttribute(key) !== prev) {
+            node.setAttribute(key, prev);
+          }
+        }
+      } catch (err) { errors.push(err); }
+    }
+    attrJournal.clear();
+  };
+
   const packet = JSON.parse(JSON.stringify(data.turn));
-  const native = kit.TURN.mount(view, packet, { geometryTransactions: true });
-  let readout;
+  let native = null;
+  let readout = null;
   try {
-    if (typeof native.refreshGeometry !== 'function') throw new Error('BW requires public refreshGeometry API');
+    native = kit.TURN.mount(view, packet, { geometryTransactions: true });
+    if (!native || typeof native.refreshGeometry !== 'function') throw new Error('BW requires public refreshGeometry API');
     readout = root.ownerDocument.createElement('p');
     readout.setAttribute('data-bw-readout', '');
     caption.append(readout);
   } catch (error) {
-    try { native.destroy(); } catch (cleanupError) {
-      throw new AggregateError([error, cleanupError], 'BW initialization and cleanup failed', { cause: error });
-    } finally { if (readout) readout.remove(); }
+    const cleanupErrors = [];
+    if (native && typeof native.destroy === 'function') {
+      try { native.destroy(); } catch (err) { cleanupErrors.push(err); }
+    }
+    if (readout) {
+      try { readout.remove(); } catch (err) { cleanupErrors.push(err); }
+    }
+    restoreAuthoredNative(cleanupErrors);
+    restoreJournal(cleanupErrors);
+    if (cleanupErrors.length) {
+      throw new AggregateError([error, ...cleanupErrors], 'BW initialization and cleanup failed', { cause: error });
+    }
     throw error;
   }
   let previousShape = null;
@@ -4676,13 +4861,7 @@ function applyRigDeformation(packet, rig, snapshot) {
   let previousSnapshot = null;
   let previousNegative = null;
   let previousDose = null;
-  let focusWritten = false;
-  let priorFocus = null;
   let disposed = false;
-  const setIf = (node, key, value) => {
-    const next = String(value);
-    if (typeof node.getAttribute !== 'function' || node.getAttribute(key) !== next) node.setAttribute(key, next);
-  };
   const cell = (node, value, field, layout) => {
     setIf(node, 'fill', value.fill);
     setIf(node, 'data-' + field, value[field]);
@@ -4692,51 +4871,62 @@ function applyRigDeformation(packet, rig, snapshot) {
     const r = value.toFixed(digits);
     return (Number(r) === 0 ? (0).toFixed(digits) : r).replace('.', ',');
   };
+  const teardown = () => {
+    if (disposed) return [];
+    disposed = true;
+    const cleanupErrors = [];
+    try { native.destroy(); } catch (err) { cleanupErrors.push(err); }
+    try { readout.remove(); } catch (err) { cleanupErrors.push(err); }
+    restoreAuthoredNative(cleanupErrors);
+    restoreJournal(cleanupErrors);
+    return cleanupErrors;
+  };
   return {
     render(snapshot, options = {}) {
       if (disposed) throw new Error('BW renderer disposed');
-      if (!focusWritten) {
-        priorFocus = typeof view.getAttribute === 'function' ? view.getAttribute('data-bw-focus') : null;
-        focusWritten = true;
+      try {
+        const nextFocus = options.mode === 'explore' ? snapshot.stageKey : options.focus || 'all';
+        if (snapshot === previousSnapshot) {
+          setIf(view, 'data-bw-focus', nextFocus);
+          return;
+        }
+        const shape = JSON.stringify([snapshot.H, snapshot.V, snapshot.U, snapshot.aperture, snapshot.lensStandard.focusTravel]);
+        const annotations = applyRigDeformation(packet, data.rig, snapshot);
+        const groups = rigGroupValues(data.rig, snapshot);
+        const groupSignature = JSON.stringify(groups);
+        if (shape !== previousShape || groupSignature !== previousGroups) native.refreshGeometry(groups);
+        setIf(view, 'data-bw-focus', nextFocus);
+        if (snapshot.negative !== previousNegative) {
+          const init = previousNegative === null;
+          annotations.negative.cells.forEach((value, i) => cell(negatives[i], value, 'density', init));
+          previousNegative = snapshot.negative;
+        }
+        if (snapshot.dose !== previousDose) {
+          const init = previousDose === null;
+          annotations.paper.cells.forEach((value, i) => cell(doses[i], value, 'dose', init));
+          previousDose = snapshot.dose;
+        }
+        setIf(latent, 'data-paper-id', annotations.paper.paperId);
+        setIf(latent, 'data-paper-state', annotations.paper.state);
+        setIf(latent, 'data-scale-min', '0');
+        setIf(latent, 'data-scale-max', '8');
+        const paperLabel = snapshot.paper.state === 'blank' ? 'giấy trắng chưa phơi' : 'ảnh tiềm ẩn chưa tráng';
+        readout.textContent = 'H ' + fmt(snapshot.H, 3) + ' · V ' + fmt(snapshot.V, 3) + ' · U ' + fmt(snapshot.U, 3) + ' mm · f ' + snapshot.f + ' mm · f/' + snapshot.aperture + ' · M ' + fmt(snapshot.magnification, 3) + ' · đèn ' + fmt(snapshot.lampCurrent, 2) + ' (chuẩn hóa, 150 W điện) · t ' + fmt(snapshot.time, 3) + ' s · liều lớn nhất ' + fmt(Math.max(...snapshot.dose), 3) + ' / 8 — Tờ ' + snapshot.cycle + ': ' + paperLabel + ', màu quy ước';
+        previousShape = shape;
+        previousGroups = groupSignature;
+        previousSnapshot = snapshot;
+      } catch (error) {
+        const cleanupErrors = teardown();
+        if (cleanupErrors.length) {
+          throw new AggregateError([error, ...cleanupErrors], 'BW render and rollback failed', { cause: error });
+        }
+        throw error;
       }
-      setIf(view, 'data-bw-focus', options.mode === 'explore' ? snapshot.stageKey : options.focus || 'all');
-      if (snapshot === previousSnapshot) return;
-      const shape = JSON.stringify([snapshot.H, snapshot.V, snapshot.U, snapshot.aperture, snapshot.lensStandard.focusTravel]);
-      const annotations = applyRigDeformation(packet, data.rig, snapshot);
-      const groups = rigGroupValues(data.rig, snapshot);
-      const groupSignature = JSON.stringify(groups);
-      if (shape !== previousShape || groupSignature !== previousGroups) native.refreshGeometry(groups);
-      if (snapshot.negative !== previousNegative) {
-        const init = previousNegative === null;
-        annotations.negative.cells.forEach((value, i) => cell(negatives[i], value, 'density', init));
-        previousNegative = snapshot.negative;
-      }
-      if (snapshot.dose !== previousDose) {
-        const init = previousDose === null;
-        annotations.paper.cells.forEach((value, i) => cell(doses[i], value, 'dose', init));
-        previousDose = snapshot.dose;
-      }
-      setIf(latent, 'data-paper-id', annotations.paper.paperId);
-      setIf(latent, 'data-paper-state', annotations.paper.state);
-      setIf(latent, 'data-scale-min', '0');
-      setIf(latent, 'data-scale-max', '8');
-      const paperLabel = snapshot.paper.state === 'blank' ? 'giấy trắng chưa phơi' : 'ảnh tiềm ẩn chưa tráng';
-      readout.textContent = 'H ' + fmt(snapshot.H, 3) + ' · V ' + fmt(snapshot.V, 3) + ' · U ' + fmt(snapshot.U, 3) + ' mm · f ' + snapshot.f + ' mm · f/' + snapshot.aperture + ' · M ' + fmt(snapshot.magnification, 3) + ' · đèn ' + fmt(snapshot.lampCurrent, 2) + ' (chuẩn hóa, 150 W điện) · t ' + fmt(snapshot.time, 3) + ' s · liều lớn nhất ' + fmt(Math.max(...snapshot.dose), 3) + ' / 8 — Tờ ' + snapshot.cycle + ': ' + paperLabel + ', màu quy ước';
-      previousShape = shape;
-      previousGroups = groupSignature;
-      previousSnapshot = snapshot;
     },
     dispose() {
-      if (!disposed) {
-        disposed = true;
-        try { native.destroy(); } finally {
-          readout.remove();
-          if (focusWritten && typeof view.removeAttribute === 'function') {
-            if (priorFocus === null) view.removeAttribute('data-bw-focus');
-            else view.setAttribute('data-bw-focus', priorFocus);
-          }
-        }
-      }
+      const cleanupErrors = teardown();
+      if (cleanupErrors.length === 1) throw cleanupErrors[0];
+      if (cleanupErrors.length > 1) throw new AggregateError(cleanupErrors, 'BW dispose failed');
     },
   };
 
